@@ -1,0 +1,778 @@
+---
+title: "Norwood Farm project"
+output:
+  html_document:
+    toc: yes
+    toc_float: yes
+    collapse: no
+    number_sections: yes
+    code_folding: hide
+    theme: united
+    highlight: tango
+  pdf_document:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, results = "asis", message=FALSE, warning=FALSE, cache=TRUE, eval = TRUE, dev = c('png'), out.width = '100%', out.height='40%')
+
+```
+
+```{css}
+/* Custom CSS to reduce TOC font size */
+#TOC {
+  font-size: 0.8em; /* Adjust the value to your preference */
+}
+
+```{r load libraries, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(readr)
+library(emln)#multilayer package
+library(readr)
+library(ggplot2)
+library(cowplot)
+rm(list=ls())
+```
+
+\
+\
+\
+
+# Open questions
+\
+
+<font size="4"> 
+- **How many ES are provided by species and habitats? Is the indirect contribution of species on ES (indirect effects) greater than the direct provision? Does it change according to species trophic group?**</font> 
+\
+\
+\
+
+<font size="4"> 
+- **How the direct (and indirect) provision of ecosystem (dis)service change according to habitat management? Is it related to the changes in the structure of the network?**</font> 
+\
+\
+\
+
+<font size="4"> 
+- **Are some species more robust to habitat management? Are those that provide more direct and indirect ES?** </font> 
+\
+\
+\
+\
+\
+\
+
+
+# Data (What we have)
+\
+
+<font size="3"> 
+-  12 habitat types (6 cultivable, 6 uncultivated).</font>
+\
+
+<font size="3"> 
+-  23 fields in total.</font>
+\
+
+<font size="3"> 
+-  Records of antagonistic and mutualistic interactions. Abundances/area.</font>
+\
+
+<font size="3"> 
+-  2 years</font>
+
+\
+\
+\
+\
+\
+\
+
+
+# Previous analysis {.tabset}
+\
+
+<font size="3">
+Bayesian network approach to analyze if threats (habitat loss) towards specific species cause secondary extinctions of other species and affect ecosystem service provision.</font>
+
+
+## Network
+
+<font size="3">
+Unipartite, binary, all habitats aggregated.</font>
+
+\
+\
+\
+\
+\
+\
+
+## Pros
+<font size="3">
+- Computation time is reduced.</font>
+\
+
+<font size="3">
+- Consider response of each consumer to the loss of its resources.</font>
+
+\
+\
+\
+\
+\
+\
+
+## Cons
+<font size="3">
+- Aggregated data (it reduces reality by avoiding spatial aspect).</font>
+\
+
+<font size="3">
+- Habitat loss simulation instead of change of habitat management scenario (for example, from extensive to semi-extensive).</font>
+\
+
+<font size="3">
+- Binary network (presence/absence of links). </font>
+\
+\
+\
+\
+\
+\
+
+# Indirect interactions on ES {.tabset}
+\
+
+<font size="3">
+We detected direct and potential indirect effects of species on ecosystem services.</font>
+
+## Network
+<font size="3">
+Multilayer network containing:
+
+* Layers: Habitats.
+
+* Nodes: Species. Associated attributes: trophic group and ES provided.
+
+* Intralayer links: interaction between species. Binary: presence/absence. 
+
+* No interlayer links (for now...).
+\
+\
+\
+\
+\
+\
+
+## Method
+
+We detected indirect effects of a target species on ecosystem services based on its neighbors. We calculated first and second order indirect interactions for each species.
+\
+\
+
+
+### First-order indirect interactions (1 hop):
+\
+\
+
+![](1_hop.png)
+
+**Node A:**
+
+Direct provision: Crop production
+
+Indirect effect on: Crop damage
+
+\
+\
+
+
+### Second-order indirect interactions (2 hops):
+\
+\
+
+![](2_hop.png)
+
+**Node A:**
+
+Direct provision: Crop production
+
+Indirect effect on: Crop damage 
+
+Indirect effect on: Pest control
+
+\
+\
+\
+\
+\
+\
+
+## Number and prop. of ES /hab
+\
+
+### Number of direct and indirect ES 
+\
+
+```{r}
+
+ ## Direct and indirect ES provided in each habitat and in total
+Final_ES <- read.csv("Final_ES.csv", sep =",")
+
+##Number 
+
+#1 hop
+Hab_ES<-Final_ES %>% group_by(layer, type) %>% filter( hop == 0 | hop == 1,
+                                                       services_to != "None") %>%
+  summarize(count = n())
+
+
+Hab_ES_1<-Hab_ES%>% 
+  ggplot(aes(y=count, x=layer, fill =type)) + 
+  geom_bar(position="dodge", stat="identity")+
+  labs(x='Habitat', y="Number of ES provided") +theme_bw()+ggtitle("1 hop")+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=15, color='black'),
+        axis.text.x= element_text(size =13, angle = 90), 
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11),
+        legend.position = "bottom")
+
+#2 hop
+Hab_ES_2<-Final_ES %>% group_by(layer, type) %>% filter(services_to != "None") %>%
+  summarize(count = n())
+
+
+Hab_ES_2<-Hab_ES_2%>% 
+  ggplot(aes(y=count, x=layer, fill =type)) + 
+  geom_bar(position="dodge", stat="identity")+
+  labs(x='Habitat', y="Number of ES provided") +theme_bw()+
+  ggtitle("2 hops")+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=15, color='black'),
+        axis.text.x= element_text(size =13, angle = 90), 
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11),
+        legend.position = "bottom")
+
+upper_row<- plot_grid(Hab_ES_1 ,
+                      Hab_ES_2 , 
+                      ncol = 2)
+upper_row
+
+
+```
+\
+\
+\
+
+### Prop of direct and indirect ES / hab
+\
+
+```{r}
+
+ ## Direct and indirect ES provided in each habitat and aggregated
+Final_ES <- read.csv("Final_ES.csv", sep =",")
+
+## Proportion
+
+#1 hop
+Hab_ES_prop<-Final_ES %>% group_by(layer, type) %>% filter( hop == 0 | hop == 1,
+                                                       services_to != "None") %>%
+  summarize(count= n()) %>% group_by(layer) %>% mutate(tot =sum(count)) %>% 
+  group_by(layer,type) %>% summarize(prop = count/tot)
+
+
+Hab_ES_1<-Hab_ES_prop%>% 
+  ggplot(aes(y=prop, x=layer, fill =type)) + 
+  geom_bar(position="stack", stat="identity")+ ggtitle("1 hop")+
+  labs(x='Habitat', y="Prop ES provided") +theme_bw()+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=15, color='black'),
+        axis.text.x= element_text(size =13, angle = 90), 
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11),
+        legend.position = "bottom")
+
+ 
+#2 hops
+Hab_ES_prop_2<-Final_ES %>% group_by(layer, type) %>% filter(services_to != "None") %>%
+  summarize(count= n()) %>% group_by(layer) %>% mutate(tot =sum(count)) %>% 
+  group_by(layer,type) %>% summarize(prop = count/tot)
+
+
+Hab_ES_2<-Hab_ES_prop_2 %>% 
+  ggplot(aes(y=prop, x=layer, fill =type)) + 
+  geom_bar(position="stack", stat="identity")+ ggtitle("2 hops")+
+  labs(x='Habitat', y="Prop ES provided") +theme_bw()+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=15, color='black'),
+        axis.text.x= element_text(size =13, angle = 90), 
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11),
+        legend.position = "bottom")
+ 
+
+upper_row<- plot_grid(Hab_ES_1 ,
+                      Hab_ES_2 , 
+                      ncol = 2)
+upper_row
+
+```
+\
+\
+\
+\
+\
+\
+
+## Prop. ES provided per taxon/habitat
+\
+
+### Considering 1 hop 
+\
+```{r}
+
+## Prop of direct and Indirect ES provided per taxon /habitat 
+Final_ES <- read.csv("Final_ES.csv", sep =",")
+
+# 1 hop
+ 
+ taxon_ES_1<-Final_ES %>% group_by(layer, type) %>% filter(services_to != "None", hop == 0 | hop ==1) %>% 
+   mutate(Total = n()) %>% group_by(layer,type, taxon) %>% 
+   summarize( Number = n(), Prop = Number /Total) %>% unique()
+ 
+ 
+ 
+ #Direct
+ D_taxon_ES_1<-taxon_ES_1 %>% filter(type == "D") %>% 
+   ggplot(aes(y=Prop, x=layer, fill = taxon)) + 
+   geom_bar(position="stack", stat="identity")+ ggtitle("Direct ES - 1 hop")+
+   labs(x='Habitat', y="Prop ES provided per taxon") +theme_bw()+
+   theme_classic()+
+   theme(panel.grid = element_blank(),
+         panel.border = element_rect(color = "black",fill = NA,size = 1),
+         panel.spacing = unit(0.5, "cm", data = NULL),
+         axis.text = element_text(size=13, color='black'),
+         axis.text.x= element_text(size =11, angle = 90), 
+         axis.text.y= element_text(size =11, angle = 90), 
+         axis.title = element_text(size=15, color='black'),
+         axis.line = element_blank(),
+         legend.text.align = 0,
+         legend.title =  element_blank(),
+         legend.text = element_text(size = 5),
+         legend.position = "bottom",
+         legend.key.size = unit(0.7,"line"))
+ 
+ 
+ #Indirect
+ I_taxon_ES_1<-taxon_ES_1 %>% filter(type == "I") %>% 
+   ggplot(aes(y=Prop, x=layer, fill = taxon)) + 
+   geom_bar(position="stack", stat="identity")+ ggtitle("Indirect ES - 1 hop")+
+   labs(x='Habitat', y="Prop ES provided per taxon") +theme_bw()+
+   theme_classic()+
+   theme(panel.grid = element_blank(),
+         panel.border = element_rect(color = "black",fill = NA,size = 1),
+         panel.spacing = unit(0.5, "cm", data = NULL),
+         axis.text = element_text(size=13, color='black'),
+         axis.text.x= element_text(size =11, angle = 90), 
+         axis.text.y= element_text(size =11, angle = 90),
+         axis.title = element_text(size=15, color='black'),
+         axis.line = element_blank(),
+         legend.text.align = 0,
+         legend.title =  element_blank(),
+         legend.text = element_text(size = 5),
+         legend.position = "bottom",
+         legend.key.size = unit(0.7,"line"))
+ 
+
+ 
+upper_row<- plot_grid(D_taxon_ES_1 ,
+                      I_taxon_ES_1 , 
+                      ncol = 2)
+upper_row
+ 
+```
+\
+\
+\
+
+### Considering 2 hops
+\
+
+```{r}
+
+## Prop of direct and Indirect ES provided per taxon /habitat 
+Final_ES <- read.csv("Final_ES.csv", sep =",")
+
+# 2 hop
+ 
+ taxon_ES<-Final_ES %>% group_by(layer, type) %>% filter(services_to != "None") %>% 
+   mutate(Total = n()) %>% group_by(layer,type, taxon) %>% 
+   summarize( Number = n(), Prop = Number /Total) %>% unique()
+ 
+
+
+ 
+ #Direct
+ D_taxon_ES<-taxon_ES %>% filter(type == "D") %>% 
+   ggplot(aes(y=Prop, x=layer, fill = taxon)) + 
+   geom_bar(position="stack", stat="identity")+ ggtitle("Direct ES - 2 hops")+
+   labs(x='Habitat', y="Prop ES provided per taxon") +theme_bw()+
+   theme_classic()+
+   theme(panel.grid = element_blank(),
+         panel.border = element_rect(color = "black",fill = NA,size = 1),
+         panel.spacing = unit(0.5, "cm", data = NULL),
+          axis.text = element_text(size=13, color='black'),
+         axis.text.x= element_text(size =11, angle = 90), 
+         axis.text.y= element_text(size =11, angle = 90), 
+         axis.title = element_text(size=15, color='black'),
+         axis.line = element_blank(),
+         legend.text.align = 0,
+         legend.title =  element_blank(),
+         legend.text = element_text(size = 5),
+         legend.position = "bottom",
+         legend.key.size = unit(0.7,"line"))
+ 
+ 
+ #Indirect
+ I_taxon_ES<-taxon_ES %>% filter(type == "I") %>% 
+   ggplot(aes(y=Prop, x=layer, fill = taxon)) + 
+   geom_bar(position="stack", stat="identity")+ ggtitle("Indirect ES - 2 hops")+
+   labs(x='Habitat', y="Prop ES provided per taxon") +theme_bw()+
+   theme_classic()+
+   theme(panel.grid = element_blank(),
+         panel.border = element_rect(color = "black",fill = NA,size = 1),
+         panel.spacing = unit(0.5, "cm", data = NULL),
+           axis.text = element_text(size=13, color='black'),
+         axis.text.x= element_text(size =11, angle = 90), 
+         axis.text.y= element_text(size =11, angle = 90),
+         axis.title = element_text(size=15, color='black'),
+         axis.line = element_blank(),
+         legend.text.align = 0,
+         legend.title =  element_blank(),
+         legend.text = element_text(size = 5),
+         legend.position = "bottom",
+         legend.key.size = unit(0.7,"line"))
+ 
+
+ 
+ upper_row<- plot_grid(D_taxon_ES ,
+                      I_taxon_ES , 
+                      ncol = 2)
+upper_row
+ 
+ 
+```
+
+\
+\
+\
+\
+\
+\
+
+## Cons
+\
+
+- Non-weighted ecosystem services (presence/absence of direct or indirect ES)
+
+\
+\
+\
+\
+\
+\
+
+# Output of direct and indirect effects on ES {.tabset}
+For each interaction, we assigned the following outputs:
+
+* <font size="4"> **+** </font> : provides ES, increases ES provision or decreases crop damage.
+
+* <font size="4"> **-** </font> : provides E(D)S (crop damage), decreases ES provision or increases crop damage)
+
+
+## Prop. of output per habitat
+\
+```{r}
+
+output_ES<-read.csv ("output_ES.csv", sep =",")
+
+## Proportion of + and - outputs per habitat
+
+# direct
+Prop_output<- output_ES %>% filter(type == "D") %>%  group_by(layer, output) %>% 
+  summarize(count= n()) %>% group_by(layer) %>% mutate(tot =sum(count)) %>% 
+  group_by(layer,output) %>% summarize(prop = count/tot)
+
+
+Hab_ES_output_dir<-Prop_output%>% 
+  ggplot(aes(y=prop, x=layer, fill =output)) + 
+  geom_bar(position="stack", stat="identity")+ ggtitle("Direct")+
+  labs(x='Habitat', y="Prop ES provided") +theme_bw()+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=15, color='black'),
+        axis.text.x= element_text(size =13, angle = 90), 
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11),
+        legend.position = "bottom")
+
+
+# indirect
+Prop_output_ind<- output_ES %>% filter(type == "I") %>%  group_by(layer, output) %>% 
+  summarize(count= n()) %>% group_by(layer) %>% mutate(tot =sum(count)) %>% 
+  group_by(layer,output) %>% summarize(prop = count/tot)
+
+
+Hab_ES_output_ind<-Prop_output_ind%>% 
+  ggplot(aes(y=prop, x=layer, fill =output)) + 
+  geom_bar(position="stack", stat="identity")+ ggtitle("Indirect (2 hops)")+
+  labs(x='Habitat', y="Prop ES provided") +theme_bw()+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=15, color='black'),
+        axis.text.x= element_text(size =13, angle = 90), 
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11),
+        legend.position = "bottom")
+
+
+upper_row<- plot_grid(Hab_ES_output_dir ,
+                      Hab_ES_output_ind , 
+                      ncol = 2)
+upper_row
+ 
+ 
+```
+\
+\
+\
+\
+\
+\
+
+## Prop. of output according to taxon / habitat 
+\
+
+### Direct ES 
+\
+
+```{r}
+
+output_ES<-read.csv ("output_ES.csv", sep =",")
+
+## - direct
+
+taxon_ES_output_dir<-output_ES %>% filter (type == "D") %>% group_by(layer, output)  %>% 
+  mutate(Total = n()) %>% group_by(layer,output, taxon) %>% 
+  summarize( Number = n(), Prop = Number /Total) %>% unique()
+
+#positive
+taxon_ES_output_pos_dir <-taxon_ES_output_dir %>% filter(output =="+") %>% 
+  ggplot(aes(y=Prop, x=layer, fill = taxon)) + 
+  geom_bar(position="stack", stat="identity")+ ggtitle("Positive - Direct")+
+  labs(x='Habitat', y="Prop ES provided per taxon") +theme_bw()+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=13, color='black'),
+        axis.text.x= element_text(size =11, angle = 90), 
+        axis.text.y= element_text(size =11, angle = 90), 
+        axis.title = element_text(size=15, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_blank(),
+        legend.text = element_text(size = 5),
+        legend.position = "bottom",
+        legend.key.size = unit(0.7,"line"))
+
+
+#negative
+taxon_ES_output_neg_dir <-taxon_ES_output_dir %>% filter(output =="-") %>% 
+  ggplot(aes(y=Prop, x=layer, fill = taxon)) + 
+  geom_bar(position="stack", stat="identity")+ ggtitle("Negative - Direct")+
+  labs(x='Habitat', y="Prop ES provided per taxon") +theme_bw()+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=13, color='black'),
+        axis.text.x= element_text(size =11, angle = 90), 
+        axis.text.y= element_text(size =11, angle = 90), 
+        axis.title = element_text(size=15, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_blank(),
+        legend.text = element_text(size = 5),
+        legend.position = "bottom",
+        legend.key.size = unit(0.7,"line"))
+
+
+upper_row<- plot_grid(taxon_ES_output_pos_dir ,
+                      taxon_ES_output_neg_dir , 
+                      ncol = 2)
+upper_row
+ 
+```
+\
+\
+\
+
+### Indirect effect on ES 
+\
+
+```{r}
+
+output_ES<-read.csv ("output_ES.csv", sep =",")
+
+##- Indirect
+
+taxon_ES_output_ind<-output_ES %>% filter (type == "I") %>% group_by(layer, output)  %>% 
+  mutate(Total = n()) %>% group_by(layer,output, taxon) %>% 
+  summarize( Number = n(), Prop = Number /Total) %>% unique()
+
+#positive
+taxon_ES_output_pos_ind <-taxon_ES_output_ind %>% filter(output =="+") %>% 
+  ggplot(aes(y=Prop, x=layer, fill = taxon)) + 
+  geom_bar(position="stack", stat="identity")+ ggtitle("Positive - Indirect")+
+  labs(x='Habitat', y="Prop ES provided per taxon") +theme_bw()+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=13, color='black'),
+        axis.text.x= element_text(size =11, angle = 90), 
+        axis.text.y= element_text(size =11, angle = 90), 
+        axis.title = element_text(size=15, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_blank(),
+        legend.text = element_text(size = 4),
+        legend.position = "bottom",
+        legend.key.size = unit(0.6,"line"))
+
+
+#negative
+taxon_ES_output_neg_ind <-taxon_ES_output_ind %>% filter(output =="-") %>% 
+  ggplot(aes(y=Prop, x=layer, fill = taxon)) + 
+  geom_bar(position="stack", stat="identity")+ ggtitle("Negative - Indirect")+
+  labs(x='Habitat', y="Prop ES provided per taxon") +theme_bw()+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=13, color='black'),
+        axis.text.x= element_text(size =11, angle = 90), 
+        axis.text.y= element_text(size =11, angle = 90), 
+        axis.title = element_text(size=15, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_blank(),
+        legend.text = element_text(size = 4),
+        legend.position = "bottom",
+        legend.key.size = unit(0.6,"line"))
+
+
+upper_row<- plot_grid(taxon_ES_output_pos_ind ,
+                      taxon_ES_output_neg_ind , 
+                      ncol = 2)
+upper_row
+
+```
+\
+\
+\
+\
+\
+\
+
+# Next steps... {.tabset}
+\
+
+## Data
+\
+
+* Seed-feeding birds (birds that predate seeds) have three associated ES: bird watching, crop damage, and seed dispersal. However, not all species disperse seeds. Should we check the bird list and keep "seed dispersal" just for those recorded dispersing seeds? Most of them also eat insects ("pest control"). 
+
+\
+
+* There are interactions between plants and leaf-miner parasitoids in the original data. Is that correct? 
+ 
+
+\
+\
+\
+
+## Estimation of ES
+\
+
+* Add outputs to indirect effects (+ or -). The outputs should be set according to the trophic group of species interacting. DONE.
+\
+
+* Quantify the ES provided per species (only for direct provision?). We could calculate it based on the abundance (as attributes of state nodes - differ in every habitat-) and size of the species (e.g., small, medium, big as attributes of nodes). It could be the product between abundance and size (small = 0.1, medium = 0.5, big =1). This would help to control for taxon groups with great abundance such as insects.
+\
+\
+\
+
+## Multilayer
+\
+
+* Intralayer links between 0 and 1 (relative abundances?).
+\
+
+* Interlayer links.
+\
+\
+\
+
+## Simulation 
+\
+
+* Simulate habitat loss by removing habitats from the network and test robustness.
+\
+
+* Simulate land use change by changing a habitat for another and then test robustness. For example, changing habitat A to B will contain the same species as B but their abundances would be related to the area?.
+
+\
+\
+\
+
+
+

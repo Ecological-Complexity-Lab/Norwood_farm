@@ -1,0 +1,1388 @@
+lower,upper,weight
+MH,01PLANT.Ash,1
+WD,01PLANT.Ash,1
+GM,01PLANT.Autumn Hawkbit,1
+PP,01PLANT.Autumn Hawkbit,1
+GM,01PLANT.Bindweed sp,1
+MH,01PLANT.Bindweed sp,1
+RG,01PLANT.Bindweed sp,1
+NH,01PLANT.Black Bindweed,1
+MH,01PLANT.Blackthorn,1
+NH,01PLANT.Blackthorn,1
+WD,01PLANT.Blackthorn,1
+MH,01PLANT.Bluebell,1
+WD,01PLANT.Bluebell,1
+MH,01PLANT.Bramble,1
+NH,01PLANT.Bramble,1
+RG,01PLANT.Bramble,1
+WD,01PLANT.Bramble,1
+WD,01PLANT.Bugle,1
+NH,01PLANT.Bush Vetch,1
+RG,01PLANT.Bush Vetch,1
+CP,01PLANT.Charlock,1
+GM,01PLANT.Charlock,1
+LP,01PLANT.Charlock,1
+PP,01PLANT.Charlock,1
+RG,01PLANT.Charlock,1
+MH,01PLANT.Chenopodium sp,1
+NH,01PLANT.Chenopodium sp,1
+RG,01PLANT.Chenopodium sp,1
+MH,01PLANT.Cleavers,1
+RG,01PLANT.Cleavers,1
+WD,01PLANT.Cleavers,1
+CP,01PLANT.Clover sp,1
+GM,01PLANT.Clover sp,1
+LP,01PLANT.Clover sp,1
+LU,01PLANT.Clover sp,1
+MH,01PLANT.Clover sp,1
+NH,01PLANT.Clover sp,1
+NL,01PLANT.Clover sp,1
+PP,01PLANT.Clover sp,1
+RG,01PLANT.Clover sp,1
+MH,01PLANT.Common Bird's-foot-trefoil,1
+PP,01PLANT.Common Bird's-foot-trefoil,1
+RG,01PLANT.Common Bird's-foot-trefoil,1
+CP,01PLANT.Common Field Speedwell,1
+SF,01PLANT.Common Field Speedwell,1
+PP,01PLANT.Common Fleabane,1
+CP,01PLANT.Common Mouse-ear,1
+LP,01PLANT.Common Mouse-ear,1
+MH,01PLANT.Common Mouse-ear,1
+NH,01PLANT.Common Mouse-ear,1
+PP,01PLANT.Common Mouse-ear,1
+CP,01PLANT.Common Poppy,1
+RG,01PLANT.Common Poppy,1
+RG,01PLANT.Common Vetch,1
+MH,01PLANT.Corn Mint,1
+RG,01PLANT.Corn Mint,1
+RG,01PLANT.Corn Sowthistle,1
+CP,01PLANT.Corn Spurrey,1
+GM,01PLANT.Cow Parsley,1
+MH,01PLANT.Cow Parsley,1
+RG,01PLANT.Cow Parsley,1
+CP,01PLANT.Creeping Buttercup,1
+GM,01PLANT.Creeping Buttercup,1
+LP,01PLANT.Creeping Buttercup,1
+LU,01PLANT.Creeping Buttercup,1
+MH,01PLANT.Creeping Buttercup,1
+NH,01PLANT.Creeping Buttercup,1
+NL,01PLANT.Creeping Buttercup,1
+PP,01PLANT.Creeping Buttercup,1
+RG,01PLANT.Creeping Buttercup,1
+SF,01PLANT.Creeping Buttercup,1
+RG,01PLANT.Creeping Cinquefoil,1
+CP,01PLANT.Creeping Thistle,1
+GM,01PLANT.Creeping Thistle,1
+LP,01PLANT.Creeping Thistle,1
+MH,01PLANT.Creeping Thistle,1
+NH,01PLANT.Creeping Thistle,1
+NL,01PLANT.Creeping Thistle,1
+PP,01PLANT.Creeping Thistle,1
+RG,01PLANT.Creeping Thistle,1
+SF,01PLANT.Creeping Thistle,1
+WD,01PLANT.Creeping Thistle,1
+WD,01PLANT.Cuckooflower,1
+MH,01PLANT.Cut-leaved Crane's-bill,1
+PP,01PLANT.Daisy,1
+GM,01PLANT.Dandelion,1
+LP,01PLANT.Dandelion,1
+LU,01PLANT.Dandelion,1
+PP,01PLANT.Dandelion,1
+RG,01PLANT.Dandelion,1
+CP,01PLANT.Dock sp,1
+GM,01PLANT.Dock sp,1
+MH,01PLANT.Dock sp,1
+NH,01PLANT.Dock sp,1
+PP,01PLANT.Dock sp,1
+RG,01PLANT.Dock sp,1
+WD,01PLANT.Dock sp,1
+MH,01PLANT.Dog's Mercury,1
+NH,01PLANT.Dogwood,1
+MH,01PLANT.Elder,1
+WD,01PLANT.Elder,1
+MH,01PLANT.Elm sp,1
+WD,01PLANT.Elm sp,1
+CP,01PLANT.Field Forget-me-not,1
+NH,01PLANT.Field Forget-me-not,1
+NL,01PLANT.Field Forget-me-not,1
+MH,01PLANT.Field Madder,1
+MH,01PLANT.Field Maple,1
+WD,01PLANT.Field Maple,1
+RG,01PLANT.Garlic Mustard,1
+WD,01PLANT.Germander Speedwell,1
+CP,01PLANT.Grass sp,1
+GM,01PLANT.Grass sp,1
+LP,01PLANT.Grass sp,1
+LU,01PLANT.Grass sp,1
+MH,01PLANT.Grass sp,1
+NH,01PLANT.Grass sp,1
+NL,01PLANT.Grass sp,1
+PP,01PLANT.Grass sp,1
+RG,01PLANT.Grass sp,1
+SF,01PLANT.Grass sp,1
+WD,01PLANT.Grass sp,1
+MH,01PLANT.Ground Ivy,1
+RG,01PLANT.Ground Ivy,1
+CP,01PLANT.Hairy Tare,1
+GM,01PLANT.Hawkish Complex sp,1
+GM,01PLANT.Hawthorn,1
+MH,01PLANT.Hawthorn,1
+NH,01PLANT.Hawthorn,1
+RG,01PLANT.Hawthorn,1
+WD,01PLANT.Hawthorn,1
+MH,01PLANT.Hazel,1
+NH,01PLANT.Hazel,1
+WD,01PLANT.Hazel,1
+MH,01PLANT.Hedge Woundwort,1
+NH,01PLANT.Hedge Woundwort,1
+RG,01PLANT.Hedge Woundwort,1
+WD,01PLANT.Hedge Woundwort,1
+WD,01PLANT.Herb Bennet,1
+MH,01PLANT.Herb Robert,1
+WD,01PLANT.Herb Robert,1
+GM,01PLANT.Hogweed,1
+MH,01PLANT.Hogweed,1
+NH,01PLANT.Hogweed,1
+RG,01PLANT.Hogweed,1
+MH,01PLANT.Honeysuckle,1
+MH,01PLANT.Knotgrass sp,1
+NH,01PLANT.Knotgrass sp,1
+RG,01PLANT.Knotgrass sp,1
+WD,01PLANT.Knotgrass sp,1
+WD,01PLANT.Lesser Burdock,1
+MH,01PLANT.Lesser Stitchwort,1
+NH,01PLANT.Lesser Stitchwort,1
+PP,01PLANT.Lesser Trefoil,1
+CP,01PLANT.Mayweed sp,1
+LP,01PLANT.Mayweed sp,1
+NH,01PLANT.Mayweed sp,1
+NL,01PLANT.Mayweed sp,1
+PP,01PLANT.Mayweed sp,1
+RG,01PLANT.Mayweed sp,1
+CP,01PLANT.Meadow Buttercup,1
+MH,01PLANT.Nipplewort,1
+WD,01PLANT.Nipplewort,1
+CP,01PLANT.Oak,1
+MH,01PLANT.Oak,1
+WD,01PLANT.Oak,1
+RG,01PLANT.Oil Seed Rape,1
+CP,01PLANT.Parsley Piert,1
+GM,01PLANT.Persicaria sp,1
+MH,01PLANT.Persicaria sp,1
+NH,01PLANT.Persicaria sp,1
+RG,01PLANT.Persicaria sp,1
+RG,01PLANT.Pineappleweed,1
+LP,01PLANT.Plantain sp,1
+NH,01PLANT.Ragwort,1
+MH,01PLANT.Red Campion,1
+WD,01PLANT.Red Campion,1
+MH,01PLANT.Red Dead-nettle,1
+RG,01PLANT.Red Dead-nettle,1
+MH,01PLANT.Rose sp,1
+MH,01PLANT.Rough Chervil,1
+WD,01PLANT.Rough Chervil,1
+PP,01PLANT.Selfheal,1
+CP,01PLANT.Shepherd's Purse,1
+RG,01PLANT.Shepherd's Purse,1
+CP,01PLANT.Sow-thistle sp,1
+LP,01PLANT.Sow-thistle sp,1
+NH,01PLANT.Sow-thistle sp,1
+NL,01PLANT.Sow-thistle sp,1
+RG,01PLANT.Sow-thistle sp,1
+SF,01PLANT.Sow-thistle sp,1
+WD,01PLANT.Sow-thistle sp,1
+CP,01PLANT.Spear Thistle,1
+GM,01PLANT.Spear Thistle,1
+LP,01PLANT.Spear Thistle,1
+MH,01PLANT.Spear Thistle,1
+NH,01PLANT.Spear Thistle,1
+NL,01PLANT.Spear Thistle,1
+RG,01PLANT.Spear Thistle,1
+NH,01PLANT.Spindle,1
+GM,01PLANT.Stinging Nettle,1
+MH,01PLANT.Stinging Nettle,1
+NH,01PLANT.Stinging Nettle,1
+RG,01PLANT.Stinging Nettle,1
+WD,01PLANT.Stinging Nettle,1
+MH,01PLANT.Sycamore,1
+WD,01PLANT.Sycamore,1
+RG,01PLANT.Teasel,1
+WD,01PLANT.Traveller's Joy,1
+MH,01PLANT.Upright Hedge-parsley,1
+RG,01PLANT.Upright Hedge-parsley,1
+CP,01PLANT.Wall Speedwell,1
+NL,01PLANT.Wall Speedwell,1
+RG,01PLANT.Water Figwort,1
+NH,01PLANT.Wayfaring-tree,1
+RG,01PLANT.White Dead-nettle,1
+NH,01PLANT.Wild Privet,1
+WD,01PLANT.Wild Privet,1
+CP,01PLANT.Willowherb sp,1
+RG,01PLANT.Willowherb sp,1
+WD,01PLANT.Woodruff,1
+WD,01PLANT.Yellow Archangel,1
+CP,01PLANT.zCROP Barley,1
+GM,01PLANT.zCROP Lucerne,1
+LU,01PLANT.zCROP Lucerne,1
+CP,01PLANT.zCROP Oat spring,1
+CP,01PLANT.zCROP Oat winter,1
+CP,01PLANT.zCROP Triticale,1
+CP,01PLANT.zCROP Wheat,1
+MH,01PLANT.zCROP Wheat,1
+MH,02FV.Agriotes pallidulus,1
+GM,02FV.Alysiinae sp,1
+LP,02FV.Alysiinae sp,1
+RG,02FV.Alysiinae sp,1
+RG,02FV.Anapausis soluta,1
+MH,02FV.Anaspis maculata,1
+RG,02FV.Anaspis maculata,1
+WD,02FV.Anaspis maculata,1
+MH,02FV.Anaspis pulicaria,1
+RG,02FV.Anaspis pulicaria,1
+CP,02FV.Andrena dorsata,1
+NH,02FV.Andrena dorsata,1
+RG,02FV.Andrena minutula,1
+MH,02FV.Anthocomus fasciatus,1
+RG,02FV.Anthomyia liturata,1
+NL,02FV.Anthomyia pluvialis,1
+RG,02FV.Anthomyza gracilis,1
+MH,02FV.Anthophila fabriciana,1
+RG,02FV.Anthophila fabriciana,1
+GM,02FV.Apis mellifera,1
+LP,02FV.Apis mellifera,1
+LU,02FV.Apis mellifera,1
+MH,02FV.Apis mellifera,1
+NH,02FV.Apis mellifera,1
+NL,02FV.Apis mellifera,1
+RG,02FV.Apis mellifera,1
+SF,02FV.Apis mellifera,1
+LP,02FV.Aprostocetus sp,1
+PP,02FV.Asecodes coronis,1
+RG,02FV.Authonomus rubi,1
+RG,02FV.Azelia cilipes,1
+MH,02FV.Azelia zetterstedtii,1
+WD,02FV.Baccha elongate,1
+RG,02FV.Bellardia pandia,1
+MH,02FV.Bicellaria vana,1
+MH,02FV.Bicellaria varia,1
+MH,02FV.Bombus hortorum,1
+NH,02FV.Bombus hortorum,1
+NL,02FV.Bombus hortorum,1
+RG,02FV.Bombus hortorum,1
+CP,02FV.Bombus lapidarius,1
+LP,02FV.Bombus lapidarius,1
+MH,02FV.Bombus lapidarius,1
+NH,02FV.Bombus lapidarius,1
+NL,02FV.Bombus lapidarius,1
+PP,02FV.Bombus lapidarius,1
+RG,02FV.Bombus lapidarius,1
+GM,02FV.Bombus pascuorum,1
+LP,02FV.Bombus pascuorum,1
+MH,02FV.Bombus pascuorum,1
+NH,02FV.Bombus pascuorum,1
+NL,02FV.Bombus pascuorum,1
+PP,02FV.Bombus pascuorum,1
+RG,02FV.Bombus pascuorum,1
+PP,02FV.Bombus pratorum,1
+RG,02FV.Bombus pratorum,1
+CP,02FV.Bombus terrestris,1
+LP,02FV.Bombus terrestris,1
+LU,02FV.Bombus terrestris,1
+MH,02FV.Bombus terrestris,1
+NL,02FV.Bombus terrestris,1
+RG,02FV.Bombus terrestris,1
+LP,02FV.Bombus vestalis,1
+CP,02FV.Botanophila fugax,1
+NH,02FV.Botanophila fugax,1
+LP,02FV.Botanophila striolata,1
+MH,02FV.Botanophila striolata,1
+NH,02FV.Botanophila striolata,1
+PP,02FV.Botanophila striolata,1
+RG,02FV.Botanophila striolata,1
+RG,02FV.Brachypterus urticae,1
+CP,02FV.Bracon sp,1
+GM,02FV.Bracon sp,1
+MH,02FV.Bracon sp,1
+CP,02FV.Bruchus rufimanus,1
+MH,02FV.Byturus tomentosus,1
+MH,02FV.Calliphora vicina,1
+NH,02FV.Calliphora vomitoria,1
+MH,02FV.Cantharis decipiens,1
+MH,02FV.Cantharis lateralis,1
+CP,02FV.Cantharis nigra,1
+MH,02FV.Cantharis nigra,1
+NH,02FV.Cantharis nigra,1
+PP,02FV.Cantharis nigra,1
+GM,02FV.Cecidomyiidae sp,1
+CP,02FV.Centrorhynchus obstrictus,1
+CP,02FV.Cephus pygmaeus,1
+MH,02FV.Cephus pygmaeus,1
+NH,02FV.Cephus pygmaeus,1
+RG,02FV.Cephus pygmaeus,1
+CP,02FV.Ceraphron trissacantha,1
+CP,02FV.Cetema elongata,1
+CP,02FV.Cheilosia albitarsis,1
+GM,02FV.Cheilosia albitarsis,1
+NH,02FV.Cheilosia albitarsis,1
+RG,02FV.Cheilosia honesta,1
+RG,02FV.Cheilosia illustrata,1
+RG,02FV.Cheilosia pagana,1
+RG,02FV.Cheilosia proxima,1
+RG,02FV.Cheilosia proxima group sp. D,1
+NH,02FV.Chloromyia formosa,1
+NL,02FV.Chloromyia formosa,1
+PP,02FV.Chloromyia formosa,1
+GM,02FV.Chlorops hypostigma,1
+MH,02FV.Chlorops hypostigma,1
+RG,02FV.Chlorops hypostigma,1
+GM,02FV.Chlorops pumilionis,1
+MH,02FV.Chlorops pumilionis,1
+NH,02FV.Chlorops pumilionis,1
+RG,02FV.Chorebus sp,1
+PP,02FV.Chorebus sp nov,1
+RG,02FV.Chromatomyia nigra,1
+NH,02FV.Chrysopilus asiliformis,1
+RG,02FV.Chrysotoxum bicinctum,1
+CP,02FV.Chrysotus sp,1
+MH,02FV.Chrysotus sp,1
+PP,02FV.Chrysotus sp,1
+RG,02FV.Chrysotus sp,1
+WD,02FV.Chrysotus sp,1
+MH,02FV.Coccinella septempunctata,1
+RG,02FV.Coenosia tigrina,1
+MH,02FV.Copromyza similes,1
+MH,02FV.Crossopalpus sp,1
+GM,02FV.Dacnusa (maculipes),1
+CP,02FV.Delia sp,1
+GM,02FV.Delia sp,1
+LP,02FV.Delia sp,1
+MH,02FV.Delia sp,1
+NH,02FV.Delia sp,1
+NL,02FV.Delia sp,1
+PP,02FV.Delia sp,1
+RG,02FV.Delia sp,1
+NL,02FV.Demetrias atricapillus,1
+CP,02FV.Desmometopa sp,1
+GM,02FV.Dicraeus tibialis,1
+RG,02FV.Dicraeus vagans,1
+MH,02FV.Dilophus febrilis,1
+NH,02FV.Dilophus febrilis,1
+RG,02FV.Dilophus febrilis,1
+CP,02FV.Diospilus capito,1
+LP,02FV.Diplonevra sp,1
+PP,02FV.Diplonevra sp,1
+RG,02FV.Diplonevra sp,1
+NH,02FV.Dolerus haematodes,1
+CP,02FV.Dolichopus festivus,1
+GM,02FV.Dolichopus festivus,1
+RG,02FV.Dolichopus festivus,1
+MH,02FV.Dolichopus ungulatus,1
+RG,02FV.Ectemnius cephalotes,1
+MH,02FV.Empis (Xanthempis) sp,1
+MH,02FV.Empis caudatula,1
+NH,02FV.Empis chioptera,1
+CP,02FV.Empis livida,1
+GM,02FV.Empis livida,1
+LP,02FV.Empis livida,1
+MH,02FV.Empis livida,1
+NH,02FV.Empis livida,1
+NL,02FV.Empis livida,1
+PP,02FV.Empis livida,1
+RG,02FV.Empis livida,1
+WD,02FV.Empis livida,1
+MH,02FV.Empis nigripes,1
+CP,02FV.Empis nuntia,1
+MH,02FV.Endasys sp,1
+CP,02FV.Episyrphus balteatus,1
+MH,02FV.Episyrphus balteatus,1
+RG,02FV.Episyrphus balteatus,1
+WD,02FV.Episyrphus balteatus,1
+MH,02FV.Epuraea melanocephala,1
+WD,02FV.Epuraea melanocephala,1
+NH,02FV.Eriothrix rufomaculata,1
+RG,02FV.Eriothrix rufomaculata,1
+CP,02FV.Eristalis arbustorum,1
+NH,02FV.Eristalis arbustorum,1
+RG,02FV.Eristalis arbustorum,1
+SF,02FV.Eristalis arbustorum,1
+MH,02FV.Eristalis pertinax,1
+NH,02FV.Eristalis pertinax,1
+RG,02FV.Eristalis pertinax,1
+WD,02FV.Eristalis pertinax,1
+NH,02FV.Eristalis tenax,1
+NL,02FV.Eristalis tenax,1
+MH,02FV.Eudasyphora cyanella,1
+NL,02FV.Eudasyphora cyanella,1
+CP,02FV.Eupeodes corollae,1
+LP,02FV.Eupeodes corollae,1
+NH,02FV.Eupeodes corollae,1
+RG,02FV.Eupeodes luniger,1
+MH,02FV.Fannia serena,1
+CP,02FV.Fannia sp,1
+GM,02FV.Fannia sp,1
+MH,02FV.Fannia sp,1
+RG,02FV.Fannia sp,1
+RG,02FV.Formicidae A,1
+GM,02FV.Formicidae B,1
+PP,02FV.Formicidae B,1
+CP,02FV.Gastrophysa viridular,1
+LU,02FV.Gastrophysa viridular,1
+LP,02FV.Geomyza tripunctata,1
+CP,02FV.Glyphipterix simpliciella,1
+GM,02FV.Glyphipterix simpliciella,1
+MH,02FV.Glyphipterix simpliciella,1
+NH,02FV.Glyphipterix simpliciella,1
+RG,02FV.Glyphipterix simpliciella,1
+MH,02FV.Grammoptera ruficornis,1
+RG,02FV.Grammoptera ruficornis,1
+PP,02FV.Halticoptera sp,1
+MH,02FV.Helina sp,1
+PP,02FV.Helina sp,1
+CP,02FV.Helophilus pendulus,1
+NH,02FV.Helophilus pendulus,1
+CP,02FV.Helophilus trivittatus,1
+RG,02FV.Hemicrepidius hirtus,1
+WD,02FV.Hercostomus parvilamellatus,1
+NH,02FV.Herina longistylata,1
+RG,02FV.Heteronychia vagans,1
+PP,02FV.Hexacola hexatoma,1
+CP,02FV.Hydrellia griseola,1
+PP,02FV.Hydrellia griseola,1
+RG,02FV.Hydrellia griseola,1
+GM,02FV.Hydrellia maura,1
+PP,02FV.Hydrellia maura,1
+NL,02FV.Hylaeus communis,1
+GM,02FV.Hylaeus hyalinatus,1
+LP,02FV.Hylemya urbica/variata,1
+MH,02FV.Hylemya vagans,1
+RG,02FV.Hylemya vagans,1
+WD,02FV.Hylemya vagans,1
+GM,02FV.Hylemya variata,1
+WD,02FV.Hylemya variata,1
+MH,02FV.Ichneumonidae,1
+PP,02FV.Kleidotoma tetratoma,1
+MH,02FV.Kuzinia sp,1
+MH,02FV.Lasioglossum sp,1
+RG,02FV.Lasioglossum sp,1
+NH,02FV.Limnia unguicornis,1
+MH,02FV.Limnophora triangula,1
+CP,02FV.Lonchoptera lutea,1
+NL,02FV.Lonchoptera lutea,1
+RG,02FV.Lonchoptera lutea,1
+CP,02FV.Longitarsus sp,1
+LP,02FV.Lotophila atra,1
+PP,02FV.Lotophila atra,1
+NH,02FV.Lucilia caesar,1
+RG,02FV.Lucilia caesar,1
+NH,02FV.Lucilia richardsi,1
+MH,02FV.Lucilia sericata,1
+NH,02FV.Lucilia sericata,1
+CP,02FV.Malachius bipustulatus,1
+GM,02FV.Malachius bipustulatus,1
+NH,02FV.Malachius bipustulatus,1
+RG,02FV.Malachius bipustulatus,1
+MH,02FV.Malthodes minimus,1
+PP,02FV.Maniola jurtina,1
+GM,02FV.Megaselia sp,1
+LP,02FV.Melangyna sp,1
+CP,02FV.Melanostoma mellinum,1
+GM,02FV.Melanostoma mellinum,1
+NH,02FV.Melanostoma mellinum,1
+RG,02FV.Melanostoma mellinum,1
+MH,02FV.Melanostoma scalare,1
+MH,02FV.Melanostoma sp,1
+MH,02FV.Melinda viridicyanea,1
+NH,02FV.Melinda viridicyanea,1
+RG,02FV.Melinda viridicyanea,1
+LP,02FV.Metasyrphus luniger,1
+CP,02FV.Metopina sp,1
+GM,02FV.Metopina sp,1
+NH,02FV.Metopina sp,1
+PP,02FV.Metopina sp,1
+NH,02FV.Microchrysa polita,1
+MH,02FV.Microphor anomalus,1
+GM,02FV.Micropterix calthella,1
+MH,02FV.Miscogaster maculata,1
+RG,02FV.Musca autumnalis,1
+MH,02FV.Neoascia podagrica,1
+RG,02FV.Neoascia podagrica,1
+CP,02FV.Neomyia cornicina,1
+MH,02FV.Neomyia cornicina,1
+NH,02FV.Neomyia cornicina,1
+RG,02FV.Neomyia cornicina,1
+NH,02FV.Neomyia viridescens,1
+RG,02FV.Neomyia viridescens,1
+GM,02FV.Norellisoma spinimanum,1
+CP,02FV.Oedemera lurida,1
+GM,02FV.Oedemera lurida,1
+NH,02FV.Oedemera lurida,1
+RG,02FV.Oedemera lurida,1
+CP,02FV.Oedemera nobilis,1
+GM,02FV.Oedemera nobilis,1
+MH,02FV.Oedemera nobilis,1
+NH,02FV.Oedemera nobilis,1
+NL,02FV.Oedemera nobilis,1
+PP,02FV.Oedemera nobilis,1
+RG,02FV.Oedemera nobilis,1
+CP,02FV.Olibrus aeneus,1
+RG,02FV.Olibrus aeneus,1
+CP,02FV.Omphalapion hookerorum,1
+MH,02FV.Ophiomyia sp,1
+CP,02FV.Opomyza germinationis,1
+PP,02FV.Opomyza germinationis,1
+RG,02FV.Opomyza germinationis,1
+RG,02FV.Opomyza petrei,1
+GM,02FV.Oscinella cariciphila,1
+RG,02FV.Oscinella cariciphila,1
+CP,02FV.Oscinella frit,1
+GM,02FV.Oscinella frit,1
+LP,02FV.Oscinella frit,1
+NH,02FV.Oscinella frit,1
+NH,02FV.Oscinella hortensis,1
+RG,02FV.Oscinella nigerrima,1
+GM,02FV.Oscinella nitidissima,1
+NH,02FV.Oscinella nitidissima,1
+PP,02FV.Oscinella nitidissima,1
+RG,02FV.Oscinella nitidissima,1
+CP,02FV.Pegoplata aestiva or Adia cinerella,1
+GM,02FV.Pegoplata aestiva or Adia cinerella,1
+LP,02FV.Pegoplata aestiva or Adia cinerella,1
+MH,02FV.Pegoplata aestiva or Adia cinerella,1
+NL,02FV.Pegoplata aestiva or Adia cinerella,1
+PP,02FV.Pegoplata aestiva or Adia cinerella,1
+RG,02FV.Pegoplata aestiva or Adia cinerella,1
+SF,02FV.Pegoplata aestiva or Adia cinerella,1
+MH,02FV.Pegoplata depilis,1
+RG,02FV.Pegoplata infirma,1
+MH,02FV.Phaenocarpa (ruficeps),1
+MH,02FV.Phaonia lasiophthalma,1
+CP,02FV.Phasia obesa,1
+MH,02FV.Phasia pusilla,1
+NL,02FV.Phasia pusilla,1
+CP,02FV.Phradis morionellus,1
+GM,02FV.Phyllobius virideaeris,1
+NH,02FV.Phyllonorycter sp,1
+RG,02FV.Phyllonorycter sp,1
+RG,02FV.Phytomyza cineracea,1
+LP,02FV.Phytomyza notata,1
+NL,02FV.Pieris brassicae,1
+MH,02FV.Pierretia sp,1
+MH,02FV.Pimpla contemplator,1
+RG,02FV.Pionini sp,1
+MH,02FV.Pipiza noctiluca,1
+MH,02FV.Plagiatrochus sp,1
+CP,02FV.Platycheirus albimanus,1
+GM,02FV.Platycheirus albimanus,1
+MH,02FV.Platycheirus albimanus,1
+NH,02FV.Platycheirus albimanus,1
+PP,02FV.Platycheirus albimanus,1
+RG,02FV.Platycheirus albimanus,1
+WD,02FV.Platycheirus albimanus,1
+NL,02FV.Platycheirus clypeatus,1
+RG,02FV.Platycheirus clypeatus,1
+CP,02FV.Platycheirus manicatus,1
+CP,02FV.Platycheirus nielseni,1
+MH,02FV.Platycheirus nielseni,1
+MH,02FV.Platycheirus peltatus,1
+MH,02FV.Platycheirus scutatus,1
+CP,02FV.Platycheirus sp,1
+GM,02FV.Platypalpus sp,1
+NH,02FV.Platypalpus sp,1
+PP,02FV.Platypalpus sp,1
+RG,02FV.Platypalpus sp,1
+LP,02FV.Pollenia amentaria,1
+RG,02FV.Pollenia amentaria,1
+CP,02FV.Pollenia pediculata,1
+MH,02FV.Pollenia pediculata,1
+NH,02FV.Pollenia pediculata,1
+NL,02FV.Pollenia pediculata,1
+RG,02FV.Pollenia pediculata,1
+CP,02FV.Pollenia rudis,1
+RG,02FV.Pollenia rudis,1
+RG,02FV.Polyommatus icarus,1
+LP,02FV.Psallinae sp,1
+NH,02FV.Psocoptera sp,1
+MH,02FV.Psychodidae sp,1
+MH,02FV.Psyllidae sp,1
+LP,02FV.Pteromalidae,1
+MH,02FV.Pteromalidae,1
+RG,02FV.Pteromalidae,1
+NH,02FV.Pyronia tithonus,1
+RG,02FV.Pyronia tithonus,1
+PP,02FV.Rhagio notatus,1
+NH,02FV.Rhagio tringarius,1
+PP,02FV.Rhagio tringarius,1
+MH,02FV.Rhagonycha fulva,1
+NH,02FV.Rhagonycha fulva,1
+RG,02FV.Rhagonycha fulva,1
+GM,02FV.Rhingia campestris,1
+LU,02FV.Rhingia campestris,1
+SF,02FV.Rhingia campestris,1
+WD,02FV.Rhingia campestris,1
+MH,02FV.Rhinophora lepida,1
+RG,02FV.Rhinophora lepida,1
+PP,02FV.Rhoptromeris heptoma,1
+PP,02FV.Rhoptromeris rufiventris,1
+LP,02FV.Saltella sphondylii,1
+NL,02FV.Sarcophaga carnaria,1
+CP,02FV.Scaptomyza flava,1
+CP,02FV.Scaptomyza pallida,1
+LP,02FV.Scaptomyza pallida,1
+NL,02FV.Scaptomyza pallida,1
+RG,02FV.Scaptomyza pallida,1
+CP,02FV.Scathophaga stercoraria,1
+GM,02FV.Scathophaga stercoraria,1
+LP,02FV.Scathophaga stercoraria,1
+MH,02FV.Scathophaga stercoraria,1
+NH,02FV.Scathophaga stercoraria,1
+NL,02FV.Scathophaga stercoraria,1
+PP,02FV.Scathophaga stercoraria,1
+RG,02FV.Scathophaga stercoraria,1
+CP,02FV.Scatopsidae sp,1
+MH,02FV.Scatopsidae sp,1
+PP,02FV.Scatopsidae sp,1
+RG,02FV.Scatopsidae sp,1
+LP,02FV.Sciaridae sp,1
+MH,02FV.Sciaridae sp,1
+RG,02FV.Sciaridae sp,1
+LP,02FV.Sepsis cynipsea or neocynipsea,1
+MH,02FV.Sepsis cynipsea or neocynipsea,1
+MH,02FV.Sepsis flavimana,1
+CP,02FV.Sepsis fulgens,1
+NL,02FV.Sepsis fulgens,1
+PP,02FV.Sepsis fulgens,1
+RG,02FV.Sepsis fulgens,1
+RG,02FV.Sepsis orthocnemis,1
+RG,02FV.Sepsis violacea,1
+NH,02FV.Sicus ferrugineus,1
+RG,02FV.Simulium sp,1
+LP,02FV.Siphona geniculata,1
+MH,02FV.Siphona geniculata,1
+PP,02FV.Siphona geniculata,1
+RG,02FV.Siphona geniculata,1
+WD,02FV.Siphona geniculata,1
+LP,02FV.Sitona puncticollis,1
+NL,02FV.Sphaerophoria menthastri,1
+NH,02FV.Sphaerophoria rueppellii,1
+CP,02FV.Sphaerophoria scripta,1
+NH,02FV.Sphaerophoria scripta,1
+PP,02FV.Sphaerophoria scripta,1
+RG,02FV.Sphaerophoria scripta,1
+CP,02FV.Sphaerophoria sp,1
+GM,02FV.Sphaerophoria sp,1
+MH,02FV.Sphaerophoria sp,1
+NH,02FV.Sphaerophoria sp,1
+NL,02FV.Sphaerophoria sp,1
+RG,02FV.Sphaerophoria sp,1
+RG,02FV.Stenodiplosis sp,1
+LP,02FV.Stenomalina sp,1
+MH,02FV.Sussaba cognata,1
+CP,02FV.Syritta pipiens,1
+MH,02FV.Syritta pipiens,1
+NH,02FV.Syritta pipiens,1
+NL,02FV.Syritta pipiens,1
+RG,02FV.Syritta pipiens,1
+GM,02FV.Syrphus ribesii,1
+MH,02FV.Tenthredopsis nassata,1
+NH,02FV.Tersilochus sp,1
+CP,02FV.Tetramesa sp,1
+RG,02FV.Tetramesa sp,1
+LP,02FV.Tetrastichinae sp,1
+PP,02FV.Tetrastichinae sp,1
+RG,02FV.Thaumatomyia glabra,1
+MH,02FV.Theroscopus sp,1
+RG,02FV.Tiphia minuta,1
+NH,02FV.Torymus sp,1
+RG,02FV.Tricimba cincta,1
+NH,02FV.Triphleba sp,1
+PP,02FV.Triphleba sp,1
+MH,02FV.Trybliographa erythrocera,1
+GM,02FV.Tytthaspis sedecimpunctata,1
+RG,02FV.Volucella bombylans,1
+LP,03APH.Acyrthosiphon pisum,1
+NL,03APH.Acyrthosiphon pisum,1
+PP,03APH.Acyrthosiphon pisum,1
+WD,03APH.Aphid species 1,1
+NH,03APH.Aphis fabae,1
+MH,03APH.Aphis galiiscabri,1
+RG,03APH.Aphis galiiscabri,1
+CP,03APH.Aphis rumicis,1
+GM,03APH.Aphis rumicis,1
+NH,03APH.Aphis rumicis,1
+PP,03APH.Aphis rumicis,1
+RG,03APH.Aphis rumicis,1
+MH,03APH.Aphis urticae,1
+CP,03APH.Brachycaudus helichrysii,1
+LP,03APH.Brachycaudus helichrysii,1
+NH,03APH.Brachycaudus helichrysii,1
+NL,03APH.Brachycaudus helichrysii,1
+RG,03APH.Brachycaudus helichrysii,1
+CP,03APH.Capitophorus elaeagnii,1
+LP,03APH.Capitophorus elaeagnii,1
+MH,03APH.Capitophorus elaeagnii,1
+NH,03APH.Capitophorus elaeagnii,1
+PP,03APH.Capitophorus elaeagnii,1
+RG,03APH.Capitophorus elaeagnii,1
+GM,03APH.Cavariella aegopodii,1
+MH,03APH.Cavariella aegopodii,1
+PP,03APH.Cavariella aegopodii,1
+RG,03APH.Cavariella aegopodii,1
+WD,03APH.Cryptomyzus korschelti,1
+NH,03APH.Dysaphis species 1,1
+CP,03APH.Hyperomyzus lactucae,1
+LP,03APH.Hyperomyzus lactucae,1
+NL,03APH.Hyperomyzus lactucae,1
+RG,03APH.Hyperomyzus lactucae,1
+CP,03APH.Lipaphys erysimi,1
+MH,03APH.Macrosiphum funestum,1
+WD,03APH.Macrosiphum funestum,1
+CP,03APH.Metopolophium dihrodum,1
+LP,03APH.Metopolophium dihrodum,1
+MH,03APH.Metopolophium dihrodum,1
+RG,03APH.Metopolophium dihrodum,1
+MH,03APH.Microlophium carnosum,1
+RG,03APH.Microlophium carnosum,1
+WD,03APH.Microlophium carnosum,1
+NH,03APH.Myzocallis coryli,1
+CP,03APH.Myzus persicae,1
+RG,03APH.Myzus persicae,1
+NL,03APH.Nasonvoia ribisnigri,1
+MH,03APH.Phorodon humuli,1
+WD,03APH.Phorodon humuli,1
+CP,03APH.Sipha maydis,1
+GM,03APH.Sipha maydis,1
+LP,03APH.Sipha maydis,1
+MH,03APH.Sipha maydis,1
+NH,03APH.Sipha maydis,1
+NL,03APH.Sipha maydis,1
+PP,03APH.Sipha maydis,1
+RG,03APH.Sipha maydis,1
+CP,03APH.Sitobion avenae,1
+GM,03APH.Sitobion avenae,1
+LP,03APH.Sitobion avenae,1
+MH,03APH.Sitobion avenae,1
+NH,03APH.Sitobion avenae,1
+NL,03APH.Sitobion avenae,1
+PP,03APH.Sitobion avenae,1
+RG,03APH.Sitobion avenae,1
+WD,03APH.Sitobion avenae,1
+MH,03APH.Sitobion fragariae,1
+NL,03APH.Therioaphis trifoli,1
+CP,03APH.Tubaphis ranunculina,1
+LP,03APH.Tubaphis ranunculina,1
+PP,03APH.Tubaphis ranunculina,1
+LP,03APH.Uroleucon aeneum,1
+NH,03APH.Uroleucon aeneum,1
+PP,03APH.Uroleucon aeneum,1
+CP,03APH.Uroleucon cirsii,1
+LP,03APH.Uroleucon cirsii,1
+MH,03APH.Uroleucon cirsii,1
+NH,03APH.Uroleucon cirsii,1
+NL,03APH.Uroleucon cirsii,1
+PP,03APH.Uroleucon cirsii,1
+RG,03APH.Uroleucon cirsii,1
+NL,03APH.Uroleucon sonchi,1
+CP,04PRIMARYPARA.Aphidius ervi,1
+LP,04PRIMARYPARA.Aphidius ervi,1
+MH,04PRIMARYPARA.Aphidius ervi,1
+NH,04PRIMARYPARA.Aphidius ervi,1
+NL,04PRIMARYPARA.Aphidius ervi,1
+PP,04PRIMARYPARA.Aphidius ervi,1
+RG,04PRIMARYPARA.Aphidius ervi,1
+RG,04PRIMARYPARA.Aphidius funebris,1
+CP,04PRIMARYPARA.Aphidius matricariae,1
+RG,04PRIMARYPARA.Aphidius matricariae,1
+CP,04PRIMARYPARA.Aphidius picipes?,1
+RG,04PRIMARYPARA.Aphidius picipes?,1
+CP,04PRIMARYPARA.Aphidius rhopalosiphi?,1
+GM,04PRIMARYPARA.Aphidius rhopalosiphi?,1
+NH,04PRIMARYPARA.Aphidius rhopalosiphi?,1
+NL,04PRIMARYPARA.Aphidius rhopalosiphi?,1
+RG,04PRIMARYPARA.Aphidius rhopalosiphi?,1
+CP,04PRIMARYPARA.Ephedrus plagiator,1
+GM,04PRIMARYPARA.Ephedrus plagiator,1
+MH,04PRIMARYPARA.Ephedrus plagiator,1
+NH,04PRIMARYPARA.Ephedrus plagiator,1
+NL,04PRIMARYPARA.Ephedrus plagiator,1
+RG,04PRIMARYPARA.Ephedrus plagiator,1
+NL,04PRIMARYPARA.Praon dorsale?,1
+CP,04PRIMARYPARA.Praon exoletum?,1
+WD,04PRIMARYPARA.Praon exoletum?,1
+PP,04PRIMARYPARA.Praon sp nr flavinode,1
+CP,04PRIMARYPARA.Praon volucre,1
+WD,04PRIMARYPARA.Trioxys B,1
+CP,05SECONDARYPARA.Alloxysta victrix,1
+LP,05SECONDARYPARA.Alloxysta victrix,1
+MH,05SECONDARYPARA.Alloxysta victrix,1
+NH,05SECONDARYPARA.Alloxysta victrix,1
+NL,05SECONDARYPARA.Alloxysta victrix,1
+RG,05SECONDARYPARA.Alloxysta victrix,1
+CP,05SECONDARYPARA.Asaphes suspensus,1
+NH,05SECONDARYPARA.Asaphes suspensus,1
+NL,05SECONDARYPARA.Asaphes suspensus,1
+PP,05SECONDARYPARA.Asaphes suspensus,1
+RG,05SECONDARYPARA.Asaphes suspensus,1
+CP,05SECONDARYPARA.Asaphes vulgaris,1
+MH,05SECONDARYPARA.Asaphes vulgaris,1
+NH,05SECONDARYPARA.Asaphes vulgaris,1
+NL,05SECONDARYPARA.Asaphes vulgaris,1
+PP,05SECONDARYPARA.Asaphes vulgaris,1
+RG,05SECONDARYPARA.Asaphes vulgaris,1
+NH,05SECONDARYPARA.Coruna clavata,1
+CP,05SECONDARYPARA.Dendrocerus aphidum,1
+GM,05SECONDARYPARA.Dendrocerus aphidum,1
+NH,05SECONDARYPARA.Dendrocerus aphidum,1
+NL,05SECONDARYPARA.Dendrocerus aphidum,1
+RG,05SECONDARYPARA.Dendrocerus aphidum,1
+WD,05SECONDARYPARA.Dendrocerus aphidum,1
+CP,05SECONDARYPARA.Dendrocerus carpenteri,1
+GM,05SECONDARYPARA.Dendrocerus carpenteri,1
+MH,05SECONDARYPARA.Dendrocerus carpenteri,1
+NL,05SECONDARYPARA.Dendrocerus carpenteri,1
+RG,05SECONDARYPARA.Dendrocerus carpenteri,1
+RG,05SECONDARYPARA.Pachyneuron sp,1
+WD,06MINERPARA.Achrysocharoides acerianus,1
+MH,06MINERPARA.Achrysocharoides atys,1
+NH,06MINERPARA.Achrysocharoides atys,1
+WD,06MINERPARA.Achrysocharoides butus,1
+WD,06MINERPARA.Achrysocharoides latreillei,1
+MH,06MINERPARA.Adelius sp,1
+RG,06MINERPARA.Adelius sp,1
+MH,06MINERPARA.Adelurola florimela,1
+CP,06MINERPARA.Alysiinae sp,1
+GM,06MINERPARA.Alysiinae sp,1
+MH,06MINERPARA.Alysiinae sp,1
+NH,06MINERPARA.Alysiinae sp,1
+PP,06MINERPARA.Alysiinae sp,1
+RG,06MINERPARA.Alysiinae sp,1
+CP,06MINERPARA.Anagrus sp A,1
+WD,06MINERPARA.Anagrus sp A,1
+MH,06MINERPARA.Anagrus sp B,1
+NH,06MINERPARA.Anagrus sp B,1
+PP,06MINERPARA.Anagrus sp B,1
+RG,06MINERPARA.Anagrus sp C,1
+MH,06MINERPARA.Apanteles circumscriptus,1
+CP,06MINERPARA.Aphanogmus microneurus,1
+RG,06MINERPARA.Aphanogmus sp,1
+LP,06MINERPARA.Apodesmia A,1
+PP,06MINERPARA.Apodesmia A,1
+CP,06MINERPARA.Apodesmia curvata,1
+GM,06MINERPARA.Apodesmia curvata,1
+WD,06MINERPARA.Apodesmia irregularis,1
+MH,06MINERPARA.Apodesmia ocellata,1
+RG,06MINERPARA.Apodesmia ocellata,1
+NH,06MINERPARA.Apodesmia rufipes,1
+CP,06MINERPARA.Apodesmia similis,1
+GM,06MINERPARA.Apodesmia similis,1
+LU,06MINERPARA.Apodesmia similis,1
+NH,06MINERPARA.Apodesmia similis,1
+PP,06MINERPARA.Apodesmia similis,1
+SF,06MINERPARA.Asaphes suspensus,1
+NH,06MINERPARA.Ascogaster varipes,1
+MH,06MINERPARA.Bracon sp,1
+PP,06MINERPARA.Bracon sp,1
+RG,06MINERPARA.Bracon sp,1
+WD,06MINERPARA.Bracon sp,1
+NH,06MINERPARA.Campoplex sp,1
+NH,06MINERPARA.Chelonus scabrosus,1
+GM,06MINERPARA.Chelonus sp,1
+MH,06MINERPARA.Chelonus sp aff rimatus,1
+MH,06MINERPARA.Chorebus A,1
+CP,06MINERPARA.Chorebus amasis,1
+NH,06MINERPARA.Chorebus aphantus,1
+PP,06MINERPARA.Chorebus aphantus,1
+WD,06MINERPARA.Chorebus aphantus,1
+CP,06MINERPARA.Chorebus B,1
+GM,06MINERPARA.Chorebus B,1
+NH,06MINERPARA.Chorebus B,1
+RG,06MINERPARA.Chorebus C,1
+WD,06MINERPARA.Chorebus E,1
+CP,06MINERPARA.Chorebus fallaciosae,1
+GM,06MINERPARA.Chorebus fallaciosae,1
+LP,06MINERPARA.Chorebus fallaciosae,1
+LU,06MINERPARA.Chorebus fallaciosae,1
+NH,06MINERPARA.Chorebus fallaciosae,1
+RG,06MINERPARA.Chorebus fallaciosae,1
+WD,06MINERPARA.Chorebus lateralis,1
+CP,06MINERPARA.Chorebus leptogaster,1
+RG,06MINERPARA.Chorebus tanis,1
+CP,06MINERPARA.Chrysocharis chilo,1
+WD,06MINERPARA.Chrysocharis laomedon,1
+CP,06MINERPARA.Chrysocharis orbicularis,1
+MH,06MINERPARA.Chrysocharis orbicularis,1
+WD,06MINERPARA.Chrysocharis orbicularis,1
+CP,06MINERPARA.Chrysocharis pentheus,1
+GM,06MINERPARA.Chrysocharis pentheus,1
+LU,06MINERPARA.Chrysocharis pentheus,1
+MH,06MINERPARA.Chrysocharis pentheus,1
+NH,06MINERPARA.Chrysocharis pentheus,1
+PP,06MINERPARA.Chrysocharis pentheus,1
+RG,06MINERPARA.Chrysocharis pentheus,1
+GM,06MINERPARA.Chrysocharis polyzo,1
+NH,06MINERPARA.Chrysocharis polyzo,1
+MH,06MINERPARA.Chrysocharis prodice,1
+WD,06MINERPARA.Chrysocharis prodice,1
+CP,06MINERPARA.Chrysocharis pubicornis,1
+GM,06MINERPARA.Chrysocharis pubicornis,1
+LP,06MINERPARA.Chrysocharis pubicornis,1
+LU,06MINERPARA.Chrysocharis pubicornis,1
+MH,06MINERPARA.Chrysocharis pubicornis,1
+NH,06MINERPARA.Chrysocharis pubicornis,1
+PP,06MINERPARA.Chrysocharis pubicornis,1
+RG,06MINERPARA.Chrysocharis pubicornis,1
+WD,06MINERPARA.Chrysocharis pubicornis,1
+CP,06MINERPARA.Chrysocharis viridis,1
+GM,06MINERPARA.Chrysocharis viridis,1
+LP,06MINERPARA.Chrysocharis viridis,1
+NH,06MINERPARA.Chrysocharis viridis,1
+PP,06MINERPARA.Chrysocharis viridis,1
+RG,06MINERPARA.Chrysocharis viridis,1
+WD,06MINERPARA.Chrysocharis viridis,1
+WD,06MINERPARA.Cirrospilus diallus,1
+WD,06MINERPARA.Cirrospilus lyncus,1
+CP,06MINERPARA.Cirrospilus vittatus,1
+NH,06MINERPARA.Cirrospilus vittatus,1
+CP,06MINERPARA.Colastes braconius,1
+MH,06MINERPARA.Colastes braconius,1
+NH,06MINERPARA.Colastes braconius,1
+WD,06MINERPARA.Colastes braconius,1
+RG,06MINERPARA.Colastes sp aff braconius,1
+NH,06MINERPARA.Coloneura (ate),1
+CP,06MINERPARA.Cyrtogaster vulgaris,1
+GM,06MINERPARA.Cyrtogaster vulgaris,1
+LP,06MINERPARA.Cyrtogaster vulgaris,1
+LU,06MINERPARA.Cyrtogaster vulgaris,1
+MH,06MINERPARA.Cyrtogaster vulgaris,1
+NH,06MINERPARA.Cyrtogaster vulgaris,1
+WD,06MINERPARA.Cyrtogaster vulgaris,1
+MH,06MINERPARA.Dacnusa adducta,1
+CP,06MINERPARA.Dacnusa areolaris,1
+GM,06MINERPARA.Dacnusa areolaris,1
+LP,06MINERPARA.Dacnusa areolaris,1
+MH,06MINERPARA.Dacnusa areolaris,1
+NH,06MINERPARA.Dacnusa areolaris,1
+PP,06MINERPARA.Dacnusa areolaris,1
+RG,06MINERPARA.Dacnusa areolaris,1
+SF,06MINERPARA.Dacnusa areolaris,1
+WD,06MINERPARA.Dacnusa areolaris,1
+GM,06MINERPARA.Dacnusa laevipectus,1
+MH,06MINERPARA.Dacnusa laevipectus,1
+NH,06MINERPARA.Dacnusa laevipectus,1
+RG,06MINERPARA.Dacnusa laevipectus,1
+CP,06MINERPARA.Dacnusa macrospila,1
+GM,06MINERPARA.Dacnusa macrospila,1
+LP,06MINERPARA.Dacnusa macrospila,1
+PP,06MINERPARA.Dacnusa macrospila,1
+CP,06MINERPARA.Dacnusa maculipes/confinis,1
+GM,06MINERPARA.Dacnusa maculipes/confinis,1
+LP,06MINERPARA.Dacnusa maculipes/confinis,1
+LU,06MINERPARA.Dacnusa maculipes/confinis,1
+MH,06MINERPARA.Dacnusa maculipes/confinis,1
+NH,06MINERPARA.Dacnusa maculipes/confinis,1
+PP,06MINERPARA.Dacnusa maculipes/confinis,1
+RG,06MINERPARA.Dacnusa maculipes/confinis,1
+SF,06MINERPARA.Dacnusa maculipes/confinis,1
+WD,06MINERPARA.Dacnusa maculipes/confinis,1
+CP,06MINERPARA.Dacnusa tarsalis,1
+GM,06MINERPARA.Dacnusa tarsalis,1
+LP,06MINERPARA.Dacnusa tarsalis,1
+MH,06MINERPARA.Dacnusa tarsalis,1
+NH,06MINERPARA.Dacnusa tarsalis,1
+PP,06MINERPARA.Dacnusa tarsalis,1
+RG,06MINERPARA.Dacnusa tarsalis,1
+SF,06MINERPARA.Dacnusa tarsalis,1
+WD,06MINERPARA.Dacnusa tarsalis,1
+CP,06MINERPARA.Dacnusa temula,1
+CP,06MINERPARA.Dapsilarthra rufiventris,1
+NH,06MINERPARA.Dapsilarthra rufiventris,1
+PP,06MINERPARA.Dapsilarthra rufiventris,1
+WD,06MINERPARA.Dapsilarthra rufiventris,1
+PP,06MINERPARA.Desmiostoma parvulum,1
+MH,06MINERPARA.Diadegma crataegi,1
+MH,06MINERPARA.Diglyphus chabrias,1
+CP,06MINERPARA.Diglyphus isaea,1
+GM,06MINERPARA.Diglyphus isaea,1
+LP,06MINERPARA.Diglyphus isaea,1
+LU,06MINERPARA.Diglyphus isaea,1
+MH,06MINERPARA.Diglyphus isaea,1
+NH,06MINERPARA.Diglyphus isaea,1
+PP,06MINERPARA.Diglyphus isaea,1
+RG,06MINERPARA.Diglyphus isaea,1
+SF,06MINERPARA.Diglyphus isaea,1
+WD,06MINERPARA.Diglyphus isaea,1
+GM,06MINERPARA.Epiclerus temenus,1
+NH,06MINERPARA.Epiclerus temenus,1
+CP,06MINERPARA.Eulophinae sp,1
+GM,06MINERPARA.Eulophinae sp,1
+LP,06MINERPARA.Eulophinae sp,1
+NH,06MINERPARA.Eulophinae sp,1
+PP,06MINERPARA.Eulophinae sp,1
+RG,06MINERPARA.Eulophinae sp,1
+WD,06MINERPARA.Eulophinae sp,1
+MH,06MINERPARA.Exotela cyclogaster,1
+WD,06MINERPARA.Exotela flavicoxa,1
+PP,06MINERPARA.Exotela gilvipes,1
+GM,06MINERPARA.Exotela spinifer,1
+MH,06MINERPARA.Exotela spinifer,1
+NH,06MINERPARA.Exotela spinifer,1
+GM,06MINERPARA.Forsterella sp,1
+MH,06MINERPARA.Forsterella sp,1
+RG,06MINERPARA.Forsterella sp,1
+GM,06MINERPARA.Gelis anthracinus,1
+GM,06MINERPARA.Gelis bicolor,1
+CP,06MINERPARA.Hemiptarsenus dropion,1
+GM,06MINERPARA.Hemiptarsenus dropion,1
+LP,06MINERPARA.Hemiptarsenus dropion,1
+MH,06MINERPARA.Hemiptarsenus dropion,1
+NH,06MINERPARA.Hemiptarsenus dropion,1
+PP,06MINERPARA.Hemiptarsenus dropion,1
+RG,06MINERPARA.Hemiptarsenus dropion,1
+NH,06MINERPARA.Hemiptarsenus fulvicollis,1
+PP,06MINERPARA.Hemiptarsenus fulvicollis,1
+RG,06MINERPARA.Hemiptarsenus fulvicollis,1
+CP,06MINERPARA.Hemiptarsenus unguicellus,1
+GM,06MINERPARA.Hemiptarsenus unguicellus,1
+LP,06MINERPARA.Hemiptarsenus unguicellus,1
+MH,06MINERPARA.Hemiptarsenus unguicellus,1
+NH,06MINERPARA.Hemiptarsenus unguicellus,1
+PP,06MINERPARA.Hemiptarsenus unguicellus,1
+RG,06MINERPARA.Hemiptarsenus unguicellus,1
+WD,06MINERPARA.Hemiptarsenus unguicellus,1
+CP,06MINERPARA.Ionympha carne,1
+MH,06MINERPARA.Microgastrinae sp,1
+WD,06MINERPARA.Microgastrinae sp,1
+WD,06MINERPARA.Miscogaster hortensis,1
+GM,06MINERPARA.Miscogaster maculata,1
+MH,06MINERPARA.Miscogaster maculata,1
+NH,06MINERPARA.Miscogaster maculata,1
+RG,06MINERPARA.Miscogaster maculata,1
+WD,06MINERPARA.Miscogaster maculata,1
+GM,06MINERPARA.Opiinae sp,1
+NH,06MINERPARA.Opiinae sp,1
+PP,06MINERPARA.Opiinae sp,1
+RG,06MINERPARA.Opiinae sp,1
+CP,06MINERPARA.Opius s.s.,1
+LP,06MINERPARA.Opius s.s. lugens,1
+PP,06MINERPARA.Opius s.s. lugens,1
+CP,06MINERPARA.Opius sp,1
+GM,06MINERPARA.Opius sp,1
+PP,06MINERPARA.Opius sp,1
+NH,06MINERPARA.Pediobius acantha,1
+RG,06MINERPARA.Pediobius acantha,1
+WD,06MINERPARA.Pediobius acantha,1
+CP,06MINERPARA.Phaedrotoma exigua,1
+PP,06MINERPARA.Phaedrotoma exigua,1
+RG,06MINERPARA.Phaedrotoma exigua,1
+SF,06MINERPARA.Phaedrotoma exigua,1
+WD,06MINERPARA.Phaedrotoma variegata,1
+CP,06MINERPARA.Pnigalio soemius,1
+GM,06MINERPARA.Pnigalio soemius,1
+LU,06MINERPARA.Pnigalio soemius,1
+NH,06MINERPARA.Pnigalio soemius,1
+PP,06MINERPARA.Pnigalio soemius,1
+RG,06MINERPARA.Pnigalio soemius,1
+WD,06MINERPARA.Pnigalio soemius,1
+CP,06MINERPARA.Seladerma diffine,1
+GM,06MINERPARA.Seladerma diffine,1
+LP,06MINERPARA.Seladerma diffine,1
+LU,06MINERPARA.Seladerma diffine,1
+MH,06MINERPARA.Seladerma diffine,1
+NH,06MINERPARA.Seladerma diffine,1
+PP,06MINERPARA.Seladerma diffine,1
+RG,06MINERPARA.Seladerma diffine,1
+WD,06MINERPARA.Seladerma diffine,1
+CP,06MINERPARA.Seladerma tarsale,1
+GM,06MINERPARA.Seladerma tarsale,1
+LP,06MINERPARA.Seladerma tarsale,1
+NH,06MINERPARA.Seladerma tarsale,1
+PP,06MINERPARA.Seladerma tarsale,1
+RG,06MINERPARA.Seladerma tarsale,1
+WD,06MINERPARA.Seladerma tarsale,1
+WD,06MINERPARA.Sympiesis gordius,1
+WD,06MINERPARA.Sympiesis sericeicornis,1
+RG,06MINERPARA.Synopeas rhanis,1
+MH,06MINERPARA.Torymus sp,1
+MH,07SEEDINVERT.Blastodacna hellerella,1
+RG,07SEEDINVERT.Blastodacna hellerella,1
+RG,07SEEDINVERT.Bruchidius varius,1
+PP,07SEEDINVERT.Bruchophagus gibbus,1
+RG,07SEEDINVERT.Curtonotus aulicus,1
+RG,07SEEDINVERT.Olibrus aeneus,1
+RG,07SEEDINVERT.Oxystoma pomonae,1
+CP,07SEEDINVERT.Protapion apricans,1
+LU,07SEEDINVERT.Protapion apricans,1
+PP,07SEEDINVERT.Protapion apricans,1
+RG,07SEEDINVERT.Protapion apricans,1
+LU,07SEEDINVERT.Protapion assimile,1
+RG,07SEEDINVERT.Protapion assimile,1
+GM,07SEEDINVERT.Protapion fulvipes,1
+LP,07SEEDINVERT.Protapion fulvipes,1
+PP,07SEEDINVERT.Protapion fulvipes,1
+RG,07SEEDINVERT.Protapion fulvipes,1
+PP,07SEEDINVERT.Protapion nigritarse,1
+LU,07SEEDINVERT.Protapion trifolii,1
+PP,07SEEDINVERT.Protapion trifolii,1
+RG,07SEEDINVERT.Protapion trifolii,1
+RG,07SEEDINVERT.Protapion varipes,1
+RG,07SEEDINVERT.Rhinocyllus conicus,1
+RG,07SEEDINVERT.Sitona lineatus,1
+RG,07SEEDINVERT.Sitona sulcifrons,1
+MH,07SEEDINVERT.Terellia longicauda,1
+GM,07SEEDINVERT.Terellia ruficauda,1
+PP,07SEEDINVERT.Terellia ruficauda,1
+GM,07SEEDINVERT.Terellia serratulae,1
+MH,07SEEDINVERT.Terellia serratulae,1
+NH,07SEEDINVERT.Terellia serratulae,1
+RG,07SEEDINVERT.Terellia serratulae,1
+GM,07SEEDINVERT.Urophora stylata,1
+NH,07SEEDINVERT.Urophora stylata,1
+RG,07SEEDINVERT.Urophora stylata,1
+CP,08BIRD.Alauda arvensis,1
+GM,08BIRD.Alauda arvensis,1
+LP,08BIRD.Alauda arvensis,1
+LU,08BIRD.Alauda arvensis,1
+MH,08BIRD.Alauda arvensis,1
+NH,08BIRD.Alauda arvensis,1
+NL,08BIRD.Alauda arvensis,1
+PP,08BIRD.Alauda arvensis,1
+RG,08BIRD.Alauda arvensis,1
+SF,08BIRD.Alauda arvensis,1
+WD,08BIRD.Alauda arvensis,1
+CP,08BIRD.Alectoris rufa,1
+GM,08BIRD.Alectoris rufa,1
+LP,08BIRD.Alectoris rufa,1
+LU,08BIRD.Alectoris rufa,1
+MH,08BIRD.Alectoris rufa,1
+NH,08BIRD.Alectoris rufa,1
+NL,08BIRD.Alectoris rufa,1
+PP,08BIRD.Alectoris rufa,1
+RG,08BIRD.Alectoris rufa,1
+SF,08BIRD.Alectoris rufa,1
+WD,08BIRD.Alectoris rufa,1
+CP,08BIRD.Carduelis cannabina,1
+GM,08BIRD.Carduelis cannabina,1
+LP,08BIRD.Carduelis cannabina,1
+LU,08BIRD.Carduelis cannabina,1
+MH,08BIRD.Carduelis cannabina,1
+NH,08BIRD.Carduelis cannabina,1
+NL,08BIRD.Carduelis cannabina,1
+PP,08BIRD.Carduelis cannabina,1
+RG,08BIRD.Carduelis cannabina,1
+SF,08BIRD.Carduelis cannabina,1
+WD,08BIRD.Carduelis cannabina,1
+CP,08BIRD.Carduelis carduelis,1
+GM,08BIRD.Carduelis carduelis,1
+LP,08BIRD.Carduelis carduelis,1
+LU,08BIRD.Carduelis carduelis,1
+MH,08BIRD.Carduelis carduelis,1
+NH,08BIRD.Carduelis carduelis,1
+NL,08BIRD.Carduelis carduelis,1
+PP,08BIRD.Carduelis carduelis,1
+RG,08BIRD.Carduelis carduelis,1
+SF,08BIRD.Carduelis carduelis,1
+WD,08BIRD.Carduelis carduelis,1
+CP,08BIRD.Carduelis chloris,1
+GM,08BIRD.Carduelis chloris,1
+LP,08BIRD.Carduelis chloris,1
+LU,08BIRD.Carduelis chloris,1
+MH,08BIRD.Carduelis chloris,1
+NH,08BIRD.Carduelis chloris,1
+NL,08BIRD.Carduelis chloris,1
+PP,08BIRD.Carduelis chloris,1
+RG,08BIRD.Carduelis chloris,1
+SF,08BIRD.Carduelis chloris,1
+WD,08BIRD.Carduelis chloris,1
+CP,08BIRD.Columba palumbus,1
+GM,08BIRD.Columba palumbus,1
+LP,08BIRD.Columba palumbus,1
+LU,08BIRD.Columba palumbus,1
+MH,08BIRD.Columba palumbus,1
+NH,08BIRD.Columba palumbus,1
+NL,08BIRD.Columba palumbus,1
+PP,08BIRD.Columba palumbus,1
+RG,08BIRD.Columba palumbus,1
+SF,08BIRD.Columba palumbus,1
+WD,08BIRD.Columba palumbus,1
+CP,08BIRD.Corvus frugilegus,1
+GM,08BIRD.Corvus frugilegus,1
+LP,08BIRD.Corvus frugilegus,1
+LU,08BIRD.Corvus frugilegus,1
+MH,08BIRD.Corvus frugilegus,1
+NH,08BIRD.Corvus frugilegus,1
+NL,08BIRD.Corvus frugilegus,1
+PP,08BIRD.Corvus frugilegus,1
+RG,08BIRD.Corvus frugilegus,1
+SF,08BIRD.Corvus frugilegus,1
+WD,08BIRD.Corvus frugilegus,1
+CP,08BIRD.Corvus monedula,1
+GM,08BIRD.Corvus monedula,1
+LP,08BIRD.Corvus monedula,1
+LU,08BIRD.Corvus monedula,1
+MH,08BIRD.Corvus monedula,1
+NH,08BIRD.Corvus monedula,1
+NL,08BIRD.Corvus monedula,1
+PP,08BIRD.Corvus monedula,1
+RG,08BIRD.Corvus monedula,1
+SF,08BIRD.Corvus monedula,1
+WD,08BIRD.Corvus monedula,1
+CP,08BIRD.Emberiza citrinella,1
+GM,08BIRD.Emberiza citrinella,1
+LP,08BIRD.Emberiza citrinella,1
+LU,08BIRD.Emberiza citrinella,1
+MH,08BIRD.Emberiza citrinella,1
+NH,08BIRD.Emberiza citrinella,1
+NL,08BIRD.Emberiza citrinella,1
+PP,08BIRD.Emberiza citrinella,1
+RG,08BIRD.Emberiza citrinella,1
+SF,08BIRD.Emberiza citrinella,1
+WD,08BIRD.Emberiza citrinella,1
+CP,08BIRD.Fringilla coelebs,1
+GM,08BIRD.Fringilla coelebs,1
+LP,08BIRD.Fringilla coelebs,1
+LU,08BIRD.Fringilla coelebs,1
+MH,08BIRD.Fringilla coelebs,1
+NH,08BIRD.Fringilla coelebs,1
+NL,08BIRD.Fringilla coelebs,1
+PP,08BIRD.Fringilla coelebs,1
+RG,08BIRD.Fringilla coelebs,1
+SF,08BIRD.Fringilla coelebs,1
+WD,08BIRD.Fringilla coelebs,1
+CP,08BIRD.Passer domesticus,1
+GM,08BIRD.Passer domesticus,1
+LP,08BIRD.Passer domesticus,1
+LU,08BIRD.Passer domesticus,1
+MH,08BIRD.Passer domesticus,1
+NH,08BIRD.Passer domesticus,1
+NL,08BIRD.Passer domesticus,1
+PP,08BIRD.Passer domesticus,1
+RG,08BIRD.Passer domesticus,1
+SF,08BIRD.Passer domesticus,1
+WD,08BIRD.Passer domesticus,1
+RG,08BIRD.Streptopelia decaocto,1
+MH,09MAMMAL.Apodemus.flavicollis,1
+WD,09MAMMAL.Apodemus.flavicollis,1
+GM,09MAMMAL.Apodemus.sylvaticus,1
+MH,09MAMMAL.Apodemus.sylvaticus,1
+NH,09MAMMAL.Apodemus.sylvaticus,1
+WD,09MAMMAL.Apodemus.sylvaticus,1
+NH,09MAMMAL.Micromys.minutus,1
+MH,09MAMMAL.Myodes.glareolus,1
+NH,09MAMMAL.Myodes.glareolus,1
+RG,09MAMMAL.Myodes.glareolus,1
+WD,09MAMMAL.Myodes.glareolus,1
+MH,12BFLY.Comma,1
+GM,12BFLY.Common blue,1
+PP,12BFLY.Common blue,1
+CP,12BFLY.Gatekeeper,1
+GM,12BFLY.Gatekeeper,1
+LP,12BFLY.Gatekeeper,1
+MH,12BFLY.Gatekeeper,1
+NH,12BFLY.Gatekeeper,1
+PP,12BFLY.Gatekeeper,1
+RG,12BFLY.Gatekeeper,1
+WD,12BFLY.Gatekeeper,1
+CP,12BFLY.Green-veined White,1
+GM,12BFLY.Green-veined White,1
+LP,12BFLY.Green-veined White,1
+LU,12BFLY.Green-veined White,1
+MH,12BFLY.Green-veined White,1
+RG,12BFLY.Green-veined White,1
+GM,12BFLY.Large Skipper,1
+LP,12BFLY.Large Skipper,1
+RG,12BFLY.Large Skipper,1
+CP,12BFLY.Large White,1
+GM,12BFLY.Large White,1
+LP,12BFLY.Large White,1
+LU,12BFLY.Large White,1
+MH,12BFLY.Large White,1
+RG,12BFLY.Large White,1
+CP,12BFLY.Meadow Brown,1
+GM,12BFLY.Meadow Brown,1
+LP,12BFLY.Meadow Brown,1
+MH,12BFLY.Meadow Brown,1
+NH,12BFLY.Meadow Brown,1
+PP,12BFLY.Meadow Brown,1
+RG,12BFLY.Meadow Brown,1
+SF,12BFLY.Meadow Brown,1
+PP,12BFLY.Painted Lady,1
+CP,12BFLY.Peacock,1
+GM,12BFLY.Peacock,1
+LP,12BFLY.Peacock,1
+LU,12BFLY.Peacock,1
+MH,12BFLY.Peacock,1
+NH,12BFLY.Peacock,1
+PP,12BFLY.Peacock,1
+RG,12BFLY.Peacock,1
+WD,12BFLY.Peacock,1
+GM,12BFLY.Red Admiral,1
+MH,12BFLY.Red Admiral,1
+RG,12BFLY.Red Admiral,1
+GM,12BFLY.Ringlet,1
+NH,12BFLY.Ringlet,1
+CP,12BFLY.Small copper,1
+GM,12BFLY.Small copper,1
+LP,12BFLY.Small copper,1
+CP,12BFLY.Small Skipper,1
+GM,12BFLY.Small Skipper,1
+LU,12BFLY.Small Skipper,1
+GM,12BFLY.Small tortoiseshell,1
+LU,12BFLY.Small tortoiseshell,1
+MH,12BFLY.Small tortoiseshell,1
+RG,12BFLY.Small tortoiseshell,1
+CP,12BFLY.Small white,1
+GM,12BFLY.Small white,1
+LP,12BFLY.Small white,1
+MH,12BFLY.Small white,1
+PP,12BFLY.Small white,1
+RG,12BFLY.Small white,1
+WD,12BFLY.Small white,1
+GM,12BFLY.Speckled wood,1
+MH,12BFLY.Speckled wood,1
+RG,12BFLY.Speckled wood,1
+RG,13SFPARA.Aprostocetus sp,1
+RG,13SFPARA.Bracon immutator,1
+RG,13SFPARA.Bracon osculator,1
+GM,13SFPARA.Bracon praecox,1
+RG,13SFPARA.Crataepus marbis,1
+RG,13SFPARA.Eurytoma sp A,1
+RG,13SFPARA.Eurytoma sp B,1
+GM,13SFPARA.Mesopolobus incultus,1
+LP,13SFPARA.Mesopolobus incultus,1
+LU,13SFPARA.Mesopolobus incultus,1
+PP,13SFPARA.Mesopolobus incultus,1
+RG,13SFPARA.Pterandrophysalis levantina,1
+PP,13SFPARA.Pteromalus albipennis,1
+MH,13SFPARA.Pteromalus beryllii,1
+RG,13SFPARA.Pteromalus elevatus,1
+RG,13SFPARA.Pteromalus sequester-group,1
+GM,13SFPARA.Spintherus dubius,1
+LU,13SFPARA.Spintherus dubius,1
+PP,13SFPARA.Spintherus dubius,1
+RG,13SFPARA.Spintherus dubius,1
+RG,13SFPARA.Triaspis floricola,1
+GM,13SFPARA.Trichomalus campestris,1
+PP,13SFPARA.Trichomalus campestris,1
+GM,13SFPARA.Trichomalus rufinus,1
+PP,13SFPARA.Trichomalus rufinus,1
+MH,14FLEA.Amalaraeus penicilliger mustelae,1
+NH,14FLEA.Amalaraeus penicilliger mustelae,1
+RG,14FLEA.Amalaraeus penicilliger mustelae,1
+WD,14FLEA.Amalaraeus penicilliger mustelae,1
+GM,14FLEA.Ctenophthalmus nobilis vulgaris,1
+MH,14FLEA.Ctenophthalmus nobilis vulgaris,1
+NH,14FLEA.Ctenophthalmus nobilis vulgaris,1
+RG,14FLEA.Ctenophthalmus nobilis vulgaris,1
+WD,14FLEA.Ctenophthalmus nobilis vulgaris,1
+MH,14FLEA.Hystrichopsylla talpae talpae,1
+NH,14FLEA.Hystrichopsylla talpae talpae,1
+WD,14FLEA.Hystrichopsylla talpae talpae,1
+MH,14FLEA.Ixodes trianguliceps,1
+RG,14FLEA.Ixodes trianguliceps,1
+WD,14FLEA.Ixodes trianguliceps,1
+GM,14FLEA.Megabothris turbidus,1
+MH,14FLEA.Megabothris turbidus,1
+RG,14FLEA.Megabothris turbidus,1
+WD,14FLEA.Megabothris turbidus,1
+GM,14FLEA.Nosopsyllus fasciatus,1
+MH,14FLEA.Palaeopsylla minor,1
+WD,14FLEA.Palaeopsylla soricis soricis,1

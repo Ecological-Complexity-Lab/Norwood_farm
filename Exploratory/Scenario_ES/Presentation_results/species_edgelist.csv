@@ -1,0 +1,3181 @@
+lower,upper,weight
+01PLANT.Cow Parsley,02FV.Agriotes pallidulus,19.69379018
+01PLANT.Creeping Buttercup,02FV.Agriotes pallidulus,19.69379018
+01PLANT.Clover sp,02FV.Alysiinae sp,476.1544443
+01PLANT.Creeping Buttercup,02FV.Alysiinae sp,18.99383363
+01PLANT.Creeping Buttercup,02FV.Alysiinae sp,476.1544443
+01PLANT.Hogweed,02FV.Alysiinae sp,99.41220475
+01PLANT.Creeping Thistle,02FV.Anapausis soluta,49.70610238
+01PLANT.Cow Parsley,02FV.Anaspis maculata,19.69379018
+01PLANT.Hogweed,02FV.Anaspis maculata,19.69379018
+01PLANT.Hogweed,02FV.Anaspis maculata,347.9427166
+01PLANT.Rose sp,02FV.Anaspis maculata,39.38758037
+01PLANT.Wild Privet,02FV.Anaspis maculata,149.1518293
+01PLANT.Bramble,02FV.Anaspis pulicaria,49.70610238
+01PLANT.Hogweed,02FV.Anaspis pulicaria,298.2366143
+01PLANT.Rose sp,02FV.Anaspis pulicaria,236.3254822
+01PLANT.Rough Chervil,02FV.Anaspis pulicaria,39.38758037
+01PLANT.Charlock,02FV.Andrena dorsata,747.57433
+01PLANT.Hawthorn,02FV.Andrena dorsata,6.531577848
+01PLANT.Mayweed sp,02FV.Andrena minutula,99.41220475
+01PLANT.Cow Parsley,02FV.Anthocomus fasciatus,39.38758036
+01PLANT.Mayweed sp,02FV.Anthomyia liturata,99.41220475
+01PLANT.Clover sp,02FV.Anthomyia pluvialis,604.9422397
+01PLANT.Creeping Thistle,02FV.Anthomyza gracilis,49.70610238
+01PLANT.Hogweed,02FV.Anthophila fabriciana,39.38758036
+01PLANT.Hogweed,02FV.Anthophila fabriciana,99.41220476
+01PLANT.Bramble,02FV.Apis mellifera,413.5695938
+01PLANT.Clover sp,02FV.Apis mellifera,370.1797407
+01PLANT.Clover sp,02FV.Apis mellifera,2380.772222
+01PLANT.Clover sp,02FV.Apis mellifera,604.9422397
+01PLANT.Clover sp,02FV.Apis mellifera,298.2366143
+01PLANT.Corn Mint,02FV.Apis mellifera,596.4732285
+01PLANT.Creeping Thistle,02FV.Apis mellifera,2300.899904
+01PLANT.Creeping Thistle,02FV.Apis mellifera,99.41220476
+01PLANT.Sow-thistle sp,02FV.Apis mellifera,6.531577848
+01PLANT.Spear Thistle,02FV.Apis mellifera,17.41754093
+01PLANT.zCROP Lucerne,02FV.Apis mellifera,17097.99419
+01PLANT.Clover sp,02FV.Aprostocetus sp,476.1544443
+01PLANT.Autumn Hawkbit,02FV.Asecodes coronis,1479.158009
+01PLANT.Creeping Buttercup,02FV.Asecodes coronis,1109.368507
+01PLANT.Mayweed sp,02FV.Authonomus rubi,49.70610238
+01PLANT.Mayweed sp,02FV.Azelia cilipes,99.41220475
+01PLANT.Hogweed,02FV.Azelia zetterstedtii,19.69379018
+01PLANT.Bramble,02FV.Baccha elongate,74.57591465
+01PLANT.Mayweed sp,02FV.Bellardia pandia,99.41220475
+01PLANT.Cow Parsley,02FV.Bicellaria vana,19.69379018
+01PLANT.Red Campion,02FV.Bicellaria vana,19.69379018
+01PLANT.Red Campion,02FV.Bicellaria varia,39.38758036
+01PLANT.Bramble,02FV.Bombus hortorum,49.70610238
+01PLANT.Clover sp,02FV.Bombus hortorum,1209.884479
+01PLANT.Hedge Woundwort,02FV.Bombus hortorum,19.69379018
+01PLANT.Hedge Woundwort,02FV.Bombus hortorum,26.12631139
+01PLANT.Hedge Woundwort,02FV.Bombus hortorum,248.5305119
+01PLANT.Bramble,02FV.Bombus lapidarius,19.69379018
+01PLANT.Clover sp,02FV.Bombus lapidarius,8599.247617
+01PLANT.Clover sp,02FV.Bombus lapidarius,2419.768959
+01PLANT.Clover sp,02FV.Bombus lapidarius,739.5790043
+01PLANT.Clover sp,02FV.Bombus lapidarius,149.1183071
+01PLANT.Common Poppy,02FV.Bombus lapidarius,2289.742849
+01PLANT.Creeping Thistle,02FV.Bombus lapidarius,19.69379018
+01PLANT.Creeping Thistle,02FV.Bombus lapidarius,198.8244095
+01PLANT.Spear Thistle,02FV.Bombus lapidarius,1495.14866
+01PLANT.Spear Thistle,02FV.Bombus lapidarius,476.1544443
+01PLANT.Spear Thistle,02FV.Bombus lapidarius,17.41754093
+01PLANT.Spear Thistle,02FV.Bombus lapidarius,604.9422397
+01PLANT.Bindweed sp,02FV.Bombus pascuorum,18.99383363
+01PLANT.Bramble,02FV.Bombus pascuorum,39.38758036
+01PLANT.Clover sp,02FV.Bombus pascuorum,56.98150089
+01PLANT.Clover sp,02FV.Bombus pascuorum,1904.617777
+01PLANT.Clover sp,02FV.Bombus pascuorum,6.531577848
+01PLANT.Clover sp,02FV.Bombus pascuorum,3629.653438
+01PLANT.Clover sp,02FV.Bombus pascuorum,2958.316018
+01PLANT.Clover sp,02FV.Bombus pascuorum,99.41220476
+01PLANT.Common Vetch,02FV.Bombus pascuorum,49.70610238
+01PLANT.Creeping Thistle,02FV.Bombus pascuorum,19.69379018
+01PLANT.Creeping Thistle,02FV.Bombus pascuorum,198.8244095
+01PLANT.Hawthorn,02FV.Bombus pascuorum,39.38758037
+01PLANT.Spear Thistle,02FV.Bombus pascuorum,23.94911878
+01PLANT.White Dead-nettle,02FV.Bombus pascuorum,99.41220475
+01PLANT.Clover sp,02FV.Bombus pratorum,739.5790043
+01PLANT.Clover sp,02FV.Bombus pratorum,49.70610238
+01PLANT.Bramble,02FV.Bombus terrestris,59.08137054
+01PLANT.Clover sp,02FV.Bombus terrestris,5266.166507
+01PLANT.Clover sp,02FV.Bombus terrestris,604.9422397
+01PLANT.Common Poppy,02FV.Bombus terrestris,2220.334392
+01PLANT.Creeping Thistle,02FV.Bombus terrestris,49.70610238
+01PLANT.Spear Thistle,02FV.Bombus terrestris,604.9422397
+01PLANT.zCROP Lucerne,02FV.Bombus terrestris,1139.866279
+01PLANT.Clover sp,02FV.Bombus vestalis,952.3088886
+01PLANT.Mayweed sp,02FV.Botanophila fugax,771.0842595
+01PLANT.Ragwort,02FV.Botanophila fugax,13.0631557
+01PLANT.Autumn Hawkbit,02FV.Botanophila striolata,1479.158009
+01PLANT.Cow Parsley,02FV.Botanophila striolata,19.69379018
+01PLANT.Creeping Buttercup,02FV.Botanophila striolata,476.1544443
+01PLANT.Creeping Buttercup,02FV.Botanophila striolata,8.708770463
+01PLANT.Creeping Buttercup,02FV.Botanophila striolata,49.70610238
+01PLANT.Creeping Thistle,02FV.Botanophila striolata,19.69379018
+01PLANT.Hogweed,02FV.Botanophila striolata,49.70610238
+01PLANT.Bramble,02FV.Brachypterus urticae,99.41220475
+01PLANT.Cow Parsley,02FV.Bracon sp,39.38758037
+01PLANT.Creeping Buttercup,02FV.Bracon sp,18.99383363
+01PLANT.Creeping Thistle,02FV.Bracon sp,1472.760062
+01PLANT.Red Campion,02FV.Bracon sp,19.69379018
+01PLANT.Mayweed sp,02FV.Bruchus rufimanus,2777.926462
+01PLANT.Rose sp,02FV.Byturus tomentosus,39.38758037
+01PLANT.Hogweed,02FV.Calliphora vicina,59.08137054
+01PLANT.Ragwort,02FV.Calliphora vomitoria,6.531577848
+01PLANT.Hawthorn,02FV.Cantharis decipiens,19.69379018
+01PLANT.Cow Parsley,02FV.Cantharis lateralis,39.38758037
+01PLANT.Bramble,02FV.Cantharis nigra,78.77516074
+01PLANT.Charlock,02FV.Cantharis nigra,1800.952323
+01PLANT.Creeping Buttercup,02FV.Cantharis nigra,21.77192616
+01PLANT.Creeping Buttercup,02FV.Cantharis nigra,739.5790043
+01PLANT.Hairy Tare,02FV.Cantharis nigra,1472.760062
+01PLANT.Hogweed,02FV.Cantharis nigra,19.69379018
+01PLANT.Mayweed sp,02FV.Cantharis nigra,1472.760062
+01PLANT.Creeping Buttercup,02FV.Cecidomyiidae sp,370.1797407
+01PLANT.Charlock,02FV.Centrorhynchus obstrictus,1800.952323
+01PLANT.Bramble,02FV.Cephus pygmaeus,19.69379018
+01PLANT.Charlock,02FV.Cephus pygmaeus,747.57433
+01PLANT.Creeping Buttercup,02FV.Cephus pygmaeus,8.708770463
+01PLANT.Creeping Buttercup,02FV.Cephus pygmaeus,49.70610238
+01PLANT.Creeping Buttercup,02FV.Ceraphron trissacantha,720.380929
+01PLANT.Charlock,02FV.Cetema elongata,720.380929
+01PLANT.Creeping Buttercup,02FV.Cheilosia albitarsis,747.57433
+01PLANT.Creeping Buttercup,02FV.Cheilosia albitarsis,18.99383363
+01PLANT.Creeping Buttercup,02FV.Cheilosia albitarsis,8.708770463
+01PLANT.Creeping Thistle,02FV.Cheilosia honesta,49.70610238
+01PLANT.Hogweed,02FV.Cheilosia illustrata,49.70610238
+01PLANT.Upright Hedge-parsley,02FV.Cheilosia pagana,49.70610238
+01PLANT.Upright Hedge-parsley,02FV.Cheilosia proxima,49.70610238
+01PLANT.Upright Hedge-parsley,02FV.Cheilosia proxima group sp. D,49.70610238
+01PLANT.Creeping Buttercup,02FV.Chloromyia formosa,604.9422397
+01PLANT.Creeping Buttercup,02FV.Chloromyia formosa,739.5790043
+01PLANT.Hogweed,02FV.Chloromyia formosa,8.708770463
+01PLANT.Cow Parsley,02FV.Chlorops hypostigma,18.99383363
+01PLANT.Cow Parsley,02FV.Chlorops hypostigma,433.263384
+01PLANT.Hawthorn,02FV.Chlorops hypostigma,19.69379018
+01PLANT.Hogweed,02FV.Chlorops hypostigma,78.77516072
+01PLANT.Hogweed,02FV.Chlorops hypostigma,198.8244095
+01PLANT.Cow Parsley,02FV.Chlorops pumilionis,18.99383363
+01PLANT.Hawthorn,02FV.Chlorops pumilionis,26.12631139
+01PLANT.Hogweed,02FV.Chlorops pumilionis,19.69379018
+01PLANT.Hogweed,02FV.Chorebus sp,99.41220475
+01PLANT.Creeping Buttercup,02FV.Chorebus sp nov,1479.158009
+01PLANT.Creeping Buttercup,02FV.Chromatomyia nigra,49.70610238
+01PLANT.Creeping Thistle,02FV.Chrysopilus asiliformis,8.708770463
+01PLANT.Mayweed sp,02FV.Chrysotoxum bicinctum,99.41220475
+01PLANT.Bramble,02FV.Chrysotus sp,39.38758037
+01PLANT.Bramble,02FV.Chrysotus sp,99.41220475
+01PLANT.Bramble,02FV.Chrysotus sp,74.57591465
+01PLANT.Charlock,02FV.Chrysotus sp,720.380929
+01PLANT.Clover sp,02FV.Chrysotus sp,1109.368507
+01PLANT.Creeping Buttercup,02FV.Chrysotus sp,49.70610238
+01PLANT.Bramble,02FV.Coccinella septempunctata,39.38758037
+01PLANT.Upright Hedge-parsley,02FV.Coenosia tigrina,49.70610238
+01PLANT.Upright Hedge-parsley,02FV.Copromyza similes,39.38758037
+01PLANT.Bramble,02FV.Crossopalpus sp,39.38758037
+01PLANT.Cow Parsley,02FV.Dacnusa (maculipes),18.99383363
+01PLANT.Autumn Hawkbit,02FV.Delia sp,1479.158009
+01PLANT.Bindweed sp,02FV.Delia sp,52.51677382
+01PLANT.Charlock,02FV.Delia sp,7231.002691
+01PLANT.Common Poppy,02FV.Delia sp,771.0842595
+01PLANT.Cow Parsley,02FV.Delia sp,39.38758036
+01PLANT.Creeping Buttercup,02FV.Delia sp,696.2876156
+01PLANT.Creeping Buttercup,02FV.Delia sp,1110.539222
+01PLANT.Creeping Buttercup,02FV.Delia sp,476.1544443
+01PLANT.Creeping Buttercup,02FV.Delia sp,13.0631557
+01PLANT.Creeping Buttercup,02FV.Delia sp,6656.211041
+01PLANT.Creeping Buttercup,02FV.Delia sp,49.70610238
+01PLANT.Creeping Thistle,02FV.Delia sp,49.70610238
+01PLANT.Hawthorn,02FV.Delia sp,13.0631557
+01PLANT.Hogweed,02FV.Delia sp,546.7671262
+01PLANT.Mayweed sp,02FV.Delia sp,3497.663914
+01PLANT.Mayweed sp,02FV.Delia sp,2419.768959
+01PLANT.Mayweed sp,02FV.Delia sp,695.8854333
+01PLANT.Creeping Buttercup,02FV.Demetrias atricapillus,604.9422397
+01PLANT.Creeping Buttercup,02FV.Desmometopa sp,747.57433
+01PLANT.Cow Parsley,02FV.Dicraeus tibialis,18.99383363
+01PLANT.Hogweed,02FV.Dicraeus vagans,397.648819
+01PLANT.Creeping Thistle,02FV.Dilophus febrilis,98.4689509
+01PLANT.Creeping Thistle,02FV.Dilophus febrilis,6.531577848
+01PLANT.Creeping Thistle,02FV.Dilophus febrilis,99.41220476
+01PLANT.Hawthorn,02FV.Dilophus febrilis,19.69379018
+01PLANT.Charlock,02FV.Diospilus capito,720.380929
+01PLANT.Creeping Buttercup,02FV.Diplonevra sp,476.1544443
+01PLANT.Creeping Buttercup,02FV.Diplonevra sp,1109.368507
+01PLANT.Hogweed,02FV.Diplonevra sp,49.70610238
+01PLANT.Wild Privet,02FV.Dolerus haematodes,6.531577848
+01PLANT.Creeping Buttercup,02FV.Dolichopus festivus,18.99383363
+01PLANT.Creeping Buttercup,02FV.Dolichopus festivus,49.70610238
+01PLANT.Mayweed sp,02FV.Dolichopus festivus,2777.926462
+01PLANT.Cow Parsley,02FV.Dolichopus ungulatus,39.38758037
+01PLANT.Upright Hedge-parsley,02FV.Ectemnius cephalotes,49.70610238
+01PLANT.Cow Parsley,02FV.Empis (Xanthempis) sp,19.69379018
+01PLANT.Cow Parsley,02FV.Empis caudatula,39.38758037
+01PLANT.Hogweed,02FV.Empis chioptera,13.0631557
+01PLANT.Bindweed sp,02FV.Empis livida,99.41220475
+01PLANT.Bramble,02FV.Empis livida,137.8565313
+01PLANT.Bramble,02FV.Empis livida,149.1183071
+01PLANT.Bramble,02FV.Empis livida,149.1518293
+01PLANT.Charlock,02FV.Empis livida,14087.16448
+01PLANT.Clover sp,02FV.Empis livida,2409.239841
+01PLANT.Common Mouse-ear,02FV.Empis livida,6.531577848
+01PLANT.Common Mouse-ear,02FV.Empis livida,739.5790043
+01PLANT.Common Poppy,02FV.Empis livida,49.70610238
+01PLANT.Common Vetch,02FV.Empis livida,99.41220476
+01PLANT.Cow Parsley,02FV.Empis livida,78.77516072
+01PLANT.Creeping Buttercup,02FV.Empis livida,747.57433
+01PLANT.Creeping Buttercup,02FV.Empis livida,189.9383363
+01PLANT.Creeping Buttercup,02FV.Empis livida,19.69379018
+01PLANT.Creeping Buttercup,02FV.Empis livida,34.83508185
+01PLANT.Creeping Buttercup,02FV.Empis livida,604.9422397
+01PLANT.Creeping Buttercup,02FV.Empis livida,2218.737013
+01PLANT.Creeping Buttercup,02FV.Empis livida,49.70610238
+01PLANT.Creeping Thistle,02FV.Empis livida,82.73331942
+01PLANT.Creeping Thistle,02FV.Empis livida,604.9422397
+01PLANT.Creeping Thistle,02FV.Empis livida,99.41220476
+01PLANT.Daisy,02FV.Empis livida,1479.158009
+01PLANT.Dogwood,02FV.Empis livida,43.54385232
+01PLANT.Field Forget-me-not,02FV.Empis livida,747.57433
+01PLANT.Hairy Tare,02FV.Empis livida,2990.29732
+01PLANT.Hogweed,02FV.Empis livida,78.77516072
+01PLANT.Hogweed,02FV.Empis livida,298.2366143
+01PLANT.Lesser Stitchwort,02FV.Empis livida,26.12631139
+01PLANT.Mayweed sp,02FV.Empis livida,8152.006349
+01PLANT.Mayweed sp,02FV.Empis livida,1109.368507
+01PLANT.Oil Seed Rape,02FV.Empis livida,149.1183071
+01PLANT.Red Campion,02FV.Empis livida,39.38758036
+01PLANT.Shepherd's Purse,02FV.Empis livida,747.57433
+01PLANT.Spear Thistle,02FV.Empis livida,43.54385232
+01PLANT.Wayfaring-tree,02FV.Empis livida,8.708770463
+01PLANT.Cow Parsley,02FV.Empis nigripes,118.1627411
+01PLANT.Corn Spurrey,02FV.Empis nuntia,696.2876156
+01PLANT.Cow Parsley,02FV.Endasys sp,39.38758037
+01PLANT.Bramble,02FV.Episyrphus balteatus,39.38758036
+01PLANT.Bramble,02FV.Episyrphus balteatus,149.1518293
+01PLANT.Cow Parsley,02FV.Episyrphus balteatus,39.38758037
+01PLANT.Creeping Buttercup,02FV.Episyrphus balteatus,747.57433
+01PLANT.Creeping Thistle,02FV.Episyrphus balteatus,49.70610238
+01PLANT.Upright Hedge-parsley,02FV.Episyrphus balteatus,39.38758037
+01PLANT.Upright Hedge-parsley,02FV.Episyrphus balteatus,99.41220476
+01PLANT.Rose sp,02FV.Epuraea melanocephala,157.5503215
+01PLANT.Wild Privet,02FV.Epuraea melanocephala,3132.188415
+01PLANT.Creeping Thistle,02FV.Eriothrix rufomaculata,49.70610238
+01PLANT.Ragwort,02FV.Eriothrix rufomaculata,6.531577848
+01PLANT.Corn Mint,02FV.Eristalis arbustorum,99.41220475
+01PLANT.Creeping Thistle,02FV.Eristalis arbustorum,1150.449952
+01PLANT.Mayweed sp,02FV.Eristalis arbustorum,1363.289827
+01PLANT.Mayweed sp,02FV.Eristalis arbustorum,99.41220475
+01PLANT.Ragwort,02FV.Eristalis arbustorum,13.0631557
+01PLANT.Bramble,02FV.Eristalis pertinax,59.08137055
+01PLANT.Bramble,02FV.Eristalis pertinax,74.57591465
+01PLANT.Hogweed,02FV.Eristalis pertinax,99.41220476
+01PLANT.Ragwort,02FV.Eristalis pertinax,13.0631557
+01PLANT.Mayweed sp,02FV.Eristalis tenax,604.9422397
+01PLANT.Ragwort,02FV.Eristalis tenax,17.41754093
+01PLANT.Hogweed,02FV.Eudasyphora cyanella,19.69379018
+01PLANT.Mayweed sp,02FV.Eudasyphora cyanella,604.9422397
+01PLANT.Clover sp,02FV.Eupeodes corollae,476.1544443
+01PLANT.Mayweed sp,02FV.Eupeodes corollae,1542.168519
+01PLANT.Ragwort,02FV.Eupeodes corollae,6.531577848
+01PLANT.Bindweed sp,02FV.Eupeodes luniger,49.70610238
+01PLANT.Cow Parsley,02FV.Fannia serena,19.69379018
+01PLANT.Bramble,02FV.Fannia sp,99.41220475
+01PLANT.Cow Parsley,02FV.Fannia sp,39.38758036
+01PLANT.Creeping Buttercup,02FV.Fannia sp,18.99383363
+01PLANT.Creeping Buttercup,02FV.Fannia sp,99.41220476
+01PLANT.Hairy Tare,02FV.Fannia sp,747.57433
+01PLANT.Hogweed,02FV.Fannia sp,19.69379018
+01PLANT.Hogweed,02FV.Formicidae A,49.70610238
+01PLANT.Creeping Buttercup,02FV.Formicidae B,37.98766726
+01PLANT.Creeping Buttercup,02FV.Formicidae B,1479.158009
+01PLANT.Mayweed sp,02FV.Gastrophysa viridular,2313.252779
+01PLANT.zCROP Lucerne,02FV.Gastrophysa viridular,1139.866279
+01PLANT.Creeping Buttercup,02FV.Geomyza tripunctata,952.3088886
+01PLANT.Creeping Buttercup,02FV.Glyphipterix simpliciella,747.57433
+01PLANT.Creeping Buttercup,02FV.Glyphipterix simpliciella,246.9198372
+01PLANT.Creeping Buttercup,02FV.Glyphipterix simpliciella,19.69379018
+01PLANT.Creeping Buttercup,02FV.Glyphipterix simpliciella,19.59473354
+01PLANT.Hawthorn,02FV.Glyphipterix simpliciella,19.69379018
+01PLANT.Hogweed,02FV.Glyphipterix simpliciella,49.70610238
+01PLANT.Hogweed,02FV.Grammoptera ruficornis,19.69379018
+01PLANT.Hogweed,02FV.Grammoptera ruficornis,99.41220475
+01PLANT.Autumn Hawkbit,02FV.Halticoptera sp,1479.158009
+01PLANT.Cow Parsley,02FV.Helina sp,78.77516072
+01PLANT.Creeping Buttercup,02FV.Helina sp,739.5790043
+01PLANT.Creeping Thistle,02FV.Helophilus pendulus,13.0631557
+01PLANT.Sow-thistle sp,02FV.Helophilus pendulus,747.57433
+01PLANT.Mayweed sp,02FV.Helophilus trivittatus,771.0842595
+01PLANT.Creeping Buttercup,02FV.Hemicrepidius hirtus,49.70610238
+01PLANT.Hogweed,02FV.Hemicrepidius hirtus,248.5305119
+01PLANT.Germander Speedwell,02FV.Hercostomus parvilamellatus,74.57591465
+01PLANT.Woodruff,02FV.Hercostomus parvilamellatus,74.57591465
+01PLANT.Ragwort,02FV.Herina longistylata,6.531577848
+01PLANT.Creeping Thistle,02FV.Heteronychia vagans,49.70610238
+01PLANT.Autumn Hawkbit,02FV.Hexacola hexatoma,1479.158009
+01PLANT.Creeping Buttercup,02FV.Hydrellia griseola,1109.368507
+01PLANT.Mayweed sp,02FV.Hydrellia griseola,592.2055676
+01PLANT.Mayweed sp,02FV.Hydrellia griseola,1109.368507
+01PLANT.Mayweed sp,02FV.Hydrellia griseola,198.8244095
+01PLANT.Creeping Buttercup,02FV.Hydrellia maura,18.99383363
+01PLANT.Creeping Buttercup,02FV.Hydrellia maura,739.5790043
+01PLANT.Mayweed sp,02FV.Hylaeus communis,604.9422397
+01PLANT.Creeping Buttercup,02FV.Hylaeus hyalinatus,277.6348056
+01PLANT.Creeping Buttercup,02FV.Hylemya urbica/variata,476.1544443
+01PLANT.Cleavers,02FV.Hylemya vagans,298.3036586
+01PLANT.Cow Parsley,02FV.Hylemya vagans,19.69379018
+01PLANT.Creeping Buttercup,02FV.Hylemya vagans,49.70610238
+01PLANT.Bramble,02FV.Hylemya variata,74.57591465
+01PLANT.Creeping Buttercup,02FV.Hylemya variata,277.6348056
+01PLANT.Bramble,02FV.Ichneumonidae,19.69379018
+01PLANT.Autumn Hawkbit,02FV.Kleidotoma tetratoma,10354.10606
+01PLANT.Creeping Thistle,02FV.Kuzinia sp,19.69379018
+01PLANT.Creeping Thistle,02FV.Lasioglossum sp,39.38758036
+01PLANT.Creeping Thistle,02FV.Lasioglossum sp,49.70610238
+01PLANT.Creeping Buttercup,02FV.Limnia unguicornis,13.0631557
+01PLANT.Hogweed,02FV.Limnophora triangula,19.69379018
+01PLANT.Charlock,02FV.Lonchoptera lutea,720.380929
+01PLANT.Creeping Buttercup,02FV.Lonchoptera lutea,604.9422397
+01PLANT.Creeping Buttercup,02FV.Lonchoptera lutea,49.70610238
+01PLANT.Common Field Speedwell,02FV.Longitarsus sp,720.380929
+01PLANT.Creeping Buttercup,02FV.Lotophila atra,476.1544443
+01PLANT.Creeping Buttercup,02FV.Lotophila atra,739.5790043
+01PLANT.Creeping Thistle,02FV.Lucilia caesar,99.41220475
+01PLANT.Ragwort,02FV.Lucilia caesar,6.531577848
+01PLANT.Ragwort,02FV.Lucilia richardsi,6.531577848
+01PLANT.Creeping Thistle,02FV.Lucilia sericata,39.38758037
+01PLANT.Ragwort,02FV.Lucilia sericata,6.531577848
+01PLANT.Creeping Buttercup,02FV.Malachius bipustulatus,747.57433
+01PLANT.Creeping Buttercup,02FV.Malachius bipustulatus,18.99383363
+01PLANT.Creeping Buttercup,02FV.Malachius bipustulatus,49.70610238
+01PLANT.Hawthorn,02FV.Malachius bipustulatus,39.18946709
+01PLANT.Bramble,02FV.Malthodes minimus,39.38758037
+01PLANT.Clover sp,02FV.Maniola jurtina,739.5790043
+01PLANT.Creeping Buttercup,02FV.Megaselia sp,18.99383363
+01PLANT.Creeping Buttercup,02FV.Melangyna sp,2409.239841
+01PLANT.Bindweed sp,02FV.Melanostoma mellinum,49.70610238
+01PLANT.Charlock,02FV.Melanostoma mellinum,665.626988
+01PLANT.Creeping Buttercup,02FV.Melanostoma mellinum,1472.760062
+01PLANT.Creeping Buttercup,02FV.Melanostoma mellinum,277.6348056
+01PLANT.Creeping Buttercup,02FV.Melanostoma mellinum,49.70610238
+01PLANT.Creeping Thistle,02FV.Melanostoma mellinum,13.0631557
+01PLANT.Mayweed sp,02FV.Melanostoma mellinum,1184.411135
+01PLANT.Mayweed sp,02FV.Melanostoma mellinum,99.41220475
+01PLANT.Bramble,02FV.Melanostoma scalare,118.1627411
+01PLANT.Red Campion,02FV.Melanostoma scalare,19.69379018
+01PLANT.Upright Hedge-parsley,02FV.Melanostoma scalare,39.38758037
+01PLANT.Creeping Buttercup,02FV.Melanostoma sp,19.69379018
+01PLANT.Creeping Thistle,02FV.Melinda viridicyanea,49.70610238
+01PLANT.Hogweed,02FV.Melinda viridicyanea,19.69379018
+01PLANT.Ragwort,02FV.Melinda viridicyanea,13.0631557
+01PLANT.Clover sp,02FV.Metasyrphus luniger,476.1544443
+01PLANT.Autumn Hawkbit,02FV.Metopina sp,370.1797407
+01PLANT.Autumn Hawkbit,02FV.Metopina sp,4437.474027
+01PLANT.Creeping Buttercup,02FV.Metopina sp,1776.616703
+01PLANT.Creeping Buttercup,02FV.Metopina sp,39.1894671
+01PLANT.Creeping Buttercup,02FV.Metopina sp,3328.105521
+01PLANT.Hogweed,02FV.Microchrysa polita,13.0631557
+01PLANT.Cow Parsley,02FV.Microphor anomalus,19.69379018
+01PLANT.Creeping Buttercup,02FV.Micropterix calthella,832.9044168
+01PLANT.Cow Parsley,02FV.Miscogaster maculata,19.69379018
+01PLANT.Upright Hedge-parsley,02FV.Musca autumnalis,49.70610238
+01PLANT.Bramble,02FV.Neoascia podagrica,99.41220475
+01PLANT.Oil Seed Rape,02FV.Neoascia podagrica,49.70610238
+01PLANT.Upright Hedge-parsley,02FV.Neoascia podagrica,52.51677382
+01PLANT.Common Mouse-ear,02FV.Neomyia cornicina,6.531577848
+01PLANT.Creeping Thistle,02FV.Neomyia cornicina,1472.760062
+01PLANT.Creeping Thistle,02FV.Neomyia cornicina,99.41220476
+01PLANT.Hogweed,02FV.Neomyia cornicina,19.69379018
+01PLANT.Mayweed sp,02FV.Neomyia cornicina,2313.252779
+01PLANT.Ragwort,02FV.Neomyia cornicina,13.0631557
+01PLANT.Upright Hedge-parsley,02FV.Neomyia cornicina,49.70610238
+01PLANT.Creeping Thistle,02FV.Neomyia viridescens,49.70610238
+01PLANT.Ragwort,02FV.Neomyia viridescens,6.531577848
+01PLANT.Clover sp,02FV.Norellisoma spinimanum,18.99383363
+01PLANT.Corn Mint,02FV.Oedemera lurida,99.41220475
+01PLANT.Creeping Buttercup,02FV.Oedemera lurida,555.2696112
+01PLANT.Creeping Buttercup,02FV.Oedemera lurida,21.77192616
+01PLANT.Creeping Buttercup,02FV.Oedemera lurida,99.41220475
+01PLANT.Mayweed sp,02FV.Oedemera lurida,771.0842595
+01PLANT.Bindweed sp,02FV.Oedemera nobilis,49.70610238
+01PLANT.Bramble,02FV.Oedemera nobilis,39.38758037
+01PLANT.Bramble,02FV.Oedemera nobilis,99.41220475
+01PLANT.Clover sp,02FV.Oedemera nobilis,49.70610238
+01PLANT.Common Poppy,02FV.Oedemera nobilis,99.41220475
+01PLANT.Creeping Buttercup,02FV.Oedemera nobilis,870.8920841
+01PLANT.Creeping Buttercup,02FV.Oedemera nobilis,60.96139326
+01PLANT.Creeping Buttercup,02FV.Oedemera nobilis,604.9422397
+01PLANT.Creeping Buttercup,02FV.Oedemera nobilis,739.5790043
+01PLANT.Hawthorn,02FV.Oedemera nobilis,13.0631557
+01PLANT.Mayweed sp,02FV.Oedemera nobilis,1472.760062
+01PLANT.Charlock,02FV.Olibrus aeneus,1800.952323
+01PLANT.Mayweed sp,02FV.Olibrus aeneus,696.2876156
+01PLANT.Mayweed sp,02FV.Olibrus aeneus,397.648819
+01PLANT.Mayweed sp,02FV.Omphalapion hookerorum,696.2876156
+01PLANT.Red Campion,02FV.Ophiomyia sp,39.38758036
+01PLANT.Creeping Buttercup,02FV.Opomyza germinationis,1479.158009
+01PLANT.Creeping Buttercup,02FV.Opomyza germinationis,49.70610238
+01PLANT.Mayweed sp,02FV.Opomyza germinationis,696.2876156
+01PLANT.Creeping Buttercup,02FV.Opomyza petrei,49.70610238
+01PLANT.Cow Parsley,02FV.Oscinella cariciphila,18.99383363
+01PLANT.Cow Parsley,02FV.Oscinella cariciphila,99.41220475
+01PLANT.Charlock,02FV.Oscinella frit,2161.142787
+01PLANT.Creeping Buttercup,02FV.Oscinella frit,277.6348056
+01PLANT.Creeping Buttercup,02FV.Oscinella frit,26.1263114
+01PLANT.Spear Thistle,02FV.Oscinella frit,476.1544443
+01PLANT.Creeping Buttercup,02FV.Oscinella hortensis,13.0631557
+01PLANT.Creeping Buttercup,02FV.Oscinella nigerrima,49.70610238
+01PLANT.Creeping Buttercup,02FV.Oscinella nitidissima,296.6286392
+01PLANT.Creeping Buttercup,02FV.Oscinella nitidissima,47.89823756
+01PLANT.Daisy,02FV.Oscinella nitidissima,739.5790043
+01PLANT.Upright Hedge-parsley,02FV.Oscinella nitidissima,49.70610238
+01PLANT.Autumn Hawkbit,02FV.Pegoplata aestiva or Adia cinerella,1479.158009
+01PLANT.Bramble,02FV.Pegoplata aestiva or Adia cinerella,39.38758036
+01PLANT.Bramble,02FV.Pegoplata aestiva or Adia cinerella,49.70610238
+01PLANT.Charlock,02FV.Pegoplata aestiva or Adia cinerella,1472.760062
+01PLANT.Charlock,02FV.Pegoplata aestiva or Adia cinerella,49.70610238
+01PLANT.Clover sp,02FV.Pegoplata aestiva or Adia cinerella,49.70610238
+01PLANT.Common Field Speedwell,02FV.Pegoplata aestiva or Adia cinerella,1150.449952
+01PLANT.Creeping Buttercup,02FV.Pegoplata aestiva or Adia cinerella,18.99383363
+01PLANT.Creeping Buttercup,02FV.Pegoplata aestiva or Adia cinerella,11903.86111
+01PLANT.Creeping Buttercup,02FV.Pegoplata aestiva or Adia cinerella,19.69379018
+01PLANT.Creeping Buttercup,02FV.Pegoplata aestiva or Adia cinerella,9074.133596
+01PLANT.Creeping Buttercup,02FV.Pegoplata aestiva or Adia cinerella,7395.790043
+01PLANT.Creeping Buttercup,02FV.Pegoplata aestiva or Adia cinerella,695.8854333
+01PLANT.Creeping Thistle,02FV.Pegoplata aestiva or Adia cinerella,19.69379018
+01PLANT.Daisy,02FV.Pegoplata aestiva or Adia cinerella,739.5790043
+01PLANT.Mayweed sp,02FV.Pegoplata aestiva or Adia cinerella,2169.047678
+01PLANT.Mayweed sp,02FV.Pegoplata aestiva or Adia cinerella,1814.826719
+01PLANT.Meadow Buttercup,02FV.Pegoplata aestiva or Adia cinerella,1472.760062
+01PLANT.Nipplewort,02FV.Pegoplata aestiva or Adia cinerella,19.69379018
+01PLANT.Rose sp,02FV.Pegoplata aestiva or Adia cinerella,39.38758036
+01PLANT.Sow-thistle sp,02FV.Pegoplata aestiva or Adia cinerella,747.57433
+01PLANT.Sow-thistle sp,02FV.Pegoplata aestiva or Adia cinerella,604.9422397
+01PLANT.Creeping Thistle,02FV.Pegoplata depilis,19.69379018
+01PLANT.Creeping Buttercup,02FV.Pegoplata infirma,99.41220476
+01PLANT.Hogweed,02FV.Pegoplata infirma,198.8244095
+01PLANT.Upright Hedge-parsley,02FV.Pegoplata infirma,49.70610238
+01PLANT.Cow Parsley,02FV.Phaenocarpa (ruficeps),39.38758037
+01PLANT.Cow Parsley,02FV.Phaonia lasiophthalma,39.38758037
+01PLANT.Mayweed sp,02FV.Phasia obesa,1542.168519
+01PLANT.Cow Parsley,02FV.Phasia pusilla,19.69379018
+01PLANT.Mayweed sp,02FV.Phasia pusilla,604.9422397
+01PLANT.Charlock,02FV.Phradis morionellus,720.380929
+01PLANT.Clover sp,02FV.Phyllobius virideaeris,832.9044168
+01PLANT.Creeping Buttercup,02FV.Phyllonorycter sp,99.41220475
+01PLANT.Hawthorn,02FV.Phyllonorycter sp,6.531577848
+01PLANT.Creeping Buttercup,02FV.Phytomyza cineracea,99.41220475
+01PLANT.Creeping Buttercup,02FV.Phytomyza notata,476.1544443
+01PLANT.Spear Thistle,02FV.Pieris brassicae,604.9422397
+01PLANT.Creeping Thistle,02FV.Pierretia sp,19.69379018
+01PLANT.Cow Parsley,02FV.Pimpla contemplator,39.38758037
+01PLANT.Hogweed,02FV.Pionini sp,49.70610238
+01PLANT.Red Campion,02FV.Pipiza noctiluca,19.69379018
+01PLANT.Upright Hedge-parsley,02FV.Plagiatrochus sp,39.38758037
+01PLANT.Bindweed sp,02FV.Platycheirus albimanus,18.99383363
+01PLANT.Bramble,02FV.Platycheirus albimanus,118.1627411
+01PLANT.Bramble,02FV.Platycheirus albimanus,74.57591465
+01PLANT.Clover sp,02FV.Platycheirus albimanus,19.69379018
+01PLANT.Common Mouse-ear,02FV.Platycheirus albimanus,39.38758037
+01PLANT.Common Mouse-ear,02FV.Platycheirus albimanus,6.531577848
+01PLANT.Cow Parsley,02FV.Platycheirus albimanus,19.69379018
+01PLANT.Creeping Buttercup,02FV.Platycheirus albimanus,19.69379018
+01PLANT.Creeping Buttercup,02FV.Platycheirus albimanus,13.0631557
+01PLANT.Creeping Buttercup,02FV.Platycheirus albimanus,739.5790043
+01PLANT.Hawthorn,02FV.Platycheirus albimanus,19.69379018
+01PLANT.Hawthorn,02FV.Platycheirus albimanus,6.531577848
+01PLANT.Herb Robert,02FV.Platycheirus albimanus,19.69379018
+01PLANT.Mayweed sp,02FV.Platycheirus albimanus,1184.411135
+01PLANT.Mayweed sp,02FV.Platycheirus albimanus,198.8244095
+01PLANT.Ragwort,02FV.Platycheirus albimanus,6.531577848
+01PLANT.Red Campion,02FV.Platycheirus albimanus,19.69379018
+01PLANT.Shepherd's Purse,02FV.Platycheirus albimanus,747.57433
+01PLANT.Upright Hedge-parsley,02FV.Platycheirus albimanus,78.77516074
+01PLANT.Upright Hedge-parsley,02FV.Platycheirus albimanus,49.70610238
+01PLANT.Yellow Archangel,02FV.Platycheirus albimanus,74.57591465
+01PLANT.Creeping Buttercup,02FV.Platycheirus clypeatus,604.9422397
+01PLANT.Upright Hedge-parsley,02FV.Platycheirus clypeatus,49.70610238
+01PLANT.Mayweed sp,02FV.Platycheirus manicatus,771.0842595
+01PLANT.Bramble,02FV.Platycheirus nielseni,19.69379018
+01PLANT.Common Poppy,02FV.Platycheirus nielseni,771.0842595
+01PLANT.Cow Parsley,02FV.Platycheirus nielseni,19.69379018
+01PLANT.Creeping Thistle,02FV.Platycheirus nielseni,19.69379018
+01PLANT.Bramble,02FV.Platycheirus peltatus,19.69379018
+01PLANT.Hogweed,02FV.Platycheirus scutatus,19.69379018
+01PLANT.Mayweed sp,02FV.Platycheirus sp,771.0842595
+01PLANT.Clover sp,02FV.Platypalpus sp,2218.737014
+01PLANT.Cow Parsley,02FV.Platypalpus sp,18.99383363
+01PLANT.Creeping Buttercup,02FV.Platypalpus sp,6.531577848
+01PLANT.Hawthorn,02FV.Platypalpus sp,6.531577848
+01PLANT.Hogweed,02FV.Platypalpus sp,99.41220475
+01PLANT.Clover sp,02FV.Pollenia amentaria,2409.239841
+01PLANT.Mayweed sp,02FV.Pollenia amentaria,99.41220475
+01PLANT.Bramble,02FV.Pollenia pediculata,19.69379018
+01PLANT.Clover sp,02FV.Pollenia pediculata,99.41220475
+01PLANT.Mayweed sp,02FV.Pollenia pediculata,696.2876156
+01PLANT.Mayweed sp,02FV.Pollenia pediculata,604.9422397
+01PLANT.Mayweed sp,02FV.Pollenia pediculata,298.2366143
+01PLANT.Upright Hedge-parsley,02FV.Pollenia pediculata,49.70610238
+01PLANT.Wayfaring-tree,02FV.Pollenia pediculata,6.531577848
+01PLANT.Mayweed sp,02FV.Pollenia rudis,592.2055676
+01PLANT.Mayweed sp,02FV.Pollenia rudis,198.8244095
+01PLANT.Creeping Thistle,02FV.Polyommatus icarus,49.70610238
+01PLANT.Creeping Buttercup,02FV.Psallinae sp,476.1544443
+01PLANT.Ragwort,02FV.Psocoptera sp,6.531577848
+01PLANT.Cow Parsley,02FV.Psychodidae sp,19.69379018
+01PLANT.Cow Parsley,02FV.Psyllidae sp,19.69379018
+01PLANT.Cow Parsley,02FV.Pteromalidae,19.69379018
+01PLANT.Creeping Buttercup,02FV.Pteromalidae,476.1544443
+01PLANT.Hogweed,02FV.Pteromalidae,49.70610238
+01PLANT.Creeping Thistle,02FV.Pyronia tithonus,99.41220476
+01PLANT.Ragwort,02FV.Pyronia tithonus,19.59473354
+01PLANT.Creeping Buttercup,02FV.Rhagio notatus,739.5790043
+01PLANT.Creeping Buttercup,02FV.Rhagio tringarius,1479.158009
+01PLANT.Dogwood,02FV.Rhagio tringarius,8.708770463
+01PLANT.Bramble,02FV.Rhagonycha fulva,19.69379018
+01PLANT.Creeping Buttercup,02FV.Rhagonycha fulva,49.70610238
+01PLANT.Creeping Thistle,02FV.Rhagonycha fulva,8.708770463
+01PLANT.Mayweed sp,02FV.Rhagonycha fulva,298.2366143
+01PLANT.Upright Hedge-parsley,02FV.Rhagonycha fulva,99.41220475
+01PLANT.Bugle,02FV.Rhingia campestris,149.1518293
+01PLANT.Creeping Buttercup,02FV.Rhingia campestris,277.6348056
+01PLANT.Creeping Thistle,02FV.Rhingia campestris,1150.449952
+01PLANT.Herb Robert,02FV.Rhingia campestris,74.57591465
+01PLANT.Yellow Archangel,02FV.Rhingia campestris,74.57591465
+01PLANT.zCROP Lucerne,02FV.Rhingia campestris,1139.866279
+01PLANT.Bramble,02FV.Rhinophora lepida,78.77516074
+01PLANT.Creeping Thistle,02FV.Rhinophora lepida,39.38758036
+01PLANT.Mayweed sp,02FV.Rhinophora lepida,99.41220475
+01PLANT.Upright Hedge-parsley,02FV.Rhinophora lepida,39.38758037
+01PLANT.Autumn Hawkbit,02FV.Rhoptromeris heptoma,5916.632036
+01PLANT.Creeping Buttercup,02FV.Rhoptromeris heptoma,1479.158009
+01PLANT.Autumn Hawkbit,02FV.Rhoptromeris rufiventris,1479.158009
+01PLANT.Creeping Buttercup,02FV.Saltella sphondylii,476.1544443
+01PLANT.Clover sp,02FV.Sarcophaga carnaria,604.9422397
+01PLANT.Mayweed sp,02FV.Scaptomyza flava,665.626988
+01PLANT.Clover sp,02FV.Scaptomyza pallida,2409.239841
+01PLANT.Hogweed,02FV.Scaptomyza pallida,49.70610238
+01PLANT.Mayweed sp,02FV.Scaptomyza pallida,696.2876156
+01PLANT.Mayweed sp,02FV.Scaptomyza pallida,604.9422397
+01PLANT.Blackthorn,02FV.Scathophaga stercoraria,39.38758037
+01PLANT.Bramble,02FV.Scathophaga stercoraria,49.70610238
+01PLANT.Charlock,02FV.Scathophaga stercoraria,665.626988
+01PLANT.Clover sp,02FV.Scathophaga stercoraria,3688.474231
+01PLANT.Clover sp,02FV.Scathophaga stercoraria,604.9422397
+01PLANT.Corn Mint,02FV.Scathophaga stercoraria,39.38758036
+01PLANT.Cow Parsley,02FV.Scathophaga stercoraria,56.98150089
+01PLANT.Cow Parsley,02FV.Scathophaga stercoraria,236.3254822
+01PLANT.Creeping Buttercup,02FV.Scathophaga stercoraria,18.99383363
+01PLANT.Creeping Buttercup,02FV.Scathophaga stercoraria,1904.617777
+01PLANT.Creeping Buttercup,02FV.Scathophaga stercoraria,17.41754093
+01PLANT.Creeping Buttercup,02FV.Scathophaga stercoraria,1814.826719
+01PLANT.Creeping Buttercup,02FV.Scathophaga stercoraria,2958.316017
+01PLANT.Creeping Buttercup,02FV.Scathophaga stercoraria,99.41220476
+01PLANT.Creeping Thistle,02FV.Scathophaga stercoraria,39.38758036
+01PLANT.Creeping Thistle,02FV.Scathophaga stercoraria,604.9422397
+01PLANT.Creeping Thistle,02FV.Scathophaga stercoraria,198.8244095
+01PLANT.Daisy,02FV.Scathophaga stercoraria,8874.948052
+01PLANT.Hawthorn,02FV.Scathophaga stercoraria,59.08137054
+01PLANT.Hogweed,02FV.Scathophaga stercoraria,59.08137054
+01PLANT.Hogweed,02FV.Scathophaga stercoraria,65.3157785
+01PLANT.Hogweed,02FV.Scathophaga stercoraria,149.1183071
+01PLANT.Mayweed sp,02FV.Scathophaga stercoraria,771.0842595
+01PLANT.Mayweed sp,02FV.Scathophaga stercoraria,5444.480157
+01PLANT.Mayweed sp,02FV.Scathophaga stercoraria,49.70610238
+01PLANT.Charlock,02FV.Scatopsidae sp,720.380929
+01PLANT.Clover sp,02FV.Scatopsidae sp,1109.368507
+01PLANT.Cow Parsley,02FV.Scatopsidae sp,19.69379018
+01PLANT.Creeping Buttercup,02FV.Scatopsidae sp,1109.368507
+01PLANT.Mayweed sp,02FV.Scatopsidae sp,2218.737014
+01PLANT.Mayweed sp,02FV.Scatopsidae sp,198.8244095
+01PLANT.Cleavers,02FV.Sciaridae sp,78.77516072
+01PLANT.Creeping Buttercup,02FV.Sciaridae sp,476.1544443
+01PLANT.Hogweed,02FV.Sciaridae sp,39.38758037
+01PLANT.Hogweed,02FV.Sciaridae sp,4274.724804
+01PLANT.Bramble,02FV.Sepsis cynipsea or neocynipsea,19.69379018
+01PLANT.Creeping Buttercup,02FV.Sepsis cynipsea or neocynipsea,952.3088886
+01PLANT.Bramble,02FV.Sepsis flavimana,39.38758037
+01PLANT.Upright Hedge-parsley,02FV.Sepsis flavimana,39.38758037
+01PLANT.Creeping Buttercup,02FV.Sepsis fulgens,739.5790043
+01PLANT.Hogweed,02FV.Sepsis fulgens,99.41220476
+01PLANT.Mayweed sp,02FV.Sepsis fulgens,1209.884479
+01PLANT.Spear Thistle,02FV.Sepsis fulgens,747.57433
+01PLANT.Hogweed,02FV.Sepsis orthocnemis,99.41220476
+01PLANT.Hogweed,02FV.Sepsis violacea,49.70610238
+01PLANT.Ragwort,02FV.Sicus ferrugineus,6.531577848
+01PLANT.Garlic Mustard,02FV.Simulium sp,49.70610238
+01PLANT.Bramble,02FV.Siphona geniculata,149.1518293
+01PLANT.Creeping Buttercup,02FV.Siphona geniculata,1109.368507
+01PLANT.Creeping Buttercup,02FV.Siphona geniculata,49.70610238
+01PLANT.Creeping Thistle,02FV.Siphona geniculata,3212.319787
+01PLANT.Creeping Thistle,02FV.Siphona geniculata,19.69379018
+01PLANT.Creeping Thistle,02FV.Siphona geniculata,99.41220475
+01PLANT.Mayweed sp,02FV.Siphona geniculata,198.8244095
+01PLANT.Clover sp,02FV.Sitona puncticollis,2409.239841
+01PLANT.Mayweed sp,02FV.Sphaerophoria menthastri,604.9422397
+01PLANT.Ragwort,02FV.Sphaerophoria rueppellii,6.531577848
+01PLANT.Charlock,02FV.Sphaerophoria scripta,1109.368507
+01PLANT.Mayweed sp,02FV.Sphaerophoria scripta,4842.892092
+01PLANT.Mayweed sp,02FV.Sphaerophoria scripta,99.41220475
+01PLANT.Ragwort,02FV.Sphaerophoria scripta,6.531577848
+01PLANT.Sow-thistle sp,02FV.Sphaerophoria scripta,747.57433
+01PLANT.Bindweed sp,02FV.Sphaerophoria sp,18.99383363
+01PLANT.Bramble,02FV.Sphaerophoria sp,19.69379018
+01PLANT.Creeping Buttercup,02FV.Sphaerophoria sp,2220.334392
+01PLANT.Creeping Buttercup,02FV.Sphaerophoria sp,18.99383363
+01PLANT.Creeping Buttercup,02FV.Sphaerophoria sp,604.9422397
+01PLANT.Creeping Thistle,02FV.Sphaerophoria sp,19.69379018
+01PLANT.Creeping Thistle,02FV.Sphaerophoria sp,49.70610238
+01PLANT.Mayweed sp,02FV.Sphaerophoria sp,5189.364446
+01PLANT.Ragwort,02FV.Sphaerophoria sp,58.78420063
+01PLANT.Sow-thistle sp,02FV.Sphaerophoria sp,6.531577848
+01PLANT.Mayweed sp,02FV.Stenodiplosis sp,99.41220475
+01PLANT.Creeping Buttercup,02FV.Stenomalina sp,2409.239841
+01PLANT.Upright Hedge-parsley,02FV.Sussaba cognata,39.38758037
+01PLANT.Bramble,02FV.Syritta pipiens,19.69379018
+01PLANT.Bush Vetch,02FV.Syritta pipiens,99.41220475
+01PLANT.Mayweed sp,02FV.Syritta pipiens,604.9422397
+01PLANT.Oil Seed Rape,02FV.Syritta pipiens,49.70610238
+01PLANT.Ragwort,02FV.Syritta pipiens,13.0631557
+01PLANT.Shepherd's Purse,02FV.Syritta pipiens,747.57433
+01PLANT.Clover sp,02FV.Syrphus ribesii,18.99383363
+01PLANT.Cow Parsley,02FV.Tenthredopsis nassata,19.69379018
+01PLANT.Hogweed,02FV.Tersilochus sp,13.0631557
+01PLANT.Charlock,02FV.Tetramesa sp,747.57433
+01PLANT.Creeping Thistle,02FV.Tetramesa sp,49.70610238
+01PLANT.Autumn Hawkbit,02FV.Tetrastichinae sp,2958.316018
+01PLANT.Common Mouse-ear,02FV.Tetrastichinae sp,476.1544443
+01PLANT.Creeping Buttercup,02FV.Tetrastichinae sp,1479.158009
+01PLANT.Mayweed sp,02FV.Thaumatomyia glabra,99.41220475
+01PLANT.Creeping Thistle,02FV.Theroscopus sp,39.38758036
+01PLANT.Hogweed,02FV.Tiphia minuta,149.1183071
+01PLANT.Common Mouse-ear,02FV.Torymus sp,6.531577848
+01PLANT.Creeping Thistle,02FV.Tricimba cincta,49.70610238
+01PLANT.Creeping Buttercup,02FV.Triphleba sp,13.0631557
+01PLANT.Creeping Buttercup,02FV.Triphleba sp,1109.368507
+01PLANT.Bramble,02FV.Trybliographa erythrocera,39.38758037
+01PLANT.Creeping Buttercup,02FV.Tytthaspis sedecimpunctata,18.99383363
+01PLANT.Hogweed,02FV.Volucella bombylans,49.70610238
+01PLANT.Clover sp,03APH.Acyrthosiphon pisum,10581.20987
+01PLANT.Clover sp,03APH.Acyrthosiphon pisum,278945.5883
+01PLANT.Clover sp,03APH.Acyrthosiphon pisum,8217.544493
+01PLANT.Yellow Archangel,03APH.Aphid species 1,2485.863822
+01PLANT.Spindle,03APH.Aphis fabae,725.7308719
+01PLANT.Cleavers,03APH.Aphis galiiscabri,984.6895091
+01PLANT.Cleavers,03APH.Aphis galiiscabri,441832.0212
+01PLANT.Dock sp,03APH.Aphis rumicis,6229786.084
+01PLANT.Dock sp,03APH.Aphis rumicis,4220.851918
+01PLANT.Dock sp,03APH.Aphis rumicis,52881.58953
+01PLANT.Dock sp,03APH.Aphis rumicis,451964.9471
+01PLANT.Dock sp,03APH.Aphis rumicis,2463213.518
+01PLANT.Stinging Nettle,03APH.Aphis urticae,5251.677382
+01PLANT.Field Forget-me-not,03APH.Brachycaudus helichrysii,2927999.459
+01PLANT.Field Forget-me-not,03APH.Brachycaudus helichrysii,26416.60374
+01PLANT.Field Forget-me-not,03APH.Brachycaudus helichrysii,2419768.959
+01PLANT.Mayweed sp,03APH.Brachycaudus helichrysii,112292326.6
+01PLANT.Mayweed sp,03APH.Brachycaudus helichrysii,23658.82643
+01PLANT.Mayweed sp,03APH.Brachycaudus helichrysii,2164348.902
+01PLANT.Mayweed sp,03APH.Brachycaudus helichrysii,38384.15683
+01PLANT.Pineappleweed,03APH.Brachycaudus helichrysii,605309.8689
+01PLANT.Plantain sp,03APH.Brachycaudus helichrysii,23807.72222
+01PLANT.Creeping Thistle,03APH.Capitophorus elaeagnii,41531.90722
+01PLANT.Creeping Thistle,03APH.Capitophorus elaeagnii,253949.037
+01PLANT.Creeping Thistle,03APH.Capitophorus elaeagnii,14551.52275
+01PLANT.Creeping Thistle,03APH.Capitophorus elaeagnii,725.7308719
+01PLANT.Creeping Thistle,03APH.Capitophorus elaeagnii,73957.90043
+01PLANT.Creeping Thistle,03APH.Capitophorus elaeagnii,18777.8609
+01PLANT.Grass sp,03APH.Cavariella aegopodii,8217.544493
+01PLANT.Hogweed,03APH.Cavariella aegopodii,752577.897
+01PLANT.Hogweed,03APH.Cavariella aegopodii,276150.7024
+01PLANT.Hogweed,03APH.Cavariella aegopodii,673793.8322
+01PLANT.Hedge Woundwort,03APH.Cryptomyzus korschelti,6628.970191
+01PLANT.Hawthorn,03APH.Dysaphis species 1,145.1461744
+01PLANT.Sow-thistle sp,03APH.Hyperomyzus lactucae,102811.2346
+01PLANT.Sow-thistle sp,03APH.Hyperomyzus lactucae,132265.1234
+01PLANT.Sow-thistle sp,03APH.Hyperomyzus lactucae,934299.6812
+01PLANT.Sow-thistle sp,03APH.Hyperomyzus lactucae,55229.00264
+01PLANT.Spear Thistle,03APH.Hyperomyzus lactucae,559677.7523
+01PLANT.Spear Thistle,03APH.Hyperomyzus lactucae,268863.2176
+01PLANT.Charlock,03APH.Lipaphys erysimi,2010187.234
+01PLANT.Bramble,03APH.Macrosiphum funestum,78775.16074
+01PLANT.Bramble,03APH.Macrosiphum funestum,25687.25949
+01PLANT.Grass sp,03APH.Metopolophium dihrodum,42324.8395
+01PLANT.Grass sp,03APH.Metopolophium dihrodum,3719.938146
+01PLANT.Grass sp,03APH.Metopolophium dihrodum,5522.900264
+01PLANT.zCROP Oat winter,03APH.Metopolophium dihrodum,635438.1805
+01PLANT.Stinging Nettle,03APH.Microlophium carnosum,41685.18923
+01PLANT.Stinging Nettle,03APH.Microlophium carnosum,98307.6247
+01PLANT.Stinging Nettle,03APH.Microlophium carnosum,2485.863822
+01PLANT.Hazel,03APH.Myzocallis coryli,1596.607918
+01PLANT.Common Mouse-ear,03APH.Myzus persicae,98184.00413
+01PLANT.Parsley Piert,03APH.Myzus persicae,37378.7165
+01PLANT.Water Figwort,03APH.Myzus persicae,2761.450132
+01PLANT.Wall Speedwell,03APH.Nasonvoia ribisnigri,194925.8328
+01PLANT.Blackthorn,03APH.Phorodon humuli,547.0497273
+01PLANT.Blackthorn,03APH.Phorodon humuli,10772.07656
+01PLANT.Grass sp,03APH.Sipha maydis,540012.0228
+01PLANT.Grass sp,03APH.Sipha maydis,1753763.972
+01PLANT.Grass sp,03APH.Sipha maydis,452346.7221
+01PLANT.Grass sp,03APH.Sipha maydis,437.6397818
+01PLANT.Grass sp,03APH.Sipha maydis,870.8770463
+01PLANT.Grass sp,03APH.Sipha maydis,13443.16088
+01PLANT.Grass sp,03APH.Sipha maydis,26896023.13
+01PLANT.Grass sp,03APH.Sipha maydis,231133.376
+01PLANT.Grass sp,03APH.Sitobion avenae,1580885.385
+01PLANT.Grass sp,03APH.Sitobion avenae,414065.5731
+01PLANT.Grass sp,03APH.Sitobion avenae,15871.81481
+01PLANT.Grass sp,03APH.Sitobion avenae,20131.42997
+01PLANT.Grass sp,03APH.Sitobion avenae,245369.6078
+01PLANT.Grass sp,03APH.Sitobion avenae,50411.8533
+01PLANT.Grass sp,03APH.Sitobion avenae,19623496.25
+01PLANT.Grass sp,03APH.Sitobion avenae,171209.9082
+01PLANT.Grass sp,03APH.Sitobion avenae,3314.485096
+01PLANT.zCROP Oat winter,03APH.Sitobion avenae,83063.81446
+01PLANT.zCROP Triticale,03APH.Sitobion avenae,2021954.281
+01PLANT.zCROP Wheat,03APH.Sitobion avenae,15283976.64
+01PLANT.zCROP Wheat,03APH.Sitobion avenae,437.6397818
+01PLANT.Rose sp,03APH.Sitobion fragariae,34464.13282
+01PLANT.Clover sp,03APH.Therioaphis trifoli,60494.22397
+01PLANT.Creeping Buttercup,03APH.Tubaphis ranunculina,337763.1701
+01PLANT.Creeping Buttercup,03APH.Tubaphis ranunculina,5290.604937
+01PLANT.Creeping Buttercup,03APH.Tubaphis ranunculina,862842.1718
+01PLANT.Creeping Thistle,03APH.Uroleucon aeneum,52906.04937
+01PLANT.Creeping Thistle,03APH.Uroleucon aeneum,29029.23488
+01PLANT.Creeping Thistle,03APH.Uroleucon aeneum,96638323.23
+01PLANT.Creeping Thistle,03APH.Uroleucon cirsii,5711226.869
+01PLANT.Creeping Thistle,03APH.Uroleucon cirsii,8131659.788
+01PLANT.Creeping Thistle,03APH.Uroleucon cirsii,131948.3942
+01PLANT.Creeping Thistle,03APH.Uroleucon cirsii,53558.93835
+01PLANT.Creeping Thistle,03APH.Uroleucon cirsii,336079.022
+01PLANT.Creeping Thistle,03APH.Uroleucon cirsii,51663702.23
+01PLANT.Creeping Thistle,03APH.Uroleucon cirsii,529369.9903
+01PLANT.Sow-thistle sp,03APH.Uroleucon sonchi,322635.8612
+03APH.Acyrthosiphon pisum,04PRIMARYPARA.Aphidius ervi,10581.20987
+03APH.Acyrthosiphon pisum,04PRIMARYPARA.Aphidius ervi,77298.17506
+03APH.Macrosiphum funestum,04PRIMARYPARA.Aphidius ervi,328.2298364
+03APH.Microlophium carnosum,04PRIMARYPARA.Aphidius ervi,328.2298364
+03APH.Microlophium carnosum,04PRIMARYPARA.Aphidius ervi,828.4350396
+03APH.Sitobion avenae,04PRIMARYPARA.Aphidius ervi,122730.0052
+03APH.Sitobion avenae,04PRIMARYPARA.Aphidius ervi,145.1461744
+03APH.Sitobion avenae,04PRIMARYPARA.Aphidius ervi,10082.37066
+03APH.Sitobion avenae,04PRIMARYPARA.Aphidius ervi,32870.17797
+03APH.Therioaphis trifoli,04PRIMARYPARA.Aphidius ervi,6721.580441
+03APH.Uroleucon sonchi,04PRIMARYPARA.Aphidius ervi,10082.37066
+03APH.Sitobion avenae,04PRIMARYPARA.Aphidius funebris,552.2900264
+03APH.Brachycaudus helichrysii,04PRIMARYPARA.Aphidius matricariae,12459.57217
+03APH.Brachycaudus helichrysii,04PRIMARYPARA.Aphidius matricariae,552.2900264
+03APH.Sitobion avenae,04PRIMARYPARA.Aphidius matricariae,12459.57217
+03APH.Sitobion avenae,04PRIMARYPARA.Aphidius picipes?,74402.97856
+03APH.Sitobion avenae,04PRIMARYPARA.Aphidius picipes?,552.2900264
+03APH.Acyrthosiphon pisum,04PRIMARYPARA.Aphidius rhopalosiphi?,6721.580441
+03APH.Brachycaudus helichrysii,04PRIMARYPARA.Aphidius rhopalosiphi?,2209.160106
+03APH.Sitobion avenae,04PRIMARYPARA.Aphidius rhopalosiphi?,94403.9567
+03APH.Sitobion avenae,04PRIMARYPARA.Aphidius rhopalosiphi?,422.0851918
+03APH.Sitobion avenae,04PRIMARYPARA.Aphidius rhopalosiphi?,580.5846976
+03APH.Sitobion avenae,04PRIMARYPARA.Aphidius rhopalosiphi?,1380.725066
+03APH.Sitobion avenae,04PRIMARYPARA.Ephedrus plagiator,99079.5903
+03APH.Sitobion avenae,04PRIMARYPARA.Ephedrus plagiator,844.1703836
+03APH.Sitobion avenae,04PRIMARYPARA.Ephedrus plagiator,437.6397818
+03APH.Sitobion avenae,04PRIMARYPARA.Ephedrus plagiator,943.4501336
+03APH.Sitobion avenae,04PRIMARYPARA.Ephedrus plagiator,13443.16088
+03APH.Sitobion avenae,04PRIMARYPARA.Ephedrus plagiator,1656.870079
+03APH.Acyrthosiphon pisum,04PRIMARYPARA.Praon dorsale?,6721.580441
+03APH.Aphid species 1,04PRIMARYPARA.Praon exoletum?,828.6212739
+03APH.Tubaphis ranunculina,04PRIMARYPARA.Praon exoletum?,8567.602883
+01PLANT.Creeping Buttercup,04PRIMARYPARA.Praon sp nr flavinode,12326.31674
+03APH.Tubaphis ranunculina,04PRIMARYPARA.Praon sp nr flavinode,12326.31674
+03APH.Sitobion avenae,04PRIMARYPARA.Praon volucre,106751.607
+03APH.Tubaphis ranunculina,04PRIMARYPARA.Praon volucre,24546.00103
+01PLANT.Stinging Nettle,04PRIMARYPARA.Trioxys B,1657.242548
+03APH.Microlophium carnosum,04PRIMARYPARA.Trioxys B,1657.242548
+03APH.Acyrthosiphon pisum,05SECONDARYPARA.Alloxysta victrix,47051.06309
+03APH.Brachycaudus helichrysii,05SECONDARYPARA.Alloxysta victrix,8306.381444
+03APH.Dysaphis species 1,05SECONDARYPARA.Alloxysta victrix,145.1461744
+03APH.Microlophium carnosum,05SECONDARYPARA.Alloxysta victrix,875.2795637
+03APH.Sitobion avenae,05SECONDARYPARA.Alloxysta victrix,171946.3883
+03APH.Sitobion avenae,05SECONDARYPARA.Alloxysta victrix,10581.20987
+03APH.Sitobion avenae,05SECONDARYPARA.Alloxysta victrix,218.8198909
+03APH.Sitobion avenae,05SECONDARYPARA.Alloxysta victrix,145.1461744
+03APH.Sitobion avenae,05SECONDARYPARA.Alloxysta victrix,16803.9511
+03APH.Therioaphis trifoli,05SECONDARYPARA.Alloxysta victrix,20164.74132
+03APH.Tubaphis ranunculina,05SECONDARYPARA.Alloxysta victrix,5290.604937
+03APH.Uroleucon cirsii,05SECONDARYPARA.Alloxysta victrix,552.2900264
+03APH.Acyrthosiphon pisum,05SECONDARYPARA.Asaphes suspensus,73937.38485
+03APH.Acyrthosiphon pisum,05SECONDARYPARA.Asaphes suspensus,8217.544493
+03APH.Brachycaudus helichrysii,05SECONDARYPARA.Asaphes suspensus,58144.67011
+03APH.Brachycaudus helichrysii,05SECONDARYPARA.Asaphes suspensus,30928.24148
+03APH.Sitobion avenae,05SECONDARYPARA.Asaphes suspensus,225191.5811
+03APH.Sitobion avenae,05SECONDARYPARA.Asaphes suspensus,580.5846976
+03APH.Sitobion avenae,05SECONDARYPARA.Asaphes suspensus,8217.544493
+03APH.Sitobion avenae,05SECONDARYPARA.Asaphes suspensus,1104.580053
+03APH.Acyrthosiphon pisum,05SECONDARYPARA.Asaphes vulgaris,26886.32176
+03APH.Phorodon humuli,05SECONDARYPARA.Asaphes vulgaris,328.2298364
+03APH.Sitobion avenae,05SECONDARYPARA.Asaphes vulgaris,49092.00206
+03APH.Sitobion avenae,05SECONDARYPARA.Asaphes vulgaris,508.0116103
+03APH.Sitobion avenae,05SECONDARYPARA.Asaphes vulgaris,8217.544493
+03APH.Sitobion avenae,05SECONDARYPARA.Asaphes vulgaris,552.2900264
+03APH.Sitobion avenae,05SECONDARYPARA.Coruna clavata,72.57308719
+03APH.Aphid species 1,05SECONDARYPARA.Dendrocerus aphidum,828.6212739
+03APH.Brachycaudus helichrysii,05SECONDARYPARA.Dendrocerus aphidum,8306.381444
+03APH.Brachycaudus helichrysii,05SECONDARYPARA.Dendrocerus aphidum,1656.870079
+03APH.Sitobion avenae,05SECONDARYPARA.Dendrocerus aphidum,24546.00103
+03APH.Sitobion avenae,05SECONDARYPARA.Dendrocerus aphidum,1266.255575
+03APH.Sitobion avenae,05SECONDARYPARA.Dendrocerus aphidum,145.1461744
+03APH.Sitobion avenae,05SECONDARYPARA.Dendrocerus aphidum,10082.37066
+03APH.Sitobion avenae,05SECONDARYPARA.Dendrocerus aphidum,3866.030185
+03APH.Acyrthosiphon pisum,05SECONDARYPARA.Dendrocerus carpenteri,6721.580441
+03APH.Aphis rumicis,05SECONDARYPARA.Dendrocerus carpenteri,107982.9588
+03APH.Brachycaudus helichrysii,05SECONDARYPARA.Dendrocerus carpenteri,552.2900264
+03APH.Phorodon humuli,05SECONDARYPARA.Dendrocerus carpenteri,218.8198909
+03APH.Sitobion avenae,05SECONDARYPARA.Dendrocerus carpenteri,294552.0124
+03APH.Sitobion avenae,05SECONDARYPARA.Dendrocerus carpenteri,1688.340767
+03APH.Sitobion avenae,05SECONDARYPARA.Dendrocerus carpenteri,552.2900264
+03APH.Sitobion avenae,05SECONDARYPARA.Pachyneuron sp,552.2900264
+01PLANT.Field Maple,06MINERPARA.Achrysocharoides acerianus,11294.73435
+01PLANT.Hawthorn,06MINERPARA.Achrysocharoides atys,1312.919345
+01PLANT.Hawthorn,06MINERPARA.Achrysocharoides atys,217.7192616
+01PLANT.Oak,06MINERPARA.Achrysocharoides butus,100611.8928
+01PLANT.Oak,06MINERPARA.Achrysocharoides latreillei,100611.8928
+01PLANT.Blackthorn,06MINERPARA.Adelius sp,218.8198909
+01PLANT.Bramble,06MINERPARA.Adelius sp,218.8198909
+01PLANT.Bramble,06MINERPARA.Adelius sp,552.2900264
+01PLANT.Dock sp,06MINERPARA.Adelurola florimela,729.3996364
+01PLANT.Creeping Buttercup,06MINERPARA.Alysiinae sp,3868.264531
+01PLANT.Creeping Thistle,06MINERPARA.Alysiinae sp,3868.264531
+01PLANT.Grass sp,06MINERPARA.Alysiinae sp,1542.415586
+01PLANT.Grass sp,06MINERPARA.Alysiinae sp,218.8198909
+01PLANT.Grass sp,06MINERPARA.Alysiinae sp,145.1461744
+01PLANT.Grass sp,06MINERPARA.Alysiinae sp,12326.31674
+01PLANT.Grass sp,06MINERPARA.Alysiinae sp,552.2900264
+01PLANT.Creeping Buttercup,06MINERPARA.Anagrus sp A,3290.030931
+01PLANT.Elm sp,06MINERPARA.Anagrus sp A,4167.514518
+01PLANT.Lesser Burdock,06MINERPARA.Anagrus sp A,828.6212739
+01PLANT.Stinging Nettle,06MINERPARA.Anagrus sp A,6628.970191
+01PLANT.Creeping Thistle,06MINERPARA.Anagrus sp B,437.6397818
+01PLANT.Creeping Thistle,06MINERPARA.Anagrus sp B,72.57308719
+01PLANT.Creeping Thistle,06MINERPARA.Anagrus sp B,18489.47511
+01PLANT.Teasel,06MINERPARA.Anagrus sp C,552.2900264
+01PLANT.Blackthorn,06MINERPARA.Apanteles circumscriptus,583.5197092
+01PLANT.Creeping Buttercup,06MINERPARA.Aphanogmus microneurus,6580.061862
+01PLANT.Hogweed,06MINERPARA.Aphanogmus sp,552.2900264
+01PLANT.Creeping Buttercup,06MINERPARA.Apodesmia A,17846.22104
+01PLANT.Creeping Buttercup,06MINERPARA.Apodesmia A,14380.70286
+01PLANT.Creeping Buttercup,06MINERPARA.Apodesmia curvata,3290.030931
+01PLANT.Creeping Buttercup,06MINERPARA.Apodesmia curvata,6683.800874
+01PLANT.Grass sp,06MINERPARA.Apodesmia irregularis,3314.485096
+01PLANT.Hogweed,06MINERPARA.Apodesmia ocellata,218.8198909
+01PLANT.Hogweed,06MINERPARA.Apodesmia ocellata,552.2900264
+01PLANT.Dock sp,06MINERPARA.Apodesmia rufipes,96.76411626
+01PLANT.Creeping Buttercup,06MINERPARA.Apodesmia similis,15432.92479
+01PLANT.Creeping Buttercup,06MINERPARA.Apodesmia similis,10282.77058
+01PLANT.Creeping Buttercup,06MINERPARA.Apodesmia similis,6332.59044
+01PLANT.Creeping Buttercup,06MINERPARA.Apodesmia similis,72.57308719
+01PLANT.Grass sp,06MINERPARA.Apodesmia similis,6169.662346
+01PLANT.Grass sp,06MINERPARA.Apodesmia similis,72.57308719
+01PLANT.Grass sp,06MINERPARA.Apodesmia similis,6163.158369
+01PLANT.Creeping Thistle,06MINERPARA.Asaphes suspensus,6391.388622
+01PLANT.Creeping Buttercup,06MINERPARA.Ascogaster varipes,96.76411626
+01PLANT.Blackthorn,06MINERPARA.Bracon sp,218.8198909
+01PLANT.Common Fleabane,06MINERPARA.Bracon sp,6163.158369
+01PLANT.Creeping Cinquefoil,06MINERPARA.Bracon sp,1656.870079
+01PLANT.Dock sp,06MINERPARA.Bracon sp,218.8198909
+01PLANT.Elm sp,06MINERPARA.Bracon sp,218.8198909
+01PLANT.Grass sp,06MINERPARA.Bracon sp,1104.552158
+01PLANT.Creeping Thistle,06MINERPARA.Campoplex sp,96.76411626
+01PLANT.Sow-thistle sp,06MINERPARA.Chelonus scabrosus,96.76411626
+01PLANT.Creeping Thistle,06MINERPARA.Chelonus sp,1542.415586
+01PLANT.Creeping Thistle,06MINERPARA.Chelonus sp aff rimatus,656.4596727
+01PLANT.Grass sp,06MINERPARA.Chorebus A,218.8198909
+01PLANT.Common Field Speedwell,06MINERPARA.Chorebus amasis,7292.147203
+01PLANT.Wall Speedwell,06MINERPARA.Chorebus amasis,13160.12372
+01PLANT.Grass sp,06MINERPARA.Chorebus aphantus,403.4337917
+01PLANT.Grass sp,06MINERPARA.Chorebus aphantus,9244.737554
+01PLANT.Grass sp,06MINERPARA.Chorebus aphantus,89885.52131
+01PLANT.Grass sp,06MINERPARA.Chorebus B,4627.246758
+01PLANT.Grass sp,06MINERPARA.Chorebus B,72.57308719
+01PLANT.zCROP Wheat,06MINERPARA.Chorebus B,15432.92479
+01PLANT.Grass sp,06MINERPARA.Chorebus C,552.2900264
+01PLANT.Grass sp,06MINERPARA.Chorebus E,3314.485096
+01PLANT.Creeping Buttercup,06MINERPARA.Chorebus fallaciosae,117881.729
+01PLANT.Creeping Buttercup,06MINERPARA.Chorebus fallaciosae,47814.88317
+01PLANT.Creeping Buttercup,06MINERPARA.Chorebus fallaciosae,17846.22104
+01PLANT.Creeping Buttercup,06MINERPARA.Chorebus fallaciosae,18997.77132
+01PLANT.Creeping Buttercup,06MINERPARA.Chorebus fallaciosae,145.1461744
+01PLANT.Creeping Buttercup,06MINERPARA.Chorebus fallaciosae,2209.160106
+01PLANT.Stinging Nettle,06MINERPARA.Chorebus lateralis,828.6212739
+01PLANT.Sow-thistle sp,06MINERPARA.Chorebus leptogaster,18722.95572
+01PLANT.Teasel,06MINERPARA.Chorebus tanis,552.2900264
+01PLANT.Charlock,06MINERPARA.Chrysocharis chilo,4002.116272
+01PLANT.Oak,06MINERPARA.Chrysocharis laomedon,93502.4532
+01PLANT.Clover sp,06MINERPARA.Chrysocharis orbicularis,3290.030931
+01PLANT.Common Field Speedwell,06MINERPARA.Chrysocharis orbicularis,3290.030931
+01PLANT.Creeping Buttercup,06MINERPARA.Chrysocharis orbicularis,15432.92479
+01PLANT.Creeping Thistle,06MINERPARA.Chrysocharis orbicularis,3868.264531
+01PLANT.Creeping Thistle,06MINERPARA.Chrysocharis orbicularis,218.8198909
+01PLANT.Grass sp,06MINERPARA.Chrysocharis orbicularis,3314.485096
+01PLANT.Blackthorn,06MINERPARA.Chrysocharis pentheus,580.5846976
+01PLANT.Bramble,06MINERPARA.Chrysocharis pentheus,218.8198909
+01PLANT.Creeping Buttercup,06MINERPARA.Chrysocharis pentheus,15432.92479
+01PLANT.Creeping Buttercup,06MINERPARA.Chrysocharis pentheus,1542.415586
+01PLANT.Creeping Buttercup,06MINERPARA.Chrysocharis pentheus,6332.59044
+01PLANT.Grass sp,06MINERPARA.Chrysocharis pentheus,1542.415586
+01PLANT.Grass sp,06MINERPARA.Chrysocharis pentheus,6163.158369
+01PLANT.Hawthorn,06MINERPARA.Chrysocharis pentheus,193.5282325
+01PLANT.Hogweed,06MINERPARA.Chrysocharis pentheus,552.2900264
+01PLANT.Sow-thistle sp,06MINERPARA.Chrysocharis pentheus,3290.030931
+01PLANT.zCROP Lucerne,06MINERPARA.Chrysocharis pentheus,18997.77132
+01PLANT.Clover sp,06MINERPARA.Chrysocharis polyzo,2056.554115
+01PLANT.Grass sp,06MINERPARA.Chrysocharis polyzo,1542.415586
+01PLANT.Grass sp,06MINERPARA.Chrysocharis polyzo,232.0161598
+01PLANT.Blackthorn,06MINERPARA.Chrysocharis prodice,437.6397818
+01PLANT.Bramble,06MINERPARA.Chrysocharis prodice,218.8198909
+01PLANT.Bramble,06MINERPARA.Chrysocharis prodice,1657.242548
+01PLANT.Common Vetch,06MINERPARA.Chrysocharis pubicornis,552.2900264
+01PLANT.Creeping Buttercup,06MINERPARA.Chrysocharis pubicornis,3290.030931
+01PLANT.Creeping Buttercup,06MINERPARA.Chrysocharis pubicornis,291.7598546
+01PLANT.Creeping Buttercup,06MINERPARA.Chrysocharis pubicornis,1104.580053
+01PLANT.Creeping Thistle,06MINERPARA.Chrysocharis pubicornis,4627.246758
+01PLANT.Creeping Thistle,06MINERPARA.Chrysocharis pubicornis,13384.66578
+01PLANT.Creeping Thistle,06MINERPARA.Chrysocharis pubicornis,459.6295522
+01PLANT.Creeping Thistle,06MINERPARA.Chrysocharis pubicornis,6163.158369
+01PLANT.Grass sp,06MINERPARA.Chrysocharis pubicornis,23136.23379
+01PLANT.Grass sp,06MINERPARA.Chrysocharis pubicornis,12665.18088
+01PLANT.Grass sp,06MINERPARA.Chrysocharis pubicornis,656.4596727
+01PLANT.Grass sp,06MINERPARA.Chrysocharis pubicornis,8719.220988
+01PLANT.Grass sp,06MINERPARA.Chrysocharis pubicornis,15407.89592
+01PLANT.Grass sp,06MINERPARA.Chrysocharis pubicornis,2761.450132
+01PLANT.Grass sp,06MINERPARA.Chrysocharis pubicornis,2485.863822
+01PLANT.Sow-thistle sp,06MINERPARA.Chrysocharis pubicornis,3290.030931
+01PLANT.Clover sp,06MINERPARA.Chrysocharis viridis,1104.580053
+01PLANT.Creeping Buttercup,06MINERPARA.Chrysocharis viridis,3290.030931
+01PLANT.Creeping Buttercup,06MINERPARA.Chrysocharis viridis,4627.246759
+01PLANT.Creeping Buttercup,06MINERPARA.Chrysocharis viridis,241.9102906
+01PLANT.Creeping Buttercup,06MINERPARA.Chrysocharis viridis,1104.580053
+01PLANT.Creeping Thistle,06MINERPARA.Chrysocharis viridis,4627.246758
+01PLANT.Creeping Thistle,06MINERPARA.Chrysocharis viridis,53538.66312
+01PLANT.Creeping Thistle,06MINERPARA.Chrysocharis viridis,72.57308719
+01PLANT.Creeping Thistle,06MINERPARA.Chrysocharis viridis,6163.158369
+01PLANT.Creeping Thistle,06MINERPARA.Chrysocharis viridis,1656.870079
+01PLANT.Hogweed,06MINERPARA.Chrysocharis viridis,6169.662345
+01PLANT.Hogweed,06MINERPARA.Chrysocharis viridis,552.2900264
+01PLANT.Lesser Burdock,06MINERPARA.Chrysocharis viridis,2485.863822
+01PLANT.Oak,06MINERPARA.Cirrospilus diallus,530438.718
+01PLANT.Oak,06MINERPARA.Cirrospilus lyncus,128741.6674
+01PLANT.Blackthorn,06MINERPARA.Cirrospilus vittatus,2128.810558
+01PLANT.zCROP Barley,06MINERPARA.Cirrospilus vittatus,4002.116272
+01PLANT.Bramble,06MINERPARA.Colastes braconius,828.6212739
+01PLANT.Clover sp,06MINERPARA.Colastes braconius,3290.030931
+01PLANT.Grass sp,06MINERPARA.Colastes braconius,218.8198909
+01PLANT.Grass sp,06MINERPARA.Colastes braconius,157.9190377
+01PLANT.Grass sp,06MINERPARA.Colastes braconius,13257.94038
+01PLANT.Ground Ivy,06MINERPARA.Colastes braconius,218.8198909
+01PLANT.Hazel,06MINERPARA.Colastes braconius,828.6212739
+01PLANT.Hogweed,06MINERPARA.Colastes braconius,291.7598546
+01PLANT.Creeping Cinquefoil,06MINERPARA.Colastes sp aff braconius,1656.870079
+01PLANT.Grass sp,06MINERPARA.Coloneura (ate),72.57308719
+01PLANT.Creeping Buttercup,06MINERPARA.Cyrtogaster vulgaris,1542.415586
+01PLANT.Creeping Thistle,06MINERPARA.Cyrtogaster vulgaris,6580.061862
+01PLANT.Creeping Thistle,06MINERPARA.Cyrtogaster vulgaris,437.6397818
+01PLANT.Grass sp,06MINERPARA.Cyrtogaster vulgaris,15432.92479
+01PLANT.Grass sp,06MINERPARA.Cyrtogaster vulgaris,53538.66312
+01PLANT.Grass sp,06MINERPARA.Cyrtogaster vulgaris,6332.59044
+01PLANT.Grass sp,06MINERPARA.Cyrtogaster vulgaris,218.8198909
+01PLANT.Grass sp,06MINERPARA.Cyrtogaster vulgaris,1745.382747
+01PLANT.Grass sp,06MINERPARA.Cyrtogaster vulgaris,30066.52292
+01PLANT.Grass sp,06MINERPARA.Dacnusa adducta,218.8198909
+01PLANT.Creeping Buttercup,06MINERPARA.Dacnusa areolaris,1542.415586
+01PLANT.Creeping Thistle,06MINERPARA.Dacnusa areolaris,13384.66578
+01PLANT.Creeping Thistle,06MINERPARA.Dacnusa areolaris,6163.158369
+01PLANT.Grass sp,06MINERPARA.Dacnusa areolaris,21593.8182
+01PLANT.Grass sp,06MINERPARA.Dacnusa areolaris,13384.66578
+01PLANT.Grass sp,06MINERPARA.Dacnusa areolaris,656.4596727
+01PLANT.Grass sp,06MINERPARA.Dacnusa areolaris,3629.670383
+01PLANT.Grass sp,06MINERPARA.Dacnusa areolaris,18489.47511
+01PLANT.Grass sp,06MINERPARA.Dacnusa areolaris,4418.320211
+01PLANT.Grass sp,06MINERPARA.Dacnusa areolaris,40602.44243
+01PLANT.Oak,06MINERPARA.Dacnusa areolaris,6580.061862
+01PLANT.Sow-thistle sp,06MINERPARA.Dacnusa areolaris,6391.388622
+01PLANT.Creeping Buttercup,06MINERPARA.Dacnusa laevipectus,218.8198909
+01PLANT.Hogweed,06MINERPARA.Dacnusa laevipectus,7712.07793
+01PLANT.Hogweed,06MINERPARA.Dacnusa laevipectus,387.056465
+01PLANT.Hogweed,06MINERPARA.Dacnusa laevipectus,1104.580053
+01PLANT.Creeping Buttercup,06MINERPARA.Dacnusa macrospila,34236.14718
+01PLANT.Creeping Buttercup,06MINERPARA.Dacnusa macrospila,9254.493517
+01PLANT.Creeping Buttercup,06MINERPARA.Dacnusa macrospila,17846.22104
+01PLANT.Creeping Buttercup,06MINERPARA.Dacnusa macrospila,22598.24736
+01PLANT.Cow Parsley,06MINERPARA.Dacnusa maculipes/confinis,656.4596727
+01PLANT.Creeping Buttercup,06MINERPARA.Dacnusa maculipes/confinis,19301.18932
+01PLANT.Creeping Buttercup,06MINERPARA.Dacnusa maculipes/confinis,6169.662344
+01PLANT.Creeping Buttercup,06MINERPARA.Dacnusa maculipes/confinis,31230.88682
+01PLANT.Creeping Buttercup,06MINERPARA.Dacnusa maculipes/confinis,72.57308719
+01PLANT.Creeping Buttercup,06MINERPARA.Dacnusa maculipes/confinis,28761.40572
+01PLANT.Creeping Thistle,06MINERPARA.Dacnusa maculipes/confinis,17846.22104
+01PLANT.Creeping Thistle,06MINERPARA.Dacnusa maculipes/confinis,1104.580053
+01PLANT.Grass sp,06MINERPARA.Dacnusa maculipes/confinis,6391.388622
+01PLANT.Grass sp,06MINERPARA.Dacnusa maculipes/confinis,26221.06496
+01PLANT.Grass sp,06MINERPARA.Dacnusa maculipes/confinis,66923.3289
+01PLANT.Grass sp,06MINERPARA.Dacnusa maculipes/confinis,12665.18088
+01PLANT.Grass sp,06MINERPARA.Dacnusa maculipes/confinis,3501.118254
+01PLANT.Grass sp,06MINERPARA.Dacnusa maculipes/confinis,5312.204836
+01PLANT.Grass sp,06MINERPARA.Dacnusa maculipes/confinis,83202.63799
+01PLANT.Grass sp,06MINERPARA.Dacnusa maculipes/confinis,552.2900264
+01PLANT.Grass sp,06MINERPARA.Dacnusa maculipes/confinis,12547.81195
+01PLANT.Hogweed,06MINERPARA.Dacnusa maculipes/confinis,1656.870079
+01PLANT.Oak,06MINERPARA.Dacnusa maculipes/confinis,6580.061862
+01PLANT.Sow-thistle sp,06MINERPARA.Dacnusa maculipes/confinis,6391.388622
+01PLANT.Spear Thistle,06MINERPARA.Dacnusa maculipes/confinis,437.6397818
+01PLANT.zCROP Barley,06MINERPARA.Dacnusa maculipes/confinis,4002.116272
+01PLANT.zCROP Lucerne,06MINERPARA.Dacnusa maculipes/confinis,6332.59044
+01PLANT.zCROP Oat spring,06MINERPARA.Dacnusa maculipes/confinis,16008.46509
+01PLANT.Creeping Thistle,06MINERPARA.Dacnusa tarsalis,7158.295462
+01PLANT.Creeping Thistle,06MINERPARA.Dacnusa tarsalis,19174.16587
+01PLANT.Creeping Thistle,06MINERPARA.Dacnusa tarsalis,50899.71434
+01PLANT.Creeping Thistle,06MINERPARA.Dacnusa tarsalis,196308.4314
+01PLANT.Creeping Thistle,06MINERPARA.Dacnusa tarsalis,1969.379018
+01PLANT.Creeping Thistle,06MINERPARA.Dacnusa tarsalis,1088.596308
+01PLANT.Creeping Thistle,06MINERPARA.Dacnusa tarsalis,73957.90043
+01PLANT.Creeping Thistle,06MINERPARA.Dacnusa tarsalis,4418.320211
+01PLANT.Grass sp,06MINERPARA.Dacnusa tarsalis,16572.42548
+01PLANT.Spear Thistle,06MINERPARA.Dacnusa tarsalis,437.6397818
+01PLANT.Spear Thistle,06MINERPARA.Dacnusa tarsalis,217.7192616
+01PLANT.Charlock,06MINERPARA.Dacnusa temula,16008.46509
+01PLANT.Creeping Buttercup,06MINERPARA.Dapsilarthra rufiventris,3868.264531
+01PLANT.Grass sp,06MINERPARA.Dapsilarthra rufiventris,880.2389746
+01PLANT.Grass sp,06MINERPARA.Dapsilarthra rufiventris,9244.737554
+01PLANT.Grass sp,06MINERPARA.Dapsilarthra rufiventris,14323.54734
+01PLANT.Daisy,06MINERPARA.Desmiostoma parvulum,49305.26696
+01PLANT.Blackthorn,06MINERPARA.Diadegma crataegi,583.5197092
+01PLANT.Grass sp,06MINERPARA.Diglyphus chabrias,218.8198909
+01PLANT.Charlock,06MINERPARA.Diglyphus isaea,4002.116272
+01PLANT.Clover sp,06MINERPARA.Diglyphus isaea,1542.415586
+01PLANT.Clover sp,06MINERPARA.Diglyphus isaea,31230.88682
+01PLANT.Clover sp,06MINERPARA.Diglyphus isaea,22598.24736
+01PLANT.Common Fleabane,06MINERPARA.Diglyphus isaea,36978.95021
+01PLANT.Common Vetch,06MINERPARA.Diglyphus isaea,2761.450132
+01PLANT.Creeping Buttercup,06MINERPARA.Diglyphus isaea,195166.7529
+01PLANT.Creeping Buttercup,06MINERPARA.Diglyphus isaea,4627.246758
+01PLANT.Creeping Buttercup,06MINERPARA.Diglyphus isaea,89231.1052
+01PLANT.Creeping Buttercup,06MINERPARA.Diglyphus isaea,37995.54264
+01PLANT.Creeping Buttercup,06MINERPARA.Diglyphus isaea,84229.83105
+01PLANT.Creeping Buttercup,06MINERPARA.Diglyphus isaea,2209.160106
+01PLANT.Creeping Thistle,06MINERPARA.Diglyphus isaea,20148.08237
+01PLANT.Creeping Thistle,06MINERPARA.Diglyphus isaea,19174.16587
+01PLANT.Creeping Thistle,06MINERPARA.Diglyphus isaea,20051.40262
+01PLANT.Creeping Thistle,06MINERPARA.Diglyphus isaea,276616.4261
+01PLANT.Creeping Thistle,06MINERPARA.Diglyphus isaea,290.2923488
+01PLANT.Creeping Thistle,06MINERPARA.Diglyphus isaea,73957.90043
+01PLANT.Grass sp,06MINERPARA.Diglyphus isaea,30077.10393
+01PLANT.Grass sp,06MINERPARA.Diglyphus isaea,107077.3262
+01PLANT.Grass sp,06MINERPARA.Diglyphus isaea,218.8198909
+01PLANT.Grass sp,06MINERPARA.Diglyphus isaea,8702.238885
+01PLANT.Grass sp,06MINERPARA.Diglyphus isaea,70876.32125
+01PLANT.Grass sp,06MINERPARA.Diglyphus isaea,1656.870079
+01PLANT.Grass sp,06MINERPARA.Diglyphus isaea,6628.970192
+01PLANT.Hogweed,06MINERPARA.Diglyphus isaea,4113.10823
+01PLANT.Hogweed,06MINERPARA.Diglyphus isaea,12150.38058
+01PLANT.Honeysuckle,06MINERPARA.Diglyphus isaea,218.8198909
+01PLANT.Oak,06MINERPARA.Diglyphus isaea,19740.18559
+01PLANT.Rough Chervil,06MINERPARA.Diglyphus isaea,828.6212739
+01PLANT.Sow-thistle sp,06MINERPARA.Diglyphus isaea,34155.88051
+01PLANT.Stinging Nettle,06MINERPARA.Diglyphus isaea,828.6212739
+01PLANT.zCROP Barley,06MINERPARA.Diglyphus isaea,16008.46509
+01PLANT.zCROP Lucerne,06MINERPARA.Diglyphus isaea,139316.9897
+01PLANT.zCROP Oat spring,06MINERPARA.Diglyphus isaea,28014.8139
+01PLANT.zCROP Triticale,06MINERPARA.Diglyphus isaea,3868.264531
+01PLANT.Creeping Buttercup,06MINERPARA.Epiclerus temenus,1542.415586
+01PLANT.Grass sp,06MINERPARA.Epiclerus temenus,145.1461744
+01PLANT.Blackthorn,06MINERPARA.Eulophinae sp,96.76411626
+01PLANT.Clover sp,06MINERPARA.Eulophinae sp,17846.22104
+01PLANT.Clover sp,06MINERPARA.Eulophinae sp,6163.158369
+01PLANT.Clover sp,06MINERPARA.Eulophinae sp,552.2900264
+01PLANT.Creeping Buttercup,06MINERPARA.Eulophinae sp,14894.82452
+01PLANT.Creeping Buttercup,06MINERPARA.Eulophinae sp,17846.22104
+01PLANT.Creeping Buttercup,06MINERPARA.Eulophinae sp,552.2900264
+01PLANT.Grass sp,06MINERPARA.Eulophinae sp,4627.246758
+01PLANT.Grass sp,06MINERPARA.Eulophinae sp,476.0068789
+01PLANT.Grass sp,06MINERPARA.Eulophinae sp,18489.47511
+01PLANT.Grass sp,06MINERPARA.Eulophinae sp,552.2900264
+01PLANT.Grass sp,06MINERPARA.Eulophinae sp,828.6212739
+01PLANT.Oak,06MINERPARA.Eulophinae sp,6580.061862
+01PLANT.Cow Parsley,06MINERPARA.Exotela cyclogaster,218.8198909
+01PLANT.Hogweed,06MINERPARA.Exotela cyclogaster,510.5797455
+01PLANT.Grass sp,06MINERPARA.Exotela flavicoxa,828.6212739
+01PLANT.Creeping Buttercup,06MINERPARA.Exotela gilvipes,6163.158369
+01PLANT.Creeping Thistle,06MINERPARA.Exotela spinifer,1542.415586
+01PLANT.Creeping Thistle,06MINERPARA.Exotela spinifer,218.8198909
+01PLANT.Creeping Thistle,06MINERPARA.Exotela spinifer,145.1461744
+01PLANT.Creeping Thistle,06MINERPARA.Forsterella sp,1542.415586
+01PLANT.Creeping Thistle,06MINERPARA.Forsterella sp,656.4596727
+01PLANT.Grass sp,06MINERPARA.Forsterella sp,1656.870079
+01PLANT.Grass sp,06MINERPARA.Gelis anthracinus,1542.415586
+01PLANT.Creeping Thistle,06MINERPARA.Gelis bicolor,1542.415586
+01PLANT.Creeping Buttercup,06MINERPARA.Hemiptarsenus dropion,6580.061862
+01PLANT.Creeping Buttercup,06MINERPARA.Hemiptarsenus dropion,1542.415586
+01PLANT.Creeping Buttercup,06MINERPARA.Hemiptarsenus dropion,437.6397818
+01PLANT.Creeping Buttercup,06MINERPARA.Hemiptarsenus dropion,552.2900264
+01PLANT.Creeping Thistle,06MINERPARA.Hemiptarsenus dropion,96.76411626
+01PLANT.Grass sp,06MINERPARA.Hemiptarsenus dropion,13384.66578
+01PLANT.Grass sp,06MINERPARA.Hemiptarsenus dropion,656.4596728
+01PLANT.Grass sp,06MINERPARA.Hemiptarsenus dropion,823.8496857
+01PLANT.Grass sp,06MINERPARA.Hemiptarsenus dropion,15407.89592
+01PLANT.Grass sp,06MINERPARA.Hemiptarsenus dropion,1104.580053
+01PLANT.Sow-thistle sp,06MINERPARA.Hemiptarsenus dropion,4002.116272
+01PLANT.Grass sp,06MINERPARA.Hemiptarsenus fulvicollis,217.7192616
+01PLANT.Grass sp,06MINERPARA.Hemiptarsenus fulvicollis,55468.42532
+01PLANT.Grass sp,06MINERPARA.Hemiptarsenus fulvicollis,1656.870079
+01PLANT.Clover sp,06MINERPARA.Hemiptarsenus unguicellus,3598.969701
+01PLANT.Clover sp,06MINERPARA.Hemiptarsenus unguicellus,6163.158369
+01PLANT.Clover sp,06MINERPARA.Hemiptarsenus unguicellus,552.2900264
+01PLANT.Creeping Buttercup,06MINERPARA.Hemiptarsenus unguicellus,1542.415586
+01PLANT.Creeping Thistle,06MINERPARA.Hemiptarsenus unguicellus,6163.158369
+01PLANT.Grass sp,06MINERPARA.Hemiptarsenus unguicellus,9254.493516
+01PLANT.Grass sp,06MINERPARA.Hemiptarsenus unguicellus,53538.66312
+01PLANT.Grass sp,06MINERPARA.Hemiptarsenus unguicellus,656.4596728
+01PLANT.Grass sp,06MINERPARA.Hemiptarsenus unguicellus,2693.042119
+01PLANT.Grass sp,06MINERPARA.Hemiptarsenus unguicellus,52386.84614
+01PLANT.Grass sp,06MINERPARA.Hemiptarsenus unguicellus,2761.450132
+01PLANT.Grass sp,06MINERPARA.Hemiptarsenus unguicellus,828.6212739
+01PLANT.zCROP Barley,06MINERPARA.Hemiptarsenus unguicellus,8004.232544
+01PLANT.Sow-thistle sp,06MINERPARA.Ionympha carne,4002.116272
+01PLANT.Blackthorn,06MINERPARA.Microgastrinae sp,291.7598546
+01PLANT.Field Maple,06MINERPARA.Microgastrinae sp,5647.367175
+01PLANT.Oak,06MINERPARA.Microgastrinae sp,100611.8928
+01PLANT.Stinging Nettle,06MINERPARA.Miscogaster hortensis,828.6212739
+01PLANT.Cow Parsley,06MINERPARA.Miscogaster maculata,656.4596727
+01PLANT.Creeping Thistle,06MINERPARA.Miscogaster maculata,96.76411626
+01PLANT.Grass sp,06MINERPARA.Miscogaster maculata,1542.415586
+01PLANT.Grass sp,06MINERPARA.Miscogaster maculata,72.57308719
+01PLANT.Grass sp,06MINERPARA.Miscogaster maculata,552.2900264
+01PLANT.Grass sp,06MINERPARA.Miscogaster maculata,24976.30244
+01PLANT.Grass sp,06MINERPARA.Opiinae sp,1542.415586
+01PLANT.Grass sp,06MINERPARA.Opiinae sp,258.2876173
+01PLANT.Grass sp,06MINERPARA.Opiinae sp,6163.158369
+01PLANT.Spear Thistle,06MINERPARA.Opiinae sp,552.2900264
+01PLANT.Oak,06MINERPARA.Opius s.s.,13160.12372
+01PLANT.Clover sp,06MINERPARA.Opius s.s. lugens,8217.544493
+01PLANT.Creeping Thistle,06MINERPARA.Opius s.s. lugens,13384.66578
+01PLANT.Creeping Buttercup,06MINERPARA.Opius sp,7158.295462
+01PLANT.Creeping Buttercup,06MINERPARA.Opius sp,4113.10823
+01PLANT.Creeping Buttercup,06MINERPARA.Opius sp,6163.158369
+01PLANT.Grass sp,06MINERPARA.Pediobius acantha,258.2876173
+01PLANT.Grass sp,06MINERPARA.Pediobius acantha,552.2900264
+01PLANT.Grass sp,06MINERPARA.Pediobius acantha,1104.552158
+01PLANT.Common Field Speedwell,06MINERPARA.Phaedrotoma exigua,4002.116272
+01PLANT.Common Fleabane,06MINERPARA.Phaedrotoma exigua,6163.158369
+01PLANT.Creeping Buttercup,06MINERPARA.Phaedrotoma exigua,19301.18932
+01PLANT.Creeping Buttercup,06MINERPARA.Phaedrotoma exigua,12326.31674
+01PLANT.Creeping Thistle,06MINERPARA.Phaedrotoma exigua,6391.388622
+01PLANT.Grass sp,06MINERPARA.Phaedrotoma exigua,7736.529062
+01PLANT.Grass sp,06MINERPARA.Phaedrotoma exigua,1104.580053
+01PLANT.Sow-thistle sp,06MINERPARA.Phaedrotoma exigua,6580.061862
+01PLANT.Grass sp,06MINERPARA.Phaedrotoma variegata,1657.242548
+01PLANT.Blackthorn,06MINERPARA.Pnigalio soemius,2032.046441
+01PLANT.Bramble,06MINERPARA.Pnigalio soemius,828.6212739
+01PLANT.Charlock,06MINERPARA.Pnigalio soemius,8004.232544
+01PLANT.Clover sp,06MINERPARA.Pnigalio soemius,8217.544493
+01PLANT.Common Mouse-ear,06MINERPARA.Pnigalio soemius,19301.18932
+01PLANT.Creeping Buttercup,06MINERPARA.Pnigalio soemius,7736.529062
+01PLANT.Creeping Buttercup,06MINERPARA.Pnigalio soemius,4627.246759
+01PLANT.Creeping Buttercup,06MINERPARA.Pnigalio soemius,8217.544493
+01PLANT.Creeping Thistle,06MINERPARA.Pnigalio soemius,72.57308719
+01PLANT.Grass sp,06MINERPARA.Pnigalio soemius,488.7797422
+01PLANT.Grass sp,06MINERPARA.Pnigalio soemius,6163.158369
+01PLANT.Grass sp,06MINERPARA.Pnigalio soemius,1656.870079
+01PLANT.Hawthorn,06MINERPARA.Pnigalio soemius,96.76411626
+01PLANT.Stinging Nettle,06MINERPARA.Pnigalio soemius,96.76411626
+01PLANT.zCROP Lucerne,06MINERPARA.Pnigalio soemius,6332.59044
+01PLANT.Common Fleabane,06MINERPARA.Seladerma diffine,6163.158369
+01PLANT.Creeping Buttercup,06MINERPARA.Seladerma diffine,34774.24745
+01PLANT.Creeping Buttercup,06MINERPARA.Seladerma diffine,17846.22104
+01PLANT.Creeping Buttercup,06MINERPARA.Seladerma diffine,6332.59044
+01PLANT.Creeping Buttercup,06MINERPARA.Seladerma diffine,72.57308719
+01PLANT.Creeping Thistle,06MINERPARA.Seladerma diffine,25343.15092
+01PLANT.Creeping Thistle,06MINERPARA.Seladerma diffine,47814.88317
+01PLANT.Creeping Thistle,06MINERPARA.Seladerma diffine,526463.5207
+01PLANT.Creeping Thistle,06MINERPARA.Seladerma diffine,656.4596727
+01PLANT.Creeping Thistle,06MINERPARA.Seladerma diffine,459.6295522
+01PLANT.Creeping Thistle,06MINERPARA.Seladerma diffine,73957.90043
+01PLANT.Creeping Thistle,06MINERPARA.Seladerma diffine,4418.320211
+01PLANT.Grass sp,06MINERPARA.Seladerma diffine,1542.415586
+01PLANT.Grass sp,06MINERPARA.Seladerma diffine,304.589247
+01PLANT.Grass sp,06MINERPARA.Seladerma diffine,3314.485096
+01PLANT.Sow-thistle sp,06MINERPARA.Seladerma diffine,15432.92479
+01PLANT.Spear Thistle,06MINERPARA.Seladerma diffine,552.2900264
+01PLANT.zCROP Triticale,06MINERPARA.Seladerma diffine,3868.264531
+01PLANT.Creeping Buttercup,06MINERPARA.Seladerma tarsale,2056.554115
+01PLANT.Creeping Buttercup,06MINERPARA.Seladerma tarsale,552.2900264
+01PLANT.Creeping Thistle,06MINERPARA.Seladerma tarsale,26769.33156
+01PLANT.Creeping Thistle,06MINERPARA.Seladerma tarsale,552.2900264
+01PLANT.Grass sp,06MINERPARA.Seladerma tarsale,1542.415586
+01PLANT.Grass sp,06MINERPARA.Seladerma tarsale,1821.439342
+01PLANT.Grass sp,06MINERPARA.Seladerma tarsale,9244.737554
+01PLANT.Grass sp,06MINERPARA.Seladerma tarsale,74693.57887
+01PLANT.Sow-thistle sp,06MINERPARA.Seladerma tarsale,15432.92479
+01PLANT.Oak,06MINERPARA.Sympiesis gordius,272267.4493
+01PLANT.Hawthorn,06MINERPARA.Sympiesis sericeicornis,828.6212739
+01PLANT.Hogweed,06MINERPARA.Synopeas rhanis,552.2900264
+01PLANT.Grass sp,06MINERPARA.Torymus sp,218.8198909
+01PLANT.Hawthorn,07SEEDINVERT.Blastodacna hellerella,218.8198909
+01PLANT.Hawthorn,07SEEDINVERT.Blastodacna hellerella,1104.580053
+01PLANT.Clover sp,07SEEDINVERT.Bruchidius varius,1104.580053
+01PLANT.Clover sp,07SEEDINVERT.Bruchophagus gibbus,65740.35594
+01PLANT.Spear Thistle,07SEEDINVERT.Curtonotus aulicus,552.2900264
+01PLANT.Spear Thistle,07SEEDINVERT.Olibrus aeneus,552.2900264
+01PLANT.Common Vetch,07SEEDINVERT.Oxystoma pomonae,6075.190291
+01PLANT.Clover sp,07SEEDINVERT.Protapion apricans,3868.264531
+01PLANT.Clover sp,07SEEDINVERT.Protapion apricans,25330.36176
+01PLANT.Clover sp,07SEEDINVERT.Protapion apricans,57522.81145
+01PLANT.Clover sp,07SEEDINVERT.Protapion apricans,5522.900264
+01PLANT.Clover sp,07SEEDINVERT.Protapion assimile,126651.8088
+01PLANT.Clover sp,07SEEDINVERT.Protapion assimile,4970.610238
+01PLANT.Clover sp,07SEEDINVERT.Protapion fulvipes,382519.0655
+01PLANT.Clover sp,07SEEDINVERT.Protapion fulvipes,232000.8735
+01PLANT.Clover sp,07SEEDINVERT.Protapion fulvipes,131480.7119
+01PLANT.Clover sp,07SEEDINVERT.Protapion fulvipes,2209.160105
+01PLANT.Lesser Trefoil,07SEEDINVERT.Protapion nigritarse,8217.544493
+01PLANT.Clover sp,07SEEDINVERT.Protapion trifolii,405285.7882
+01PLANT.Clover sp,07SEEDINVERT.Protapion trifolii,57522.81145
+01PLANT.Clover sp,07SEEDINVERT.Protapion trifolii,3313.740158
+01PLANT.Clover sp,07SEEDINVERT.Protapion varipes,552.2900264
+01PLANT.Spear Thistle,07SEEDINVERT.Rhinocyllus conicus,552.2900264
+01PLANT.Clover sp,07SEEDINVERT.Sitona lineatus,552.2900264
+01PLANT.Clover sp,07SEEDINVERT.Sitona sulcifrons,552.2900264
+01PLANT.Spear Thistle,07SEEDINVERT.Terellia longicauda,291.7598546
+01PLANT.Creeping Thistle,07SEEDINVERT.Terellia ruficauda,2056.554115
+01PLANT.Creeping Thistle,07SEEDINVERT.Terellia ruficauda,41087.72246
+01PLANT.Spear Thistle,07SEEDINVERT.Terellia serratulae,2056.554115
+01PLANT.Spear Thistle,07SEEDINVERT.Terellia serratulae,2042.318982
+01PLANT.Spear Thistle,07SEEDINVERT.Terellia serratulae,387.056465
+01PLANT.Spear Thistle,07SEEDINVERT.Terellia serratulae,6627.480317
+01PLANT.Creeping Thistle,07SEEDINVERT.Urophora stylata,552.2900264
+01PLANT.Spear Thistle,07SEEDINVERT.Urophora stylata,18508.98704
+01PLANT.Spear Thistle,07SEEDINVERT.Urophora stylata,1161.169395
+01PLANT.Spear Thistle,07SEEDINVERT.Urophora stylata,53019.84254
+01PLANT.Black Bindweed,08BIRD.Alauda arvensis,0.00845
+01PLANT.Chenopodium sp,08BIRD.Alauda arvensis,1.563564522
+01PLANT.Chenopodium sp,08BIRD.Alauda arvensis,1.563564522
+01PLANT.Chenopodium sp,08BIRD.Alauda arvensis,1.563564522
+01PLANT.Common Poppy,08BIRD.Alauda arvensis,0.031217
+01PLANT.Common Poppy,08BIRD.Alauda arvensis,0.031217
+01PLANT.Creeping Buttercup,08BIRD.Alauda arvensis,0.0247
+01PLANT.Creeping Buttercup,08BIRD.Alauda arvensis,0.0247
+01PLANT.Creeping Buttercup,08BIRD.Alauda arvensis,0.0247
+01PLANT.Creeping Buttercup,08BIRD.Alauda arvensis,0.0247
+01PLANT.Creeping Buttercup,08BIRD.Alauda arvensis,0.0247
+01PLANT.Creeping Buttercup,08BIRD.Alauda arvensis,0.0247
+01PLANT.Creeping Buttercup,08BIRD.Alauda arvensis,0.0247
+01PLANT.Creeping Buttercup,08BIRD.Alauda arvensis,0.0247
+01PLANT.Creeping Buttercup,08BIRD.Alauda arvensis,0.0247
+01PLANT.Creeping Buttercup,08BIRD.Alauda arvensis,0.0247
+01PLANT.Dock sp,08BIRD.Alauda arvensis,0.607547264
+01PLANT.Dock sp,08BIRD.Alauda arvensis,0.607547264
+01PLANT.Dock sp,08BIRD.Alauda arvensis,0.607547264
+01PLANT.Dock sp,08BIRD.Alauda arvensis,0.607547264
+01PLANT.Dock sp,08BIRD.Alauda arvensis,0.607547264
+01PLANT.Dock sp,08BIRD.Alauda arvensis,0.607547264
+01PLANT.Dock sp,08BIRD.Alauda arvensis,0.607547264
+01PLANT.Dock sp,08BIRD.Alauda arvensis,0.607547264
+01PLANT.Grass sp,08BIRD.Alauda arvensis,0.031217
+01PLANT.Grass sp,08BIRD.Alauda arvensis,0.031217
+01PLANT.Grass sp,08BIRD.Alauda arvensis,0.031217
+01PLANT.Grass sp,08BIRD.Alauda arvensis,0.031217
+01PLANT.Grass sp,08BIRD.Alauda arvensis,0.031217
+01PLANT.Grass sp,08BIRD.Alauda arvensis,0.031217
+01PLANT.Grass sp,08BIRD.Alauda arvensis,0.031217
+01PLANT.Grass sp,08BIRD.Alauda arvensis,0.031217
+01PLANT.Grass sp,08BIRD.Alauda arvensis,0.031217
+01PLANT.Grass sp,08BIRD.Alauda arvensis,0.031217
+01PLANT.Grass sp,08BIRD.Alauda arvensis,0.031217
+01PLANT.Grass sp,08BIRD.Alauda arvensis,0.031217
+01PLANT.Grass sp,08BIRD.Alauda arvensis,0.031217
+01PLANT.Hedge Woundwort,08BIRD.Alauda arvensis,1.563564522
+01PLANT.Hedge Woundwort,08BIRD.Alauda arvensis,1.563564522
+01PLANT.Hedge Woundwort,08BIRD.Alauda arvensis,1.563564522
+01PLANT.Hedge Woundwort,08BIRD.Alauda arvensis,1.563564522
+01PLANT.Knotgrass sp,08BIRD.Alauda arvensis,0.0446
+01PLANT.Knotgrass sp,08BIRD.Alauda arvensis,0.0446
+01PLANT.Knotgrass sp,08BIRD.Alauda arvensis,0.0446
+01PLANT.Knotgrass sp,08BIRD.Alauda arvensis,0.0446
+01PLANT.Meadow Buttercup,08BIRD.Alauda arvensis,0.00654
+01PLANT.Persicaria sp,08BIRD.Alauda arvensis,2.205932353
+01PLANT.Persicaria sp,08BIRD.Alauda arvensis,2.205932353
+01PLANT.Persicaria sp,08BIRD.Alauda arvensis,2.205932353
+01PLANT.Persicaria sp,08BIRD.Alauda arvensis,2.205932353
+01PLANT.Stinging Nettle,08BIRD.Alauda arvensis,0.031217
+01PLANT.Stinging Nettle,08BIRD.Alauda arvensis,0.031217
+01PLANT.Stinging Nettle,08BIRD.Alauda arvensis,0.031217
+01PLANT.Stinging Nettle,08BIRD.Alauda arvensis,0.031217
+01PLANT.Stinging Nettle,08BIRD.Alauda arvensis,0.031217
+01PLANT.Stinging Nettle,08BIRD.Alauda arvensis,0.031217
+01PLANT.Stinging Nettle,08BIRD.Alauda arvensis,0.031217
+01PLANT.Wall Speedwell,08BIRD.Alauda arvensis,0.031217
+01PLANT.Wall Speedwell,08BIRD.Alauda arvensis,0.031217
+01PLANT.zCROP Wheat,08BIRD.Alauda arvensis,0.031217
+01PLANT.zCROP Wheat,08BIRD.Alauda arvensis,0.031217
+01PLANT.Autumn Hawkbit,08BIRD.Alectoris rufa,6.35E-07
+01PLANT.Autumn Hawkbit,08BIRD.Alectoris rufa,6.35E-07
+01PLANT.Black Bindweed,08BIRD.Alectoris rufa,0.0079778
+01PLANT.Blackthorn,08BIRD.Alectoris rufa,0.643597658
+01PLANT.Blackthorn,08BIRD.Alectoris rufa,0.643597658
+01PLANT.Blackthorn,08BIRD.Alectoris rufa,0.643597658
+01PLANT.Blackthorn,08BIRD.Alectoris rufa,0.643597658
+01PLANT.Bramble,08BIRD.Alectoris rufa,0.356057957
+01PLANT.Bramble,08BIRD.Alectoris rufa,0.356057957
+01PLANT.Bramble,08BIRD.Alectoris rufa,0.356057957
+01PLANT.Bramble,08BIRD.Alectoris rufa,0.356057957
+01PLANT.Bramble,08BIRD.Alectoris rufa,0.356057957
+01PLANT.Bush Vetch,08BIRD.Alectoris rufa,0.00871
+01PLANT.Bush Vetch,08BIRD.Alectoris rufa,0.00871
+01PLANT.Chenopodium sp,08BIRD.Alectoris rufa,5.447837788
+01PLANT.Chenopodium sp,08BIRD.Alectoris rufa,5.447837788
+01PLANT.Chenopodium sp,08BIRD.Alectoris rufa,0.66
+01PLANT.Chenopodium sp,08BIRD.Alectoris rufa,5.447837788
+01PLANT.Clover sp,08BIRD.Alectoris rufa,1.706922802
+01PLANT.Clover sp,08BIRD.Alectoris rufa,1.706922802
+01PLANT.Clover sp,08BIRD.Alectoris rufa,1.706922802
+01PLANT.Clover sp,08BIRD.Alectoris rufa,1.706922802
+01PLANT.Clover sp,08BIRD.Alectoris rufa,1.706922802
+01PLANT.Clover sp,08BIRD.Alectoris rufa,1.706922802
+01PLANT.Clover sp,08BIRD.Alectoris rufa,1.706922802
+01PLANT.Clover sp,08BIRD.Alectoris rufa,1.706922802
+01PLANT.Clover sp,08BIRD.Alectoris rufa,1.706922802
+01PLANT.Clover sp,08BIRD.Alectoris rufa,1.706922802
+01PLANT.Common Mouse-ear,08BIRD.Alectoris rufa,0.956709606
+01PLANT.Common Mouse-ear,08BIRD.Alectoris rufa,0.956709606
+01PLANT.Common Mouse-ear,08BIRD.Alectoris rufa,0.956709606
+01PLANT.Common Mouse-ear,08BIRD.Alectoris rufa,0.956709606
+01PLANT.Common Mouse-ear,08BIRD.Alectoris rufa,0.956709606
+01PLANT.Corn Sowthistle,08BIRD.Alectoris rufa,0.001961443
+01PLANT.Corn Spurrey,08BIRD.Alectoris rufa,0.0141
+01PLANT.Cow Parsley,08BIRD.Alectoris rufa,0.00596
+01PLANT.Cow Parsley,08BIRD.Alectoris rufa,0.00596
+01PLANT.Cow Parsley,08BIRD.Alectoris rufa,0.00596
+01PLANT.Creeping Cinquefoil,08BIRD.Alectoris rufa,0.00622
+01PLANT.Creeping Thistle,08BIRD.Alectoris rufa,0.109707461
+01PLANT.Creeping Thistle,08BIRD.Alectoris rufa,0.109707461
+01PLANT.Creeping Thistle,08BIRD.Alectoris rufa,0.109707461
+01PLANT.Creeping Thistle,08BIRD.Alectoris rufa,0.109707461
+01PLANT.Creeping Thistle,08BIRD.Alectoris rufa,0.109707461
+01PLANT.Creeping Thistle,08BIRD.Alectoris rufa,0.109707461
+01PLANT.Creeping Thistle,08BIRD.Alectoris rufa,0.109707461
+01PLANT.Creeping Thistle,08BIRD.Alectoris rufa,0.109707461
+01PLANT.Creeping Thistle,08BIRD.Alectoris rufa,0.109707461
+01PLANT.Creeping Thistle,08BIRD.Alectoris rufa,0.0143
+01PLANT.Creeping Thistle,08BIRD.Alectoris rufa,0.109707461
+01PLANT.Creeping Thistle,08BIRD.Alectoris rufa,0.109707461
+01PLANT.Dandelion,08BIRD.Alectoris rufa,0.002176
+01PLANT.Dandelion,08BIRD.Alectoris rufa,0.002176
+01PLANT.Dandelion,08BIRD.Alectoris rufa,0.002176
+01PLANT.Dandelion,08BIRD.Alectoris rufa,0.002176
+01PLANT.Dandelion,08BIRD.Alectoris rufa,0.002176
+01PLANT.Dock sp,08BIRD.Alectoris rufa,0.63381715
+01PLANT.Dock sp,08BIRD.Alectoris rufa,0.63381715
+01PLANT.Dock sp,08BIRD.Alectoris rufa,0.63381715
+01PLANT.Dock sp,08BIRD.Alectoris rufa,0.63381715
+01PLANT.Dock sp,08BIRD.Alectoris rufa,0.63381715
+01PLANT.Dock sp,08BIRD.Alectoris rufa,0.63381715
+01PLANT.Dock sp,08BIRD.Alectoris rufa,0.227331539
+01PLANT.Dock sp,08BIRD.Alectoris rufa,0.63381715
+01PLANT.Dock sp,08BIRD.Alectoris rufa,0.63381715
+01PLANT.Dog's Mercury,08BIRD.Alectoris rufa,0.061075
+01PLANT.Grass sp,08BIRD.Alectoris rufa,9.905159615
+01PLANT.Grass sp,08BIRD.Alectoris rufa,9.905159615
+01PLANT.Grass sp,08BIRD.Alectoris rufa,9.905159615
+01PLANT.Grass sp,08BIRD.Alectoris rufa,9.905159615
+01PLANT.Grass sp,08BIRD.Alectoris rufa,9.905159615
+01PLANT.Grass sp,08BIRD.Alectoris rufa,9.905159615
+01PLANT.Grass sp,08BIRD.Alectoris rufa,9.905159615
+01PLANT.Grass sp,08BIRD.Alectoris rufa,9.905159615
+01PLANT.Grass sp,08BIRD.Alectoris rufa,9.905159615
+01PLANT.Grass sp,08BIRD.Alectoris rufa,9.905159615
+01PLANT.Grass sp,08BIRD.Alectoris rufa,1.2
+01PLANT.Grass sp,08BIRD.Alectoris rufa,9.905159615
+01PLANT.Grass sp,08BIRD.Alectoris rufa,9.905159615
+01PLANT.Grass sp,08BIRD.Alectoris rufa,9.905159615
+01PLANT.Ground Ivy,08BIRD.Alectoris rufa,0.00921
+01PLANT.Ground Ivy,08BIRD.Alectoris rufa,0.00921
+01PLANT.Hairy Tare,08BIRD.Alectoris rufa,1.225888939
+01PLANT.Hawkish Complex sp,08BIRD.Alectoris rufa,0.004795
+01PLANT.Hawthorn,08BIRD.Alectoris rufa,1.278693149
+01PLANT.Hawthorn,08BIRD.Alectoris rufa,1.278693149
+01PLANT.Hawthorn,08BIRD.Alectoris rufa,1.278693149
+01PLANT.Hawthorn,08BIRD.Alectoris rufa,1.278693149
+01PLANT.Hawthorn,08BIRD.Alectoris rufa,1.278693149
+01PLANT.Hedge Woundwort,08BIRD.Alectoris rufa,1.145750625
+01PLANT.Hedge Woundwort,08BIRD.Alectoris rufa,1.145750625
+01PLANT.Hedge Woundwort,08BIRD.Alectoris rufa,1.145750625
+01PLANT.Hedge Woundwort,08BIRD.Alectoris rufa,1.145750625
+01PLANT.Herb Bennet,08BIRD.Alectoris rufa,0.0036
+01PLANT.Hogweed,08BIRD.Alectoris rufa,0.04445
+01PLANT.Hogweed,08BIRD.Alectoris rufa,0.04445
+01PLANT.Hogweed,08BIRD.Alectoris rufa,0.04445
+01PLANT.Hogweed,08BIRD.Alectoris rufa,0.04445
+01PLANT.Knotgrass sp,08BIRD.Alectoris rufa,0.041938
+01PLANT.Knotgrass sp,08BIRD.Alectoris rufa,0.041938
+01PLANT.Knotgrass sp,08BIRD.Alectoris rufa,0.0124
+01PLANT.Knotgrass sp,08BIRD.Alectoris rufa,0.041938
+01PLANT.Knotgrass sp,08BIRD.Alectoris rufa,0.041938
+01PLANT.Lesser Burdock,08BIRD.Alectoris rufa,0.000126
+01PLANT.Lesser Stitchwort,08BIRD.Alectoris rufa,0.561333351
+01PLANT.Lesser Stitchwort,08BIRD.Alectoris rufa,0.561333351
+01PLANT.Lesser Trefoil,08BIRD.Alectoris rufa,0.03
+01PLANT.Mayweed sp,08BIRD.Alectoris rufa,2.402424412
+01PLANT.Mayweed sp,08BIRD.Alectoris rufa,2.402424412
+01PLANT.Mayweed sp,08BIRD.Alectoris rufa,2.402424412
+01PLANT.Mayweed sp,08BIRD.Alectoris rufa,2.402424412
+01PLANT.Mayweed sp,08BIRD.Alectoris rufa,2.402424412
+01PLANT.Mayweed sp,08BIRD.Alectoris rufa,2.402424412
+01PLANT.Mayweed sp,08BIRD.Alectoris rufa,0.262176318
+01PLANT.Mayweed sp,08BIRD.Alectoris rufa,2.402424412
+01PLANT.Nipplewort,08BIRD.Alectoris rufa,0.00062078
+01PLANT.Nipplewort,08BIRD.Alectoris rufa,0.00062078
+01PLANT.Oak,08BIRD.Alectoris rufa,0.264764
+01PLANT.Oak,08BIRD.Alectoris rufa,0.264764
+01PLANT.Oak,08BIRD.Alectoris rufa,0.264764
+01PLANT.Oak,08BIRD.Alectoris rufa,0.264764
+01PLANT.Persicaria sp,08BIRD.Alectoris rufa,2.783072012
+01PLANT.Persicaria sp,08BIRD.Alectoris rufa,2.783072012
+01PLANT.Persicaria sp,08BIRD.Alectoris rufa,2.783072012
+01PLANT.Persicaria sp,08BIRD.Alectoris rufa,0.180249148
+01PLANT.Persicaria sp,08BIRD.Alectoris rufa,2.783072012
+01PLANT.Pineappleweed,08BIRD.Alectoris rufa,0.0272
+01PLANT.Red Campion,08BIRD.Alectoris rufa,0.0534
+01PLANT.Red Campion,08BIRD.Alectoris rufa,0.0534
+01PLANT.Red Dead-nettle,08BIRD.Alectoris rufa,0.305485279
+01PLANT.Red Dead-nettle,08BIRD.Alectoris rufa,0.18
+01PLANT.Red Dead-nettle,08BIRD.Alectoris rufa,0.305485279
+01PLANT.Rose sp,08BIRD.Alectoris rufa,0.188110053
+01PLANT.Rough Chervil,08BIRD.Alectoris rufa,0.21431783
+01PLANT.Rough Chervil,08BIRD.Alectoris rufa,0.21431783
+01PLANT.Selfheal,08BIRD.Alectoris rufa,0.0253
+01PLANT.Sow-thistle sp,08BIRD.Alectoris rufa,1.441522954
+01PLANT.Sow-thistle sp,08BIRD.Alectoris rufa,1.441522954
+01PLANT.Sow-thistle sp,08BIRD.Alectoris rufa,1.441522954
+01PLANT.Sow-thistle sp,08BIRD.Alectoris rufa,1.441522954
+01PLANT.Sow-thistle sp,08BIRD.Alectoris rufa,1.441522954
+01PLANT.Sow-thistle sp,08BIRD.Alectoris rufa,1.441522954
+01PLANT.Sow-thistle sp,08BIRD.Alectoris rufa,0.23635945
+01PLANT.Sow-thistle sp,08BIRD.Alectoris rufa,1.441522954
+01PLANT.Sow-thistle sp,08BIRD.Alectoris rufa,1.441522954
+01PLANT.Spear Thistle,08BIRD.Alectoris rufa,0.385043199
+01PLANT.Spear Thistle,08BIRD.Alectoris rufa,0.385043199
+01PLANT.Spear Thistle,08BIRD.Alectoris rufa,0.385043199
+01PLANT.Spear Thistle,08BIRD.Alectoris rufa,0.385043199
+01PLANT.Spear Thistle,08BIRD.Alectoris rufa,0.385043199
+01PLANT.Spear Thistle,08BIRD.Alectoris rufa,0.385043199
+01PLANT.Spear Thistle,08BIRD.Alectoris rufa,0.385043199
+01PLANT.Traveller's Joy,08BIRD.Alectoris rufa,0.264764
+01PLANT.Willowherb sp,08BIRD.Alectoris rufa,0.264764
+01PLANT.Willowherb sp,08BIRD.Alectoris rufa,0.264764
+01PLANT.zCROP Wheat,08BIRD.Alectoris rufa,16.34351337
+01PLANT.zCROP Wheat,08BIRD.Alectoris rufa,16.34351337
+01PLANT.Autumn Hawkbit,08BIRD.Carduelis cannabina,9.34E-08
+01PLANT.Autumn Hawkbit,08BIRD.Carduelis cannabina,9.34E-08
+01PLANT.Black Bindweed,08BIRD.Carduelis cannabina,0.000111
+01PLANT.Blackthorn,08BIRD.Carduelis cannabina,0.0565
+01PLANT.Blackthorn,08BIRD.Carduelis cannabina,0.0565
+01PLANT.Blackthorn,08BIRD.Carduelis cannabina,0.0565
+01PLANT.Blackthorn,08BIRD.Carduelis cannabina,0.0565
+01PLANT.Bramble,08BIRD.Carduelis cannabina,0.00815
+01PLANT.Bramble,08BIRD.Carduelis cannabina,0.00815
+01PLANT.Bramble,08BIRD.Carduelis cannabina,0.00815
+01PLANT.Bramble,08BIRD.Carduelis cannabina,0.00815
+01PLANT.Bramble,08BIRD.Carduelis cannabina,0.00815
+01PLANT.Charlock,08BIRD.Carduelis cannabina,2.357763382
+01PLANT.Charlock,08BIRD.Carduelis cannabina,2.357763382
+01PLANT.Charlock,08BIRD.Carduelis cannabina,2.357763382
+01PLANT.Charlock,08BIRD.Carduelis cannabina,2.357763382
+01PLANT.Charlock,08BIRD.Carduelis cannabina,2.357763382
+01PLANT.Chenopodium sp,08BIRD.Carduelis cannabina,1.199764776
+01PLANT.Chenopodium sp,08BIRD.Carduelis cannabina,1.199764776
+01PLANT.Chenopodium sp,08BIRD.Carduelis cannabina,1.199764776
+01PLANT.Clover sp,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Clover sp,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Clover sp,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Clover sp,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Clover sp,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Clover sp,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Clover sp,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Clover sp,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Clover sp,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Clover sp,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Common Field Speedwell,08BIRD.Carduelis cannabina,0.0228
+01PLANT.Common Field Speedwell,08BIRD.Carduelis cannabina,0.0228
+01PLANT.Common Mouse-ear,08BIRD.Carduelis cannabina,0.0195
+01PLANT.Common Mouse-ear,08BIRD.Carduelis cannabina,0.0195
+01PLANT.Common Mouse-ear,08BIRD.Carduelis cannabina,0.0195
+01PLANT.Common Mouse-ear,08BIRD.Carduelis cannabina,0.0195
+01PLANT.Common Mouse-ear,08BIRD.Carduelis cannabina,0.0195
+01PLANT.Common Poppy,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Common Poppy,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Corn Sowthistle,08BIRD.Carduelis cannabina,9.40E-05
+01PLANT.Cow Parsley,08BIRD.Carduelis cannabina,0.000944
+01PLANT.Cow Parsley,08BIRD.Carduelis cannabina,0.000944
+01PLANT.Cow Parsley,08BIRD.Carduelis cannabina,0.000944
+01PLANT.Creeping Buttercup,08BIRD.Carduelis cannabina,0.0237
+01PLANT.Creeping Buttercup,08BIRD.Carduelis cannabina,0.0237
+01PLANT.Creeping Buttercup,08BIRD.Carduelis cannabina,0.0237
+01PLANT.Creeping Buttercup,08BIRD.Carduelis cannabina,0.0237
+01PLANT.Creeping Buttercup,08BIRD.Carduelis cannabina,0.0237
+01PLANT.Creeping Buttercup,08BIRD.Carduelis cannabina,0.0237
+01PLANT.Creeping Buttercup,08BIRD.Carduelis cannabina,0.0237
+01PLANT.Creeping Buttercup,08BIRD.Carduelis cannabina,0.0237
+01PLANT.Creeping Buttercup,08BIRD.Carduelis cannabina,0.0237
+01PLANT.Creeping Buttercup,08BIRD.Carduelis cannabina,0.0237
+01PLANT.Creeping Thistle,08BIRD.Carduelis cannabina,0.000301
+01PLANT.Creeping Thistle,08BIRD.Carduelis cannabina,0.000301
+01PLANT.Creeping Thistle,08BIRD.Carduelis cannabina,0.000301
+01PLANT.Creeping Thistle,08BIRD.Carduelis cannabina,0.000301
+01PLANT.Creeping Thistle,08BIRD.Carduelis cannabina,0.000301
+01PLANT.Creeping Thistle,08BIRD.Carduelis cannabina,0.000301
+01PLANT.Creeping Thistle,08BIRD.Carduelis cannabina,0.000301
+01PLANT.Creeping Thistle,08BIRD.Carduelis cannabina,0.000301
+01PLANT.Creeping Thistle,08BIRD.Carduelis cannabina,0.000301
+01PLANT.Creeping Thistle,08BIRD.Carduelis cannabina,0.000301
+01PLANT.Creeping Thistle,08BIRD.Carduelis cannabina,0.000301
+01PLANT.Dandelion,08BIRD.Carduelis cannabina,2.58E-05
+01PLANT.Dandelion,08BIRD.Carduelis cannabina,2.58E-05
+01PLANT.Dandelion,08BIRD.Carduelis cannabina,2.58E-05
+01PLANT.Dandelion,08BIRD.Carduelis cannabina,2.58E-05
+01PLANT.Dandelion,08BIRD.Carduelis cannabina,2.58E-05
+01PLANT.Dock sp,08BIRD.Carduelis cannabina,0.0762
+01PLANT.Dock sp,08BIRD.Carduelis cannabina,0.0762
+01PLANT.Dock sp,08BIRD.Carduelis cannabina,0.0762
+01PLANT.Dock sp,08BIRD.Carduelis cannabina,0.0762
+01PLANT.Dock sp,08BIRD.Carduelis cannabina,0.0762
+01PLANT.Dock sp,08BIRD.Carduelis cannabina,0.0762
+01PLANT.Dock sp,08BIRD.Carduelis cannabina,0.0762
+01PLANT.Dock sp,08BIRD.Carduelis cannabina,0.0762
+01PLANT.Dog's Mercury,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Field Forget-me-not,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Field Forget-me-not,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Field Forget-me-not,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Grass sp,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Grass sp,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Grass sp,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Grass sp,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Grass sp,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Grass sp,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Grass sp,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Grass sp,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Grass sp,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Grass sp,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Grass sp,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Grass sp,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Grass sp,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Ground Ivy,08BIRD.Carduelis cannabina,0.000731
+01PLANT.Ground Ivy,08BIRD.Carduelis cannabina,0.000731
+01PLANT.Hawkish Complex sp,08BIRD.Carduelis cannabina,3.02E-05
+01PLANT.Hawthorn,08BIRD.Carduelis cannabina,0.0847
+01PLANT.Hawthorn,08BIRD.Carduelis cannabina,0.0847
+01PLANT.Hawthorn,08BIRD.Carduelis cannabina,0.0847
+01PLANT.Hawthorn,08BIRD.Carduelis cannabina,0.0847
+01PLANT.Hawthorn,08BIRD.Carduelis cannabina,0.0847
+01PLANT.Hogweed,08BIRD.Carduelis cannabina,0.0192
+01PLANT.Hogweed,08BIRD.Carduelis cannabina,0.0192
+01PLANT.Hogweed,08BIRD.Carduelis cannabina,0.0192
+01PLANT.Hogweed,08BIRD.Carduelis cannabina,0.0192
+01PLANT.Knotgrass sp,08BIRD.Carduelis cannabina,0.000384
+01PLANT.Knotgrass sp,08BIRD.Carduelis cannabina,0.000384
+01PLANT.Knotgrass sp,08BIRD.Carduelis cannabina,0.000384
+01PLANT.Knotgrass sp,08BIRD.Carduelis cannabina,0.000384
+01PLANT.Lesser Burdock,08BIRD.Carduelis cannabina,1.85E-05
+01PLANT.Mayweed sp,08BIRD.Carduelis cannabina,0.067
+01PLANT.Mayweed sp,08BIRD.Carduelis cannabina,0.067
+01PLANT.Mayweed sp,08BIRD.Carduelis cannabina,0.067
+01PLANT.Mayweed sp,08BIRD.Carduelis cannabina,0.067
+01PLANT.Mayweed sp,08BIRD.Carduelis cannabina,0.067
+01PLANT.Mayweed sp,08BIRD.Carduelis cannabina,0.067
+01PLANT.Mayweed sp,08BIRD.Carduelis cannabina,0.067
+01PLANT.Meadow Buttercup,08BIRD.Carduelis cannabina,0.00206
+01PLANT.Nipplewort,08BIRD.Carduelis cannabina,4.08E-07
+01PLANT.Nipplewort,08BIRD.Carduelis cannabina,4.08E-07
+01PLANT.Oak,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Oak,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Oak,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Oak,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Persicaria sp,08BIRD.Carduelis cannabina,0.823114339
+01PLANT.Persicaria sp,08BIRD.Carduelis cannabina,0.823114339
+01PLANT.Persicaria sp,08BIRD.Carduelis cannabina,0.823114339
+01PLANT.Persicaria sp,08BIRD.Carduelis cannabina,0.823114339
+01PLANT.Red Dead-nettle,08BIRD.Carduelis cannabina,0.0243
+01PLANT.Red Dead-nettle,08BIRD.Carduelis cannabina,0.0243
+01PLANT.Rose sp,08BIRD.Carduelis cannabina,0.000612
+01PLANT.Rough Chervil,08BIRD.Carduelis cannabina,0.00691
+01PLANT.Rough Chervil,08BIRD.Carduelis cannabina,0.00691
+01PLANT.Selfheal,08BIRD.Carduelis cannabina,0.002012249
+01PLANT.Shepherd's Purse,08BIRD.Carduelis cannabina,0.266111422
+01PLANT.Shepherd's Purse,08BIRD.Carduelis cannabina,0.266111422
+01PLANT.Sow-thistle sp,08BIRD.Carduelis cannabina,0.081
+01PLANT.Sow-thistle sp,08BIRD.Carduelis cannabina,0.081
+01PLANT.Sow-thistle sp,08BIRD.Carduelis cannabina,0.081
+01PLANT.Sow-thistle sp,08BIRD.Carduelis cannabina,0.081
+01PLANT.Sow-thistle sp,08BIRD.Carduelis cannabina,0.081
+01PLANT.Sow-thistle sp,08BIRD.Carduelis cannabina,0.081
+01PLANT.Sow-thistle sp,08BIRD.Carduelis cannabina,0.081
+01PLANT.Sow-thistle sp,08BIRD.Carduelis cannabina,0.081
+01PLANT.Spear Thistle,08BIRD.Carduelis cannabina,0.00135
+01PLANT.Spear Thistle,08BIRD.Carduelis cannabina,0.00135
+01PLANT.Spear Thistle,08BIRD.Carduelis cannabina,0.00135
+01PLANT.Spear Thistle,08BIRD.Carduelis cannabina,0.00135
+01PLANT.Spear Thistle,08BIRD.Carduelis cannabina,0.00135
+01PLANT.Spear Thistle,08BIRD.Carduelis cannabina,0.00135
+01PLANT.Spear Thistle,08BIRD.Carduelis cannabina,0.00135
+01PLANT.Stinging Nettle,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Stinging Nettle,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Stinging Nettle,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Stinging Nettle,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Stinging Nettle,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Stinging Nettle,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Stinging Nettle,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Traveller's Joy,08BIRD.Carduelis cannabina,0.00126
+01PLANT.Wall Speedwell,08BIRD.Carduelis cannabina,0.00409
+01PLANT.Wall Speedwell,08BIRD.Carduelis cannabina,0.00409
+01PLANT.Willowherb sp,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Willowherb sp,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.zCROP Wheat,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.zCROP Wheat,08BIRD.Carduelis cannabina,0.027010833
+01PLANT.Autumn Hawkbit,08BIRD.Carduelis carduelis,2.00E-05
+01PLANT.Autumn Hawkbit,08BIRD.Carduelis carduelis,2.00E-05
+01PLANT.Black Bindweed,08BIRD.Carduelis carduelis,0.000396
+01PLANT.Blackthorn,08BIRD.Carduelis carduelis,7.269602684
+01PLANT.Blackthorn,08BIRD.Carduelis carduelis,7.269602684
+01PLANT.Blackthorn,08BIRD.Carduelis carduelis,7.269602684
+01PLANT.Blackthorn,08BIRD.Carduelis carduelis,7.269602684
+01PLANT.Bramble,08BIRD.Carduelis carduelis,1.048853815
+01PLANT.Bramble,08BIRD.Carduelis carduelis,1.048853815
+01PLANT.Bramble,08BIRD.Carduelis carduelis,1.048853815
+01PLANT.Bramble,08BIRD.Carduelis carduelis,1.048853815
+01PLANT.Bramble,08BIRD.Carduelis carduelis,1.048853815
+01PLANT.Chenopodium sp,08BIRD.Carduelis carduelis,61.09371052
+01PLANT.Chenopodium sp,08BIRD.Carduelis carduelis,61.09371052
+01PLANT.Chenopodium sp,08BIRD.Carduelis carduelis,14.66008334
+01PLANT.Chenopodium sp,08BIRD.Carduelis carduelis,61.09371052
+01PLANT.Clover sp,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Clover sp,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Clover sp,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Clover sp,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Clover sp,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Clover sp,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Clover sp,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Clover sp,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Clover sp,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Clover sp,08BIRD.Carduelis carduelis,0.025
+01PLANT.Clover sp,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Common Mouse-ear,08BIRD.Carduelis carduelis,0.452393611
+01PLANT.Common Mouse-ear,08BIRD.Carduelis carduelis,0.452393611
+01PLANT.Common Mouse-ear,08BIRD.Carduelis carduelis,0.452393611
+01PLANT.Common Mouse-ear,08BIRD.Carduelis carduelis,0.452393611
+01PLANT.Common Mouse-ear,08BIRD.Carduelis carduelis,0.452393611
+01PLANT.Common Poppy,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Common Poppy,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Corn Sowthistle,08BIRD.Carduelis carduelis,0.0136
+01PLANT.Corn Sowthistle,08BIRD.Carduelis carduelis,0.0202
+01PLANT.Cow Parsley,08BIRD.Carduelis carduelis,0.0219
+01PLANT.Cow Parsley,08BIRD.Carduelis carduelis,0.0219
+01PLANT.Cow Parsley,08BIRD.Carduelis carduelis,0.0219
+01PLANT.Creeping Buttercup,08BIRD.Carduelis carduelis,0.548791051
+01PLANT.Creeping Buttercup,08BIRD.Carduelis carduelis,0.548791051
+01PLANT.Creeping Buttercup,08BIRD.Carduelis carduelis,0.548791051
+01PLANT.Creeping Buttercup,08BIRD.Carduelis carduelis,0.548791051
+01PLANT.Creeping Buttercup,08BIRD.Carduelis carduelis,0.548791051
+01PLANT.Creeping Buttercup,08BIRD.Carduelis carduelis,0.548791051
+01PLANT.Creeping Buttercup,08BIRD.Carduelis carduelis,0.548791051
+01PLANT.Creeping Buttercup,08BIRD.Carduelis carduelis,0.548791051
+01PLANT.Creeping Buttercup,08BIRD.Carduelis carduelis,0.548791051
+01PLANT.Creeping Buttercup,08BIRD.Carduelis carduelis,0.548791051
+01PLANT.Creeping Thistle,08BIRD.Carduelis carduelis,0.0646
+01PLANT.Creeping Thistle,08BIRD.Carduelis carduelis,0.0646
+01PLANT.Creeping Thistle,08BIRD.Carduelis carduelis,0.0646
+01PLANT.Creeping Thistle,08BIRD.Carduelis carduelis,0.0646
+01PLANT.Creeping Thistle,08BIRD.Carduelis carduelis,0.0646
+01PLANT.Creeping Thistle,08BIRD.Carduelis carduelis,0.0646
+01PLANT.Creeping Thistle,08BIRD.Carduelis carduelis,0.0646
+01PLANT.Creeping Thistle,08BIRD.Carduelis carduelis,0.0646
+01PLANT.Creeping Thistle,08BIRD.Carduelis carduelis,0.0646
+01PLANT.Creeping Thistle,08BIRD.Carduelis carduelis,0.868249312
+01PLANT.Creeping Thistle,08BIRD.Carduelis carduelis,0.0646
+01PLANT.Creeping Thistle,08BIRD.Carduelis carduelis,0.0646
+01PLANT.Dandelion,08BIRD.Carduelis carduelis,0.00553
+01PLANT.Dandelion,08BIRD.Carduelis carduelis,0.00553
+01PLANT.Dandelion,08BIRD.Carduelis carduelis,0.00553
+01PLANT.Dandelion,08BIRD.Carduelis carduelis,0.00553
+01PLANT.Dandelion,08BIRD.Carduelis carduelis,0.00553
+01PLANT.Dock sp,08BIRD.Carduelis carduelis,0.272348207
+01PLANT.Dock sp,08BIRD.Carduelis carduelis,0.272348207
+01PLANT.Dock sp,08BIRD.Carduelis carduelis,0.272348207
+01PLANT.Dock sp,08BIRD.Carduelis carduelis,0.272348207
+01PLANT.Dock sp,08BIRD.Carduelis carduelis,0.272348207
+01PLANT.Dock sp,08BIRD.Carduelis carduelis,0.272348207
+01PLANT.Dock sp,08BIRD.Carduelis carduelis,0.492940394
+01PLANT.Dock sp,08BIRD.Carduelis carduelis,0.272348207
+01PLANT.Dock sp,08BIRD.Carduelis carduelis,0.272348207
+01PLANT.Dog's Mercury,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Field Forget-me-not,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Field Forget-me-not,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Field Forget-me-not,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Grass sp,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Grass sp,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Grass sp,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Grass sp,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Grass sp,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Grass sp,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Grass sp,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Grass sp,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Grass sp,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Grass sp,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Grass sp,08BIRD.Carduelis carduelis,0.1175
+01PLANT.Grass sp,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Grass sp,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Grass sp,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Ground Ivy,08BIRD.Carduelis carduelis,0.016942768
+01PLANT.Ground Ivy,08BIRD.Carduelis carduelis,0.016942768
+01PLANT.Hawkish Complex sp,08BIRD.Carduelis carduelis,0.00648
+01PLANT.Hawthorn,08BIRD.Carduelis carduelis,10.89553487
+01PLANT.Hawthorn,08BIRD.Carduelis carduelis,10.89553487
+01PLANT.Hawthorn,08BIRD.Carduelis carduelis,10.89553487
+01PLANT.Hawthorn,08BIRD.Carduelis carduelis,10.89553487
+01PLANT.Hawthorn,08BIRD.Carduelis carduelis,10.89553487
+01PLANT.Hogweed,08BIRD.Carduelis carduelis,0.443710605
+01PLANT.Hogweed,08BIRD.Carduelis carduelis,0.443710605
+01PLANT.Hogweed,08BIRD.Carduelis carduelis,0.443710605
+01PLANT.Hogweed,08BIRD.Carduelis carduelis,0.443710605
+01PLANT.Knotgrass sp,08BIRD.Carduelis carduelis,0.00137
+01PLANT.Knotgrass sp,08BIRD.Carduelis carduelis,0.00137
+01PLANT.Knotgrass sp,08BIRD.Carduelis carduelis,0.018
+01PLANT.Knotgrass sp,08BIRD.Carduelis carduelis,0.00137
+01PLANT.Knotgrass sp,08BIRD.Carduelis carduelis,0.00137
+01PLANT.Lesser Burdock,08BIRD.Carduelis carduelis,0.00396
+01PLANT.Mayweed sp,08BIRD.Carduelis carduelis,14.36710567
+01PLANT.Mayweed sp,08BIRD.Carduelis carduelis,14.36710567
+01PLANT.Mayweed sp,08BIRD.Carduelis carduelis,14.36710567
+01PLANT.Mayweed sp,08BIRD.Carduelis carduelis,14.36710567
+01PLANT.Mayweed sp,08BIRD.Carduelis carduelis,14.36710567
+01PLANT.Mayweed sp,08BIRD.Carduelis carduelis,14.36710567
+01PLANT.Mayweed sp,08BIRD.Carduelis carduelis,3.564103505
+01PLANT.Mayweed sp,08BIRD.Carduelis carduelis,14.36710567
+01PLANT.Meadow Buttercup,08BIRD.Carduelis carduelis,0.0478
+01PLANT.Nipplewort,08BIRD.Carduelis carduelis,8.75E-05
+01PLANT.Nipplewort,08BIRD.Carduelis carduelis,8.75E-05
+01PLANT.Oak,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Oak,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Oak,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Oak,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Persicaria sp,08BIRD.Carduelis carduelis,2.941343182
+01PLANT.Persicaria sp,08BIRD.Carduelis carduelis,2.941343182
+01PLANT.Persicaria sp,08BIRD.Carduelis carduelis,2.941343182
+01PLANT.Persicaria sp,08BIRD.Carduelis carduelis,0.260681754
+01PLANT.Persicaria sp,08BIRD.Carduelis carduelis,2.941343182
+01PLANT.Pineappleweed,08BIRD.Carduelis carduelis,0.306070469
+01PLANT.Red Dead-nettle,08BIRD.Carduelis carduelis,0.562153942
+01PLANT.Red Dead-nettle,08BIRD.Carduelis carduelis,0.0925
+01PLANT.Red Dead-nettle,08BIRD.Carduelis carduelis,0.562153942
+01PLANT.Rose sp,08BIRD.Carduelis carduelis,0.0788
+01PLANT.Rough Chervil,08BIRD.Carduelis carduelis,0.160126869
+01PLANT.Rough Chervil,08BIRD.Carduelis carduelis,0.160126869
+01PLANT.Selfheal,08BIRD.Carduelis carduelis,0.046614123
+01PLANT.Sow-thistle sp,08BIRD.Carduelis carduelis,17.36296187
+01PLANT.Sow-thistle sp,08BIRD.Carduelis carduelis,17.36296187
+01PLANT.Sow-thistle sp,08BIRD.Carduelis carduelis,17.36296187
+01PLANT.Sow-thistle sp,08BIRD.Carduelis carduelis,17.36296187
+01PLANT.Sow-thistle sp,08BIRD.Carduelis carduelis,17.36296187
+01PLANT.Sow-thistle sp,08BIRD.Carduelis carduelis,17.36296187
+01PLANT.Sow-thistle sp,08BIRD.Carduelis carduelis,2.963831772
+01PLANT.Sow-thistle sp,08BIRD.Carduelis carduelis,17.36296187
+01PLANT.Sow-thistle sp,08BIRD.Carduelis carduelis,17.36296187
+01PLANT.Spear Thistle,08BIRD.Carduelis carduelis,0.290190648
+01PLANT.Spear Thistle,08BIRD.Carduelis carduelis,0.290190648
+01PLANT.Spear Thistle,08BIRD.Carduelis carduelis,0.290190648
+01PLANT.Spear Thistle,08BIRD.Carduelis carduelis,0.290190648
+01PLANT.Spear Thistle,08BIRD.Carduelis carduelis,0.290190648
+01PLANT.Spear Thistle,08BIRD.Carduelis carduelis,0.290190648
+01PLANT.Spear Thistle,08BIRD.Carduelis carduelis,0.290190648
+01PLANT.Stinging Nettle,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Stinging Nettle,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Stinging Nettle,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Stinging Nettle,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Stinging Nettle,08BIRD.Carduelis carduelis,0.1175
+01PLANT.Stinging Nettle,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Stinging Nettle,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Stinging Nettle,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Traveller's Joy,08BIRD.Carduelis carduelis,0.0291
+01PLANT.Willowherb sp,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Willowherb sp,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.zCROP Wheat,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.zCROP Wheat,08BIRD.Carduelis carduelis,0.625710833
+01PLANT.Autumn Hawkbit,08BIRD.Carduelis chloris,1.69E-06
+01PLANT.Autumn Hawkbit,08BIRD.Carduelis chloris,1.69E-06
+01PLANT.Black Bindweed,08BIRD.Carduelis chloris,0.002347
+01PLANT.Blackthorn,08BIRD.Carduelis chloris,0.25372341
+01PLANT.Blackthorn,08BIRD.Carduelis chloris,0.25372341
+01PLANT.Blackthorn,08BIRD.Carduelis chloris,0.25372341
+01PLANT.Blackthorn,08BIRD.Carduelis chloris,0.25372341
+01PLANT.Bramble,08BIRD.Carduelis chloris,0.0748
+01PLANT.Bramble,08BIRD.Carduelis chloris,0.0748
+01PLANT.Bramble,08BIRD.Carduelis chloris,0.0748
+01PLANT.Bramble,08BIRD.Carduelis chloris,0.0748
+01PLANT.Bramble,08BIRD.Carduelis chloris,0.0748
+01PLANT.Bush Vetch,08BIRD.Carduelis chloris,0.000131
+01PLANT.Bush Vetch,08BIRD.Carduelis chloris,0.000131
+01PLANT.Charlock,08BIRD.Carduelis chloris,4.643704701
+01PLANT.Charlock,08BIRD.Carduelis chloris,4.643704701
+01PLANT.Charlock,08BIRD.Carduelis chloris,4.643704701
+01PLANT.Charlock,08BIRD.Carduelis chloris,4.643704701
+01PLANT.Charlock,08BIRD.Carduelis chloris,4.643704701
+01PLANT.Chenopodium sp,08BIRD.Carduelis chloris,0.261639109
+01PLANT.Chenopodium sp,08BIRD.Carduelis chloris,0.261639109
+01PLANT.Chenopodium sp,08BIRD.Carduelis chloris,0.261639109
+01PLANT.Cleavers,08BIRD.Carduelis chloris,0.080263917
+01PLANT.Cleavers,08BIRD.Carduelis chloris,0.080263917
+01PLANT.Cleavers,08BIRD.Carduelis chloris,0.080263917
+01PLANT.Cleavers,08BIRD.Carduelis chloris,0.080263917
+01PLANT.Clover sp,08BIRD.Carduelis chloris,0.05791
+01PLANT.Clover sp,08BIRD.Carduelis chloris,0.05791
+01PLANT.Clover sp,08BIRD.Carduelis chloris,0.05791
+01PLANT.Clover sp,08BIRD.Carduelis chloris,0.05791
+01PLANT.Clover sp,08BIRD.Carduelis chloris,0.05791
+01PLANT.Clover sp,08BIRD.Carduelis chloris,0.05791
+01PLANT.Clover sp,08BIRD.Carduelis chloris,0.05791
+01PLANT.Clover sp,08BIRD.Carduelis chloris,0.05791
+01PLANT.Clover sp,08BIRD.Carduelis chloris,0.05791
+01PLANT.Clover sp,08BIRD.Carduelis chloris,0.05791
+01PLANT.Common Mouse-ear,08BIRD.Carduelis chloris,0.03937
+01PLANT.Common Mouse-ear,08BIRD.Carduelis chloris,0.03937
+01PLANT.Common Mouse-ear,08BIRD.Carduelis chloris,0.03937
+01PLANT.Common Mouse-ear,08BIRD.Carduelis chloris,0.03937
+01PLANT.Common Mouse-ear,08BIRD.Carduelis chloris,0.03937
+01PLANT.Corn Sowthistle,08BIRD.Carduelis chloris,0.002268
+01PLANT.Cow Parsley,08BIRD.Carduelis chloris,0.002356
+01PLANT.Cow Parsley,08BIRD.Carduelis chloris,0.002356
+01PLANT.Cow Parsley,08BIRD.Carduelis chloris,0.002356
+01PLANT.Creeping Buttercup,08BIRD.Carduelis chloris,0.0632
+01PLANT.Creeping Buttercup,08BIRD.Carduelis chloris,0.0632
+01PLANT.Creeping Buttercup,08BIRD.Carduelis chloris,0.0632
+01PLANT.Creeping Buttercup,08BIRD.Carduelis chloris,0.0632
+01PLANT.Creeping Buttercup,08BIRD.Carduelis chloris,0.0632
+01PLANT.Creeping Buttercup,08BIRD.Carduelis chloris,0.0632
+01PLANT.Creeping Buttercup,08BIRD.Carduelis chloris,0.0632
+01PLANT.Creeping Buttercup,08BIRD.Carduelis chloris,0.0632
+01PLANT.Creeping Buttercup,08BIRD.Carduelis chloris,0.0632
+01PLANT.Creeping Buttercup,08BIRD.Carduelis chloris,0.0632
+01PLANT.Creeping Cinquefoil,08BIRD.Carduelis chloris,0.000902
+01PLANT.Creeping Thistle,08BIRD.Carduelis chloris,0.05164
+01PLANT.Creeping Thistle,08BIRD.Carduelis chloris,0.05164
+01PLANT.Creeping Thistle,08BIRD.Carduelis chloris,0.05164
+01PLANT.Creeping Thistle,08BIRD.Carduelis chloris,0.05164
+01PLANT.Creeping Thistle,08BIRD.Carduelis chloris,0.05164
+01PLANT.Creeping Thistle,08BIRD.Carduelis chloris,0.05164
+01PLANT.Creeping Thistle,08BIRD.Carduelis chloris,0.05164
+01PLANT.Creeping Thistle,08BIRD.Carduelis chloris,0.05164
+01PLANT.Creeping Thistle,08BIRD.Carduelis chloris,0.05164
+01PLANT.Creeping Thistle,08BIRD.Carduelis chloris,0.05164
+01PLANT.Creeping Thistle,08BIRD.Carduelis chloris,0.05164
+01PLANT.Cut-leaved Crane's-bill,08BIRD.Carduelis chloris,0.0364
+01PLANT.Dandelion,08BIRD.Carduelis chloris,0.001325
+01PLANT.Dandelion,08BIRD.Carduelis chloris,0.001325
+01PLANT.Dandelion,08BIRD.Carduelis chloris,0.001325
+01PLANT.Dandelion,08BIRD.Carduelis chloris,0.001325
+01PLANT.Dandelion,08BIRD.Carduelis chloris,0.001325
+01PLANT.Dock sp,08BIRD.Carduelis chloris,0.271203164
+01PLANT.Dock sp,08BIRD.Carduelis chloris,0.271203164
+01PLANT.Dock sp,08BIRD.Carduelis chloris,0.271203164
+01PLANT.Dock sp,08BIRD.Carduelis chloris,0.271203164
+01PLANT.Dock sp,08BIRD.Carduelis chloris,0.271203164
+01PLANT.Dock sp,08BIRD.Carduelis chloris,0.271203164
+01PLANT.Dock sp,08BIRD.Carduelis chloris,0.271203164
+01PLANT.Dock sp,08BIRD.Carduelis chloris,0.271203164
+01PLANT.Dog's Mercury,08BIRD.Carduelis chloris,0.052242917
+01PLANT.Grass sp,08BIRD.Carduelis chloris,0.080263917
+01PLANT.Grass sp,08BIRD.Carduelis chloris,0.080263917
+01PLANT.Grass sp,08BIRD.Carduelis chloris,0.080263917
+01PLANT.Grass sp,08BIRD.Carduelis chloris,0.080263917
+01PLANT.Grass sp,08BIRD.Carduelis chloris,0.080263917
+01PLANT.Grass sp,08BIRD.Carduelis chloris,0.080263917
+01PLANT.Grass sp,08BIRD.Carduelis chloris,0.080263917
+01PLANT.Grass sp,08BIRD.Carduelis chloris,0.080263917
+01PLANT.Grass sp,08BIRD.Carduelis chloris,0.080263917
+01PLANT.Grass sp,08BIRD.Carduelis chloris,0.080263917
+01PLANT.Grass sp,08BIRD.Carduelis chloris,0.080263917
+01PLANT.Grass sp,08BIRD.Carduelis chloris,0.080263917
+01PLANT.Grass sp,08BIRD.Carduelis chloris,0.080263917
+01PLANT.Ground Ivy,08BIRD.Carduelis chloris,0.00141
+01PLANT.Ground Ivy,08BIRD.Carduelis chloris,0.00141
+01PLANT.Hairy Tare,08BIRD.Carduelis chloris,0.02169
+01PLANT.Hawkish Complex sp,08BIRD.Carduelis chloris,0.002516
+01PLANT.Hawthorn,08BIRD.Carduelis chloris,0.425874554
+01PLANT.Hawthorn,08BIRD.Carduelis chloris,0.425874554
+01PLANT.Hawthorn,08BIRD.Carduelis chloris,0.425874554
+01PLANT.Hawthorn,08BIRD.Carduelis chloris,0.425874554
+01PLANT.Hawthorn,08BIRD.Carduelis chloris,0.425874554
+01PLANT.Herb Bennet,08BIRD.Carduelis chloris,0.000522
+01PLANT.Herb Robert,08BIRD.Carduelis chloris,0.0158
+01PLANT.Herb Robert,08BIRD.Carduelis chloris,0.0158
+01PLANT.Hogweed,08BIRD.Carduelis chloris,0.037158
+01PLANT.Hogweed,08BIRD.Carduelis chloris,0.037158
+01PLANT.Hogweed,08BIRD.Carduelis chloris,0.037158
+01PLANT.Hogweed,08BIRD.Carduelis chloris,0.037158
+01PLANT.Knotgrass sp,08BIRD.Carduelis chloris,0.012066109
+01PLANT.Knotgrass sp,08BIRD.Carduelis chloris,0.012066109
+01PLANT.Knotgrass sp,08BIRD.Carduelis chloris,0.012066109
+01PLANT.Knotgrass sp,08BIRD.Carduelis chloris,0.012066109
+01PLANT.Lesser Burdock,08BIRD.Carduelis chloris,0.000334
+01PLANT.Lesser Trefoil,08BIRD.Carduelis chloris,0.00045
+01PLANT.Mayweed sp,08BIRD.Carduelis chloris,2.046757909
+01PLANT.Mayweed sp,08BIRD.Carduelis chloris,2.046757909
+01PLANT.Mayweed sp,08BIRD.Carduelis chloris,2.046757909
+01PLANT.Mayweed sp,08BIRD.Carduelis chloris,2.046757909
+01PLANT.Mayweed sp,08BIRD.Carduelis chloris,2.046757909
+01PLANT.Mayweed sp,08BIRD.Carduelis chloris,2.046757909
+01PLANT.Mayweed sp,08BIRD.Carduelis chloris,2.046757909
+01PLANT.Meadow Buttercup,08BIRD.Carduelis chloris,0.00859
+01PLANT.Nipplewort,08BIRD.Carduelis chloris,0.00027237
+01PLANT.Nipplewort,08BIRD.Carduelis chloris,0.00027237
+01PLANT.Oak,08BIRD.Carduelis chloris,0.080263917
+01PLANT.Oak,08BIRD.Carduelis chloris,0.080263917
+01PLANT.Oak,08BIRD.Carduelis chloris,0.080263917
+01PLANT.Oak,08BIRD.Carduelis chloris,0.080263917
+01PLANT.Persicaria sp,08BIRD.Carduelis chloris,1.807310489
+01PLANT.Persicaria sp,08BIRD.Carduelis chloris,1.807310489
+01PLANT.Persicaria sp,08BIRD.Carduelis chloris,1.807310489
+01PLANT.Persicaria sp,08BIRD.Carduelis chloris,1.807310489
+01PLANT.Red Dead-nettle,08BIRD.Carduelis chloris,0.0469
+01PLANT.Red Dead-nettle,08BIRD.Carduelis chloris,0.0469
+01PLANT.Rose sp,08BIRD.Carduelis chloris,0.029005016
+01PLANT.Rough Chervil,08BIRD.Carduelis chloris,0.040737128
+01PLANT.Rough Chervil,08BIRD.Carduelis chloris,0.040737128
+01PLANT.Selfheal,08BIRD.Carduelis chloris,0.00389
+01PLANT.Shepherd's Purse,08BIRD.Carduelis chloris,0.326234749
+01PLANT.Shepherd's Purse,08BIRD.Carduelis chloris,0.326234749
+01PLANT.Sow-thistle sp,08BIRD.Carduelis chloris,1.845633255
+01PLANT.Sow-thistle sp,08BIRD.Carduelis chloris,1.845633255
+01PLANT.Sow-thistle sp,08BIRD.Carduelis chloris,1.845633255
+01PLANT.Sow-thistle sp,08BIRD.Carduelis chloris,1.845633255
+01PLANT.Sow-thistle sp,08BIRD.Carduelis chloris,1.845633255
+01PLANT.Sow-thistle sp,08BIRD.Carduelis chloris,1.845633255
+01PLANT.Sow-thistle sp,08BIRD.Carduelis chloris,1.845633255
+01PLANT.Sow-thistle sp,08BIRD.Carduelis chloris,1.845633255
+01PLANT.Spear Thistle,08BIRD.Carduelis chloris,0.185933168
+01PLANT.Spear Thistle,08BIRD.Carduelis chloris,0.185933168
+01PLANT.Spear Thistle,08BIRD.Carduelis chloris,0.185933168
+01PLANT.Spear Thistle,08BIRD.Carduelis chloris,0.185933168
+01PLANT.Spear Thistle,08BIRD.Carduelis chloris,0.185933168
+01PLANT.Spear Thistle,08BIRD.Carduelis chloris,0.185933168
+01PLANT.Spear Thistle,08BIRD.Carduelis chloris,0.185933168
+01PLANT.Traveller's Joy,08BIRD.Carduelis chloris,0.00848
+01PLANT.Willowherb sp,08BIRD.Carduelis chloris,0.080263917
+01PLANT.Willowherb sp,08BIRD.Carduelis chloris,0.080263917
+01PLANT.zCROP Wheat,08BIRD.Carduelis chloris,2.87776677
+01PLANT.zCROP Wheat,08BIRD.Carduelis chloris,2.87776677
+01PLANT.Black Bindweed,08BIRD.Columba palumbus,0.0004462
+01PLANT.Bramble,08BIRD.Columba palumbus,0.273335
+01PLANT.Bramble,08BIRD.Columba palumbus,0.273335
+01PLANT.Bramble,08BIRD.Columba palumbus,0.273335
+01PLANT.Bramble,08BIRD.Columba palumbus,0.273335
+01PLANT.Bramble,08BIRD.Columba palumbus,0.273335
+01PLANT.Bush Vetch,08BIRD.Columba palumbus,0.00693
+01PLANT.Bush Vetch,08BIRD.Columba palumbus,0.00693
+01PLANT.Charlock,08BIRD.Columba palumbus,3.700813851
+01PLANT.Charlock,08BIRD.Columba palumbus,3.700813851
+01PLANT.Charlock,08BIRD.Columba palumbus,3.700813851
+01PLANT.Charlock,08BIRD.Columba palumbus,3.700813851
+01PLANT.Charlock,08BIRD.Columba palumbus,3.700813851
+01PLANT.Chenopodium sp,08BIRD.Columba palumbus,0.274302
+01PLANT.Chenopodium sp,08BIRD.Columba palumbus,0.274302
+01PLANT.Chenopodium sp,08BIRD.Columba palumbus,0.0025
+01PLANT.Chenopodium sp,08BIRD.Columba palumbus,0.274302
+01PLANT.Clover sp,08BIRD.Columba palumbus,4.523502524
+01PLANT.Clover sp,08BIRD.Columba palumbus,4.523502524
+01PLANT.Clover sp,08BIRD.Columba palumbus,4.523502524
+01PLANT.Clover sp,08BIRD.Columba palumbus,4.523502524
+01PLANT.Clover sp,08BIRD.Columba palumbus,4.523502524
+01PLANT.Clover sp,08BIRD.Columba palumbus,4.523502524
+01PLANT.Clover sp,08BIRD.Columba palumbus,4.523502524
+01PLANT.Clover sp,08BIRD.Columba palumbus,4.523502524
+01PLANT.Clover sp,08BIRD.Columba palumbus,4.523502524
+01PLANT.Clover sp,08BIRD.Columba palumbus,4.523502524
+01PLANT.Common Field Speedwell,08BIRD.Columba palumbus,0.157370482
+01PLANT.Common Field Speedwell,08BIRD.Columba palumbus,0.157370482
+01PLANT.Common Mouse-ear,08BIRD.Columba palumbus,0.1397662
+01PLANT.Common Mouse-ear,08BIRD.Columba palumbus,0.1397662
+01PLANT.Common Mouse-ear,08BIRD.Columba palumbus,0.1397662
+01PLANT.Common Mouse-ear,08BIRD.Columba palumbus,0.1397662
+01PLANT.Common Mouse-ear,08BIRD.Columba palumbus,0.1397662
+01PLANT.Corn Sowthistle,08BIRD.Columba palumbus,0.181246393
+01PLANT.Cow Parsley,08BIRD.Columba palumbus,0.00817
+01PLANT.Cow Parsley,08BIRD.Columba palumbus,0.00817
+01PLANT.Cow Parsley,08BIRD.Columba palumbus,0.00817
+01PLANT.Creeping Buttercup,08BIRD.Columba palumbus,0.21800391
+01PLANT.Creeping Buttercup,08BIRD.Columba palumbus,0.21800391
+01PLANT.Creeping Buttercup,08BIRD.Columba palumbus,0.21800391
+01PLANT.Creeping Buttercup,08BIRD.Columba palumbus,0.21800391
+01PLANT.Creeping Buttercup,08BIRD.Columba palumbus,0.21800391
+01PLANT.Creeping Buttercup,08BIRD.Columba palumbus,0.21800391
+01PLANT.Creeping Buttercup,08BIRD.Columba palumbus,0.21800391
+01PLANT.Creeping Buttercup,08BIRD.Columba palumbus,0.21800391
+01PLANT.Creeping Buttercup,08BIRD.Columba palumbus,0.21800391
+01PLANT.Creeping Buttercup,08BIRD.Columba palumbus,0.21800391
+01PLANT.Dandelion,08BIRD.Columba palumbus,0.093
+01PLANT.Dandelion,08BIRD.Columba palumbus,0.093
+01PLANT.Dandelion,08BIRD.Columba palumbus,0.093
+01PLANT.Dandelion,08BIRD.Columba palumbus,0.093
+01PLANT.Dandelion,08BIRD.Columba palumbus,0.093
+01PLANT.Dock sp,08BIRD.Columba palumbus,0.0269
+01PLANT.Dock sp,08BIRD.Columba palumbus,0.0269
+01PLANT.Dock sp,08BIRD.Columba palumbus,0.0269
+01PLANT.Dock sp,08BIRD.Columba palumbus,0.0269
+01PLANT.Dock sp,08BIRD.Columba palumbus,0.0269
+01PLANT.Dock sp,08BIRD.Columba palumbus,0.0269
+01PLANT.Dock sp,08BIRD.Columba palumbus,0.00118
+01PLANT.Dock sp,08BIRD.Columba palumbus,0.0269
+01PLANT.Dock sp,08BIRD.Columba palumbus,0.0269
+01PLANT.Dog's Mercury,08BIRD.Columba palumbus,0.186535
+01PLANT.Elder,08BIRD.Columba palumbus,0.274302
+01PLANT.Elder,08BIRD.Columba palumbus,0.274302
+01PLANT.Grass sp,08BIRD.Columba palumbus,0.274302
+01PLANT.Grass sp,08BIRD.Columba palumbus,0.274302
+01PLANT.Grass sp,08BIRD.Columba palumbus,0.274302
+01PLANT.Grass sp,08BIRD.Columba palumbus,0.274302
+01PLANT.Grass sp,08BIRD.Columba palumbus,0.274302
+01PLANT.Grass sp,08BIRD.Columba palumbus,0.274302
+01PLANT.Grass sp,08BIRD.Columba palumbus,0.274302
+01PLANT.Grass sp,08BIRD.Columba palumbus,0.274302
+01PLANT.Grass sp,08BIRD.Columba palumbus,0.274302
+01PLANT.Grass sp,08BIRD.Columba palumbus,0.274302
+01PLANT.Grass sp,08BIRD.Columba palumbus,0.0025
+01PLANT.Grass sp,08BIRD.Columba palumbus,0.274302
+01PLANT.Grass sp,08BIRD.Columba palumbus,0.274302
+01PLANT.Grass sp,08BIRD.Columba palumbus,0.274302
+01PLANT.Ground Ivy,08BIRD.Columba palumbus,0.00546
+01PLANT.Ground Ivy,08BIRD.Columba palumbus,0.00546
+01PLANT.Hairy Tare,08BIRD.Columba palumbus,1.124351526
+01PLANT.Herb Bennet,08BIRD.Columba palumbus,0.00096
+01PLANT.Hogweed,08BIRD.Columba palumbus,0.132772649
+01PLANT.Hogweed,08BIRD.Columba palumbus,0.132772649
+01PLANT.Hogweed,08BIRD.Columba palumbus,0.132772649
+01PLANT.Hogweed,08BIRD.Columba palumbus,0.132772649
+01PLANT.Knotgrass sp,08BIRD.Columba palumbus,0.0011409
+01PLANT.Knotgrass sp,08BIRD.Columba palumbus,0.0011409
+01PLANT.Knotgrass sp,08BIRD.Columba palumbus,6.47E-05
+01PLANT.Knotgrass sp,08BIRD.Columba palumbus,0.0011409
+01PLANT.Knotgrass sp,08BIRD.Columba palumbus,0.0011409
+01PLANT.Lesser Trefoil,08BIRD.Columba palumbus,0.023877075
+01PLANT.Meadow Buttercup,08BIRD.Columba palumbus,0.0287
+01PLANT.Oak,08BIRD.Columba palumbus,19.87530961
+01PLANT.Oak,08BIRD.Columba palumbus,19.87530961
+01PLANT.Oak,08BIRD.Columba palumbus,19.87530961
+01PLANT.Oak,08BIRD.Columba palumbus,19.87530961
+01PLANT.Persicaria sp,08BIRD.Columba palumbus,0.245832347
+01PLANT.Persicaria sp,08BIRD.Columba palumbus,0.245832347
+01PLANT.Persicaria sp,08BIRD.Columba palumbus,0.245832347
+01PLANT.Persicaria sp,08BIRD.Columba palumbus,0.00125
+01PLANT.Persicaria sp,08BIRD.Columba palumbus,0.245832347
+01PLANT.Red Dead-nettle,08BIRD.Columba palumbus,0.181077502
+01PLANT.Red Dead-nettle,08BIRD.Columba palumbus,0.0025
+01PLANT.Red Dead-nettle,08BIRD.Columba palumbus,0.181077502
+01PLANT.Rough Chervil,08BIRD.Columba palumbus,0.1333
+01PLANT.Rough Chervil,08BIRD.Columba palumbus,0.1333
+01PLANT.Shepherd's Purse,08BIRD.Columba palumbus,0.273620198
+01PLANT.Shepherd's Purse,08BIRD.Columba palumbus,0.4875
+01PLANT.Shepherd's Purse,08BIRD.Columba palumbus,0.273620198
+01PLANT.Stinging Nettle,08BIRD.Columba palumbus,0.274302
+01PLANT.Stinging Nettle,08BIRD.Columba palumbus,0.274302
+01PLANT.Stinging Nettle,08BIRD.Columba palumbus,0.274302
+01PLANT.Stinging Nettle,08BIRD.Columba palumbus,0.274302
+01PLANT.Stinging Nettle,08BIRD.Columba palumbus,0.0025
+01PLANT.Stinging Nettle,08BIRD.Columba palumbus,0.274302
+01PLANT.Stinging Nettle,08BIRD.Columba palumbus,0.274302
+01PLANT.Stinging Nettle,08BIRD.Columba palumbus,0.274302
+01PLANT.Traveller's Joy,08BIRD.Columba palumbus,0.02767
+01PLANT.Wall Speedwell,08BIRD.Columba palumbus,0.116019
+01PLANT.Wall Speedwell,08BIRD.Columba palumbus,0.116019
+01PLANT.Willowherb sp,08BIRD.Columba palumbus,0.274302
+01PLANT.Willowherb sp,08BIRD.Columba palumbus,0.274302
+01PLANT.zCROP Wheat,08BIRD.Columba palumbus,21.57890757
+01PLANT.zCROP Wheat,08BIRD.Columba palumbus,21.57890757
+01PLANT.Black Bindweed,08BIRD.Corvus frugilegus,0.007948
+01PLANT.Blackthorn,08BIRD.Corvus frugilegus,0.118303156
+01PLANT.Blackthorn,08BIRD.Corvus frugilegus,0.118303156
+01PLANT.Blackthorn,08BIRD.Corvus frugilegus,0.118303156
+01PLANT.Blackthorn,08BIRD.Corvus frugilegus,0.0789
+01PLANT.Blackthorn,08BIRD.Corvus frugilegus,0.118303156
+01PLANT.Bramble,08BIRD.Corvus frugilegus,0.097912055
+01PLANT.Bramble,08BIRD.Corvus frugilegus,0.097912055
+01PLANT.Bramble,08BIRD.Corvus frugilegus,0.097912055
+01PLANT.Bramble,08BIRD.Corvus frugilegus,0.097912055
+01PLANT.Bramble,08BIRD.Corvus frugilegus,0.01589
+01PLANT.Bramble,08BIRD.Corvus frugilegus,0.097912055
+01PLANT.Bush Vetch,08BIRD.Corvus frugilegus,0.00263
+01PLANT.Bush Vetch,08BIRD.Corvus frugilegus,0.00263
+01PLANT.Charlock,08BIRD.Corvus frugilegus,0.647656721
+01PLANT.Charlock,08BIRD.Corvus frugilegus,0.647656721
+01PLANT.Charlock,08BIRD.Corvus frugilegus,0.647656721
+01PLANT.Charlock,08BIRD.Corvus frugilegus,0.647656721
+01PLANT.Charlock,08BIRD.Corvus frugilegus,0.647656721
+01PLANT.Chenopodium sp,08BIRD.Corvus frugilegus,0.647730167
+01PLANT.Chenopodium sp,08BIRD.Corvus frugilegus,0.647730167
+01PLANT.Chenopodium sp,08BIRD.Corvus frugilegus,0.0575
+01PLANT.Chenopodium sp,08BIRD.Corvus frugilegus,0.647730167
+01PLANT.Corn Sowthistle,08BIRD.Corvus frugilegus,0.0575
+01PLANT.Corn Sowthistle,08BIRD.Corvus frugilegus,0.01925
+01PLANT.Cow Parsley,08BIRD.Corvus frugilegus,0.01675
+01PLANT.Cow Parsley,08BIRD.Corvus frugilegus,0.01675
+01PLANT.Cow Parsley,08BIRD.Corvus frugilegus,0.01675
+01PLANT.Creeping Buttercup,08BIRD.Corvus frugilegus,0.539358188
+01PLANT.Creeping Buttercup,08BIRD.Corvus frugilegus,0.539358188
+01PLANT.Creeping Buttercup,08BIRD.Corvus frugilegus,0.539358188
+01PLANT.Creeping Buttercup,08BIRD.Corvus frugilegus,0.539358188
+01PLANT.Creeping Buttercup,08BIRD.Corvus frugilegus,0.539358188
+01PLANT.Creeping Buttercup,08BIRD.Corvus frugilegus,0.539358188
+01PLANT.Creeping Buttercup,08BIRD.Corvus frugilegus,0.539358188
+01PLANT.Creeping Buttercup,08BIRD.Corvus frugilegus,0.539358188
+01PLANT.Creeping Buttercup,08BIRD.Corvus frugilegus,0.539358188
+01PLANT.Creeping Buttercup,08BIRD.Corvus frugilegus,0.539358188
+01PLANT.Dandelion,08BIRD.Corvus frugilegus,0.00685
+01PLANT.Dandelion,08BIRD.Corvus frugilegus,0.00685
+01PLANT.Dandelion,08BIRD.Corvus frugilegus,0.00685
+01PLANT.Dandelion,08BIRD.Corvus frugilegus,0.00685
+01PLANT.Dandelion,08BIRD.Corvus frugilegus,0.00685
+01PLANT.Dock sp,08BIRD.Corvus frugilegus,0.724255827
+01PLANT.Dock sp,08BIRD.Corvus frugilegus,0.724255827
+01PLANT.Dock sp,08BIRD.Corvus frugilegus,0.724255827
+01PLANT.Dock sp,08BIRD.Corvus frugilegus,0.724255827
+01PLANT.Dock sp,08BIRD.Corvus frugilegus,0.724255827
+01PLANT.Dock sp,08BIRD.Corvus frugilegus,0.724255827
+01PLANT.Dock sp,08BIRD.Corvus frugilegus,11.3275
+01PLANT.Dock sp,08BIRD.Corvus frugilegus,0.724255827
+01PLANT.Dock sp,08BIRD.Corvus frugilegus,3.188531139
+01PLANT.Dock sp,08BIRD.Corvus frugilegus,0.724255827
+01PLANT.Dog's Mercury,08BIRD.Corvus frugilegus,0.283656667
+01PLANT.Elder,08BIRD.Corvus frugilegus,7.401890565
+01PLANT.Elder,08BIRD.Corvus frugilegus,1.021935484
+01PLANT.Elder,08BIRD.Corvus frugilegus,7.401890565
+01PLANT.Field Maple,08BIRD.Corvus frugilegus,0.647730167
+01PLANT.Field Maple,08BIRD.Corvus frugilegus,0.647730167
+01PLANT.Field Maple,08BIRD.Corvus frugilegus,0.075
+01PLANT.Field Maple,08BIRD.Corvus frugilegus,0.647730167
+01PLANT.Grass sp,08BIRD.Corvus frugilegus,0.647730167
+01PLANT.Grass sp,08BIRD.Corvus frugilegus,0.647730167
+01PLANT.Grass sp,08BIRD.Corvus frugilegus,0.647730167
+01PLANT.Grass sp,08BIRD.Corvus frugilegus,0.647730167
+01PLANT.Grass sp,08BIRD.Corvus frugilegus,0.647730167
+01PLANT.Grass sp,08BIRD.Corvus frugilegus,0.647730167
+01PLANT.Grass sp,08BIRD.Corvus frugilegus,0.647730167
+01PLANT.Grass sp,08BIRD.Corvus frugilegus,0.647730167
+01PLANT.Grass sp,08BIRD.Corvus frugilegus,0.647730167
+01PLANT.Grass sp,08BIRD.Corvus frugilegus,0.647730167
+01PLANT.Grass sp,08BIRD.Corvus frugilegus,0.0575
+01PLANT.Grass sp,08BIRD.Corvus frugilegus,0.647730167
+01PLANT.Grass sp,08BIRD.Corvus frugilegus,0.647730167
+01PLANT.Grass sp,08BIRD.Corvus frugilegus,0.095
+01PLANT.Grass sp,08BIRD.Corvus frugilegus,0.647730167
+01PLANT.Ground Ivy,08BIRD.Corvus frugilegus,0.0083
+01PLANT.Ground Ivy,08BIRD.Corvus frugilegus,0.0083
+01PLANT.Hairy Tare,08BIRD.Corvus frugilegus,0.645097635
+01PLANT.Hawthorn,08BIRD.Corvus frugilegus,0.430665798
+01PLANT.Hawthorn,08BIRD.Corvus frugilegus,0.430665798
+01PLANT.Hawthorn,08BIRD.Corvus frugilegus,0.430665798
+01PLANT.Hawthorn,08BIRD.Corvus frugilegus,0.430665798
+01PLANT.Hawthorn,08BIRD.Corvus frugilegus,0.430665798
+01PLANT.Herb Bennet,08BIRD.Corvus frugilegus,0.00029
+01PLANT.Herb Bennet,08BIRD.Corvus frugilegus,0.000872
+01PLANT.Hogweed,08BIRD.Corvus frugilegus,0.20319958
+01PLANT.Hogweed,08BIRD.Corvus frugilegus,0.20319958
+01PLANT.Hogweed,08BIRD.Corvus frugilegus,0.20319958
+01PLANT.Hogweed,08BIRD.Corvus frugilegus,0.20319958
+01PLANT.Knotgrass sp,08BIRD.Corvus frugilegus,0.041558
+01PLANT.Knotgrass sp,08BIRD.Corvus frugilegus,0.041558
+01PLANT.Knotgrass sp,08BIRD.Corvus frugilegus,0.041558
+01PLANT.Knotgrass sp,08BIRD.Corvus frugilegus,0.645829677
+01PLANT.Knotgrass sp,08BIRD.Corvus frugilegus,0.041558
+01PLANT.Lesser Stitchwort,08BIRD.Corvus frugilegus,0.647730167
+01PLANT.Lesser Stitchwort,08BIRD.Corvus frugilegus,0.647730167
+01PLANT.Oak,08BIRD.Corvus frugilegus,16.65425377
+01PLANT.Oak,08BIRD.Corvus frugilegus,16.65425377
+01PLANT.Oak,08BIRD.Corvus frugilegus,16.65425377
+01PLANT.Oak,08BIRD.Corvus frugilegus,13.80370267
+01PLANT.Oak,08BIRD.Corvus frugilegus,16.65425377
+01PLANT.Persicaria sp,08BIRD.Corvus frugilegus,3.85246678
+01PLANT.Persicaria sp,08BIRD.Corvus frugilegus,3.85246678
+01PLANT.Persicaria sp,08BIRD.Corvus frugilegus,3.85246678
+01PLANT.Persicaria sp,08BIRD.Corvus frugilegus,3.85246678
+01PLANT.Red Dead-nettle,08BIRD.Corvus frugilegus,0.275357657
+01PLANT.Red Dead-nettle,08BIRD.Corvus frugilegus,0.275357657
+01PLANT.Rough Chervil,08BIRD.Corvus frugilegus,0.427788036
+01PLANT.Rough Chervil,08BIRD.Corvus frugilegus,0.427788036
+01PLANT.Spear Thistle,08BIRD.Corvus frugilegus,0.614564455
+01PLANT.Spear Thistle,08BIRD.Corvus frugilegus,0.614564455
+01PLANT.Spear Thistle,08BIRD.Corvus frugilegus,0.614564455
+01PLANT.Spear Thistle,08BIRD.Corvus frugilegus,0.614564455
+01PLANT.Spear Thistle,08BIRD.Corvus frugilegus,0.614564455
+01PLANT.Spear Thistle,08BIRD.Corvus frugilegus,0.614564455
+01PLANT.Spear Thistle,08BIRD.Corvus frugilegus,0.614564455
+01PLANT.Traveller's Joy,08BIRD.Corvus frugilegus,0.075
+01PLANT.Traveller's Joy,08BIRD.Corvus frugilegus,0.1084
+01PLANT.Willowherb sp,08BIRD.Corvus frugilegus,0.647730167
+01PLANT.Willowherb sp,08BIRD.Corvus frugilegus,0.647730167
+01PLANT.zCROP Wheat,08BIRD.Corvus frugilegus,92.52363207
+01PLANT.zCROP Wheat,08BIRD.Corvus frugilegus,92.52363207
+01PLANT.Black Bindweed,08BIRD.Corvus monedula,0.010124
+01PLANT.Bramble,08BIRD.Corvus monedula,0.126128417
+01PLANT.Bramble,08BIRD.Corvus monedula,0.126128417
+01PLANT.Bramble,08BIRD.Corvus monedula,0.126128417
+01PLANT.Bramble,08BIRD.Corvus monedula,0.126128417
+01PLANT.Bramble,08BIRD.Corvus monedula,0.06
+01PLANT.Bramble,08BIRD.Corvus monedula,0.126128417
+01PLANT.Bush Vetch,08BIRD.Corvus monedula,0.00028
+01PLANT.Bush Vetch,08BIRD.Corvus monedula,0.00028
+01PLANT.Charlock,08BIRD.Corvus monedula,0.126128417
+01PLANT.Charlock,08BIRD.Corvus monedula,0.126128417
+01PLANT.Charlock,08BIRD.Corvus monedula,0.126128417
+01PLANT.Charlock,08BIRD.Corvus monedula,0.126128417
+01PLANT.Charlock,08BIRD.Corvus monedula,0.126128417
+01PLANT.Chenopodium sp,08BIRD.Corvus monedula,0.126128417
+01PLANT.Chenopodium sp,08BIRD.Corvus monedula,0.126128417
+01PLANT.Chenopodium sp,08BIRD.Corvus monedula,0.0325
+01PLANT.Chenopodium sp,08BIRD.Corvus monedula,0.126128417
+01PLANT.Cleavers,08BIRD.Corvus monedula,0.126128417
+01PLANT.Cleavers,08BIRD.Corvus monedula,0.126128417
+01PLANT.Cleavers,08BIRD.Corvus monedula,0.126128417
+01PLANT.Cleavers,08BIRD.Corvus monedula,0.06
+01PLANT.Cleavers,08BIRD.Corvus monedula,0.126128417
+01PLANT.Clover sp,08BIRD.Corvus monedula,0.0846
+01PLANT.Clover sp,08BIRD.Corvus monedula,0.0846
+01PLANT.Clover sp,08BIRD.Corvus monedula,0.0846
+01PLANT.Clover sp,08BIRD.Corvus monedula,0.0846
+01PLANT.Clover sp,08BIRD.Corvus monedula,0.0846
+01PLANT.Clover sp,08BIRD.Corvus monedula,0.0846
+01PLANT.Clover sp,08BIRD.Corvus monedula,0.0846
+01PLANT.Clover sp,08BIRD.Corvus monedula,0.0846
+01PLANT.Clover sp,08BIRD.Corvus monedula,0.0846
+01PLANT.Clover sp,08BIRD.Corvus monedula,0.03
+01PLANT.Clover sp,08BIRD.Corvus monedula,0.0846
+01PLANT.Common Poppy,08BIRD.Corvus monedula,0.126128417
+01PLANT.Common Poppy,08BIRD.Corvus monedula,0.126128417
+01PLANT.Corn Spurrey,08BIRD.Corvus monedula,0.045555417
+01PLANT.Creeping Buttercup,08BIRD.Corvus monedula,0.105586176
+01PLANT.Creeping Buttercup,08BIRD.Corvus monedula,0.105586176
+01PLANT.Creeping Buttercup,08BIRD.Corvus monedula,0.105586176
+01PLANT.Creeping Buttercup,08BIRD.Corvus monedula,0.105586176
+01PLANT.Creeping Buttercup,08BIRD.Corvus monedula,0.105586176
+01PLANT.Creeping Buttercup,08BIRD.Corvus monedula,0.105586176
+01PLANT.Creeping Buttercup,08BIRD.Corvus monedula,0.105586176
+01PLANT.Creeping Buttercup,08BIRD.Corvus monedula,0.105586176
+01PLANT.Creeping Buttercup,08BIRD.Corvus monedula,0.105586176
+01PLANT.Creeping Buttercup,08BIRD.Corvus monedula,0.105586176
+01PLANT.Creeping Thistle,08BIRD.Corvus monedula,0.02619
+01PLANT.Creeping Thistle,08BIRD.Corvus monedula,0.02619
+01PLANT.Creeping Thistle,08BIRD.Corvus monedula,0.02619
+01PLANT.Creeping Thistle,08BIRD.Corvus monedula,0.02619
+01PLANT.Creeping Thistle,08BIRD.Corvus monedula,0.02619
+01PLANT.Creeping Thistle,08BIRD.Corvus monedula,0.02619
+01PLANT.Creeping Thistle,08BIRD.Corvus monedula,0.02619
+01PLANT.Creeping Thistle,08BIRD.Corvus monedula,0.02619
+01PLANT.Creeping Thistle,08BIRD.Corvus monedula,0.02619
+01PLANT.Creeping Thistle,08BIRD.Corvus monedula,0.0325
+01PLANT.Creeping Thistle,08BIRD.Corvus monedula,0.02619
+01PLANT.Creeping Thistle,08BIRD.Corvus monedula,0.06
+01PLANT.Creeping Thistle,08BIRD.Corvus monedula,0.02619
+01PLANT.Dock sp,08BIRD.Corvus monedula,0.871836963
+01PLANT.Dock sp,08BIRD.Corvus monedula,0.871836963
+01PLANT.Dock sp,08BIRD.Corvus monedula,0.871836963
+01PLANT.Dock sp,08BIRD.Corvus monedula,0.871836963
+01PLANT.Dock sp,08BIRD.Corvus monedula,0.871836963
+01PLANT.Dock sp,08BIRD.Corvus monedula,0.871836963
+01PLANT.Dock sp,08BIRD.Corvus monedula,6.146573293
+01PLANT.Dock sp,08BIRD.Corvus monedula,0.871836963
+01PLANT.Dock sp,08BIRD.Corvus monedula,6.175681365
+01PLANT.Dock sp,08BIRD.Corvus monedula,0.871836963
+01PLANT.Elder,08BIRD.Corvus monedula,1.477257483
+01PLANT.Elder,08BIRD.Corvus monedula,0.844468085
+01PLANT.Elder,08BIRD.Corvus monedula,1.477257483
+01PLANT.Grass sp,08BIRD.Corvus monedula,0.126128417
+01PLANT.Grass sp,08BIRD.Corvus monedula,0.126128417
+01PLANT.Grass sp,08BIRD.Corvus monedula,0.126128417
+01PLANT.Grass sp,08BIRD.Corvus monedula,0.126128417
+01PLANT.Grass sp,08BIRD.Corvus monedula,0.126128417
+01PLANT.Grass sp,08BIRD.Corvus monedula,0.126128417
+01PLANT.Grass sp,08BIRD.Corvus monedula,0.126128417
+01PLANT.Grass sp,08BIRD.Corvus monedula,0.126128417
+01PLANT.Grass sp,08BIRD.Corvus monedula,0.126128417
+01PLANT.Grass sp,08BIRD.Corvus monedula,0.126128417
+01PLANT.Grass sp,08BIRD.Corvus monedula,0.0325
+01PLANT.Grass sp,08BIRD.Corvus monedula,0.126128417
+01PLANT.Grass sp,08BIRD.Corvus monedula,0.126128417
+01PLANT.Grass sp,08BIRD.Corvus monedula,0.06
+01PLANT.Grass sp,08BIRD.Corvus monedula,0.126128417
+01PLANT.Hairy Tare,08BIRD.Corvus monedula,0.040200534
+01PLANT.Knotgrass sp,08BIRD.Corvus monedula,0.053009
+01PLANT.Knotgrass sp,08BIRD.Corvus monedula,0.053009
+01PLANT.Knotgrass sp,08BIRD.Corvus monedula,0.0146
+01PLANT.Knotgrass sp,08BIRD.Corvus monedula,0.053009
+01PLANT.Knotgrass sp,08BIRD.Corvus monedula,3.016353191
+01PLANT.Knotgrass sp,08BIRD.Corvus monedula,0.053009
+01PLANT.Lesser Trefoil,08BIRD.Corvus monedula,0.000966
+01PLANT.Meadow Buttercup,08BIRD.Corvus monedula,0.020536824
+01PLANT.Oak,08BIRD.Corvus monedula,0.984838322
+01PLANT.Oak,08BIRD.Corvus monedula,0.984838322
+01PLANT.Oak,08BIRD.Corvus monedula,0.984838322
+01PLANT.Oak,08BIRD.Corvus monedula,1.723505039
+01PLANT.Oak,08BIRD.Corvus monedula,0.984838322
+01PLANT.Persicaria sp,08BIRD.Corvus monedula,4.317488598
+01PLANT.Persicaria sp,08BIRD.Corvus monedula,4.317488598
+01PLANT.Persicaria sp,08BIRD.Corvus monedula,4.317488598
+01PLANT.Persicaria sp,08BIRD.Corvus monedula,0.211363584
+01PLANT.Persicaria sp,08BIRD.Corvus monedula,4.317488598
+01PLANT.Spear Thistle,08BIRD.Corvus monedula,0.0999
+01PLANT.Spear Thistle,08BIRD.Corvus monedula,0.0999
+01PLANT.Spear Thistle,08BIRD.Corvus monedula,0.0999
+01PLANT.Spear Thistle,08BIRD.Corvus monedula,0.0999
+01PLANT.Spear Thistle,08BIRD.Corvus monedula,0.0999
+01PLANT.Spear Thistle,08BIRD.Corvus monedula,0.0999
+01PLANT.Spear Thistle,08BIRD.Corvus monedula,0.0999
+01PLANT.zCROP Wheat,08BIRD.Corvus monedula,16.24983231
+01PLANT.zCROP Wheat,08BIRD.Corvus monedula,16.24983231
+01PLANT.Black Bindweed,08BIRD.Emberiza citrinella,0.0005478
+01PLANT.Bramble,08BIRD.Emberiza citrinella,0.086099167
+01PLANT.Bramble,08BIRD.Emberiza citrinella,0.086099167
+01PLANT.Bramble,08BIRD.Emberiza citrinella,0.086099167
+01PLANT.Bramble,08BIRD.Emberiza citrinella,0.086099167
+01PLANT.Bramble,08BIRD.Emberiza citrinella,0.086099167
+01PLANT.Bush Vetch,08BIRD.Emberiza citrinella,0.000113
+01PLANT.Bush Vetch,08BIRD.Emberiza citrinella,0.000113
+01PLANT.Chenopodium sp,08BIRD.Emberiza citrinella,0.086298167
+01PLANT.Chenopodium sp,08BIRD.Emberiza citrinella,0.086298167
+01PLANT.Chenopodium sp,08BIRD.Emberiza citrinella,0.086298167
+01PLANT.Clover sp,08BIRD.Emberiza citrinella,0.06378
+01PLANT.Clover sp,08BIRD.Emberiza citrinella,0.06378
+01PLANT.Clover sp,08BIRD.Emberiza citrinella,0.06378
+01PLANT.Clover sp,08BIRD.Emberiza citrinella,0.06378
+01PLANT.Clover sp,08BIRD.Emberiza citrinella,0.06378
+01PLANT.Clover sp,08BIRD.Emberiza citrinella,0.06378
+01PLANT.Clover sp,08BIRD.Emberiza citrinella,0.06378
+01PLANT.Clover sp,08BIRD.Emberiza citrinella,0.06378
+01PLANT.Clover sp,08BIRD.Emberiza citrinella,0.06378
+01PLANT.Clover sp,08BIRD.Emberiza citrinella,0.06378
+01PLANT.Common Mouse-ear,08BIRD.Emberiza citrinella,1.158159546
+01PLANT.Common Mouse-ear,08BIRD.Emberiza citrinella,1.158159546
+01PLANT.Common Mouse-ear,08BIRD.Emberiza citrinella,1.158159546
+01PLANT.Common Mouse-ear,08BIRD.Emberiza citrinella,1.158159546
+01PLANT.Common Mouse-ear,08BIRD.Emberiza citrinella,1.158159546
+01PLANT.Corn Sowthistle,08BIRD.Emberiza citrinella,0.000424
+01PLANT.Corn Spurrey,08BIRD.Emberiza citrinella,0.0206
+01PLANT.Cow Parsley,08BIRD.Emberiza citrinella,0.002676
+01PLANT.Cow Parsley,08BIRD.Emberiza citrinella,0.002676
+01PLANT.Cow Parsley,08BIRD.Emberiza citrinella,0.002676
+01PLANT.Dandelion,08BIRD.Emberiza citrinella,0.0002696
+01PLANT.Dandelion,08BIRD.Emberiza citrinella,0.0002696
+01PLANT.Dandelion,08BIRD.Emberiza citrinella,0.0002696
+01PLANT.Dandelion,08BIRD.Emberiza citrinella,0.0002696
+01PLANT.Dandelion,08BIRD.Emberiza citrinella,0.0002696
+01PLANT.Dock sp,08BIRD.Emberiza citrinella,0.0775
+01PLANT.Dock sp,08BIRD.Emberiza citrinella,0.0775
+01PLANT.Dock sp,08BIRD.Emberiza citrinella,0.0775
+01PLANT.Dock sp,08BIRD.Emberiza citrinella,0.0775
+01PLANT.Dock sp,08BIRD.Emberiza citrinella,0.0775
+01PLANT.Dock sp,08BIRD.Emberiza citrinella,0.0775
+01PLANT.Dock sp,08BIRD.Emberiza citrinella,0.0775
+01PLANT.Dock sp,08BIRD.Emberiza citrinella,0.0775
+01PLANT.Dog's Mercury,08BIRD.Emberiza citrinella,0.065199167
+01PLANT.Field Forget-me-not,08BIRD.Emberiza citrinella,0.086298167
+01PLANT.Field Forget-me-not,08BIRD.Emberiza citrinella,0.086298167
+01PLANT.Field Forget-me-not,08BIRD.Emberiza citrinella,0.086298167
+01PLANT.Grass sp,08BIRD.Emberiza citrinella,5.467022394
+01PLANT.Grass sp,08BIRD.Emberiza citrinella,5.467022394
+01PLANT.Grass sp,08BIRD.Emberiza citrinella,5.467022394
+01PLANT.Grass sp,08BIRD.Emberiza citrinella,5.467022394
+01PLANT.Grass sp,08BIRD.Emberiza citrinella,5.467022394
+01PLANT.Grass sp,08BIRD.Emberiza citrinella,5.467022394
+01PLANT.Grass sp,08BIRD.Emberiza citrinella,5.467022394
+01PLANT.Grass sp,08BIRD.Emberiza citrinella,5.467022394
+01PLANT.Grass sp,08BIRD.Emberiza citrinella,5.467022394
+01PLANT.Grass sp,08BIRD.Emberiza citrinella,5.467022394
+01PLANT.Grass sp,08BIRD.Emberiza citrinella,5.467022394
+01PLANT.Grass sp,08BIRD.Emberiza citrinella,5.467022394
+01PLANT.Grass sp,08BIRD.Emberiza citrinella,5.467022394
+01PLANT.Ground Ivy,08BIRD.Emberiza citrinella,0.00191
+01PLANT.Ground Ivy,08BIRD.Emberiza citrinella,0.00191
+01PLANT.Hairy Tare,08BIRD.Emberiza citrinella,0.02236
+01PLANT.Herb Bennet,08BIRD.Emberiza citrinella,0.000231
+01PLANT.Hogweed,08BIRD.Emberiza citrinella,0.046319
+01PLANT.Hogweed,08BIRD.Emberiza citrinella,0.046319
+01PLANT.Hogweed,08BIRD.Emberiza citrinella,0.046319
+01PLANT.Hogweed,08BIRD.Emberiza citrinella,0.046319
+01PLANT.Knotgrass sp,08BIRD.Emberiza citrinella,0.002784
+01PLANT.Knotgrass sp,08BIRD.Emberiza citrinella,0.002784
+01PLANT.Knotgrass sp,08BIRD.Emberiza citrinella,0.002784
+01PLANT.Knotgrass sp,08BIRD.Emberiza citrinella,0.002784
+01PLANT.Lesser Stitchwort,08BIRD.Emberiza citrinella,0.0959
+01PLANT.Lesser Stitchwort,08BIRD.Emberiza citrinella,0.0959
+01PLANT.Oak,08BIRD.Emberiza citrinella,0.086298167
+01PLANT.Oak,08BIRD.Emberiza citrinella,0.086298167
+01PLANT.Oak,08BIRD.Emberiza citrinella,0.086298167
+01PLANT.Oak,08BIRD.Emberiza citrinella,0.086298167
+01PLANT.Persicaria sp,08BIRD.Emberiza citrinella,0.585918986
+01PLANT.Persicaria sp,08BIRD.Emberiza citrinella,0.585918986
+01PLANT.Persicaria sp,08BIRD.Emberiza citrinella,0.585918986
+01PLANT.Persicaria sp,08BIRD.Emberiza citrinella,0.585918986
+01PLANT.Red Campion,08BIRD.Emberiza citrinella,0.05399
+01PLANT.Red Campion,08BIRD.Emberiza citrinella,0.05399
+01PLANT.Red Dead-nettle,08BIRD.Emberiza citrinella,0.0633
+01PLANT.Red Dead-nettle,08BIRD.Emberiza citrinella,0.0633
+01PLANT.Rough Chervil,08BIRD.Emberiza citrinella,0.037284064
+01PLANT.Rough Chervil,08BIRD.Emberiza citrinella,0.037284064
+01PLANT.Sow-thistle sp,08BIRD.Emberiza citrinella,0.0856
+01PLANT.Sow-thistle sp,08BIRD.Emberiza citrinella,0.0856
+01PLANT.Sow-thistle sp,08BIRD.Emberiza citrinella,0.0856
+01PLANT.Sow-thistle sp,08BIRD.Emberiza citrinella,0.0856
+01PLANT.Sow-thistle sp,08BIRD.Emberiza citrinella,0.0856
+01PLANT.Sow-thistle sp,08BIRD.Emberiza citrinella,0.0856
+01PLANT.Sow-thistle sp,08BIRD.Emberiza citrinella,0.0856
+01PLANT.Sow-thistle sp,08BIRD.Emberiza citrinella,0.0856
+01PLANT.Stinging Nettle,08BIRD.Emberiza citrinella,5.733706413
+01PLANT.Stinging Nettle,08BIRD.Emberiza citrinella,5.733706413
+01PLANT.Stinging Nettle,08BIRD.Emberiza citrinella,5.733706413
+01PLANT.Stinging Nettle,08BIRD.Emberiza citrinella,5.733706413
+01PLANT.Stinging Nettle,08BIRD.Emberiza citrinella,5.733706413
+01PLANT.Stinging Nettle,08BIRD.Emberiza citrinella,5.733706413
+01PLANT.Stinging Nettle,08BIRD.Emberiza citrinella,5.733706413
+01PLANT.Traveller's Joy,08BIRD.Emberiza citrinella,0.086298167
+01PLANT.Willowherb sp,08BIRD.Emberiza citrinella,0.086298167
+01PLANT.Willowherb sp,08BIRD.Emberiza citrinella,0.086298167
+01PLANT.zCROP Wheat,08BIRD.Emberiza citrinella,2.133472154
+01PLANT.zCROP Wheat,08BIRD.Emberiza citrinella,2.133472154
+01PLANT.Autumn Hawkbit,08BIRD.Fringilla coelebs,6.72E-08
+01PLANT.Autumn Hawkbit,08BIRD.Fringilla coelebs,6.72E-08
+01PLANT.Black Bindweed,08BIRD.Fringilla coelebs,0.0016665
+01PLANT.Blackthorn,08BIRD.Fringilla coelebs,0.0652
+01PLANT.Blackthorn,08BIRD.Fringilla coelebs,0.0652
+01PLANT.Blackthorn,08BIRD.Fringilla coelebs,0.0652
+01PLANT.Blackthorn,08BIRD.Fringilla coelebs,0.0576
+01PLANT.Blackthorn,08BIRD.Fringilla coelebs,0.0652
+01PLANT.Bramble,08BIRD.Fringilla coelebs,0.024402764
+01PLANT.Bramble,08BIRD.Fringilla coelebs,0.024402764
+01PLANT.Bramble,08BIRD.Fringilla coelebs,0.024402764
+01PLANT.Bramble,08BIRD.Fringilla coelebs,0.024402764
+01PLANT.Bramble,08BIRD.Fringilla coelebs,0.005846
+01PLANT.Bramble,08BIRD.Fringilla coelebs,0.024402764
+01PLANT.Charlock,08BIRD.Fringilla coelebs,3.291812901
+01PLANT.Charlock,08BIRD.Fringilla coelebs,3.291812901
+01PLANT.Charlock,08BIRD.Fringilla coelebs,3.291812901
+01PLANT.Charlock,08BIRD.Fringilla coelebs,3.291812901
+01PLANT.Charlock,08BIRD.Fringilla coelebs,3.291812901
+01PLANT.Chenopodium sp,08BIRD.Fringilla coelebs,5.417595652
+01PLANT.Chenopodium sp,08BIRD.Fringilla coelebs,5.417595652
+01PLANT.Chenopodium sp,08BIRD.Fringilla coelebs,0.25
+01PLANT.Chenopodium sp,08BIRD.Fringilla coelebs,5.417595652
+01PLANT.Cleavers,08BIRD.Fringilla coelebs,0.10383725
+01PLANT.Cleavers,08BIRD.Fringilla coelebs,0.10383725
+01PLANT.Cleavers,08BIRD.Fringilla coelebs,0.10383725
+01PLANT.Cleavers,08BIRD.Fringilla coelebs,0.01
+01PLANT.Cleavers,08BIRD.Fringilla coelebs,0.10383725
+01PLANT.Clover sp,08BIRD.Fringilla coelebs,0.10150125
+01PLANT.Clover sp,08BIRD.Fringilla coelebs,0.10150125
+01PLANT.Clover sp,08BIRD.Fringilla coelebs,0.10150125
+01PLANT.Clover sp,08BIRD.Fringilla coelebs,0.10150125
+01PLANT.Clover sp,08BIRD.Fringilla coelebs,0.10150125
+01PLANT.Clover sp,08BIRD.Fringilla coelebs,0.10150125
+01PLANT.Clover sp,08BIRD.Fringilla coelebs,0.10150125
+01PLANT.Clover sp,08BIRD.Fringilla coelebs,0.10150125
+01PLANT.Clover sp,08BIRD.Fringilla coelebs,0.10150125
+01PLANT.Clover sp,08BIRD.Fringilla coelebs,0.10150125
+01PLANT.Common Mouse-ear,08BIRD.Fringilla coelebs,0.947522112
+01PLANT.Common Mouse-ear,08BIRD.Fringilla coelebs,0.947522112
+01PLANT.Common Mouse-ear,08BIRD.Fringilla coelebs,0.947522112
+01PLANT.Common Mouse-ear,08BIRD.Fringilla coelebs,0.947522112
+01PLANT.Common Mouse-ear,08BIRD.Fringilla coelebs,0.947522112
+01PLANT.Corn Sowthistle,08BIRD.Fringilla coelebs,0.0001095
+01PLANT.Corn Spurrey,08BIRD.Fringilla coelebs,0.0161
+01PLANT.Creeping Buttercup,08BIRD.Fringilla coelebs,0.0888
+01PLANT.Creeping Buttercup,08BIRD.Fringilla coelebs,0.0888
+01PLANT.Creeping Buttercup,08BIRD.Fringilla coelebs,0.0888
+01PLANT.Creeping Buttercup,08BIRD.Fringilla coelebs,0.0888
+01PLANT.Creeping Buttercup,08BIRD.Fringilla coelebs,0.0888
+01PLANT.Creeping Buttercup,08BIRD.Fringilla coelebs,0.0888
+01PLANT.Creeping Buttercup,08BIRD.Fringilla coelebs,0.0888
+01PLANT.Creeping Buttercup,08BIRD.Fringilla coelebs,0.0888
+01PLANT.Creeping Buttercup,08BIRD.Fringilla coelebs,0.0888
+01PLANT.Creeping Buttercup,08BIRD.Fringilla coelebs,0.0888
+01PLANT.Creeping Cinquefoil,08BIRD.Fringilla coelebs,0.000354
+01PLANT.Creeping Thistle,08BIRD.Fringilla coelebs,0.003627
+01PLANT.Creeping Thistle,08BIRD.Fringilla coelebs,0.003627
+01PLANT.Creeping Thistle,08BIRD.Fringilla coelebs,0.003627
+01PLANT.Creeping Thistle,08BIRD.Fringilla coelebs,0.003627
+01PLANT.Creeping Thistle,08BIRD.Fringilla coelebs,0.003627
+01PLANT.Creeping Thistle,08BIRD.Fringilla coelebs,0.003627
+01PLANT.Creeping Thistle,08BIRD.Fringilla coelebs,0.003627
+01PLANT.Creeping Thistle,08BIRD.Fringilla coelebs,0.003627
+01PLANT.Creeping Thistle,08BIRD.Fringilla coelebs,0.003627
+01PLANT.Creeping Thistle,08BIRD.Fringilla coelebs,0.000264
+01PLANT.Creeping Thistle,08BIRD.Fringilla coelebs,0.003627
+01PLANT.Creeping Thistle,08BIRD.Fringilla coelebs,0.01462
+01PLANT.Creeping Thistle,08BIRD.Fringilla coelebs,0.003627
+01PLANT.Cuckooflower,08BIRD.Fringilla coelebs,1.016619008
+01PLANT.Cut-leaved Crane's-bill,08BIRD.Fringilla coelebs,0.036
+01PLANT.Dandelion,08BIRD.Fringilla coelebs,8.19E-05
+01PLANT.Dandelion,08BIRD.Fringilla coelebs,8.19E-05
+01PLANT.Dandelion,08BIRD.Fringilla coelebs,8.19E-05
+01PLANT.Dandelion,08BIRD.Fringilla coelebs,8.19E-05
+01PLANT.Dandelion,08BIRD.Fringilla coelebs,8.19E-05
+01PLANT.Dock sp,08BIRD.Fringilla coelebs,0.161003885
+01PLANT.Dock sp,08BIRD.Fringilla coelebs,0.161003885
+01PLANT.Dock sp,08BIRD.Fringilla coelebs,0.161003885
+01PLANT.Dock sp,08BIRD.Fringilla coelebs,0.161003885
+01PLANT.Dock sp,08BIRD.Fringilla coelebs,0.161003885
+01PLANT.Dock sp,08BIRD.Fringilla coelebs,0.161003885
+01PLANT.Dock sp,08BIRD.Fringilla coelebs,0.027063278
+01PLANT.Dock sp,08BIRD.Fringilla coelebs,0.161003885
+01PLANT.Dock sp,08BIRD.Fringilla coelebs,0.25675417
+01PLANT.Dock sp,08BIRD.Fringilla coelebs,0.161003885
+01PLANT.Elder,08BIRD.Fringilla coelebs,0.10383725
+01PLANT.Elder,08BIRD.Fringilla coelebs,0.0025
+01PLANT.Elder,08BIRD.Fringilla coelebs,0.10383725
+01PLANT.Field Forget-me-not,08BIRD.Fringilla coelebs,0.10383725
+01PLANT.Field Forget-me-not,08BIRD.Fringilla coelebs,0.10383725
+01PLANT.Field Forget-me-not,08BIRD.Fringilla coelebs,0.10383725
+01PLANT.Grass sp,08BIRD.Fringilla coelebs,0.433407652
+01PLANT.Grass sp,08BIRD.Fringilla coelebs,0.433407652
+01PLANT.Grass sp,08BIRD.Fringilla coelebs,0.433407652
+01PLANT.Grass sp,08BIRD.Fringilla coelebs,0.433407652
+01PLANT.Grass sp,08BIRD.Fringilla coelebs,0.433407652
+01PLANT.Grass sp,08BIRD.Fringilla coelebs,0.433407652
+01PLANT.Grass sp,08BIRD.Fringilla coelebs,0.433407652
+01PLANT.Grass sp,08BIRD.Fringilla coelebs,0.433407652
+01PLANT.Grass sp,08BIRD.Fringilla coelebs,0.433407652
+01PLANT.Grass sp,08BIRD.Fringilla coelebs,0.433407652
+01PLANT.Grass sp,08BIRD.Fringilla coelebs,0.02
+01PLANT.Grass sp,08BIRD.Fringilla coelebs,0.433407652
+01PLANT.Grass sp,08BIRD.Fringilla coelebs,0.433407652
+01PLANT.Grass sp,08BIRD.Fringilla coelebs,0.127031034
+01PLANT.Grass sp,08BIRD.Fringilla coelebs,0.433407652
+01PLANT.Ground Ivy,08BIRD.Fringilla coelebs,0.00292
+01PLANT.Ground Ivy,08BIRD.Fringilla coelebs,0.00292
+01PLANT.Hawkish Complex sp,08BIRD.Fringilla coelebs,0.0001667
+01PLANT.Hawthorn,08BIRD.Fringilla coelebs,0.1155
+01PLANT.Hawthorn,08BIRD.Fringilla coelebs,0.1155
+01PLANT.Hawthorn,08BIRD.Fringilla coelebs,0.1155
+01PLANT.Hawthorn,08BIRD.Fringilla coelebs,0.1155
+01PLANT.Hawthorn,08BIRD.Fringilla coelebs,0.1155
+01PLANT.Hedge Woundwort,08BIRD.Fringilla coelebs,0.108805565
+01PLANT.Hedge Woundwort,08BIRD.Fringilla coelebs,0.108805565
+01PLANT.Hedge Woundwort,08BIRD.Fringilla coelebs,0.108805565
+01PLANT.Hedge Woundwort,08BIRD.Fringilla coelebs,0.108805565
+01PLANT.Herb Bennet,08BIRD.Fringilla coelebs,0.000109
+01PLANT.Herb Bennet,08BIRD.Fringilla coelebs,0.000205
+01PLANT.Herb Robert,08BIRD.Fringilla coelebs,0.0157
+01PLANT.Herb Robert,08BIRD.Fringilla coelebs,0.0157
+01PLANT.Knotgrass sp,08BIRD.Fringilla coelebs,0.0087
+01PLANT.Knotgrass sp,08BIRD.Fringilla coelebs,0.0087
+01PLANT.Knotgrass sp,08BIRD.Fringilla coelebs,0.00148
+01PLANT.Knotgrass sp,08BIRD.Fringilla coelebs,0.0087
+01PLANT.Knotgrass sp,08BIRD.Fringilla coelebs,0.060973
+01PLANT.Knotgrass sp,08BIRD.Fringilla coelebs,0.0087
+01PLANT.Lesser Burdock,08BIRD.Fringilla coelebs,1.33E-05
+01PLANT.Lesser Stitchwort,08BIRD.Fringilla coelebs,0.20155616
+01PLANT.Lesser Stitchwort,08BIRD.Fringilla coelebs,0.20155616
+01PLANT.Lesser Trefoil,08BIRD.Fringilla coelebs,0.00235
+01PLANT.Mayweed sp,08BIRD.Fringilla coelebs,0.1098
+01PLANT.Mayweed sp,08BIRD.Fringilla coelebs,0.1098
+01PLANT.Mayweed sp,08BIRD.Fringilla coelebs,0.1098
+01PLANT.Mayweed sp,08BIRD.Fringilla coelebs,0.1098
+01PLANT.Mayweed sp,08BIRD.Fringilla coelebs,0.1098
+01PLANT.Mayweed sp,08BIRD.Fringilla coelebs,0.1098
+01PLANT.Mayweed sp,08BIRD.Fringilla coelebs,0.00486
+01PLANT.Mayweed sp,08BIRD.Fringilla coelebs,0.1098
+01PLANT.Meadow Buttercup,08BIRD.Fringilla coelebs,0.01504
+01PLANT.Nipplewort,08BIRD.Fringilla coelebs,1.99E-05
+01PLANT.Nipplewort,08BIRD.Fringilla coelebs,0.000637
+01PLANT.Nipplewort,08BIRD.Fringilla coelebs,1.99E-05
+01PLANT.Oak,08BIRD.Fringilla coelebs,0.866815304
+01PLANT.Oak,08BIRD.Fringilla coelebs,0.866815304
+01PLANT.Oak,08BIRD.Fringilla coelebs,0.866815304
+01PLANT.Oak,08BIRD.Fringilla coelebs,0.254162069
+01PLANT.Oak,08BIRD.Fringilla coelebs,0.866815304
+01PLANT.Persicaria sp,08BIRD.Fringilla coelebs,0.912154888
+01PLANT.Persicaria sp,08BIRD.Fringilla coelebs,0.912154888
+01PLANT.Persicaria sp,08BIRD.Fringilla coelebs,0.912154888
+01PLANT.Persicaria sp,08BIRD.Fringilla coelebs,0.0215
+01PLANT.Persicaria sp,08BIRD.Fringilla coelebs,0.912154888
+01PLANT.Pineappleweed,08BIRD.Fringilla coelebs,0.000504
+01PLANT.Red Campion,08BIRD.Fringilla coelebs,0.04641
+01PLANT.Red Campion,08BIRD.Fringilla coelebs,0.144878049
+01PLANT.Red Campion,08BIRD.Fringilla coelebs,0.04641
+01PLANT.Red Dead-nettle,08BIRD.Fringilla coelebs,0.0969
+01PLANT.Red Dead-nettle,08BIRD.Fringilla coelebs,0.01
+01PLANT.Red Dead-nettle,08BIRD.Fringilla coelebs,0.0969
+01PLANT.Rose sp,08BIRD.Fringilla coelebs,0.01104
+01PLANT.Selfheal,08BIRD.Fringilla coelebs,0.00804
+01PLANT.Shepherd's Purse,08BIRD.Fringilla coelebs,0.175046638
+01PLANT.Shepherd's Purse,08BIRD.Fringilla coelebs,0.16
+01PLANT.Shepherd's Purse,08BIRD.Fringilla coelebs,0.175046638
+01PLANT.Sow-thistle sp,08BIRD.Fringilla coelebs,0.0865
+01PLANT.Sow-thistle sp,08BIRD.Fringilla coelebs,0.0865
+01PLANT.Sow-thistle sp,08BIRD.Fringilla coelebs,0.0865
+01PLANT.Sow-thistle sp,08BIRD.Fringilla coelebs,0.0865
+01PLANT.Sow-thistle sp,08BIRD.Fringilla coelebs,0.0865
+01PLANT.Sow-thistle sp,08BIRD.Fringilla coelebs,0.0865
+01PLANT.Sow-thistle sp,08BIRD.Fringilla coelebs,0.00438
+01PLANT.Sow-thistle sp,08BIRD.Fringilla coelebs,0.0865
+01PLANT.Sow-thistle sp,08BIRD.Fringilla coelebs,0.048283539
+01PLANT.Sow-thistle sp,08BIRD.Fringilla coelebs,0.0865
+01PLANT.Spear Thistle,08BIRD.Fringilla coelebs,0.012874
+01PLANT.Spear Thistle,08BIRD.Fringilla coelebs,0.012874
+01PLANT.Spear Thistle,08BIRD.Fringilla coelebs,0.012874
+01PLANT.Spear Thistle,08BIRD.Fringilla coelebs,0.012874
+01PLANT.Spear Thistle,08BIRD.Fringilla coelebs,0.012874
+01PLANT.Spear Thistle,08BIRD.Fringilla coelebs,0.012874
+01PLANT.Spear Thistle,08BIRD.Fringilla coelebs,0.012874
+01PLANT.Willowherb sp,08BIRD.Fringilla coelebs,0.10383725
+01PLANT.Willowherb sp,08BIRD.Fringilla coelebs,0.10383725
+01PLANT.zCROP Wheat,08BIRD.Fringilla coelebs,5.417595652
+01PLANT.zCROP Wheat,08BIRD.Fringilla coelebs,5.417595652
+01PLANT.Black Bindweed,08BIRD.Passer domesticus,0.000435
+01PLANT.Bush Vetch,08BIRD.Passer domesticus,5.06E-05
+01PLANT.Bush Vetch,08BIRD.Passer domesticus,5.06E-05
+01PLANT.Charlock,08BIRD.Passer domesticus,0.0295
+01PLANT.Charlock,08BIRD.Passer domesticus,0.0295
+01PLANT.Charlock,08BIRD.Passer domesticus,0.0295
+01PLANT.Charlock,08BIRD.Passer domesticus,0.0295
+01PLANT.Charlock,08BIRD.Passer domesticus,0.0295
+01PLANT.Chenopodium sp,08BIRD.Passer domesticus,0.206770667
+01PLANT.Chenopodium sp,08BIRD.Passer domesticus,0.206770667
+01PLANT.Chenopodium sp,08BIRD.Passer domesticus,18.64302632
+01PLANT.Chenopodium sp,08BIRD.Passer domesticus,0.206770667
+01PLANT.Cleavers,08BIRD.Passer domesticus,0.006996
+01PLANT.Cleavers,08BIRD.Passer domesticus,0.006996
+01PLANT.Cleavers,08BIRD.Passer domesticus,0.006996
+01PLANT.Cleavers,08BIRD.Passer domesticus,0.006996
+01PLANT.Common Mouse-ear,08BIRD.Passer domesticus,0.00281
+01PLANT.Common Mouse-ear,08BIRD.Passer domesticus,0.00281
+01PLANT.Common Mouse-ear,08BIRD.Passer domesticus,0.00281
+01PLANT.Common Mouse-ear,08BIRD.Passer domesticus,0.00281
+01PLANT.Common Mouse-ear,08BIRD.Passer domesticus,0.00281
+01PLANT.Corn Sowthistle,08BIRD.Passer domesticus,0.00975
+01PLANT.Corn Sowthistle,08BIRD.Passer domesticus,1.14E-05
+01PLANT.Cow Parsley,08BIRD.Passer domesticus,0.000131
+01PLANT.Cow Parsley,08BIRD.Passer domesticus,0.000131
+01PLANT.Cow Parsley,08BIRD.Passer domesticus,0.000131
+01PLANT.Creeping Buttercup,08BIRD.Passer domesticus,0.00519
+01PLANT.Creeping Buttercup,08BIRD.Passer domesticus,0.00519
+01PLANT.Creeping Buttercup,08BIRD.Passer domesticus,0.00519
+01PLANT.Creeping Buttercup,08BIRD.Passer domesticus,0.00519
+01PLANT.Creeping Buttercup,08BIRD.Passer domesticus,0.00519
+01PLANT.Creeping Buttercup,08BIRD.Passer domesticus,0.00519
+01PLANT.Creeping Buttercup,08BIRD.Passer domesticus,0.00519
+01PLANT.Creeping Buttercup,08BIRD.Passer domesticus,0.00519
+01PLANT.Creeping Buttercup,08BIRD.Passer domesticus,0.00519
+01PLANT.Creeping Buttercup,08BIRD.Passer domesticus,0.00519
+01PLANT.Creeping Thistle,08BIRD.Passer domesticus,0.000925
+01PLANT.Creeping Thistle,08BIRD.Passer domesticus,0.000925
+01PLANT.Creeping Thistle,08BIRD.Passer domesticus,0.000925
+01PLANT.Creeping Thistle,08BIRD.Passer domesticus,0.000925
+01PLANT.Creeping Thistle,08BIRD.Passer domesticus,0.000925
+01PLANT.Creeping Thistle,08BIRD.Passer domesticus,0.000925
+01PLANT.Creeping Thistle,08BIRD.Passer domesticus,0.000925
+01PLANT.Creeping Thistle,08BIRD.Passer domesticus,0.000925
+01PLANT.Creeping Thistle,08BIRD.Passer domesticus,0.000925
+01PLANT.Creeping Thistle,08BIRD.Passer domesticus,0.547296002
+01PLANT.Creeping Thistle,08BIRD.Passer domesticus,0.000925
+01PLANT.Creeping Thistle,08BIRD.Passer domesticus,0.000925
+01PLANT.Dandelion,08BIRD.Passer domesticus,1.72E-05
+01PLANT.Dandelion,08BIRD.Passer domesticus,1.72E-05
+01PLANT.Dandelion,08BIRD.Passer domesticus,1.72E-05
+01PLANT.Dandelion,08BIRD.Passer domesticus,1.72E-05
+01PLANT.Dandelion,08BIRD.Passer domesticus,1.72E-05
+01PLANT.Dock sp,08BIRD.Passer domesticus,0.0313
+01PLANT.Dock sp,08BIRD.Passer domesticus,0.0313
+01PLANT.Dock sp,08BIRD.Passer domesticus,0.0313
+01PLANT.Dock sp,08BIRD.Passer domesticus,0.0313
+01PLANT.Dock sp,08BIRD.Passer domesticus,0.0313
+01PLANT.Dock sp,08BIRD.Passer domesticus,0.0313
+01PLANT.Dock sp,08BIRD.Passer domesticus,9.910344215
+01PLANT.Dock sp,08BIRD.Passer domesticus,0.0313
+01PLANT.Dock sp,08BIRD.Passer domesticus,0.0313
+01PLANT.Elder,08BIRD.Passer domesticus,0.006996
+01PLANT.Elder,08BIRD.Passer domesticus,0.006996
+01PLANT.Grass sp,08BIRD.Passer domesticus,0.177232
+01PLANT.Grass sp,08BIRD.Passer domesticus,0.177232
+01PLANT.Grass sp,08BIRD.Passer domesticus,0.177232
+01PLANT.Grass sp,08BIRD.Passer domesticus,0.177232
+01PLANT.Grass sp,08BIRD.Passer domesticus,0.177232
+01PLANT.Grass sp,08BIRD.Passer domesticus,0.177232
+01PLANT.Grass sp,08BIRD.Passer domesticus,0.177232
+01PLANT.Grass sp,08BIRD.Passer domesticus,0.177232
+01PLANT.Grass sp,08BIRD.Passer domesticus,0.177232
+01PLANT.Grass sp,08BIRD.Passer domesticus,0.177232
+01PLANT.Grass sp,08BIRD.Passer domesticus,15.97973684
+01PLANT.Grass sp,08BIRD.Passer domesticus,0.177232
+01PLANT.Grass sp,08BIRD.Passer domesticus,0.177232
+01PLANT.Grass sp,08BIRD.Passer domesticus,0.177232
+01PLANT.Hairy Tare,08BIRD.Passer domesticus,0.00695
+01PLANT.Hawkish Complex sp,08BIRD.Passer domesticus,3.95E-05
+01PLANT.Herb Bennet,08BIRD.Passer domesticus,0.006996
+01PLANT.Hogweed,08BIRD.Passer domesticus,3.95E-05
+01PLANT.Hogweed,08BIRD.Passer domesticus,3.95E-05
+01PLANT.Hogweed,08BIRD.Passer domesticus,3.95E-05
+01PLANT.Hogweed,08BIRD.Passer domesticus,3.95E-05
+01PLANT.Knotgrass sp,08BIRD.Passer domesticus,0.0023
+01PLANT.Knotgrass sp,08BIRD.Passer domesticus,0.0023
+01PLANT.Knotgrass sp,08BIRD.Passer domesticus,0.219555719
+01PLANT.Knotgrass sp,08BIRD.Passer domesticus,0.0023
+01PLANT.Knotgrass sp,08BIRD.Passer domesticus,0.0023
+01PLANT.Lesser Stitchwort,08BIRD.Passer domesticus,0.0085
+01PLANT.Lesser Stitchwort,08BIRD.Passer domesticus,0.0085
+01PLANT.Mayweed sp,08BIRD.Passer domesticus,0.0167
+01PLANT.Mayweed sp,08BIRD.Passer domesticus,0.0167
+01PLANT.Mayweed sp,08BIRD.Passer domesticus,0.0167
+01PLANT.Mayweed sp,08BIRD.Passer domesticus,0.0167
+01PLANT.Mayweed sp,08BIRD.Passer domesticus,0.0167
+01PLANT.Mayweed sp,08BIRD.Passer domesticus,0.0167
+01PLANT.Mayweed sp,08BIRD.Passer domesticus,1.162412437
+01PLANT.Mayweed sp,08BIRD.Passer domesticus,0.0167
+01PLANT.Nipplewort,08BIRD.Passer domesticus,5.31E-06
+01PLANT.Nipplewort,08BIRD.Passer domesticus,5.31E-06
+01PLANT.Oak,08BIRD.Passer domesticus,0.006996
+01PLANT.Oak,08BIRD.Passer domesticus,0.006996
+01PLANT.Oak,08BIRD.Passer domesticus,0.006996
+01PLANT.Oak,08BIRD.Passer domesticus,0.006996
+01PLANT.Persicaria sp,08BIRD.Passer domesticus,0.113656909
+01PLANT.Persicaria sp,08BIRD.Passer domesticus,0.113656909
+01PLANT.Persicaria sp,08BIRD.Passer domesticus,0.113656909
+01PLANT.Persicaria sp,08BIRD.Passer domesticus,3.186547435
+01PLANT.Persicaria sp,08BIRD.Passer domesticus,0.113656909
+01PLANT.Pineappleweed,08BIRD.Passer domesticus,0.0748
+01PLANT.Red Campion,08BIRD.Passer domesticus,0.000281
+01PLANT.Red Campion,08BIRD.Passer domesticus,0.000281
+01PLANT.Red Dead-nettle,08BIRD.Passer domesticus,0.15
+01PLANT.Rough Chervil,08BIRD.Passer domesticus,0.00683
+01PLANT.Rough Chervil,08BIRD.Passer domesticus,0.00683
+01PLANT.Shepherd's Purse,08BIRD.Passer domesticus,1.485
+01PLANT.Sow-thistle sp,08BIRD.Passer domesticus,0.00765
+01PLANT.Sow-thistle sp,08BIRD.Passer domesticus,0.00765
+01PLANT.Sow-thistle sp,08BIRD.Passer domesticus,0.00765
+01PLANT.Sow-thistle sp,08BIRD.Passer domesticus,0.00765
+01PLANT.Sow-thistle sp,08BIRD.Passer domesticus,0.00765
+01PLANT.Sow-thistle sp,08BIRD.Passer domesticus,0.00765
+01PLANT.Sow-thistle sp,08BIRD.Passer domesticus,0.86900873
+01PLANT.Sow-thistle sp,08BIRD.Passer domesticus,0.00765
+01PLANT.Sow-thistle sp,08BIRD.Passer domesticus,0.00765
+01PLANT.Spear Thistle,08BIRD.Passer domesticus,0.00323
+01PLANT.Spear Thistle,08BIRD.Passer domesticus,0.00323
+01PLANT.Spear Thistle,08BIRD.Passer domesticus,0.00323
+01PLANT.Spear Thistle,08BIRD.Passer domesticus,0.00323
+01PLANT.Spear Thistle,08BIRD.Passer domesticus,0.00323
+01PLANT.Spear Thistle,08BIRD.Passer domesticus,0.00323
+01PLANT.Spear Thistle,08BIRD.Passer domesticus,0.00323
+01PLANT.Stinging Nettle,08BIRD.Passer domesticus,0.006996
+01PLANT.Stinging Nettle,08BIRD.Passer domesticus,0.006996
+01PLANT.Stinging Nettle,08BIRD.Passer domesticus,0.006996
+01PLANT.Stinging Nettle,08BIRD.Passer domesticus,0.006996
+01PLANT.Stinging Nettle,08BIRD.Passer domesticus,0.2625
+01PLANT.Stinging Nettle,08BIRD.Passer domesticus,0.006996
+01PLANT.Stinging Nettle,08BIRD.Passer domesticus,0.006996
+01PLANT.Stinging Nettle,08BIRD.Passer domesticus,0.006996
+01PLANT.Traveller's Joy,08BIRD.Passer domesticus,0.00181
+01PLANT.Willowherb sp,08BIRD.Passer domesticus,0.006996
+01PLANT.Willowherb sp,08BIRD.Passer domesticus,0.006996
+01PLANT.zCROP Wheat,08BIRD.Passer domesticus,0.679389333
+01PLANT.zCROP Wheat,08BIRD.Passer domesticus,0.679389333
+01PLANT.Chenopodium sp,08BIRD.Streptopelia decaocto,0.01
+01PLANT.Clover sp,08BIRD.Streptopelia decaocto,1.47
+01PLANT.Corn Sowthistle,08BIRD.Streptopelia decaocto,0.0075
+01PLANT.Dock sp,08BIRD.Streptopelia decaocto,0.00868
+01PLANT.Grass sp,08BIRD.Streptopelia decaocto,0.01
+01PLANT.Knotgrass sp,08BIRD.Streptopelia decaocto,6.47E-05
+01PLANT.Persicaria sp,08BIRD.Streptopelia decaocto,0.00125
+01PLANT.Red Dead-nettle,08BIRD.Streptopelia decaocto,0.0025
+01PLANT.Shepherd's Purse,08BIRD.Streptopelia decaocto,0.49
+01PLANT.Ash,09MAMMAL.Apodemus.flavicollis,0.140386089
+01PLANT.Ash,09MAMMAL.Apodemus.flavicollis,0.798260999
+01PLANT.Blackthorn,09MAMMAL.Apodemus.flavicollis,0.743274491
+01PLANT.Blackthorn,09MAMMAL.Apodemus.flavicollis,0.0975
+01PLANT.Bramble,09MAMMAL.Apodemus.flavicollis,5.380042675
+01PLANT.Bramble,09MAMMAL.Apodemus.flavicollis,0.152420722
+01PLANT.Dock sp,09MAMMAL.Apodemus.flavicollis,1.884072466
+01PLANT.Dock sp,09MAMMAL.Apodemus.flavicollis,1.599749913
+01PLANT.Elder,09MAMMAL.Apodemus.flavicollis,0.0863
+01PLANT.Field Maple,09MAMMAL.Apodemus.flavicollis,5.251799767
+01PLANT.Field Maple,09MAMMAL.Apodemus.flavicollis,1.106676338
+01PLANT.Grass sp,09MAMMAL.Apodemus.flavicollis,32.82713712
+01PLANT.Grass sp,09MAMMAL.Apodemus.flavicollis,3.605867867
+01PLANT.Hawthorn,09MAMMAL.Apodemus.flavicollis,2.751292045
+01PLANT.Hazel,09MAMMAL.Apodemus.flavicollis,0.779191538
+01PLANT.Hazel,09MAMMAL.Apodemus.flavicollis,0.332296929
+01PLANT.Hedge Woundwort,09MAMMAL.Apodemus.flavicollis,0.0181
+01PLANT.Lesser Stitchwort,09MAMMAL.Apodemus.flavicollis,0.00615
+01PLANT.Oak,09MAMMAL.Apodemus.flavicollis,4.806886106
+01PLANT.Oak,09MAMMAL.Apodemus.flavicollis,2.459955088
+01PLANT.Rose sp,09MAMMAL.Apodemus.flavicollis,0.681637966
+01PLANT.Sycamore,09MAMMAL.Apodemus.flavicollis,0.137436906
+01PLANT.Sycamore,09MAMMAL.Apodemus.flavicollis,0.583188626
+01PLANT.Ash,09MAMMAL.Apodemus.sylvaticus,0.492037285
+01PLANT.Ash,09MAMMAL.Apodemus.sylvaticus,5.9347846
+01PLANT.Black Bindweed,09MAMMAL.Apodemus.sylvaticus,6.88E-05
+01PLANT.Blackthorn,09MAMMAL.Apodemus.sylvaticus,3.063358446
+01PLANT.Blackthorn,09MAMMAL.Apodemus.sylvaticus,0.725116883
+01PLANT.Bramble,09MAMMAL.Apodemus.sylvaticus,19.1126059
+01PLANT.Bramble,09MAMMAL.Apodemus.sylvaticus,0.000134
+01PLANT.Bramble,09MAMMAL.Apodemus.sylvaticus,1.133193472
+01PLANT.Bush Vetch,09MAMMAL.Apodemus.sylvaticus,0.000218
+01PLANT.Charlock,09MAMMAL.Apodemus.sylvaticus,0.0739
+01PLANT.Chenopodium sp,09MAMMAL.Apodemus.sylvaticus,0.00658
+01PLANT.Chenopodium sp,09MAMMAL.Apodemus.sylvaticus,0.00152
+01PLANT.Clover sp,09MAMMAL.Apodemus.sylvaticus,0.0065
+01PLANT.Cut-leaved Crane's-bill,09MAMMAL.Apodemus.sylvaticus,0.02
+01PLANT.Dock sp,09MAMMAL.Apodemus.sylvaticus,0.33430238
+01PLANT.Dock sp,09MAMMAL.Apodemus.sylvaticus,14.94707251
+01PLANT.Dock sp,09MAMMAL.Apodemus.sylvaticus,0.416044769
+01PLANT.Dock sp,09MAMMAL.Apodemus.sylvaticus,11.89356758
+01PLANT.Dog's Mercury,09MAMMAL.Apodemus.sylvaticus,0.0462
+01PLANT.Elder,09MAMMAL.Apodemus.sylvaticus,0.348166407
+01PLANT.Field Madder,09MAMMAL.Apodemus.sylvaticus,0.0274
+01PLANT.Field Maple,09MAMMAL.Apodemus.sylvaticus,18.00056692
+01PLANT.Field Maple,09MAMMAL.Apodemus.sylvaticus,8.227742172
+01PLANT.Grass sp,09MAMMAL.Apodemus.sylvaticus,47.12793165
+01PLANT.Grass sp,09MAMMAL.Apodemus.sylvaticus,493.0109081
+01PLANT.Grass sp,09MAMMAL.Apodemus.sylvaticus,24.81116917
+01PLANT.Grass sp,09MAMMAL.Apodemus.sylvaticus,56.96771401
+01PLANT.Ground Ivy,09MAMMAL.Apodemus.sylvaticus,0.049595527
+01PLANT.Hawthorn,09MAMMAL.Apodemus.sylvaticus,0.0327
+01PLANT.Hawthorn,09MAMMAL.Apodemus.sylvaticus,11.48517033
+01PLANT.Hawthorn,09MAMMAL.Apodemus.sylvaticus,0.00167
+01PLANT.Hazel,09MAMMAL.Apodemus.sylvaticus,2.774737848
+01PLANT.Hazel,09MAMMAL.Apodemus.sylvaticus,2.47050864
+01PLANT.Hedge Woundwort,09MAMMAL.Apodemus.sylvaticus,0.0614
+01PLANT.Herb Robert,09MAMMAL.Apodemus.sylvaticus,0.093
+01PLANT.Knotgrass sp,09MAMMAL.Apodemus.sylvaticus,0.01223
+01PLANT.Knotgrass sp,09MAMMAL.Apodemus.sylvaticus,0.000808
+01PLANT.Knotgrass sp,09MAMMAL.Apodemus.sylvaticus,0.0308
+01PLANT.Lesser Stitchwort,09MAMMAL.Apodemus.sylvaticus,0.0209
+01PLANT.Oak,09MAMMAL.Apodemus.sylvaticus,16.30316593
+01PLANT.Oak,09MAMMAL.Apodemus.sylvaticus,18.28888495
+01PLANT.Persicaria sp,09MAMMAL.Apodemus.sylvaticus,0.0223
+01PLANT.Persicaria sp,09MAMMAL.Apodemus.sylvaticus,0.34411538
+01PLANT.Persicaria sp,09MAMMAL.Apodemus.sylvaticus,0.00249
+01PLANT.Red Dead-nettle,09MAMMAL.Apodemus.sylvaticus,0.0122
+01PLANT.Rose sp,09MAMMAL.Apodemus.sylvaticus,2.311861902
+01PLANT.Stinging Nettle,09MAMMAL.Apodemus.sylvaticus,0.133207314
+01PLANT.Stinging Nettle,09MAMMAL.Apodemus.sylvaticus,2.270825834
+01PLANT.Stinging Nettle,09MAMMAL.Apodemus.sylvaticus,0.0208
+01PLANT.Stinging Nettle,09MAMMAL.Apodemus.sylvaticus,3.088091679
+01PLANT.Sycamore,09MAMMAL.Apodemus.sylvaticus,0.466134755
+01PLANT.Sycamore,09MAMMAL.Apodemus.sylvaticus,4.335798542
+01PLANT.Bramble,09MAMMAL.Micromys.minutus,3.27E-05
+01PLANT.Chenopodium sp,09MAMMAL.Micromys.minutus,0.000187
+01PLANT.Dock sp,09MAMMAL.Micromys.minutus,0.102006358
+01PLANT.Grass sp,09MAMMAL.Micromys.minutus,5.725395189
+01PLANT.Hawthorn,09MAMMAL.Micromys.minutus,0.000409
+01PLANT.Ash,09MAMMAL.Myodes.glareolus,0.232356418
+01PLANT.Ash,09MAMMAL.Myodes.glareolus,41.85150866
+01PLANT.Blackthorn,09MAMMAL.Myodes.glareolus,1.564559289
+01PLANT.Blackthorn,09MAMMAL.Myodes.glareolus,9.63361282
+01PLANT.Bluebell,09MAMMAL.Myodes.glareolus,1.062577591
+01PLANT.Bramble,09MAMMAL.Myodes.glareolus,9.091553254
+01PLANT.Bramble,09MAMMAL.Myodes.glareolus,4.36E-05
+01PLANT.Bramble,09MAMMAL.Myodes.glareolus,10.21968725
+01PLANT.Chenopodium sp,09MAMMAL.Myodes.glareolus,0.0024
+01PLANT.Chenopodium sp,09MAMMAL.Myodes.glareolus,0.000248
+01PLANT.Chenopodium sp,09MAMMAL.Myodes.glareolus,0.02966
+01PLANT.Dock sp,09MAMMAL.Myodes.glareolus,9.205780205
+01PLANT.Dock sp,09MAMMAL.Myodes.glareolus,0.135890512
+01PLANT.Dock sp,09MAMMAL.Myodes.glareolus,0.523638877
+01PLANT.Dock sp,09MAMMAL.Myodes.glareolus,25.61866418
+01PLANT.Dog's Mercury,09MAMMAL.Myodes.glareolus,0.0337
+01PLANT.Elder,09MAMMAL.Myodes.glareolus,0.176084659
+01PLANT.Elder,09MAMMAL.Myodes.glareolus,0.252699147
+01PLANT.Field Maple,09MAMMAL.Myodes.glareolus,8.395897459
+01PLANT.Field Maple,09MAMMAL.Myodes.glareolus,17.72250102
+01PLANT.Grass sp,09MAMMAL.Myodes.glareolus,279.3164713
+01PLANT.Grass sp,09MAMMAL.Myodes.glareolus,7.627239099
+01PLANT.Grass sp,09MAMMAL.Myodes.glareolus,52.20751308
+01PLANT.Grass sp,09MAMMAL.Myodes.glareolus,378.0994197
+01PLANT.Ground Ivy,09MAMMAL.Myodes.glareolus,0.0362
+01PLANT.Hawthorn,09MAMMAL.Myodes.glareolus,5.897789313
+01PLANT.Hawthorn,09MAMMAL.Myodes.glareolus,0.000545
+01PLANT.Hazel,09MAMMAL.Myodes.glareolus,1.321574771
+01PLANT.Hazel,09MAMMAL.Myodes.glareolus,10.82160502
+01PLANT.Hedge Woundwort,09MAMMAL.Myodes.glareolus,0.0285
+01PLANT.Herb Robert,09MAMMAL.Myodes.glareolus,0.0678
+01PLANT.Lesser Stitchwort,09MAMMAL.Myodes.glareolus,0.00967
+01PLANT.Oak,09MAMMAL.Myodes.glareolus,3.779402104
+01PLANT.Oak,09MAMMAL.Myodes.glareolus,135.0617161
+01PLANT.Red Dead-nettle,09MAMMAL.Myodes.glareolus,0.00887
+01PLANT.Red Dead-nettle,09MAMMAL.Myodes.glareolus,0.00575
+01PLANT.Rose sp,09MAMMAL.Myodes.glareolus,1.07187227
+01PLANT.Stinging Nettle,09MAMMAL.Myodes.glareolus,1.183398423
+01PLANT.Stinging Nettle,09MAMMAL.Myodes.glareolus,0.00678
+01PLANT.Stinging Nettle,09MAMMAL.Myodes.glareolus,3.451444867
+01PLANT.Stinging Nettle,09MAMMAL.Myodes.glareolus,8.812469416
+01PLANT.Sycamore,09MAMMAL.Myodes.glareolus,0.216118842
+01PLANT.Sycamore,09MAMMAL.Myodes.glareolus,13.36131443
+01PLANT.Bramble,12BFLY.Comma,9.895705981
+01PLANT.Creeping Thistle,12BFLY.Comma,0.215259569
+01PLANT.Spear Thistle,12BFLY.Comma,0.00414
+01PLANT.Clover sp,12BFLY.Common blue,13.8374701
+01PLANT.Clover sp,12BFLY.Common blue,45.13594134
+01PLANT.Creeping Thistle,12BFLY.Common blue,2.273033017
+01PLANT.zCROP Lucerne,12BFLY.Common blue,2.767494019
+01PLANT.Bramble,12BFLY.Gatekeeper,157.2937009
+01PLANT.Bramble,12BFLY.Gatekeeper,0.0998
+01PLANT.Bramble,12BFLY.Gatekeeper,6.378801498
+01PLANT.Clover sp,12BFLY.Gatekeeper,16.28586836
+01PLANT.Clover sp,12BFLY.Gatekeeper,189.8753307
+01PLANT.Clover sp,12BFLY.Gatekeeper,27.73449371
+01PLANT.Clover sp,12BFLY.Gatekeeper,92.54491569
+01PLANT.Clover sp,12BFLY.Gatekeeper,16.24966708
+01PLANT.Corn Mint,12BFLY.Gatekeeper,3.891088711
+01PLANT.Creeping Thistle,12BFLY.Gatekeeper,12.12984359
+01PLANT.Creeping Thistle,12BFLY.Gatekeeper,1.08175662
+01PLANT.Creeping Thistle,12BFLY.Gatekeeper,7.395864991
+01PLANT.Creeping Thistle,12BFLY.Gatekeeper,3.616371365
+01PLANT.Creeping Thistle,12BFLY.Gatekeeper,9.52213096
+01PLANT.Creeping Thistle,12BFLY.Gatekeeper,2.273033017
+01PLANT.Creeping Thistle,12BFLY.Gatekeeper,2.965252054
+01PLANT.Ragwort,12BFLY.Gatekeeper,2.569914819
+01PLANT.Spear Thistle,12BFLY.Gatekeeper,0.0572
+01PLANT.Spear Thistle,12BFLY.Gatekeeper,1.986618015
+01PLANT.Spear Thistle,12BFLY.Gatekeeper,0.685339053
+01PLANT.Upright Hedge-parsley,12BFLY.Gatekeeper,31.22024784
+01PLANT.Upright Hedge-parsley,12BFLY.Gatekeeper,8.206206321
+01PLANT.Wild Privet,12BFLY.Gatekeeper,2.094531835
+01PLANT.Common Vetch,12BFLY.Green-veined White,1.487134736
+01PLANT.Creeping Buttercup,12BFLY.Green-veined White,92.33257008
+01PLANT.Creeping Buttercup,12BFLY.Green-veined White,11.72314337
+01PLANT.Creeping Buttercup,12BFLY.Green-veined White,35.13035871
+01PLANT.Creeping Buttercup,12BFLY.Green-veined White,0.89251161
+01PLANT.Creeping Buttercup,12BFLY.Green-veined White,1.204547563
+01PLANT.Creeping Thistle,12BFLY.Green-veined White,22.47123275
+01PLANT.Creeping Thistle,12BFLY.Green-veined White,0.251590365
+01PLANT.Creeping Thistle,12BFLY.Green-veined White,13.38767415
+01PLANT.Creeping Thistle,12BFLY.Green-veined White,2.478557894
+01PLANT.Ground Ivy,12BFLY.Green-veined White,3.504712436
+01PLANT.Spear Thistle,12BFLY.Green-veined White,0.89251161
+01PLANT.Spear Thistle,12BFLY.Green-veined White,0.495711579
+01PLANT.zCROP Lucerne,12BFLY.Green-veined White,4.630230378
+01PLANT.zCROP Lucerne,12BFLY.Green-veined White,27.29549808
+01PLANT.Bramble,12BFLY.Large Skipper,1.690936423
+01PLANT.Clover sp,12BFLY.Large Skipper,24.90744617
+01PLANT.Clover sp,12BFLY.Large Skipper,34.36831188
+01PLANT.Clover sp,12BFLY.Large Skipper,1.492898824
+01PLANT.Common Bird's-foot-trefoil,12BFLY.Large Skipper,0.167570276
+01PLANT.Common Vetch,12BFLY.Large Skipper,1.233926579
+01PLANT.Creeping Thistle,12BFLY.Large Skipper,0.762046827
+01PLANT.Creeping Thistle,12BFLY.Large White,10.50536616
+01PLANT.Creeping Thistle,12BFLY.Large White,8.302482057
+01PLANT.Creeping Thistle,12BFLY.Large White,35.13035871
+01PLANT.Creeping Thistle,12BFLY.Large White,9.482935855
+01PLANT.Creeping Thistle,12BFLY.Large White,7.10612413
+01PLANT.Dandelion,12BFLY.Large White,8.302482057
+01PLANT.Red Campion,12BFLY.Large White,5.057565789
+01PLANT.Spear Thistle,12BFLY.Large White,0.632195724
+01PLANT.Spear Thistle,12BFLY.Large White,1.927664491
+01PLANT.Willowherb sp,12BFLY.Large White,10.50536616
+01PLANT.Willowherb sp,12BFLY.Large White,0.136875585
+01PLANT.zCROP Lucerne,12BFLY.Large White,33.20992823
+01PLANT.zCROP Lucerne,12BFLY.Large White,81.88649425
+01PLANT.Bramble,12BFLY.Meadow Brown,173.8921389
+01PLANT.Bramble,12BFLY.Meadow Brown,2.248621841
+01PLANT.Creeping Buttercup,12BFLY.Meadow Brown,324.7585011
+01PLANT.Creeping Buttercup,12BFLY.Meadow Brown,25.31822183
+01PLANT.Creeping Buttercup,12BFLY.Meadow Brown,652.1222271
+01PLANT.Creeping Buttercup,12BFLY.Meadow Brown,1704.519428
+01PLANT.Creeping Buttercup,12BFLY.Meadow Brown,0.111563951
+01PLANT.Creeping Buttercup,12BFLY.Meadow Brown,2.899318719
+01PLANT.Creeping Buttercup,12BFLY.Meadow Brown,847.9511562
+01PLANT.Creeping Buttercup,12BFLY.Meadow Brown,0.06944
+01PLANT.Creeping Thistle,12BFLY.Meadow Brown,0.102651151
+01PLANT.Creeping Thistle,12BFLY.Meadow Brown,12.07633754
+01PLANT.Creeping Thistle,12BFLY.Meadow Brown,114.4524782
+01PLANT.Creeping Thistle,12BFLY.Meadow Brown,2.899535824
+01PLANT.Creeping Thistle,12BFLY.Meadow Brown,5.172490763
+01PLANT.Creeping Thistle,12BFLY.Meadow Brown,8.061445033
+01PLANT.Creeping Thistle,12BFLY.Meadow Brown,6.889323768
+01PLANT.Hogweed,12BFLY.Meadow Brown,0.265739569
+01PLANT.Mayweed sp,12BFLY.Meadow Brown,618.5152996
+01PLANT.Mayweed sp,12BFLY.Meadow Brown,7.806746379
+01PLANT.Mayweed sp,12BFLY.Meadow Brown,38.30627896
+01PLANT.Mayweed sp,12BFLY.Meadow Brown,56.89295216
+01PLANT.Selfheal,12BFLY.Meadow Brown,101.2695814
+01PLANT.Spear Thistle,12BFLY.Meadow Brown,0.111563951
+01PLANT.Spear Thistle,12BFLY.Meadow Brown,0.375431034
+01PLANT.Spear Thistle,12BFLY.Meadow Brown,2.41397239
+01PLANT.Clover sp,12BFLY.Painted Lady,47.40897436
+01PLANT.Bluebell,12BFLY.Peacock,5.057565789
+01PLANT.Bluebell,12BFLY.Peacock,3.493391813
+01PLANT.Bramble,12BFLY.Peacock,39.99736412
+01PLANT.Creeping Thistle,12BFLY.Peacock,56.8314239
+01PLANT.Creeping Thistle,12BFLY.Peacock,8.663459538
+01PLANT.Creeping Thistle,12BFLY.Peacock,0.434214561
+01PLANT.Creeping Thistle,12BFLY.Peacock,1.312417811
+01PLANT.Creeping Thistle,12BFLY.Peacock,3.821110086
+01PLANT.Cuckooflower,12BFLY.Peacock,4.97994152
+01PLANT.Dandelion,12BFLY.Peacock,24.90744617
+01PLANT.Dandelion,12BFLY.Peacock,35.13035871
+01PLANT.Dandelion,12BFLY.Peacock,54.59099617
+01PLANT.Dandelion,12BFLY.Peacock,47.40897436
+01PLANT.Dandelion,12BFLY.Peacock,4.585332103
+01PLANT.Hawkish Complex sp,12BFLY.Peacock,16.24398663
+01PLANT.Spear Thistle,12BFLY.Peacock,0.0289
+01PLANT.Spear Thistle,12BFLY.Peacock,0.0954
+01PLANT.Spear Thistle,12BFLY.Peacock,0.764222017
+01PLANT.Bramble,12BFLY.Red Admiral,24.86990526
+01PLANT.Creeping Thistle,12BFLY.Red Admiral,8.302482057
+01PLANT.Creeping Thistle,12BFLY.Red Admiral,0.401382175
+01PLANT.Creeping Thistle,12BFLY.Red Admiral,3.821110086
+01PLANT.Spear Thistle,12BFLY.Red Admiral,0.0165
+01PLANT.Spear Thistle,12BFLY.Red Admiral,0.764222017
+01PLANT.Creeping Thistle,12BFLY.Ringlet,16.60496411
+01PLANT.Creeping Thistle,12BFLY.Ringlet,1.312417811
+01PLANT.Spear Thistle,12BFLY.Ringlet,0.0954
+01PLANT.Clover sp,12BFLY.Small copper,6.121635706
+01PLANT.Clover sp,12BFLY.Small copper,35.05487506
+01PLANT.Creeping Buttercup,12BFLY.Small copper,10.50536616
+01PLANT.Creeping Buttercup,12BFLY.Small copper,18.07921625
+01PLANT.Creeping Buttercup,12BFLY.Small copper,0.0755
+01PLANT.Dandelion,12BFLY.Small copper,0.706594218
+01PLANT.Clover sp,12BFLY.Small Skipper,0.01374
+01PLANT.Clover sp,12BFLY.Small Skipper,24.69110702
+01PLANT.Clover sp,12BFLY.Small Skipper,0.0394
+01PLANT.Creeping Thistle,12BFLY.Small Skipper,0.0103
+01PLANT.Creeping Thistle,12BFLY.Small Skipper,0.216351324
+01PLANT.Mayweed sp,12BFLY.Small Skipper,56.80741031
+01PLANT.zCROP Lucerne,12BFLY.Small Skipper,27.25606428
+01PLANT.Bramble,12BFLY.Small tortoiseshell,4.991399761
+01PLANT.Creeping Thistle,12BFLY.Small tortoiseshell,5.775639692
+01PLANT.Creeping Thistle,12BFLY.Small tortoiseshell,0.062
+01PLANT.Creeping Thistle,12BFLY.Small tortoiseshell,3.821110086
+01PLANT.Dandelion,12BFLY.Small tortoiseshell,24.90744617
+01PLANT.Dandelion,12BFLY.Small tortoiseshell,27.29549808
+01PLANT.Hawkish Complex sp,12BFLY.Small tortoiseshell,10.82932442
+01PLANT.Spear Thistle,12BFLY.Small tortoiseshell,0.00414
+01PLANT.Spear Thistle,12BFLY.Small tortoiseshell,0.764222017
+01PLANT.Bindweed sp,12BFLY.Small white,0.998785211
+01PLANT.Bluebell,12BFLY.Small white,8.473333333
+01PLANT.Bramble,12BFLY.Small white,9.827275501
+01PLANT.Bramble,12BFLY.Small white,2.252087891
+01PLANT.Charlock,12BFLY.Small white,37.13561806
+01PLANT.Charlock,12BFLY.Small white,0.0864
+01PLANT.Charlock,12BFLY.Small white,6.873593743
+01PLANT.Clover sp,12BFLY.Small white,0.02669
+01PLANT.Clover sp,12BFLY.Small white,5.944987152
+01PLANT.Clover sp,12BFLY.Small white,81.74644237
+01PLANT.Clover sp,12BFLY.Small white,36.43954447
+01PLANT.Clover sp,12BFLY.Small white,14.80686392
+01PLANT.Common Bird's-foot-trefoil,12BFLY.Small white,0.0653
+01PLANT.Common Bird's-foot-trefoil,12BFLY.Small white,4.733384128
+01PLANT.Common Bird's-foot-trefoil,12BFLY.Small white,0.223179881
+01PLANT.Creeping Buttercup,12BFLY.Small white,123.072786
+01PLANT.Creeping Buttercup,12BFLY.Small white,2.357494905
+01PLANT.Creeping Buttercup,12BFLY.Small white,23.12612083
+01PLANT.Creeping Buttercup,12BFLY.Small white,0.00408
+01PLANT.Creeping Buttercup,12BFLY.Small white,6.085779593
+01PLANT.Creeping Buttercup,12BFLY.Small white,4.01083197
+01PLANT.Creeping Thistle,12BFLY.Small white,0.0198
+01PLANT.Creeping Thistle,12BFLY.Small white,0.432107733
+01PLANT.Creeping Thistle,12BFLY.Small white,0.214459569
+01PLANT.Creeping Thistle,12BFLY.Small white,1.81597311
+01PLANT.Daisy,12BFLY.Small white,0.150266163
+01PLANT.Oil Seed Rape,12BFLY.Small white,5.338147822
+01PLANT.Spear Thistle,12BFLY.Small white,0.00408
+01PLANT.Spear Thistle,12BFLY.Small white,0.363194622
+01PLANT.Bramble,12BFLY.Speckled wood,5.057565789
+01PLANT.Bramble,12BFLY.Speckled wood,4.585332103
+01PLANT.Dandelion,12BFLY.Speckled wood,8.302482057
+01PLANT.Dandelion,12BFLY.Speckled wood,9.170664207
+07SEEDINVERT.Bruchidius varius,13SFPARA.Aprostocetus sp,64.97529722
+07SEEDINVERT.Protapion apricans,13SFPARA.Aprostocetus sp,324.8764861
+07SEEDINVERT.Protapion assimile,13SFPARA.Aprostocetus sp,292.3888375
+07SEEDINVERT.Protapion fulvipes,13SFPARA.Aprostocetus sp,129.9505944
+07SEEDINVERT.Protapion trifolii,13SFPARA.Aprostocetus sp,194.9258917
+07SEEDINVERT.Protapion varipes,13SFPARA.Aprostocetus sp,32.48764861
+07SEEDINVERT.Sitona lineatus,13SFPARA.Aprostocetus sp,32.48764861
+07SEEDINVERT.Sitona sulcifrons,13SFPARA.Aprostocetus sp,32.48764861
+07SEEDINVERT.Curtonotus aulicus,13SFPARA.Bracon immutator,10.22759308
+07SEEDINVERT.Olibrus aeneus,13SFPARA.Bracon immutator,10.22759308
+07SEEDINVERT.Rhinocyllus conicus,13SFPARA.Bracon immutator,10.22759308
+07SEEDINVERT.Terellia serratulae,13SFPARA.Bracon immutator,102.2759308
+07SEEDINVERT.Urophora stylata,13SFPARA.Bracon immutator,971.6213427
+07SEEDINVERT.Curtonotus aulicus,13SFPARA.Bracon osculator,5.113796541
+07SEEDINVERT.Olibrus aeneus,13SFPARA.Bracon osculator,5.113796541
+07SEEDINVERT.Rhinocyllus conicus,13SFPARA.Bracon osculator,5.113796541
+07SEEDINVERT.Terellia serratulae,13SFPARA.Bracon osculator,51.13796541
+07SEEDINVERT.Urophora stylata,13SFPARA.Bracon osculator,485.8106714
+07SEEDINVERT.Terellia ruficauda,13SFPARA.Bracon praecox,205.6554115
+07SEEDINVERT.Urophora stylata,13SFPARA.Bracon praecox,1850.898704
+07SEEDINVERT.Terellia serratulae,13SFPARA.Crataepus marbis,315.5943008
+07SEEDINVERT.Urophora stylata,13SFPARA.Crataepus marbis,2998.145858
+07SEEDINVERT.Curtonotus aulicus,13SFPARA.Eurytoma sp A,5.113796541
+07SEEDINVERT.Olibrus aeneus,13SFPARA.Eurytoma sp A,5.113796541
+07SEEDINVERT.Rhinocyllus conicus,13SFPARA.Eurytoma sp A,5.113796541
+07SEEDINVERT.Terellia serratulae,13SFPARA.Eurytoma sp A,51.13796541
+07SEEDINVERT.Urophora stylata,13SFPARA.Eurytoma sp A,485.8106714
+07SEEDINVERT.Curtonotus aulicus,13SFPARA.Eurytoma sp B,5.113796541
+07SEEDINVERT.Olibrus aeneus,13SFPARA.Eurytoma sp B,5.113796541
+07SEEDINVERT.Rhinocyllus conicus,13SFPARA.Eurytoma sp B,5.113796541
+07SEEDINVERT.Terellia serratulae,13SFPARA.Eurytoma sp B,51.13796541
+07SEEDINVERT.Urophora stylata,13SFPARA.Eurytoma sp B,485.8106714
+07SEEDINVERT.Bruchophagus gibbus,13SFPARA.Mesopolobus incultus,64010.34657
+07SEEDINVERT.Protapion apricans,13SFPARA.Mesopolobus incultus,287.84502
+07SEEDINVERT.Protapion apricans,13SFPARA.Mesopolobus incultus,56009.05325
+07SEEDINVERT.Protapion assimile,13SFPARA.Mesopolobus incultus,1439.2251
+07SEEDINVERT.Protapion fulvipes,13SFPARA.Mesopolobus incultus,53470.40699
+07SEEDINVERT.Protapion fulvipes,13SFPARA.Mesopolobus incultus,35692.44208
+07SEEDINVERT.Protapion fulvipes,13SFPARA.Mesopolobus incultus,128020.6931
+07SEEDINVERT.Protapion trifolii,13SFPARA.Mesopolobus incultus,4605.52032
+07SEEDINVERT.Protapion trifolii,13SFPARA.Mesopolobus incultus,56009.05325
+07SEEDINVERT.Curtonotus aulicus,13SFPARA.Pterandrophysalis levantina,368.1933509
+07SEEDINVERT.Olibrus aeneus,13SFPARA.Pterandrophysalis levantina,368.1933509
+07SEEDINVERT.Rhinocyllus conicus,13SFPARA.Pterandrophysalis levantina,368.1933509
+07SEEDINVERT.Terellia ruficauda,13SFPARA.Pteromalus albipennis,24652.63348
+07SEEDINVERT.Terellia longicauda,13SFPARA.Pteromalus beryllii,145.8799273
+07SEEDINVERT.Terellia serratulae,13SFPARA.Pteromalus beryllii,1021.159491
+07SEEDINVERT.Terellia serratulae,13SFPARA.Pteromalus elevatus,105.1981003
+07SEEDINVERT.Urophora stylata,13SFPARA.Pteromalus elevatus,999.3819525
+07SEEDINVERT.Oxystoma pomonae,13SFPARA.Pteromalus sequester-group,1656.870079
+07SEEDINVERT.Bruchidius varius,13SFPARA.Spintherus dubius,974.6294583
+07SEEDINVERT.Bruchophagus gibbus,13SFPARA.Spintherus dubius,1730.009367
+07SEEDINVERT.Protapion apricans,13SFPARA.Spintherus dubius,287.84502
+07SEEDINVERT.Protapion apricans,13SFPARA.Spintherus dubius,1513.758196
+07SEEDINVERT.Protapion apricans,13SFPARA.Spintherus dubius,4873.147292
+07SEEDINVERT.Protapion assimile,13SFPARA.Spintherus dubius,1439.2251
+07SEEDINVERT.Protapion assimile,13SFPARA.Spintherus dubius,4385.832563
+07SEEDINVERT.Protapion fulvipes,13SFPARA.Spintherus dubius,10282.77058
+07SEEDINVERT.Protapion fulvipes,13SFPARA.Spintherus dubius,3460.018734
+07SEEDINVERT.Protapion fulvipes,13SFPARA.Spintherus dubius,1949.258917
+07SEEDINVERT.Protapion trifolii,13SFPARA.Spintherus dubius,4605.52032
+07SEEDINVERT.Protapion trifolii,13SFPARA.Spintherus dubius,1513.758196
+07SEEDINVERT.Protapion trifolii,13SFPARA.Spintherus dubius,2923.888375
+07SEEDINVERT.Protapion varipes,13SFPARA.Spintherus dubius,487.3147292
+07SEEDINVERT.Sitona lineatus,13SFPARA.Spintherus dubius,487.3147292
+07SEEDINVERT.Sitona sulcifrons,13SFPARA.Spintherus dubius,487.3147292
+07SEEDINVERT.Bruchidius varius,13SFPARA.Triaspis floricola,129.9505944
+07SEEDINVERT.Protapion apricans,13SFPARA.Triaspis floricola,649.7529722
+07SEEDINVERT.Protapion assimile,13SFPARA.Triaspis floricola,584.777675
+07SEEDINVERT.Protapion fulvipes,13SFPARA.Triaspis floricola,259.9011889
+07SEEDINVERT.Protapion trifolii,13SFPARA.Triaspis floricola,389.8517833
+07SEEDINVERT.Protapion varipes,13SFPARA.Triaspis floricola,64.97529722
+07SEEDINVERT.Sitona lineatus,13SFPARA.Triaspis floricola,64.97529722
+07SEEDINVERT.Sitona sulcifrons,13SFPARA.Triaspis floricola,64.97529722
+07SEEDINVERT.Bruchophagus gibbus,13SFPARA.Trichomalus campestris,17300.09367
+07SEEDINVERT.Protapion apricans,13SFPARA.Trichomalus campestris,15137.58196
+07SEEDINVERT.Protapion fulvipes,13SFPARA.Trichomalus campestris,10282.77058
+07SEEDINVERT.Protapion fulvipes,13SFPARA.Trichomalus campestris,34600.18734
+07SEEDINVERT.Protapion trifolii,13SFPARA.Trichomalus campestris,15137.58196
+07SEEDINVERT.Bruchophagus gibbus,13SFPARA.Trichomalus rufinus,3460.018734
+07SEEDINVERT.Protapion apricans,13SFPARA.Trichomalus rufinus,3027.516392
+07SEEDINVERT.Protapion fulvipes,13SFPARA.Trichomalus rufinus,59640.06934
+07SEEDINVERT.Protapion fulvipes,13SFPARA.Trichomalus rufinus,6920.037467
+07SEEDINVERT.Protapion trifolii,13SFPARA.Trichomalus rufinus,3027.516392
+09MAMMAL.Apodemus.flavicollis,14FLEA.Amalaraeus penicilliger mustelae,10.73594867
+09MAMMAL.Apodemus.sylvaticus,14FLEA.Amalaraeus penicilliger mustelae,10.28146949
+09MAMMAL.Micromys.minutus,14FLEA.Amalaraeus penicilliger mustelae,1.942676665
+09MAMMAL.Myodes.glareolus,14FLEA.Amalaraeus penicilliger mustelae,275.3219231
+09MAMMAL.Myodes.glareolus,14FLEA.Amalaraeus penicilliger mustelae,9.713434529
+09MAMMAL.Myodes.glareolus,14FLEA.Amalaraeus penicilliger mustelae,6.223005195
+09MAMMAL.Myodes.glareolus,14FLEA.Amalaraeus penicilliger mustelae,173.141242
+09MAMMAL.Apodemus.flavicollis,14FLEA.Ctenophthalmus nobilis vulgaris,13.87343805
+09MAMMAL.Apodemus.flavicollis,14FLEA.Ctenophthalmus nobilis vulgaris,21.47189734
+09MAMMAL.Apodemus.sylvaticus,14FLEA.Ctenophthalmus nobilis vulgaris,5.303431997
+09MAMMAL.Apodemus.sylvaticus,14FLEA.Ctenophthalmus nobilis vulgaris,61.29545455
+09MAMMAL.Apodemus.sylvaticus,14FLEA.Ctenophthalmus nobilis vulgaris,10.52286607
+09MAMMAL.Myodes.glareolus,14FLEA.Ctenophthalmus nobilis vulgaris,82.25038462
+09MAMMAL.Myodes.glareolus,14FLEA.Ctenophthalmus nobilis vulgaris,3.885373812
+09MAMMAL.Myodes.glareolus,14FLEA.Ctenophthalmus nobilis vulgaris,6.223005195
+09MAMMAL.Myodes.glareolus,14FLEA.Ctenophthalmus nobilis vulgaris,122.8948587
+09MAMMAL.Apodemus.flavicollis,14FLEA.Hystrichopsylla talpae talpae,13.87343805
+09MAMMAL.Apodemus.sylvaticus,14FLEA.Hystrichopsylla talpae talpae,16.60947368
+09MAMMAL.Apodemus.sylvaticus,14FLEA.Hystrichopsylla talpae talpae,4.209146428
+09MAMMAL.Micromys.minutus,14FLEA.Hystrichopsylla talpae talpae,7.770706661
+09MAMMAL.Myodes.glareolus,14FLEA.Hystrichopsylla talpae talpae,14.28538462
+09MAMMAL.Myodes.glareolus,14FLEA.Hystrichopsylla talpae talpae,11.40141704
+09MAMMAL.Apodemus.sylvaticus,14FLEA.Ixodes trianguliceps,53.94
+09MAMMAL.Myodes.glareolus,14FLEA.Ixodes trianguliceps,12.44601039
+09MAMMAL.Myodes.glareolus,14FLEA.Ixodes trianguliceps,11.40141704
+09MAMMAL.Apodemus.sylvaticus,14FLEA.Megabothris turbidus,5.303431997
+09MAMMAL.Myodes.glareolus,14FLEA.Megabothris turbidus,45.31
+09MAMMAL.Myodes.glareolus,14FLEA.Megabothris turbidus,21.88599454
+09MAMMAL.Myodes.glareolus,14FLEA.Megabothris turbidus,29.56353586
+09MAMMAL.Apodemus.sylvaticus,14FLEA.Nosopsyllus fasciatus,5.303431997
+09MAMMAL.Apodemus.sylvaticus,14FLEA.Palaeopsylla minor,26.97
+09MAMMAL.Myodes.glareolus,14FLEA.Palaeopsylla soricis soricis,11.40141704
