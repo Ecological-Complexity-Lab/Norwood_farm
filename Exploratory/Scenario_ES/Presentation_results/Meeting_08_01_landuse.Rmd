@@ -1,0 +1,344 @@
+---
+title: "Land use change (binary)"
+output:
+  html_document:
+    toc: yes
+    toc_float: yes
+    collapse: no
+    number_sections: yes
+    code_folding: hide
+    theme: united
+    highlight: tango
+  pdf_document:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, results = "asis", message=FALSE, warning=FALSE, cache=TRUE, eval = TRUE, dev = c('png'), out.width = '100%', out.height='40%')
+
+```
+
+```{css}
+/* Custom CSS to reduce TOC font size */
+#TOC {
+  font-size: 0.8em; /* Adjust the value to your preference */
+}
+```
+
+```{r load libraries, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(readr)
+library(emln) #multilayer package
+library(readr)
+library(readxl)
+library(ggplot2)
+library(cowplot)
+library(paletteer)
+rm(list=ls())
+```
+
+\
+\
+\
+
+# How to simulate land use change?
+\
+<font size="3"> 
+Replace the specific habitats to "CP" (including all species, assuming that community reached the equilibrium).
+\
+\
+
+After simulating land use change, we have the duplicated links in the aggregated network.
+\
+\
+\
+\
+
+
+
+# How to aggregate binary data)?
+\
+<font size="4"> 
+**1) Links duplication **</font> : For each duplicated links, we calculate the direct ES provision and indirect effect on ES.  
+\
+\
+
+<font size="4"> 
+**2) Unique links **</font> : We removed duplicated links. (equivalent to habitat loss)
+
+
+\
+\
+\
+\
+
+# Link duplication {.tabset}
+
+## Direct provision E(D)S
+
+### ES/E(D)S
+
+\
+```{r}
+
+ratio_direct <- read.csv("Land_use_rat_dir_binary.csv", sep =",") #ratio ES
+
+ratio_direct$management <- factor(ratio_direct$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+
+ratio_direct_prov<-ratio_direct%>% gather("type","value", 2:3) %>% group_by(management) %>% 
+  mutate(Total = sum(value)) %>% group_by(management,type) %>% 
+  summarise(prop = value /Total) %>%  
+  ggplot(aes(y=prop, x=management, fill = type)) + 
+  geom_bar(position="stack", stat="identity")+ ggtitle("Ratio direct ES/EDS")+
+  labs(x='Manegement', y="Prop of E(D)S") +theme_bw()+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=15, color='black'),
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11))
+
+ratio_direct_prov
+
+```
+\
+\
+\
+\
+
+### Number of EDS provided per management
+\
+
+```{r}
+
+direct_ES_binary <- read.csv("Land_use_dir_binary.csv", sep =",") #direct ES
+
+direct_ES_binary$management <- factor(direct_ES_binary$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+
+ggplot_EDS_management<-direct_ES_binary %>% group_by(management) %>% count(services) %>% 
+  ggplot(aes(y=n, x=management, fill = services)) + 
+  geom_bar(position = "dodge" ,stat="identity")+ ggtitle("Direct EDS")+
+  labs(x='Management', y="Direct EDS provided") +theme_bw()+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=13, color='black'),
+        axis.text.x= element_text(size =11, angle = 90), 
+        axis.text.y= element_text(size =11, angle = 90), 
+        axis.title = element_text(size=15, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_blank(),
+        legend.text = element_text(size = 8),
+        legend.position = "bottom",
+        legend.key.size = unit(0.7,"line"))
+
+ggplot_EDS_management
+
+```
+\
+\
+\
+\
+
+## Indirect effect on ES
+
+### +/-
+\
+```{r}
+
+output_ind_ES <- read.csv("Land_use_output_ind_binary.csv", sep =",") 
+
+# ratio > 1 indicates more benefits, ratio = 1 balance between damages and benefits and ratio < 1 more damage
+
+output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+
+number_positive<-output_ind_ES %>% group_by(management) %>% 
+  filter (output == "+") %>% summarise (positive = n())#count + outputs
+
+number_negative<-output_ind_ES %>% group_by(management) %>% 
+  filter (output == "-") %>% summarise (negative = n())#count - outputs
+
+total<-cbind(number_positive,number_negative[,-1])
+
+ratio_indirect<-total %>% mutate(ratio_direct = positive/negative)
+
+ratio_indirect_prov<-ratio_indirect%>% gather("type","value", 2:3) %>% group_by(management) %>% 
+  mutate(Total = sum(value)) %>% group_by(management,type) %>% 
+  summarise(prop = value /Total) %>%  
+  ggplot(aes(y=prop, x=management, fill = type)) + 
+  geom_bar(position="stack", stat="identity")+ ggtitle("Ratio indirect +/-")+
+  labs(x='Manegement', y="Prop of outputs") +theme_bw()+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=15, color='black'),
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11))
+
+ratio_indirect_prov
+
+```
+\
+\
+\
+\
+
+# Unique links (habitat loss) {.tabset}
+
+## Direct provision E(D)S
+
+### ES/E(D)S
+\
+```{r}
+
+ratio_direct <- read.csv("Land_use_rat_dir_binary_removal.csv", sep =",") #ratio ES
+
+ratio_direct$management <- factor(ratio_direct$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+
+ratio_direct_prov<-ratio_direct%>% gather("type","value", 2:3) %>% group_by(management) %>% 
+  mutate(Total = sum(value)) %>% group_by(management,type) %>% 
+  summarise(prop = value /Total) %>%  
+  ggplot(aes(y=prop, x=management, fill = type)) + 
+  geom_bar(position="stack", stat="identity")+ ggtitle("Ratio direct ES/EDS")+
+  labs(x='Manegement', y="Prop of E(D)S") +theme_bw()+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=15, color='black'),
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11))
+
+ratio_direct_prov
+
+```
+\
+\
+\
+\
+
+### Number of EDS provided per management
+\
+
+```{r}
+
+direct_ES_binary <- read.csv("Land_use_dir_binary_removal.csv", sep =",") #direct ES
+
+direct_ES_binary$management <- factor(direct_ES_binary$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+
+ggplot_EDS_management<-direct_ES_binary %>% group_by(management) %>% count(services) %>% 
+  ggplot(aes(y=n, x=management, fill = services)) + 
+  geom_bar(position = "dodge" ,stat="identity")+ ggtitle("Direct EDS")+
+  labs(x='Management', y="Direct EDS provided") +theme_bw()+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=13, color='black'),
+        axis.text.x= element_text(size =11, angle = 90), 
+        axis.text.y= element_text(size =11, angle = 90), 
+        axis.title = element_text(size=15, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_blank(),
+        legend.text = element_text(size = 8),
+        legend.position = "bottom",
+        legend.key.size = unit(0.7,"line"))
+
+ggplot_EDS_management
+
+```
+\
+\
+\
+\
+
+\
+\
+\
+\
+
+## Indirect effect on ES
+
+### +/-
+\
+```{r}
+
+output_ind_ES <- read.csv("Land_use_output_ind_binary_removal.csv", sep =",") 
+
+# ratio > 1 indicates more benefits, ratio = 1 balance between damages and benefits and ratio < 1 more damage
+
+output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+
+number_positive<-output_ind_ES %>% group_by(management) %>% 
+  filter (output == "+") %>% summarise (positive = n())#count + outputs
+
+number_negative<-output_ind_ES %>% group_by(management) %>% 
+  filter (output == "-") %>% summarise (negative = n())#count - outputs
+
+total<-cbind(number_positive,number_negative[,-1])
+
+ratio_indirect<-total %>% mutate(ratio_direct = positive/negative)
+
+ratio_indirect_prov<-ratio_indirect%>% gather("type","value", 2:3) %>% group_by(management) %>% 
+  mutate(Total = sum(value)) %>% group_by(management,type) %>% 
+  summarise(prop = value /Total) %>%  
+  ggplot(aes(y=prop, x=management, fill = type)) + 
+  geom_bar(position="stack", stat="identity")+ ggtitle("Ratio indirect +/-")+
+  labs(x='Manegement', y="Prop of outputs") +theme_bw()+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=15, color='black'),
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11))
+
+ratio_indirect_prov
+
+```
+\
+\
+\
+
+# Potential causes
+
+\
+<font size="3"> 
+
+- CP has higher species and links richness than most habitats, so when we replace habitats to CP we are increasing the direct provision of E(D)S and the indirect effects on ES.
+\
+\
+
+- Abundance - area: the results probably will change after including the species abundances and reducing it according to the area of new habitat. This allows us to avoid duplicated links.
+
+\
+\
+\
+
+# Next steps
+
+\
+
+<font size="3"> 
+
+- Include species abundances and area of habitats.
+\
+\
+

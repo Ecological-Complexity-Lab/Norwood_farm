@@ -213,6 +213,7 @@ Habitat_ES<-ES_habitat %>%
   
 ### --- Calculate eigenvector centrality to check the importance of the nodes 
 Norwood_farm<-readRDS("Data/Norwood_farm.RData") #read multilayer object
+Norwood_farm$extended_ids$weight<-1 #to do it now unweighted (created in multilayer
 
 ## - in each habitat
 
@@ -228,15 +229,34 @@ for (layer in g_layer$layers_igraph){
 
 ## - considering all habitats
 
+#IT'S
 # get the SAM
 sam_multilayer <- get_sam(multilayer = Norwood_farm, bipartite = F, directed = T, sparse = F, remove_zero_rows_cols = F)
   
 # converting SAM to igraph object
-graph_sam <- graph_from_adjacency_matrix(sam_multilayer$M,mode = "directed",weighted = T,diag = TRUE,add.colnames = NULL,add.rownames = NA)
+graph_sam <- graph_from_adjacency_matrix(sam_multilayer$M,mode = "directed",weighted = T,diag = T,add.colnames = NULL,add.rownames = NA)
   
 # get Eigenvector scores
-eigen_sam <- igraph::eigen_centrality(graph_sam, directed = T, scale = T)$vector
+eigen_sam <- igraph::eigen_centrality(graph_sam, directed = T, scale = T, weights = T)
   
+ggplot_orueba<-eigen_sam %>% 
+  ggplot(aes(y=Prop, x=layer, fill = taxon)) + 
+  geom_bar(position="stack", stat="identity")+ ggtitle("Negative - Indirect")+
+  labs(x='Habitat', y="Prop ES provided per taxon") +theme_bw()+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=13, color='black'),
+        axis.text.x= element_text(size =11, angle = 90), 
+        axis.text.y= element_text(size =11, angle = 90), 
+        axis.title = element_text(size=15, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_blank(),
+        legend.text = element_text(size = 5),
+        legend.position = "bottom",
+        legend.key.size = unit(0.7,"line"))
 
 ## - comparing between methods
 

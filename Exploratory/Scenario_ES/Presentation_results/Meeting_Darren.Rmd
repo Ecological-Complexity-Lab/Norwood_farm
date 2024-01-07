@@ -23,14 +23,16 @@ knitr::opts_chunk$set(echo = FALSE, results = "asis", message=FALSE, warning=FAL
 #TOC {
   font-size: 0.8em; /* Adjust the value to your preference */
 }
+```
 
 ```{r load libraries, echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(readr)
-library(emln)#multilayer package
+library(emln) #multilayer package
 library(readr)
 library(ggplot2)
 library(cowplot)
+library(paletteer)
 rm(list=ls())
 ```
 
@@ -125,7 +127,7 @@ Unipartite, binary, all habitats aggregated.</font>
 
 ## Cons
 <font size="3">
-- Aggregated data (it reduces reality by avoiding spatial aspect).</font>
+- Aggregated data (avoids spatial aspect).</font>
 \
 
 <font size="3">
@@ -357,22 +359,33 @@ upper_row
 ### Considering 1 hop 
 \
 ```{r}
+#library(RColorBrewer)
+#library(scales)
+
 
 ## Prop of direct and Indirect ES provided per taxon /habitat 
 Final_ES <- read.csv("Final_ES.csv", sep =",")
+   
+
+#taxon_groups<- c("Aph","Butt", "Crop","Flower-visitor ins","Insect seed-feeder par", "Leaf-miner par", "Plant", "Prim aphid par","Rodent ectopar","Sec aphid par", "Seed-feeding bird", "Seed-feeding ins","Seed-feeding rod") #list of levels
+
+#colors<- c("#F8766D" ,"#E18A00" ,"#BE9C00", "#8CAB00" ,"#24B700",
+       #    "#00BE70", "#00C1AB", "#00BBDA", "#00ACFC", "#8B93FF", 
+      #     "#D575FE", "#F962DD" ,"#FF65AC")
 
 # 1 hop
- 
  taxon_ES_1<-Final_ES %>% group_by(layer, type) %>% filter(services_to != "None", hop == 0 | hop ==1) %>% 
    mutate(Total = n()) %>% group_by(layer,type, taxon) %>% 
    summarize( Number = n(), Prop = Number /Total) %>% unique()
  
- 
- 
+
  #Direct
+ 
  D_taxon_ES_1<-taxon_ES_1 %>% filter(type == "D") %>% 
    ggplot(aes(y=Prop, x=layer, fill = taxon)) + 
-   geom_bar(position="stack", stat="identity")+ ggtitle("Direct ES - 1 hop")+
+   geom_bar(position="stack", stat="identity", color = "black")+ 
+   scale_fill_manual(label = c("Aph","Butt", "Crop","Flower-visitor ins","Insect seed-feeder par", "Leaf-miner par", "Prim aphid par","Sec aphid par", "Seed-feeding bird", "Seed-feeding ins","Seed-feeding rod"), values = c("#F8766D", "#E18A00","#BE9C00", "#8CAB00", "#24B700", "#00BE70","#00BBDA", "#8B93FF", "#D575FE","#F962DD", "#FF65AC"))+
+   ggtitle("Direct ES - 1 hop")+
    labs(x='Habitat', y="Prop ES provided per taxon") +theme_bw()+
    theme_classic()+
    theme(panel.grid = element_blank(),
@@ -388,12 +401,15 @@ Final_ES <- read.csv("Final_ES.csv", sep =",")
          legend.text = element_text(size = 5),
          legend.position = "bottom",
          legend.key.size = unit(0.7,"line"))
- 
+  
  
  #Indirect
  I_taxon_ES_1<-taxon_ES_1 %>% filter(type == "I") %>% 
    ggplot(aes(y=Prop, x=layer, fill = taxon)) + 
-   geom_bar(position="stack", stat="identity")+ ggtitle("Indirect ES - 1 hop")+
+   geom_bar(position="stack", stat="identity", color = "black")+
+   scale_fill_manual(label = c("Aph","Butt", "Crop","Flower-visitor ins","Insect seed-feeder par", "Leaf-miner par", "Plants","Prim aphid par", "Rodent ectopar","Sec aphid par", "Seed-feeding bird", "Seed-feeding ins","Seed-feeding rod"),
+            values = c("#F8766D", "#E18A00","#BE9C00", "#8CAB00", "#24B700", "#00BE70","#00C1AB", "#00BBDA", "#00ACFC",   "#8B93FF", "#D575FE","#F962DD", "#FF65AC"))+
+   ggtitle("Indirect ES - 1 hop")+
    labs(x='Habitat', y="Prop ES provided per taxon") +theme_bw()+
    theme_classic()+
    theme(panel.grid = element_blank(),
@@ -437,18 +453,19 @@ Final_ES <- read.csv("Final_ES.csv", sep =",")
    summarize( Number = n(), Prop = Number /Total) %>% unique()
  
 
-
  
  #Direct
- D_taxon_ES<-taxon_ES %>% filter(type == "D") %>% 
+  D_taxon_ES<-taxon_ES%>% filter(type == "D") %>% 
    ggplot(aes(y=Prop, x=layer, fill = taxon)) + 
-   geom_bar(position="stack", stat="identity")+ ggtitle("Direct ES - 2 hops")+
+   geom_bar(position="stack", stat="identity", color = "black")+ 
+   scale_fill_manual(label = c("Aph","Butt", "Crop","Flower-visitor ins","Insect seed-feeder par", "Leaf-miner par", "Prim aphid par","Sec aphid par", "Seed-feeding bird", "Seed-feeding ins","Seed-feeding rod"), values = c("#F8766D", "#E18A00","#BE9C00", "#8CAB00", "#24B700", "#00BE70","#00BBDA", "#8B93FF", "#D575FE","#F962DD", "#FF65AC"))+
+   ggtitle("Direct ES - 1 hop")+
    labs(x='Habitat', y="Prop ES provided per taxon") +theme_bw()+
    theme_classic()+
    theme(panel.grid = element_blank(),
          panel.border = element_rect(color = "black",fill = NA,size = 1),
          panel.spacing = unit(0.5, "cm", data = NULL),
-          axis.text = element_text(size=13, color='black'),
+         axis.text = element_text(size=13, color='black'),
          axis.text.x= element_text(size =11, angle = 90), 
          axis.text.y= element_text(size =11, angle = 90), 
          axis.title = element_text(size=15, color='black'),
@@ -458,12 +475,16 @@ Final_ES <- read.csv("Final_ES.csv", sep =",")
          legend.text = element_text(size = 5),
          legend.position = "bottom",
          legend.key.size = unit(0.7,"line"))
- 
+  
+
  
  #Indirect
  I_taxon_ES<-taxon_ES %>% filter(type == "I") %>% 
    ggplot(aes(y=Prop, x=layer, fill = taxon)) + 
-   geom_bar(position="stack", stat="identity")+ ggtitle("Indirect ES - 2 hops")+
+   geom_bar(position="stack", stat="identity", color = "black")+
+   scale_fill_manual(label = c("Aph","Butt", "Crop","Flower-visitor ins","Insect seed-feeder par", "Leaf-miner par", "Plants","Prim aphid par", "Rodent ectopar","Sec aphid par", "Seed-feeding bird", "Seed-feeding ins","Seed-feeding rod"),
+            values = c("#F8766D", "#E18A00","#BE9C00", "#8CAB00", "#24B700", "#00BE70","#00C1AB", "#00BBDA", "#00ACFC",   "#8B93FF", "#D575FE","#F962DD", "#FF65AC"))+
+   ggtitle("Indirect ES - 2 hops")+
    labs(x='Habitat', y="Prop ES provided per taxon") +theme_bw()+
    theme_classic()+
    theme(panel.grid = element_blank(),
@@ -534,7 +555,7 @@ Prop_output<- output_ES %>% filter(type == "D") %>%  group_by(layer, output) %>%
 Hab_ES_output_dir<-Prop_output%>% 
   ggplot(aes(y=prop, x=layer, fill =output)) + 
   geom_bar(position="stack", stat="identity")+ ggtitle("Direct")+
-  labs(x='Habitat', y="Prop ES provided") +theme_bw()+
+  labs(x='Habitat', y="Prop. output") +theme_bw()+
   theme_classic()+
   theme(panel.grid = element_blank(),
         panel.border = element_rect(color = "black",fill = NA,size = 1),
@@ -558,7 +579,7 @@ Prop_output_ind<- output_ES %>% filter(type == "I") %>%  group_by(layer, output)
 Hab_ES_output_ind<-Prop_output_ind%>% 
   ggplot(aes(y=prop, x=layer, fill =output)) + 
   geom_bar(position="stack", stat="identity")+ ggtitle("Indirect (2 hops)")+
-  labs(x='Habitat', y="Prop ES provided") +theme_bw()+
+  labs(x='Habitat', y="Prop. output") +theme_bw()+
   theme_classic()+
   theme(panel.grid = element_blank(),
         panel.border = element_rect(color = "black",fill = NA,size = 1),
@@ -603,11 +624,14 @@ taxon_ES_output_dir<-output_ES %>% filter (type == "D") %>% group_by(layer, outp
   mutate(Total = n()) %>% group_by(layer,output, taxon) %>% 
   summarize( Number = n(), Prop = Number /Total) %>% unique()
 
+
 #positive
 taxon_ES_output_pos_dir <-taxon_ES_output_dir %>% filter(output =="+") %>% 
   ggplot(aes(y=Prop, x=layer, fill = taxon)) + 
-  geom_bar(position="stack", stat="identity")+ ggtitle("Positive - Direct")+
-  labs(x='Habitat', y="Prop ES provided per taxon") +theme_bw()+
+  geom_bar(position="stack", stat="identity", color = "black")+ 
+   scale_fill_manual(label = c("Butt", "Crop","Flower-visitor ins","Insect seed-feeder par", "Leaf-miner par", "Prim aphid par","Sec aphid par", "Seed-feeding bird", "Seed-feeding ins","Seed-feeding rod"), values = c("#E18A00","#BE9C00", "#8CAB00", "#24B700", "#00BE70","#00BBDA", "#8B93FF", "#D575FE","#F962DD", "#FF65AC"))+
+   ggtitle("Positive - Direct")+
+  labs(x='Habitat', y="Prop output per taxon") +theme_bw()+
   theme_classic()+
   theme(panel.grid = element_blank(),
         panel.border = element_rect(color = "black",fill = NA,size = 1),
@@ -619,7 +643,7 @@ taxon_ES_output_pos_dir <-taxon_ES_output_dir %>% filter(output =="+") %>%
         axis.line = element_blank(),
         legend.text.align = 0,
         legend.title =  element_blank(),
-        legend.text = element_text(size = 5),
+        legend.text = element_text(size = 6),
         legend.position = "bottom",
         legend.key.size = unit(0.7,"line"))
 
@@ -627,8 +651,10 @@ taxon_ES_output_pos_dir <-taxon_ES_output_dir %>% filter(output =="+") %>%
 #negative
 taxon_ES_output_neg_dir <-taxon_ES_output_dir %>% filter(output =="-") %>% 
   ggplot(aes(y=Prop, x=layer, fill = taxon)) + 
-  geom_bar(position="stack", stat="identity")+ ggtitle("Negative - Direct")+
-  labs(x='Habitat', y="Prop ES provided per taxon") +theme_bw()+
+  geom_bar(position="stack", stat="identity", color = "black")+ 
+   scale_fill_manual(label = c("Aph","Seed-feeding bird", "Seed-feeding ins","Seed-feeding rod"), values = c("#F8766D", "#D575FE","#F962DD", "#FF65AC"))+
+  ggtitle("Negative - Direct")+
+  labs(x='Habitat', y="Prop output per taxon") +theme_bw()+
   theme_classic()+
   theme(panel.grid = element_blank(),
         panel.border = element_rect(color = "black",fill = NA,size = 1),
@@ -640,7 +666,7 @@ taxon_ES_output_neg_dir <-taxon_ES_output_dir %>% filter(output =="-") %>%
         axis.line = element_blank(),
         legend.text.align = 0,
         legend.title =  element_blank(),
-        legend.text = element_text(size = 5),
+        legend.text = element_text(size = 6),
         legend.position = "bottom",
         legend.key.size = unit(0.7,"line"))
 
@@ -668,11 +694,16 @@ taxon_ES_output_ind<-output_ES %>% filter (type == "I") %>% group_by(layer, outp
   mutate(Total = n()) %>% group_by(layer,output, taxon) %>% 
   summarize( Number = n(), Prop = Number /Total) %>% unique()
 
+
+
 #positive
 taxon_ES_output_pos_ind <-taxon_ES_output_ind %>% filter(output =="+") %>% 
   ggplot(aes(y=Prop, x=layer, fill = taxon)) + 
-  geom_bar(position="stack", stat="identity")+ ggtitle("Positive - Indirect")+
-  labs(x='Habitat', y="Prop ES provided per taxon") +theme_bw()+
+  geom_bar(position="stack", stat="identity", color = "black")+
+   scale_fill_manual(label = c("Aph","Butt", "Crop","Flower-visitor ins","Insect seed-feeder par", "Leaf-miner par", "Plants","Prim aphid par", "Rodent ectopar","Sec aphid par", "Seed-feeding bird", "Seed-feeding ins","Seed-feeding rod"),
+            values = c("#F8766D", "#E18A00","#BE9C00", "#8CAB00", "#24B700", "#00BE70","#00C1AB", "#00BBDA", "#00ACFC",   "#8B93FF", "#D575FE","#F962DD", "#FF65AC"))+
+ ggtitle("Positive - Indirect")+
+  labs(x='Habitat', y="Prop output per taxon") +theme_bw()+
   theme_classic()+
   theme(panel.grid = element_blank(),
         panel.border = element_rect(color = "black",fill = NA,size = 1),
@@ -684,16 +715,19 @@ taxon_ES_output_pos_ind <-taxon_ES_output_ind %>% filter(output =="+") %>%
         axis.line = element_blank(),
         legend.text.align = 0,
         legend.title =  element_blank(),
-        legend.text = element_text(size = 4),
+        legend.text = element_text(size = 5),
         legend.position = "bottom",
-        legend.key.size = unit(0.6,"line"))
+        legend.key.size = unit(0.7,"line"))
 
 
 #negative
 taxon_ES_output_neg_ind <-taxon_ES_output_ind %>% filter(output =="-") %>% 
   ggplot(aes(y=Prop, x=layer, fill = taxon)) + 
-  geom_bar(position="stack", stat="identity")+ ggtitle("Negative - Indirect")+
-  labs(x='Habitat', y="Prop ES provided per taxon") +theme_bw()+
+  geom_bar(position="stack", stat="identity", color = "black")+
+   scale_fill_manual(label = c("Aph","Butt", "Crop","Flower-visitor ins","Insect seed-feeder par", "Leaf-miner par", "Plants","Prim aphid par", "Rodent ectopar","Sec aphid par", "Seed-feeding bird", "Seed-feeding ins","Seed-feeding rod"),
+            values = c("#F8766D", "#E18A00","#BE9C00", "#8CAB00", "#24B700", "#00BE70","#00C1AB", "#00BBDA", "#00ACFC",   "#8B93FF", "#D575FE","#F962DD", "#FF65AC"))+
+  ggtitle("Negative - Indirect")+
+  labs(x='Habitat', y="Prop output per taxon") +theme_bw()+
   theme_classic()+
   theme(panel.grid = element_blank(),
         panel.border = element_rect(color = "black",fill = NA,size = 1),
@@ -705,9 +739,9 @@ taxon_ES_output_neg_ind <-taxon_ES_output_ind %>% filter(output =="-") %>%
         axis.line = element_blank(),
         legend.text.align = 0,
         legend.title =  element_blank(),
-        legend.text = element_text(size = 4),
+        legend.text = element_text(size = 5),
         legend.position = "bottom",
-        legend.key.size = unit(0.6,"line"))
+        legend.key.size = unit(0.7,"line"))
 
 
 upper_row<- plot_grid(taxon_ES_output_pos_ind ,
@@ -754,7 +788,7 @@ upper_row
 ## Multilayer
 \
 
-* Intralayer links between 0 and 1 (relative abundances?).
+* Intralayer links between 0 and 1 (Product between relative abundances of sps).
 \
 
 * Interlayer links.
