@@ -1592,7 +1592,7 @@ aggregated network.<br />
 </div>
 <div id="how-to-aggregate-binary-data" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> How to aggregate binary
-data)?</h1>
+data?</h1>
 <p><br />
 <font size="4"> <strong>1) Links duplication </strong></font> : For each
 duplicated links, we calculate the direct ES provision and indirect
@@ -1716,13 +1716,29 @@ of new habitat. This allows us to avoid duplicated links.</p></li>
 <div id="next-steps" class="section level1" number="6">
 <h1><span class="header-section-number">6</span> Next steps</h1>
 <p><br />
-</p>
-<p><font size="3"></p>
-<ul>
-<li>Include species abundances and area of habitats.<br />
+<font size="4"> <strong>Incorporate abundances of species and area of
+habitats</strong><br />
 <br />
-</li>
-</ul>
+</p>
+<p><font size="4"> <strong>Steps</strong><br />
+<br />
+</p>
+<p><strong>1)</strong> Create multilayer network with abundances as
+state nodes attributes (nodes’ abundances per each habitat)<br />
+<br />
+</p>
+<p><strong>2)</strong> Change the habitats to “CP” but modifying the
+abundance of each species according to the area.<br />
+<br />
+</p>
+<p><strong>3)</strong> Aggregate the habitats to create the Norwoodfarm
+network. During this step, we add the abundances of the same species
+across habitats. Then, we calculate the weight of links between two
+species:</p>
+<p><span class="math inline">\(w_{ji}=A_{j}\times A_{i}\)</span><br />
+</p>
+<p>where <span class="math inline">\(A_j\)</span> and <span class="math inline">\(A_i\)</span> represent the relative abundance of
+species <span class="math inline">\(j\)</span> and <span class="math inline">\(i\)</span> in their trophic group.</p>
 </div>
 
 

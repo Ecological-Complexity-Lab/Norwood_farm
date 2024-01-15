@@ -56,7 +56,7 @@ After simulating land use change, we have the duplicated links in the aggregated
 
 
 
-# How to aggregate binary data)?
+# How to aggregate binary data?
 \
 <font size="4"> 
 **1) Links duplication **</font> : For each duplicated links, we calculate the direct ES provision and indirect effect on ES.  
@@ -335,10 +335,27 @@ ratio_indirect_prov
 # Next steps
 
 \
-
-<font size="3"> 
-
-- Include species abundances and area of habitats.
+<font size="4">
+**Incorporate abundances of species and area of habitats**
 \
 \
+
+<font size="4"> **Steps**
+\
+\
+
+**1)** Create multilayer network with abundances as state nodes attributes (nodes' abundances per each habitat)
+\
+\
+
+**2)** Change the habitats to "CP" but modifying the abundance of each species according to the area.
+\
+\
+
+**3)** Aggregate the habitats to create the Norwoodfarm network. During this step, we add the abundances of the same species across habitats. Then, we calculate the weight of links between two species:
+
+$w_{ji}=A_{j}\times A_{i}$
+\
+
+where $A_j$ and $A_i$ represent the relative abundance of species $j$ and $i$ in their trophic group.
 
