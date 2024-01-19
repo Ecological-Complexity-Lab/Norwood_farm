@@ -8,7 +8,7 @@
 # 1) Create multilayer network with abundances as state nodes attributes (nodes’ abundances per each habitat)
 
 # 2) Change the habitats to “CP” but modifying the abundance of each species 
-#according to the area.
+#according to the area (WITHOUT REMOVING BELOW 1)
 
 # 3) Aggregate the habitats to create the Norwoodfarm network. During this step, 
 # we add the abundances of the same species across habitats. Then, we calculate the weight of links between two species
@@ -23,6 +23,9 @@ setwd("D:/Trabajo/Papers/Norwood_Farm/norwood-ecosystem-services-main_Tinio")
 Norwood_farm<-readRDS("Data/Norwood_farm.RData") #read multilayer object
 Norwood_farm$extended_ids$weight<-1 # non-weighted for now 
 
+
+
+######################## KEEP THE SPECIES EVEN WHEN ABUNDANCE IS BELOW THAN 1 #####
 
 ################## --- CREATE MANAGAMENT SCENARIOS (abundances_trial)
 
@@ -452,53 +455,15 @@ int_edgelist_aggr<-int_edgelist_no_aggr %>% select(node_from,node_to) %>%
 land_change_weighted_trial<-rbind(ext_edgelist_aggr,sem_ext_edgelist_aggr,mod_edgelist_aggr,
                           sem_int_edgelist_aggr,int_edgelist_aggr)
 
-
-
-###### -- Exploratory analysis (TO CHECK)
-
-## Histogram
-library(cowplot)
-
-
-hist_0.025<-ggplot(land_change_weighted_trial, aes(x=weight, fill =management))+
-  geom_histogram(bins = 100,color='#e9ecef', alpha=0.55, position='identity')+
-  scale_x_continuous(limits = c(0,0.025))
-hist_0.025
-
-hist_0.025_0.7<-ggplot(land_change_weighted_trial, aes(x=weight, fill =management))+
-  geom_histogram(bins = 100,color='#e9ecef', alpha=0.55, position='identity')+
-  scale_x_continuous(limits = c(0.025,0.7))
-hist_0.025_0.7
-
-upper_row<- plot_grid(hist_0.025,hist_0.025_0.7, 
-                      ncol= 2)
-upper_row
-
-
-#x1<-land_change_weighted_trial %>% filter(management == "E")
-#x2<-land_change_weighted_trial %>% filter(management == "SE")
-#x3<-land_change_weighted_trial %>% filter(management == "M")
-#x4<-land_change_weighted_trial %>% filter(management == "SI")
-#x5<-land_change_weighted_trial %>% filter(management == "I")
-
-# create multiple histogram
-#hist_E<-hist(x1$weight, col='red', xlim=c(0,0.5))
-#hist_SE<-hist(x2$weight,col='green',xlim=c(0,0.5))
-#hist_M<-hist(x3$weight, col='blue', xlim=c(0,0.5))
-#hist_SI<-hist(x4$weight, col='yellow', xlim=c(0,0.5))
-#hist_I<-hist(x5$weight,col='purple',xlim=c(0,0.5))
-
-#upper_row<- plot_grid(hist_E,hist_SE,hist_M,hist_SI,hist_I, 
-                    #  ncol= 5)
-#upper_row
-
-
-
-
-
-
-
-
+#final state_node list with abundances
+state_nodes_weighted_trial_ab<-rbind(ab_ext[,1:3],state_node_sem_ext_agg[,1:3],
+                                  state_node_mod_agg[,1:3],state_node_sem_int_agg[,1:3],
+                                  state_node_int_agg[,1:3])
+#add management label
+state_nodes_weighted_trial<-cbind(management = rep(c("E","SE","M","SI","I"),
+                                                     c(nrow(ab_ext),nrow(state_node_sem_ext_agg),
+                                                       nrow(state_node_mod_agg), nrow(state_node_sem_int_agg),
+                                                       nrow(state_node_int_agg))), state_nodes_weighted_trial_ab)
 
 
 ################## --- CALCULATE DIRECT E(D)S PROVISION AND INDIRECT EFFECT ON ES
@@ -507,50 +472,55 @@ upper_row
 ##### --  DIRECT E(D)S PROVISION
 
 
-##  Create node_list per habitat/management 
-node_list<-land_change_binary %>% pivot_longer(cols = 2:3, names_to = "species", values_to = "node_id") %>% 
-                              select(-species) %>%  unique()
 
+## Add information of ES to the state_node_list (values 0-1)
 
-## Add information of ES per node (values 0-1)
-
-nodes_ES_binary<- right_join(node_list, Norwood_farm$nodes, by = "node_id")%>% 
-  select(habitat,management,node_id,taxon,"Crop production",
+nodes_ES<- right_join(state_nodes_weighted_trial, Norwood_farm$nodes, by = "node_id")%>% 
+  select(management,node_id,taxon.x,abun, "Crop production",
          "Pollination", "Crop damage", "Pest control", "Seed dispersal", "Butterfly watching", "Bird watching") %>% 
-  group_by(management,habitat,node_id) %>% 
+  group_by(management,node_id) %>% rename("taxon" = "taxon.x") %>% 
   gather("services","value", 5:11) #we conserve species that not directly provide ES because can serve as intermediate hop
 
-nodes_ES_binary$management <- factor(nodes_ES_binary$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+nodes_ES$management <- factor(nodes_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
 
-  
-## -- Estimate direct E(D)S provision
-direct_ES_binary <- nodes_ES_binary %>% filter (value ==1) %>% 
-  mutate (type = "D") %>% select(-value)
+## -- Estimate direct E(D)S provision with the abundances (however, we multiply for trophic group's body size when differenr trophic groups provide the same ES (case of crop damage))
+direct_ES <- nodes_ES %>% filter (value ==1) %>% 
+  mutate (type = "D",
+          body_size =  case_when( #to control ES for body size
+            services != "Crop damage"~ 1,
+            (services == "Crop damage") &
+            (taxon == "Seed-feeding bird"|taxon == "Seed-feeding rodent")~1, #birds and rodents receives a 1 cause they are the biggest producing crop damage 
+            (services == "Crop damage") & (taxon == "Aphid"|
+            taxon == "Seed-feeding insect")~0.5),
+           weight = abun * body_size,
+          output = case_when( #output + or - according to the service
+            services == "Crop damage"~ "-",
+             TRUE ~ "+")) %>% #weight of direct ES provision
+          select(-value) 
 
-#write.csv(direct_ES_binary,"Data/Land_use_dir_binary.csv", row.names= FALSE)
 
+#write.csv(direct_ES,"Data/Land_use_dir_weighted_trial_norem.csv", row.names= FALSE)
 
 ## -- Direct provision Ratio ES/E(D)S
 
 # ratio > 1 indicates more benefits, ratio = 1 balance between damages and benefits and ratio < 1 more damage
 
-number_ES<-nodes_ES_binary %>% group_by(management) %>% 
+number_ES<-nodes_ES %>% group_by(management) %>% 
   filter (value ==1 & services != "Crop damage") %>% summarise (ES =sum(value))#count ES provision
 
-number_EDS<-nodes_ES_binary %>% group_by(management) %>% 
+number_EDS<-nodes_ES %>% group_by(management) %>% 
   filter (value ==1 & services == "Crop damage") %>% summarise (EDS =sum(value))#count EDS provision
 
 total<-cbind(number_ES,number_EDS[,-1])
 
 ratio_direct<-total %>% mutate(ratio_direct = ES/EDS)
 
-#write.csv(ratio_direct,"Data/Land_use_rat_dir_binary.csv", row.names= FALSE)
-
+#write.csv(ratio_direct,"Data/Land_use_rat_dir_weighted_trial_norem.csv", row.names= FALSE)
 
 ## -- Exploratory plots direct provision
 
 ## ratio direct
-  
+
 ratio_direct_prov<-ratio_direct%>% gather("type","value", 2:3) %>% group_by(management) %>% 
   mutate(Total = sum(value)) %>% group_by(management,type) %>% 
   summarise(prop = value /Total) %>%  
@@ -571,38 +541,37 @@ ratio_direct_prov<-ratio_direct%>% gather("type","value", 2:3) %>% group_by(mana
 ratio_direct_prov
 
 
-## Num of EDS provided per management
-  
-ggplot_EDS_management<-direct_ES_binary %>% group_by(management) %>% count(services) %>% 
-  ggplot(aes(y=n, x=management, fill = services)) + 
-  geom_bar(position = "dodge" ,stat="identity")+ ggtitle("Direct EDS")+
-  labs(x='Management', y="Direct EDS provided") +theme_bw()+
+## Weight of direct ES provision according to output
+
+weights_management<-direct_ES %>% group_by(management, output) %>% 
+  summarise(weight_mean = mean(weight),
+            weight_sd = sd(weight),
+            weight_se =  sd(weight) / sqrt(n()))#calculate avergae nad standart error
+
+weights_management$management <- factor(weights_management$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+
+#barplot
+weights_output_mangement_dir<-weights_management %>% 
+  ggplot(aes(y=weight_mean, x=management, fill =output)) + 
+  geom_errorbar(
+    aes(ymin =0 , ymax = weight_mean + weight_se),
+    position = position_dodge(width = 0.9),
+    width = 0.25
+  ) +
+  geom_bar(position="dodge", stat="identity")+
+  labs(x='Management', y="Weight direct E(D)S provision") +theme_bw()+
   theme_classic()+
   theme(panel.grid = element_blank(),
         panel.border = element_rect(color = "black",fill = NA,size = 1),
         panel.spacing = unit(0.5, "cm", data = NULL),
-        axis.text = element_text(size=13, color='black'),
-        axis.text.x= element_text(size =11, angle = 90), 
-        axis.text.y= element_text(size =11, angle = 90), 
-        axis.title = element_text(size=15, color='black'),
+        axis.text = element_text(size=15, color='black'),
+        axis.text.x= element_text(size =13, angle = 90), 
+        axis.title = element_text(size=17, color='black'),
         axis.line = element_blank(),
         legend.text.align = 0,
-        legend.title =  element_blank(),
-        legend.text = element_text(size = 5),
-        legend.position = "bottom",
-        legend.key.size = unit(0.7,"line"))
-
-ggplot_EDS_management
-
-
-#Parece que los servicios ecosystemicos no cambia mucho. Causas:
-
-# 1) CP has a lot of species, why? so when we replace most habitats to CP we are increasing the richness 
-#and its triggering the ES provision
-
-# 2) Abundance-Area. Probablemente algunas areas son menores, entonces deberiamos reducir la abundnaia
-# 3) Puede ser que E tenia muchas plantas que no producian un ES directo pero si muchos indirectos (eso lo vamos a ver cuando calculemos los efectos indirectos)
-
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11),
+        legend.position = "bottom")
 
 
 
@@ -614,18 +583,18 @@ ggplot_EDS_management
 
 # Full list nodes with ES in the network (considering those that provide and not provide direct ES)
 
-list_nodes_ES_provi<-nodes_ES_binary %>% ungroup() %>% select(-habitat,-management) %>%
+list_nodes_ES_provi<-nodes_ES %>% ungroup() %>% select(-management) %>%
   filter (value ==1) %>% unique # list of nodes that provide ES ( = no plants and ectoparasites)
-list_nodes_ES_no_provi<- nodes_ES_binary %>% filter(node_id <=87 | node_id >=542) %>% 
+list_nodes_ES_no_provi<- nodes_ES%>% filter(node_id <=87 | node_id >=542) %>% 
   mutate(services = "None", value = 1) %>% ungroup() %>% 
-  select (-habitat,-management) %>%  unique() # nodes that not provide any ES (plants and ectoparsites), ES assigned as None
+  select (-management) %>%  unique() # nodes that not provide any ES (plants and ectoparsites), ES assigned as None
 
 list_nodes_ES<-rbind(list_nodes_ES_provi,list_nodes_ES_no_provi) #Total list of nodes with ES (with None)
 
 
 # Add attributes of nodes to the edgelist
 
-edge_list<- left_join(land_change_binary,list_nodes_ES, by = c("node_from"="node_id")) %>% 
+edge_list<- left_join(land_change_weighted_trial,list_nodes_ES, by = c("node_from"="node_id")) %>% 
   rename("taxon_from"="taxon", "services_from"="services",
          "value_from" = "value")%>% 
   left_join(list_nodes_ES, by = c("node_to"="node_id"))  %>% 
@@ -635,22 +604,19 @@ edge_list<- left_join(land_change_binary,list_nodes_ES, by = c("node_from"="node
 
 # Add inverted links (to make the code easier to program when calculate indirect interactions. It will not affect the results)
 
-edge_list_inverted<- tibble(values = edge_list$habitat,edge_list$node_to,edge_list$node_from, edge_list$weight,
+edge_list_inverted<- tibble(values = edge_list$node_to,edge_list$node_from, edge_list$weight,
                             edge_list$management, edge_list$taxon_to,edge_list$services_to,
                             edge_list$value_to,  edge_list$taxon_from,edge_list$services_from,edge_list$value_from)
-colnames(edge_list_inverted) <- c("habitat","node_from", "node_to","weight", "management", "taxon_from", "services_from",
+colnames(edge_list_inverted) <- c("node_from", "node_to","weight", "management", "taxon_from", "services_from",
                                   "value_from", "taxon_to", "services_to", "value_to")
 
 
 # Combine both data frame to create the final edge list
 
 edgelist_final<- bind_rows(edge_list, edge_list_inverted) %>% 
-                select(-weight,-value_to,-value_from) # we are not using these anymore
-  
-edgelist_final<-edgelist_final[,c(4,1,2,3,5,6,7,8)]
+  select(-value_to,-value_from) # we are not using these anymore
 
-
-
+edgelist_final<-edgelist_final[,c(4,1,5,6,2,7,8,3)]
 
 
 
@@ -660,30 +626,27 @@ edgelist_final<-edgelist_final[,c(4,1,2,3,5,6,7,8)]
 # Create objects to store
 
 management = c()
-habitat = c()
 services_from = c()
 node_from= c()
 node_to = c()
 taxon_from = c()
 services_to = c()
-
+weight = c()
 
 # Reorder the dataframe to check indirect interaction in 1 hop
 for (i in 1:nrow(edgelist_final)){
   
   management = c(management, edgelist_final$management[i])
-  habitat = c(habitat, edgelist_final$habitat[i])
   services_from = c(services_from,edgelist_final$services_from[i])
   node_from = c(node_from,edgelist_final$node_from[i])
   node_to = c(node_to,edgelist_final$node_to[i])
   taxon_from = c(taxon_from, edgelist_final$taxon_from[i])
   services_to = c(services_to, edgelist_final$services_to[i])
-  
+  weight = c(weight, edgelist_final$weight[i])
   
 }
 
-
-Indirect_1hop_landuse_binary<-data.frame(management,habitat,services_from,node_from,node_to,taxon_from,services_to,hop = rep(1, length(services_from)), type = rep("I", length(services_from))) 
+Indirect_1hop_landuse_weighted<-data.frame(management,services_from,node_from,node_to,taxon_from,services_to,weight,hop = rep(1, length(services_from)), type = rep("I", length(services_from))) 
 
 
 # Rearrange the output
@@ -691,27 +654,25 @@ Indirect_1hop_landuse_binary<-data.frame(management,habitat,services_from,node_f
 # we remove duplicates rows where node_from = birds or butterflies cause they represent the same interaction. 
 # This happens because each row represents an attribute and these taxons have 2 and 3 attributes per node.
 
-rows_birds_butt<- Indirect_1hop_landuse_binary %>%
+rows_birds_butt<- Indirect_1hop_landuse_weighted %>%
   filter(taxon_from == "Butterfly" | taxon_from == "Seed-feeding bird") %>%
-  distinct(management, habitat, node_from, node_to, .keep_all = TRUE) # new subset after eliminating duplicate rows for node_from = birds and butterflies
+  distinct(management, node_from, node_to, .keep_all = TRUE) # new subset after eliminating duplicate rows for node_from = birds and butterflies
 
-int_without<-Indirect_1hop_landuse_binary %>% filter(!(taxon_from == "Butterfly" | 
-                                                       taxon_from == "Seed-feeding bird")) #eliminate the interactions containing node_from =birds or butterflies from the original dataframe
-
-
-Indirect_1hop_landuse_binary_2<-rbind(rows_birds_butt,int_without)#final dataframe containing indirect effects on ES via 1 hop
+int_without<-Indirect_1hop_landuse_weighted %>% filter(!(taxon_from == "Butterfly" | 
+                                                         taxon_from == "Seed-feeding bird")) #eliminate the interactions containing node_from =birds or butterflies from the original dataframe
 
 
-#write.csv(Indirect_1hop_landuse_binary_2,"Data/Land_use_ind_1hop_binary.csv", row.names= FALSE)
+Indirect_1hop_landuse_weighted_2<-rbind(rows_birds_butt,int_without)#final dataframe containing indirect effects on ES via 1 hop
 
 
+#write.csv(Indirect_1hop_landuse_weighted_2,"Data/Land_use_ind_1hop_weighted_trial_norem.csv", row.names= FALSE)
 
 
 
 #### - Calculate indirect effects considering 2 hops (node 1 - node 2 - node 3, effect of node 1 on node 3'E(D)S via node 2)
 
-Indirect_1hop<-read.csv("Data/Land_use_ind_1hop_binary.csv",
-                                  sep =",") #load dataframe of indirect effects using 1 hop
+Indirect_1hop<-read.csv("Data/Land_use_ind_1hop_weighted_trial_norem.csv",
+                        sep =",") #load dataframe of indirect effects using 1 hop
 
 
 
@@ -719,54 +680,54 @@ Indirect_1hop<-read.csv("Data/Land_use_ind_1hop_binary.csv",
 
 # Create empty vectors
 management = c()
-habitat = c()
 node_id= c()
 node_int = c()
 taxon_from = c()
 services = c()
 node_to = c()
 services_to = c()
-
+weight_to=c()
 
 
 # Iterate to each row
 for (i in 1:nrow(Indirect_1hop)){ #each row represents interaction between species
   
-  j = Indirect_1hop$node_to[i] # check the node_to (intermediate species: node 2 in the title)
+   j = Indirect_1hop$node_to[i] # check the node_to (intermediate species: node 2 in the title)
   l = Indirect_1hop$management [i] #check management where the target species for which we are detecting indirect effects on ES
-  h = Indirect_1hop$habitat [i]
+  w = Indirect_1hop$weight [i] #weight of first indirect order interaction
   
   
   # Filter dataframe (filter node 3's ES affected by node 2)
   
   services_int <- Indirect_1hop %>% filter(node_from == j, #filter to show node 2
                                            node_to != Indirect_1hop$node_from[i], #filter to avoid counting the interaction from node 2 to node 1 because the edgelist is directed 
-                                           management== l) %>% select(node_to,services_to)#select node 3 and its ES
+                                           management== l) %>% mutate(weight_to = weight *w) %>% #final weight of indirect effect
+                                                select(node_to,services_to, weight_to)#select node 3 and its ES
   # Storage the results
   
   services_to <- c(services_to, unlist(services_int$services_to)) # add node 3 ES
+  weight_to<-c(weight_to, unlist(services_int$weight_to))
   node_to <- c(node_to, unlist(services_int$node_to))# add identity of node 3
   node_int <- c(node_int,rep(j, nrow(services_int)))
   node_id <- c(node_id,rep(Indirect_1hop$node_from[i], nrow(services_int)))# add target (node 1) for which we are detected indirect effects 
   taxon_from<- c(taxon_from, rep(Indirect_1hop$taxon_from[i], nrow(services_int)))
   services <- c(services, rep (Indirect_1hop$services_from[i], nrow(services_int)))# direct ES provided by the target node
   management <- c(management, rep(l, nrow(services_int)))
-  habitat <- c(habitat, rep(h, nrow(services_int)))
+
 }
 
-Indirect_2hop<- data.frame(management,habitat,node_id,taxon_from,services,node_int,
-                node_to, services_to,type = rep("I", length(services_to)), hop = rep(2,length(services_to)))
+Indirect_2hop<- data.frame(management,node_id,taxon_from,services,node_int,
+                           node_to, services_to,weight_to,type = rep("I", length(services_to)), hop = rep(2,length(services_to)))
 
 
 # Remove duplicate interactions when node_to = birds or butterflies
 
-Indirect_2hop_final<- Indirect_2hop %>% unique() 
+#Indirect_2hop_final<- Indirect_2hop %>% unique() 
 
-#write.csv(Indirect_2hop_final,"Data/Land_use_ind_2hop_binary.csv", row.names= FALSE)
+#write.csv(Indirect_2hop,"Data/Land_use_ind_2hop_weighted_trial_norem.csv", row.names= FALSE)
 
-Indirect_2hop<-read.csv("Data/Land_use_ind_2hop_binary.csv",
+Indirect_2hop<-read.csv("Data/Land_use_ind_2hop_weighted_trial_norem.csv",
                         sep =",") #load dataframe of indirect effects using 1 hop
-
 
 
 # Join both 1 and 2 hops indirect effects dataframes
@@ -777,18 +738,18 @@ Indirect_1hop_m<-Indirect_1hop  %>% rename("services" ="services_from",
                                            "taxon" = "taxon_from") %>% 
   mutate(node_int = NA)
 
-Indirect_1hop_m<-Indirect_1hop_m[,c(1,2,3,4,6,10,5,7,8,9)]
+Indirect_1hop_m<-Indirect_1hop_m[,c(1,2,3,5,10,4,6,7,8,9)]
 
 # 2 hop
-Indirect_2hop_m<-Indirect_2hop %>% rename("taxon" = "taxon_from") 
-Indirect_2hop_m<-Indirect_2hop_m[,c(1,2,5,3,4,6,7,8,9,10)]
+Indirect_2hop_m<-Indirect_2hop %>% rename("taxon" = "taxon_from",
+                                          "weight" = "weight_to") 
+Indirect_2hop_m<-Indirect_2hop_m[,c(1,4,2,3,5,6,7,8,9,10)]
 
 #  Total Indirect effect of ES
 
 I_ES<- rbind(Indirect_1hop_m,Indirect_2hop_m)
 
-#write.csv(I_ES,"Data/Land_use_ind_binary.csv")
-
+#write.csv(I_ES,"Data/Land_use_ind_weighted_trial_norem.csv")
 
 
 ################## --- ESTIMATE OUTPUT OF INDIRECT EFFECTS 
@@ -818,7 +779,7 @@ rod_par = 542:549
 
 ## --1 HOP 
 
-hop_1 <- read.csv("Data/Land_use_ind_binary.csv", sep =",", row.names = 1) %>% 
+hop_1 <- read.csv("Data/Land_use_ind_weighted_trial_norem.csv", sep =",", row.names = 1) %>% 
   filter(hop == 1, services_to !="None") #remove indirect effect that not affect any ES
 
 
@@ -852,7 +813,7 @@ output_ES_1hop<- hop_1 %>%
 
 ## -- 2 HOPS  
 
-hop_2 <- read.csv("Data/Land_use_ind_binary.csv", sep =",",row.names = 1) %>% 
+hop_2 <- read.csv("Data/Land_use_ind_weighted_trial_norem.csv", sep =",",row.names = 1) %>% 
   filter(hop == 2, services_to !="None") #remove indirect effect that not affect any ES
 
 
@@ -934,12 +895,11 @@ output_ES_2hops<- hop_2 %>%
 
 output_ES<-rbind(output_ES_1hop,output_ES_2hops)
 
-#write.csv(output_ES,"Data/Land_use_output_ind_binary.csv", row.names= FALSE)
 
-
+#write.csv(output_ES,"Data/Land_use_output_weighted_trial_norem.csv", row.names= FALSE)
 
 ##### -- Indirect provision Ratio output +/-
-output_ind_ES <- read.csv("Data/Land_use_output_ind_binary.csv", sep =",") 
+output_ind_ES <- read.csv("Data/Land_use_output_weighted_trial_norem.csv", sep =",") 
 
 # ratio > 1 indicates more benefits, ratio = 1 balance between damages and benefits and ratio < 1 more damage
 
@@ -953,11 +913,13 @@ total<-cbind(number_positive,number_negative[,-1])
 
 ratio_indirect<-total %>% mutate(ratio_direct = positive/negative)
 
+ratio_indirect$management <- factor(ratio_indirect$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
 
 
-## -- Exploratory plots direct provision
 
-## ratio direct
+## -- Exploratory plots indirect provision
+
+## ratio indirect
 
 ratio_indirect_prov<-ratio_indirect%>% gather("type","value", 2:3) %>% group_by(management) %>% 
   mutate(Total = sum(value)) %>% group_by(management,type) %>% 
@@ -979,67 +941,38 @@ ratio_indirect_prov<-ratio_indirect%>% gather("type","value", 2:3) %>% group_by(
 ratio_indirect_prov
 
 
+## Weight of indirect effects according to output
+
+weights_management<-output_ind_ES %>% group_by(management, output) %>% 
+                summarise(weight_mean = mean(weight),
+                          weight_sd = sd(weight),
+                          weight_se =  sd(weight) / sqrt(n()))#calculate avergae nad standart error
+ 
+weights_management$management <- factor(weights_management$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+
+#barplot
+weights_output_mangement<-weights_management %>% 
+  ggplot(aes(y=weight_mean, x=management, fill =output)) + 
+  geom_errorbar(
+    aes(ymin =0 , ymax = weight_mean + weight_se),
+    position = position_dodge(width = 0.9),
+    width = 0.25
+  ) +
+  geom_bar(position="dodge", stat="identity")+ ggtitle("Weight indirect effects")+
+  labs(x='Management', y="Weight indirect effect") +theme_bw()+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=15, color='black'),
+        axis.text.x= element_text(size =13, angle = 90), 
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11),
+        legend.position = "bottom")
 
 
-  
-  
 
-################## --- CREATE MANAGAMENT SCENARIOS (habitat loss)
-#in this scenario of presence/absence of links, change habitats are equal to eliminate habitats.. 
-
-##### -- Extensive
-
-extensive_edgelist<- Norwood_farm$extended_ids %>% 
-  select(-layer_from,-layer_to) %>% unique() %>% #unique because it's presence/absence
-mutate(management = "E") 
-
-##### -- Semi - extensive (replace "WD" and "RG" for "CP")
-sem_ext_edgelist<- Norwood_farm$extended_ids %>% filter(layer_from != 9 & layer_from != 11) %>% 
-  select(-layer_from,-layer_to) %>% unique() %>% mutate(management = "SE") 
-
-
-##### -- Moderate (replace "WD","RG","MH"and "NH" for "CP")
-mod_edgelist<- Norwood_farm$extended_ids %>% filter(layer_from != 9 & layer_from != 11 &
-                                                          layer_from != 5 & layer_from != 6) %>% 
-  select(-layer_from,-layer_to) %>% unique() %>% mutate(management = "M") 
-
-
-##### -- Semi - intensive (replace "WD","RG","MH","NH"and "GM" for "CP")
-sem_int_edgelist<- Norwood_farm$extended_ids %>% filter(layer_from != 9 & layer_from != 11 &
-                                                      layer_from != 5 & layer_from != 6 &
-                                                      layer_from != 2) %>% 
-  select(-layer_from,-layer_to) %>% unique() %>% mutate(management = "SI") 
-
-
-##### -- Intensive (replace "WD","RG","MH","NH", "GM" and "SF" for "CP")
-int_edgelist<- Norwood_farm$extended_ids %>% filter(layer_from != 9 & layer_from != 11 &
-                                                          layer_from != 5 & layer_from != 6 &
-                                                          layer_from != 2 & layer_from != 10) %>% 
-  select(-layer_from,-layer_to) %>% unique() %>% mutate(management = "I") 
-
-
-##### --  Final dataframe
-
-land_change_removal<-rbind(extensive_edgelist,sem_ext_edgelist,mod_edgelist,
-                          sem_int_edgelist,int_edgelist)
-
-
-################## --- CALCULATE DIRECT E(D)S PROVISION AND INDIRECT EFFECT ON ES
-
-
-##### --  Direct E(D)S provision
-
-## Add information of ES per node (values 0-1)
-
-nodes_ES<- Norwood_farm$nodes %>% 
-  select(node_id,taxon,"Crop production",
-         Pollination, "Crop damage", "Pest control", "Seed dispersal", 
-         "Butterfly watching", "Bird watching") %>% 
-  gather("services","value", 3:8) #we conserve species that not directly provide ES because can serve as intermediate hop
-
-
-## Estimate direct provision (PENSAR ACA EL NUEVO SET DE DATOS QUE TENGO, CAPAS PONER UN JOINT CON LOS DATOS QUE GENERE)
-
-direct_ES <- nodes_ES %>% filter (value ==1) %>% 
-  mutate (type = "D") %>% select(-value)
 

@@ -34,7 +34,7 @@ phy_node_atr_tax<- nodes %>% filter(group == "species") %>% select(name,taxon) %
   rename("node_name" = "name")
 
 #add ES (Concern: some species (non-crop plants and ectoparasites dont have ES associated, I suppose because they measure DIRECT and not INDIRECT))
-services <- tibble(read.csv("Data/service_edgelist.csv")) %>% 
+services <- tibble(read.csv("Data/service_edgelist.csv", sep = ";")) %>% 
   rename (taxon = lower, ESS = upper) %>%
   pivot_wider(names_from = ESS, values_from = weight, values_fill = 0) %>%
   mutate(taxa_type = str_split(taxon, pattern = "[.]")[[2]][1]) %>% 
@@ -48,7 +48,6 @@ phy_node_atr_tax_es<- dplyr::left_join(phy_node_atr_tax, services, by = "node_na
          DES = rowSums(across(c("Crop damage"))))
                               
 
-# TO DO? 3)Put attributes of state nodes: To reflect different abundances of the same species in the habitat (this can help to quantify better the ecosystem services provided)
 
 
 ### Create multilayer object
