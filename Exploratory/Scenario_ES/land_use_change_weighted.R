@@ -16,6 +16,7 @@
 library(emln)#multilayer package
 library(readr)
 library(ggplot2)
+library(cowplot)
 setwd("D:/Trabajo/Papers/Norwood_Farm/norwood-ecosystem-services-main_Tinio")
 
 ######### --- Upload multilayer network
@@ -59,8 +60,9 @@ habitat_area <- areas %>% mutate(area_ave = (areas$Area_2007+  areas$Area_2008)/
 
 extensive_edgelist<- Norwood_farm$extended_ids %>% 
   select(-layer_to) %>% rename("habitat" = "layer_from") %>% 
-  mutate(management = "E") %>% select(-habitat) %>% unique() #aggregate network
+  mutate(management = "E") %>% select(-habitat,-weight) %>% unique() #aggregate network
 
+ 
 # estimate relative abundances of species in the aggregated network
 ab_ext<-state_nodes_ab %>% select(-layer_id) %>% group_by(node_id,taxon) %>%
   mutate(abun = sum(abundance)) %>% distinct(abun) %>% group_by(taxon) %>% 
@@ -77,7 +79,7 @@ ext_edgelist_aggr<- extensive_edgelist %>% left_join(ab_ext, by = c("node_from" 
   mutate(weight = rel_ab_from * rel_ab_to) %>% #calculate weight
   select(node_from,node_to,weight,management)
 
-  
+
 
 
 ##### -- Semi - extensive (replace "WD" and "RG" for "CP")
@@ -481,6 +483,7 @@ state_nodes_weighted<-cbind(management = rep(c("E","SE","M","SI","I"),
                                                      c(nrow(ab_ext),nrow(state_node_sem_ext_agg),
                                                        nrow(state_node_mod_agg), nrow(state_node_sem_int_agg),
                                                        nrow(state_node_int_agg))), state_nodes_weighted_ab)
+
 
 
 ################## --- CALCULATE DIRECT E(D)S PROVISION AND INDIRECT EFFECT ON ES
@@ -1004,4 +1007,203 @@ weights_output_mangement<-weights_management %>%
 
 
 
+################# PLOTS PRESENTATION
 
+#direct
+direct_ES<- read.csv("Data/Land_use_dir_weighted_trial_removal.csv", sep =",") 
+
+direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+
+#indirect
+output_ind_ES <- read.csv("Data/Land_use_output_weighted_trial_removal.csv", sep =",") 
+
+output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+
+
+
+### Plot of number of direct and indirect int
+
+
+#direct
+Number_direct<-direct_ES %>% group_by(management) %>% summarise(Number = n())
+
+
+Number_dir<-Number_direct%>%   
+  ggplot(aes(y=Number, x=management)) + 
+  geom_bar(position="stack", stat="identity")+ ggtitle("Direct")+
+  labs(x='Management', y="Number of direct E(D)S provision") +theme_bw()+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=15, color='black'),
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank())
+
+Number_dir
+
+#indirect
+
+Number_indirect<-output_ind_ES %>% group_by(management) %>% 
+  summarise(Number = n())
+
+Number_indir<-Number_indirect%>%   
+  ggplot(aes(y=Number, x=management)) + 
+  geom_bar(position="stack", stat="identity")+ ggtitle("Indirect")+
+  labs(x='Management', y="Number of indirect effects on E(D)S") +theme_bw()+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=15, color='black'),
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank())
+
+Number_indir
+
+upper_row<- plot_grid(Number_dir,Number_indir ,
+                      ncol = 2)
+upper_row
+#ggsave("Simulation_Number.png")
+
+
+
+### Plot of output according to direct and indirect 
+
+#direct
+
+ratio_direct<-read.csv("Data/Land_use_rat_dir_weighted_trial_removal.csv")
+
+ratio_direct$management <- factor(ratio_direct$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+
+
+ratio_direct<-ratio_direct%>% gather("type","value", 2:3) %>% group_by(management) %>% 
+  mutate(Total = sum(value)) %>% group_by(management,type) %>% 
+  summarise(prop = value /Total) %>%  
+  ggplot(aes(y=prop, x=management, fill = type)) + 
+  geom_bar(position="stack", stat="identity")+ ggtitle("Direct provision")+
+  labs(x='Management', y="Prop of E(D)S") +theme_bw()+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=15, color='black'),
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11),
+        legend.position = "bottom")
+
+ratio_direct
+
+
+
+
+
+#indirect
+
+number_positive<-output_ind_ES %>% group_by(management) %>% 
+  filter (output == "+") %>% summarise (positive = n())#count + outputs
+
+number_negative<-output_ind_ES %>% group_by(management) %>% 
+  filter (output == "-") %>% summarise (negative = n())#count - outputs
+
+total<-cbind(number_positive,number_negative[,-1])
+
+ratio_indirect<-total %>% mutate(ratio_direct = positive/negative)
+
+ratio_indirect$management <- factor(ratio_indirect$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+
+ratio_indirect<-ratio_indirect%>% gather("type","value", 2:3) %>% group_by(management) %>% 
+  mutate(Total = sum(value)) %>% group_by(management,type) %>% 
+  summarise(prop = value /Total) %>%  
+  ggplot(aes(y=prop, x=management, fill = type)) + 
+  geom_bar(position="stack", stat="identity")+ ggtitle("Indirect effects")+
+  labs(x='Management', y="Prop of output (+/-)") +theme_bw()+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=15, color='black'),
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11),
+        legend.position = "bottom")
+
+ratio_indirect
+
+upper_row<- plot_grid(ratio_direct,ratio_indirect ,
+                      ncol = 2)
+upper_row
+#ggsave("Simulation_output.png")
+
+
+
+
+
+### Weight according to direct and indirect
+
+#direct
+
+weight_direct<-direct_ES %>% group_by(management,output) %>% 
+  summarise(weight_mean = mean(weight),
+            weight_se = sd(weight)/ sqrt(n()))
+
+#barplot
+weights_direct<-weight_direct %>% 
+  ggplot(aes(y=weight_mean, x=management, fill =output)) + 
+  geom_errorbar(
+    aes(ymin =0 , ymax = weight_mean + weight_se),
+    position = position_dodge(width = 0.9),
+    width = 0.25
+  ) +
+  geom_bar(position="dodge", stat="identity")+ ggtitle("Direct provision")+
+  labs(x='Management', y="Weight") +theme_bw()+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=15, color='black'),
+        axis.text.x= element_text(size =13), 
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11),
+        legend.position = "bottom")
+
+#indirect
+weight_indirect<-output_ind_ES %>% group_by(management,output) %>% 
+  summarise(weight_mean = mean(weight),
+            weight_se = sd(weight)/ sqrt(n()))
+
+#barplot
+weights_indirect<-weight_indirect %>% 
+  ggplot(aes(y=weight_mean, x=management, fill =output)) + 
+  geom_errorbar(
+    aes(ymin =0 , ymax = weight_mean + weight_se),
+    position = position_dodge(width = 0.9),
+    width = 0.25
+  ) +
+  geom_bar(position="dodge", stat="identity")+ ggtitle("Indirect effects")+
+  labs(x='Management', y="Weight") +theme_bw()+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=15, color='black'),
+        axis.text.x= element_text(size =13), 
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11),
+        legend.position = "bottom")
+
+upper_row<- plot_grid(weights_direct,weights_indirect ,
+                      ncol = 2)
+upper_row
+#ggsave("Simulation_weight.png")

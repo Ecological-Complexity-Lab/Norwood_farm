@@ -1,0 +1,390 @@
+
+################## EMPIRICAL NETWORK #################################
+
+library(emln)#multilayer package
+library(readr)
+library(ggplot2)
+library(cowplot)
+
+setwd("D:/Trabajo/Papers/Norwood_Farm/norwood-ecosystem-services-main_Tinio")
+
+######### --- Upload multilayer network
+Norwood_farm<-readRDS("Data/Norwood_farm.RData") #read multilayer object
+
+
+
+################## --- CREATE MANAGAMENT SCENARIOS (abundances_trial)
+
+
+##### -- Rearrange dataframe to include in the simulation
+
+## Add the abundances (as state nodes attributes) 
+
+#ACA TENGO QUE PONER LAS ABUNDANCIAS REALES CUANDO LAS OBTENGA!
+set.seed(123)
+
+abundances_sim<-sample(1:50, nrow(Norwood_farm$state_nodes),replace = T)#simulate abundances
+
+#EL ARCHIVO DE ABUNDANCIA SE TIENE QUE LLAMAR ASI!
+state_nodes_ab<-cbind(Norwood_farm$state_nodes,abundances_sim) %>% 
+  rename("abundance" = "abundances_sim") %>%  #add it to the state_nodes file
+  left_join(Norwood_farm$nodes, by = "node_id") %>% select(layer_id,node_id,
+                                                           abundance, taxon) ##add taxon
+
+
+## Call dataframe of habitats' area
+
+areas<-read.csv("Data/habitatarea.csv", sep =";") %>% 
+  filter(HabitatCode != "ST") %>% #remove standing trees
+  mutate(HabitatCode = case_when(HabitatCode == "C"~ "CP",
+                                 HabitatCode == "WU"~ "WD",
+                                 TRUE~HabitatCode))
+
+habitat_area <- areas %>% mutate(area_ave = (areas$Area_2007+  areas$Area_2008)/2)#area averaged across seasons
+
+    
+##### -- Extensive
+
+extensive_edgelist<- Norwood_farm$extended_ids %>% 
+  select(-layer_to) %>% rename("habitat" = "layer_from") %>% 
+  mutate(management = "E") %>%select(-habitat,-weight) %>% unique() #aggregate network
+
+# estimate relative abundances of species in the aggregated network
+ab_ext<-state_nodes_ab %>% select(-layer_id) %>% group_by(node_id,taxon) %>%
+  mutate(abun = sum(abundance)) %>% distinct(abun) %>% group_by(taxon) %>% 
+  mutate(tot_ab_taxon = sum(abun)) %>% #total abundance per taxon
+  group_by(node_id) %>% 
+  mutate(rel_ab=abun/tot_ab_taxon)#relative abundance per sp
+
+
+
+# incorporate rel abundances to the edge list and calculate the weight (Product of relative abundances)
+ext_edgelist_aggr<- extensive_edgelist %>% left_join(ab_ext, by = c("node_from" = "node_id")) %>% 
+  left_join(ab_ext, by = c("node_to" = "node_id")) %>% 
+  rename ("rel_ab_from" = "rel_ab.x", "rel_ab_to" = "rel_ab.y") %>% 
+  mutate(weight = rel_ab_from * rel_ab_to) %>% #calculate weight
+  select(node_from,node_to,weight,management)
+
+
+################## --- CALCULATE DIRECT E(D)S PROVISION AND INDIRECT EFFECT ON ES
+
+
+##### --  DIRECT E(D)S PROVISION
+
+
+## Add information of ES to the state_node_list (values 0-1)
+
+nodes_ES<- right_join(state_nodes_ab, Norwood_farm$nodes, by = "node_id")%>% 
+  select(node_id,taxon.x,abundance, "Crop production",
+         "Pollination", "Crop damage", "Pest control", "Seed dispersal", "Butterfly watching", "Bird watching") %>% 
+  group_by(node_id) %>% rename("taxon" = "taxon.x") %>% 
+  gather("services","value",4 :10) #we conserve species that not directly provide ES because can serve as intermediate hop
+
+
+## -- Estimate direct E(D)S provision with the abundances (however, we multiply for trophic group's body size when differenr trophic groups provide the same ES (case of crop damage))
+
+direct_ES <- nodes_ES %>% filter (value ==1) %>% 
+  mutate (type = "D",
+          body_size =  case_when( #to control ES for body size
+            services != "Crop damage"~ 1,
+            (services == "Crop damage") &
+              (taxon == "Seed-feeding bird"|taxon == "Seed-feeding rodent")~1, #birds and rodents receives a 1 cause they are the biggest producing crop damage 
+            (services == "Crop damage") & (taxon == "Aphid"|
+                                             taxon == "Seed-feeding insect")~0.5),
+          weight = abundance * body_size,
+          output = case_when( #output + or - according to the service
+            services == "Crop damage"~ "-",
+            TRUE ~ "+")) %>% #weight of direct ES provision
+  select(-value) 
+
+
+## -- Add indirect effect of species on E(D)S (previously calculated)
+
+Indirect_ES<-read.csv("Data/Land_use_output_weighted_trial_removal.csv", sep = ",") %>% 
+  filter(management == "E") %>% select(-management) #change for "Data/Land_use_output_weighted.csv" 
+
+
+# Rearrange direct_ES before merge
+
+direct_1<-direct_ES %>% mutate(node_int = NA,
+                               node_to = NA,
+                               services_to = NA,
+                               hop = NA) %>% select(-body_size,-abundance)
+
+direct_1<-direct_1[,c(3,1,2,7,8,9,5,10,4,6)]  
+
+## Final dataframe 
+
+Final_ES<-rbind(direct_1,Indirect_ES) %>%
+  mutate(type = case_when(type == "D"~ "Direct",
+                          type == "I"~ "Indirect"),
+         output = case_when (output == "+" ~ "Positive",
+                             output == "-" ~ "Negative"))
+
+
+
+#####   EXPLORATORY GRAPHS
+
+
+### Proportion of Direct provision and indirect effects on E(D)S
+
+Number<-Final_ES %>% group_by(type) %>% summarize(Number = n()) %>% mutate(provision = "E(D)S")
+
+Number$type <- factor(Number$type, levels = c("Indirect","Direct")) #change order of factors
+
+Number<-Number%>%   
+  ggplot(aes(y=Number, x= "E(D)S", fill =type)) + 
+  geom_bar(position="stack", stat="identity")+
+  labs(x='Type of provision', y="Number of E(D)S provided") +theme_bw()+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=15, color='black'),
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank())
+
+#ggsave("Number_EDS.png")
+
+### Proportion of output per type of provision
+
+output_type<-Final_ES %>% group_by(type) %>% 
+  mutate(Total = n()) %>% group_by(type,output) %>% 
+  summarise(prop = n() /Total) %>% unique()
+
+Prop_output_type<-output_type %>% 
+  ggplot(aes(y=prop, x=type, fill = output)) + 
+  geom_bar(position="stack", stat="identity")+ ggtitle("Ratio direct +/- per type")+
+  labs(x='Type of E(D)S provision', y="Prop of output") +theme_bw()+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=13, color='black'),
+        axis.title = element_text(size=15, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11),
+        legend.position = "bottom")
+
+#ggsave("Output_type.png")
+
+
+### Proportion of output provided per taxon
+
+
+## Direct and indirect two hops (- and +)
+
+
+# Direct
+
+D_taxon_output<-Final_ES %>% filter(type == "Direct") %>% group_by(output) %>% 
+  mutate(Total = n()) %>% group_by(output, taxon) %>% 
+  summarise(Number = n(), Prop = Number /Total) %>% unique()
+
+D_taxon_output$output <- factor(D_taxon_output$output, levels = c("Positive","Negative")) #change order of factors
+
+
+D_taxon_output<- D_taxon_output %>% 
+  ggplot(aes(y=Prop, x=output, fill = taxon)) + 
+  geom_bar(position="stack", stat="identity", color = "black")+ 
+  scale_fill_manual(label = c("Aph","Butt", "Crop","Flower-visitor ins",
+                              "Insect seed-feeder par", "Leaf-miner par", 
+                              "Prim aphid par","Sec aphid par", "Seed-feeding bird", 
+                              "Seed-feeding ins","Seed-feeding rod"), values = c("#F8766D",
+                            "#E18A00","#BE9C00", "#8CAB00", "#24B700", "#00BE70","#00BBDA", 
+                            "#8B93FF", "#D575FE","#F962DD", "#FF65AC"))+
+  ggtitle("Direct provision")+
+  labs(x='Output', y="Prop output provided per taxon") +theme_bw()+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=13, color='black'),
+        axis.text.x= element_text(size =11, angle = 90), 
+        axis.text.y= element_text(size =11, angle = 90), 
+        axis.title = element_text(size=15, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_blank(),
+        legend.text = element_text(size = 8))
+
+#ggsave("D_taxon_output.png")
+
+# Indirect
+
+I_taxon_output<-Final_ES %>% filter(type == "Indirect") %>% group_by(output) %>% 
+  mutate(Total = n()) %>% group_by(output, taxon) %>% 
+  reframe(Number = n(), Prop = Number /Total) %>% unique()
+
+I_taxon_output$output <- factor(I_taxon_output$output, levels = c("Positive","Negative")) #change order of factors
+
+
+I_taxon_output<- I_taxon_output %>% 
+  ggplot(aes(y=Prop, x=output, fill = taxon)) + 
+  geom_bar(position="stack", stat="identity", color = "black")+ 
+  scale_fill_manual(label = c("Aph","Butt", "Crop","Flower-visitor ins","Insect seed-feeder par", 
+                              "Leaf-miner par", "Plants","Prim aphid par", "Rodent ectopar",
+                              "Sec aphid par", "Seed-feeding bird", "Seed-feeding ins",
+                              "Seed-feeding rod"),
+                    values = c("#F8766D", "#E18A00","#BE9C00", "#8CAB00",
+                               "#24B700", "#00BE70","#00C1AB", "#00BBDA", "#00ACFC",
+                               "#8B93FF", "#D575FE","#F962DD", "#FF65AC"))+
+  ggtitle("Indirect provision")+
+  labs(x='Output', y="Prop output provided per taxon") +theme_bw()+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=13, color='black'),
+        axis.text.x= element_text(size =11, angle = 90), 
+        axis.text.y= element_text(size =11, angle = 90), 
+        axis.title = element_text(size=15, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_blank(),
+        legend.text = element_text(size = 8))
+
+#ggsave("I_taxon_output.png")
+
+
+### Proportion of trophic groups mediating indirect effects
+
+  
+
+plants = 1:87
+crops = 88:93
+flow_vis = 94:334
+aphid = 335:362
+pri_par = 363:373
+sec_par = 374:380
+leaf_par = 381:473
+seed_ins = 474:492
+seed_bird = 493:504
+seed_rod = 505:508
+butt = 509:524
+seed_ins_par = 525:541
+rod_par = 542:549
+
+int_trophic<-Final_ES %>% filter(!is.na(node_int)) %>% 
+  mutate(taxon_int =case_when(
+    node_int%in%plants ~ "Plants",
+    node_int%in%crops ~ "Crops",
+    node_int%in%flow_vis ~ "Flw visitors",
+    node_int%in%aphid ~ "Aphids",
+    node_int%in%pri_par ~ "Prim par",
+    node_int%in%sec_par ~ "Sec par",
+    node_int%in%leaf_par ~ "Leaf par",
+    node_int%in%seed_ins ~ "Seed - ins",
+    node_int%in%seed_bird ~ "Birds",
+    node_int%in%seed_rod ~ "Rodents",
+    node_int%in%butt ~ "Butterflies",
+    node_int%in%seed_ins_par ~ "Seed - ins Par",
+    node_int%in%rod_par ~ "Rod ectopar",
+  )) %>% select(node_int,taxon_int) %>%ungroup() %>%  
+  mutate(Total = n()) %>% group_by(taxon_int) %>% 
+  reframe(Number = n(), Prop = Number /Total) %>% unique() %>% 
+  rename("taxon" = "taxon_int") 
+
+
+
+int_trophic$taxon<- factor(int_trophic$taxon, 
+                           levels = c ("Aphids","Butterflies","Crops",
+                                       "Flw visitors", "Seed - ins Par",
+                                       "Leaf par","Plants","Prim par",
+                                       "Rod ectopar","Sec par","Birds",
+                                       "Seed - ins"))
+
+
+
+
+int_indirect_effecs<- int_trophic %>% 
+  ggplot(aes(y=Prop, x= taxon, fill = taxon)) + 
+  geom_bar(position="stack", stat="identity", color = "black")+ 
+  scale_fill_manual(label = c("Aph","Butt", "Crop","Flower-visitor ins","Insect seed-feeder par", 
+                              "Leaf-miner par", "Plants","Prim aphid par", "Rodent ectopar",
+                              "Sec aphid par", "Seed-feeding bird", "Seed-feeding ins"
+                              ),
+                    values = c("#F8766D", "#E18A00","#BE9C00", "#8CAB00",
+                               "#24B700", "#00BE70","#00C1AB", "#00BBDA", "#00ACFC",
+                               "#8B93FF", "#D575FE","#F962DD"))+
+  labs( y="Prop. Ind effect mediated") +theme_bw()+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=9, color='black'),
+        axis.text.x= element_text(size =9, angle = 90), 
+        axis.text.y= element_text(size =11),
+        axis.title = element_text(size=15, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_blank(),
+        legend.text = element_text(size = 8))
+#ggsave("taxon_mediating.png")
+
+
+
+
+
+
+#### Weight of direct and indirect E(D)S provision
+
+weight<-Final_ES %>% group_by(type,output) %>% 
+  summarise(ave_weight = mean(weight),
+         se_weight =  sd(weight) / sqrt(n())) %>% unique()
+
+
+# Direct
+
+#barplot
+weights_output_dir<-weight %>%  filter (type == "Direct") %>% 
+  ggplot(aes(y=ave_weight, x=type, fill = output)) + 
+  geom_errorbar(
+    aes(ymin =0 , ymax = ave_weight + se_weight),
+    position = position_dodge(width = 0.9),
+    width = 0.25) +
+  geom_bar(position=position_dodge(), stat="identity")+
+  labs(x='Output', y="Weight") +theme_bw()+ ggtitle("Direct E(D)S provision")+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=15, color='black'),
+        axis.text.x= element_text(), 
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11),
+        legend.position = "bottom")
+
+
+#Indirect
+
+weights_output_ind<-weight %>%  filter (type == "Indirect") %>% 
+  ggplot(aes(y=ave_weight, x=type, fill = output)) + 
+  geom_errorbar(
+    aes(ymin =0 , ymax = ave_weight + se_weight),
+    position = position_dodge(width = 0.9),
+    width = 0.25) +
+  geom_bar(position=position_dodge(), stat="identity")+
+  labs(x='Output', y="Weight") +theme_bw()+ ggtitle("Indirect E(D)S provision")+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=15, color='black'),
+        axis.text.x= element_text(), 
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11),
+        legend.position = "bottom")
+
+upper_row<- plot_grid(weights_output_dir,weights_output_ind ,
+                      ncol = 2)
+upper_row
+#ggsave("weight_empirical.png")
