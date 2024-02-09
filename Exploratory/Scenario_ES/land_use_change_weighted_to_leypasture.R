@@ -9,8 +9,8 @@
 
 # 1) Create multilayer network with abundances as state nodes attributes (nodes’ abundances per each habitat)
 
-# 2) Change the habitats to “CP” but modifying the abundance of each species 
-#according to the area (REMOVING BELOW 1)
+# 2) Change the habitats to ley pasture "LP” but modifying the abundance of each species 
+#according to the area 
 
 # 3) Aggregate the habitats to create the Norwoodfarm network. During this step, 
 # we add the abundances of the same species across habitats. Then, we calculate the weight of links between two species
@@ -82,7 +82,7 @@ ext_edgelist_aggr<- extensive_edgelist %>% left_join(ab_ext, by = c("node_from" 
   select(node_from,node_to,weight,management)
 
 
-##### -- Semi - extensive (replace "WD" and "RG" for "CP")
+##### -- Semi - extensive (replace "WD" and "RG" for "LP")
 
 
 ##-- Remove habitats from norwood (the ones to replace) and incorporate abundances and taxon 
@@ -101,33 +101,33 @@ sem_ext_edgelist_rem<-sem_ext_edgelist_rem[,c(1,2,5,6,3,7,8,4)]
 
 ##--  Create new habitats 
 
-# create habitats CP to replace WD and RG
-WD_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1) %>% select(-layer_to,-layer_from) %>% 
-   mutate (new_hab = 12, prev_hab = "WD", hab_cp = "CP")#links from "CP" to add as new habitat (12)
+# create habitats LP to replace WD and RG
+WD_LP<- Norwood_farm$extended_ids %>% filter(layer_from  == 3) %>% select(-layer_to,-layer_from) %>% 
+   mutate (new_hab = 12, prev_hab = "WD", hab = "LP")#links from "LP" to add as new habitat (12)
 
-RG_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1) %>% select(-layer_to,-layer_from) %>% 
-  mutate (new_hab = 13, prev_hab = "RG", hab_cp = "CP")#links from "CP" to add as new habitat (13)
+RG_LP<- Norwood_farm$extended_ids %>% filter(layer_from  == 3) %>% select(-layer_to,-layer_from) %>% 
+  mutate (new_hab = 13, prev_hab = "RG", hab = "LP")#links from "PP" to add as new habitat (13)
 
-#calculate changes in the area between CP and the habitat to replace 
-converted_area<-rbind(WD_CP, RG_CP) %>% left_join(habitat_area, 
+#calculate changes in the area between PP and the habitat to replace 
+converted_area<-rbind(WD_LP, RG_LP) %>% left_join(habitat_area, 
                                   by = c("prev_hab" = "HabitatCode")) %>% 
-  left_join(habitat_area, by = c("hab_cp" = "HabitatCode")) %>% 
-  select(node_from,node_to,weight,new_hab,prev_hab,hab_cp,area_ave.x,area_ave.y) %>% 
-  rename("area_prev_hab" ="area_ave.x", "area_CP" = "area_ave.y") %>% 
-  mutate(mult_ab = (area_prev_hab/area_CP)) %>% #multplied abundances of CP for this value (to estimate according to the new habitat)
-  select(-prev_hab,-hab_cp,-area_prev_hab,-area_CP)#clean dataframe
+  left_join(habitat_area, by = c("hab" = "HabitatCode")) %>% 
+  select(node_from,node_to,weight,new_hab,prev_hab,hab,area_ave.x,area_ave.y) %>% 
+  rename("area_prev_hab" ="area_ave.x", "area_LP" = "area_ave.y") %>% 
+  mutate(mult_ab = (area_prev_hab/area_LP)) %>% #multplied abundances of LP for this value (to estimate according to the new habitat)
+  select(-prev_hab,-hab,-area_prev_hab,-area_LP)#clean dataframe
 
 
 # add abundances and modify it according to the new area
-abundances_CP<-state_nodes_ab %>% filter(layer_id ==1)#filter species abundances to show just layer CP
+abundances_LP<-state_nodes_ab %>% filter(layer_id ==3)#filter species abundances to show just layer PP
 
 new_habitats_ab<-converted_area %>%  
-  left_join(abundances_CP, by = c("node_from" = "node_id")) %>%  #incorporate abundances and taxa of node_from
-  left_join(abundances_CP, by = c("node_to" = "node_id")) %>%  #incorporate abundances and taxa of nodes_to
-  rename("ab_node_from_CP" = "abundance.x", "taxon_node_from" = "taxon.x",
-         "ab_node_to_CP" = "abundance.y", "taxon_node_to" = "taxon.y") %>% 
-  mutate(ab_node_from = ab_node_from_CP * mult_ab, 
-         ab_node_to = ab_node_to_CP * mult_ab ) %>% #estimate the new abundances
+  left_join(abundances_LP, by = c("node_from" = "node_id")) %>%  #incorporate abundances and taxa of node_from
+  left_join(abundances_LP, by = c("node_to" = "node_id")) %>%  #incorporate abundances and taxa of nodes_to
+  rename("ab_node_from_LP" = "abundance.x", "taxon_node_from" = "taxon.x",
+         "ab_node_to_LP" = "abundance.y", "taxon_node_to" = "taxon.y") %>% 
+  mutate(ab_node_from = ab_node_from_LP * mult_ab, 
+         ab_node_to = ab_node_to_LP * mult_ab ) %>% #estimate the new abundances
   select(new_hab,node_from,ab_node_from,taxon_node_from,node_to,ab_node_to,
          taxon_node_to,weight) %>% rename ("habitat" = "new_hab") #clean to match the rest of farm edgelist
 
@@ -180,7 +180,7 @@ sem_ext_edgelist_aggr<-sem_ext_edgelist_no_aggr %>% select(node_from,node_to) %>
 
 
 
-##### -- Moderate (replace "WD","RG","MH"and "NH" for "CP")
+##### -- Moderate (replace "WD","RG","MH"and "NH" for "LP")
 
 
 ##-- Remove habitats from norwood (the ones to replace) and incorporate abundances and taxon 
@@ -200,33 +200,33 @@ mod_edgelist_rem<-mod_edgelist_rem[,c(1,2,5,6,3,7,8,4)]
 
 #--  Create new habitats 
 
-# create habitats CP to replace WD,RG, MH and NH (WD and RG were created before)
-MH_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1) %>% select(-layer_to,-layer_from) %>% 
-  mutate (new_hab = 14, prev_hab = "MH", hab_cp = "CP")#links from "CP" to add as new habitat (14)
+# create habitats LP to replace WD,RG, MH and NH (WD and RG were created before)
+MH_LP<- Norwood_farm$extended_ids %>% filter(layer_from  == 3) %>% select(-layer_to,-layer_from) %>% 
+  mutate (new_hab = 14, prev_hab = "MH", hab = "PP")#links from "PP" to add as new habitat (14)
 
-NH_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1) %>% select(-layer_to,-layer_from) %>% 
-  mutate (new_hab = 15, prev_hab = "NH", hab_cp = "CP")#links from "CP" to add as new habitat (15)
+NH_LP<- Norwood_farm$extended_ids %>% filter(layer_from  == 3) %>% select(-layer_to,-layer_from) %>% 
+  mutate (new_hab = 15, prev_hab = "NH", hab = "PP")#links from "PP" to add as new habitat (15)
 
-# calculate changes in the area between CP and the habitat to replace 
-converted_area<-rbind(WD_CP, RG_CP, MH_CP, NH_CP) %>% left_join(habitat_area, 
+# calculate changes in the area between LP and the habitat to replace 
+converted_area<-rbind(WD_LP, RG_LP, MH_LP, NH_LP) %>% left_join(habitat_area, 
                                                   by = c("prev_hab" = "HabitatCode")) %>% 
-  left_join(habitat_area, by = c("hab_cp" = "HabitatCode")) %>% 
-  select(node_from,node_to,weight,new_hab,prev_hab,hab_cp,area_ave.x,area_ave.y) %>% 
-  rename("area_prev_hab" ="area_ave.x", "area_CP" = "area_ave.y") %>% 
-  mutate(mult_ab = (area_prev_hab/area_CP)) %>% #multplied abundances of CP for this value (to estimate according to the new habitat)
-  select(-prev_hab,-hab_cp,-area_prev_hab,-area_CP)#clean dataframe
+  left_join(habitat_area, by = c("hab" = "HabitatCode")) %>% 
+  select(node_from,node_to,weight,new_hab,prev_hab,hab,area_ave.x,area_ave.y) %>% 
+  rename("area_prev_hab" ="area_ave.x", "area_LP" = "area_ave.y") %>% 
+  mutate(mult_ab = (area_prev_hab/area_LP)) %>% #multplied abundances of PP for this value (to estimate according to the new habitat)
+  select(-prev_hab,-hab,-area_prev_hab,-area_LP)#clean dataframe
 
 
 # add abundances and modify them according to the new area
-abundances_CP<-state_nodes_ab %>% filter(layer_id ==1)#filter species abundances to show just layer CP
+abundances_LP<-state_nodes_ab %>% filter(layer_id ==3)#filter species abundances to show just layer LP
 
 new_habitats_ab<-converted_area %>%  
-  left_join(abundances_CP, by = c("node_from" = "node_id")) %>%  #incorporate abundances and taxa of node_from
-  left_join(abundances_CP, by = c("node_to" = "node_id")) %>%  #incorporate abundances and taxa of nodes_to
-  rename("ab_node_from_CP" = "abundance.x", "taxon_node_from" = "taxon.x",
-         "ab_node_to_CP" = "abundance.y", "taxon_node_to" = "taxon.y") %>% 
-  mutate(ab_node_from = ab_node_from_CP * mult_ab, 
-         ab_node_to = ab_node_to_CP * mult_ab ) %>% #estimate the new abundances
+  left_join(abundances_LP, by = c("node_from" = "node_id")) %>%  #incorporate abundances and taxa of node_from
+  left_join(abundances_LP, by = c("node_to" = "node_id")) %>%  #incorporate abundances and taxa of nodes_to
+  rename("ab_node_from_LP" = "abundance.x", "taxon_node_from" = "taxon.x",
+         "ab_node_to_LP" = "abundance.y", "taxon_node_to" = "taxon.y") %>% 
+  mutate(ab_node_from = ab_node_from_LP * mult_ab, 
+         ab_node_to = ab_node_to_LP * mult_ab ) %>% #estimate the new abundances
   select(new_hab,node_from,ab_node_from,taxon_node_from,node_to,ab_node_to,
          taxon_node_to,weight) %>% rename ("habitat" = "new_hab") #clean to match the rest of farm edgelist
 
@@ -277,7 +277,7 @@ mod_edgelist_aggr<-mod_edgelist_no_aggr %>% select(node_from,node_to) %>%
 
 
 
-##### -- Semi - intensive (replace "WD","RG","MH","NH"and "GM" for "CP")
+##### -- Semi - intensive (replace "WD","RG","MH","NH"and "GM" for "LP")
 
 
 ##-- Remove habitats from norwood (the ones to replace) and incorporate abundances and taxon 
@@ -298,31 +298,31 @@ sem_int_edgelist_rem<-sem_int_edgelist_rem[,c(1,2,5,6,3,7,8,4)]
 
 #--  Create new habitats 
 
-# create habitats CP to replace WD,RG, MH,NH and GM (WD,RG,MH and NH were created before)
-GM_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1) %>% select(-layer_to,-layer_from) %>% 
-  mutate (new_hab = 16, prev_hab = "GM", hab_cp = "CP")#links from "CP" to add as new habitat (16)
+# create habitats LP to replace WD,RG, MH,NH and GM (WD,RG,MH and NH were created before)
+GM_LP<- Norwood_farm$extended_ids %>% filter(layer_from  == 3) %>% select(-layer_to,-layer_from) %>% 
+  mutate (new_hab = 16, prev_hab = "GM", hab = "LP")#links from "LP" to add as new habitat (16)
 
 
-# calculate changes in the area between CP and the habitat to replace 
-converted_area<-rbind(WD_CP, RG_CP, MH_CP, NH_CP, GM_CP) %>% left_join(habitat_area, 
+# calculate changes in the area between LP and the habitat to replace 
+converted_area<-rbind(WD_LP, RG_LP, MH_LP, NH_LP, GM_LP) %>% left_join(habitat_area, 
                                                                 by = c("prev_hab" = "HabitatCode")) %>% 
-  left_join(habitat_area, by = c("hab_cp" = "HabitatCode")) %>% 
-  select(node_from,node_to,weight,new_hab,prev_hab,hab_cp,area_ave.x,area_ave.y) %>% 
-  rename("area_prev_hab" ="area_ave.x", "area_CP" = "area_ave.y") %>% 
-  mutate(mult_ab = (area_prev_hab/area_CP)) %>% #multplied abundances of CP for this value (to estimate according to the new habitat)
-  select(-prev_hab,-hab_cp,-area_prev_hab,-area_CP)#clean dataframe
+  left_join(habitat_area, by = c("hab" = "HabitatCode")) %>% 
+  select(node_from,node_to,weight,new_hab,prev_hab,hab,area_ave.x,area_ave.y) %>% 
+  rename("area_prev_hab" ="area_ave.x", "area_LP" = "area_ave.y") %>% 
+  mutate(mult_ab = (area_prev_hab/area_LP)) %>% #multplied abundances of PP for this value (to estimate according to the new habitat)
+  select(-prev_hab,-area_prev_hab,-area_LP)#clean dataframe
 
 
 # add abundances and modify them according to the new area
-abundances_CP<-state_nodes_ab %>% filter(layer_id ==1)#filter species abundances to show just layer CP
+abundances_PP<-state_nodes_ab %>% filter(layer_id ==3)#filter species abundances to show just layer PP
 
 new_habitats_ab<-converted_area %>%  
-  left_join(abundances_CP, by = c("node_from" = "node_id")) %>%  #incorporate abundances and taxa of node_from
-  left_join(abundances_CP, by = c("node_to" = "node_id")) %>%  #incorporate abundances and taxa of nodes_to
-  rename("ab_node_from_CP" = "abundance.x", "taxon_node_from" = "taxon.x",
-         "ab_node_to_CP" = "abundance.y", "taxon_node_to" = "taxon.y") %>% 
-  mutate(ab_node_from = ab_node_from_CP * mult_ab, 
-         ab_node_to = ab_node_to_CP * mult_ab ) %>% #estimate the new abundances
+  left_join(abundances_LP, by = c("node_from" = "node_id")) %>%  #incorporate abundances and taxa of node_from
+  left_join(abundances_LP, by = c("node_to" = "node_id")) %>%  #incorporate abundances and taxa of nodes_to
+  rename("ab_node_from_LP" = "abundance.x", "taxon_node_from" = "taxon.x",
+         "ab_node_to_LP" = "abundance.y", "taxon_node_to" = "taxon.y") %>% 
+  mutate(ab_node_from = ab_node_from_LP * mult_ab, 
+         ab_node_to = ab_node_to_LP * mult_ab ) %>% #estimate the new abundances
   select(new_hab,node_from,ab_node_from,taxon_node_from,node_to,ab_node_to,
          taxon_node_to,weight) %>% rename ("habitat" = "new_hab") #clean to match the rest of farm edgelist
 
@@ -375,7 +375,7 @@ sem_int_edgelist_aggr<-sem_int_edgelist_no_aggr %>% select(node_from,node_to) %>
 
 
 
-##### -- Intensive (replace "WD","RG","MH","NH","GM" and "SF" for "CP")
+##### -- Intensive (replace "WD","RG","MH","NH","GM" and "SF" for "LP")
 
 
 ##-- Remove habitats from norwood (the ones to replace) and incorporate abundances and taxon 
@@ -397,31 +397,31 @@ int_edgelist_rem<-int_edgelist_rem[,c(1,2,5,6,3,7,8,4)]
 
 #--  Create new habitats 
 
-# create habitats CP to replace WD,RG, MH,NH,GM and SF (WD,RG,MH,NH andGM were created before)
-SF_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1) %>% select(-layer_to,-layer_from) %>% 
-  mutate (new_hab = 17, prev_hab = "SF", hab_cp = "CP")#links from "CP" to add as new habitat (17)
+# create habitats LP to replace WD,RG, MH,NH,GM and SF (WD,RG,MH,NH andGM were created before)
+SF_LP<- Norwood_farm$extended_ids %>% filter(layer_from  == 3) %>% select(-layer_to,-layer_from) %>% 
+  mutate (new_hab = 17, prev_hab = "SF", hab = "LP")#links from "PP" to add as new habitat (17)
 
 
-# calculate changes in the area between CP and the habitat to replace 
-converted_area<-rbind(WD_CP, RG_CP, MH_CP, NH_CP, GM_CP, SF_CP) %>% left_join(habitat_area, 
+# calculate changes in the area between LP and the habitat to replace 
+converted_area<-rbind(WD_LP, RG_LP, MH_LP, NH_LP, GM_LP, SF_LP) %>% left_join(habitat_area, 
                                                                        by = c("prev_hab" = "HabitatCode")) %>% 
-  left_join(habitat_area, by = c("hab_cp" = "HabitatCode")) %>% 
-  select(node_from,node_to,weight,new_hab,prev_hab,hab_cp,area_ave.x,area_ave.y) %>% 
-  rename("area_prev_hab" ="area_ave.x", "area_CP" = "area_ave.y") %>% 
-  mutate(mult_ab = (area_prev_hab/area_CP)) %>% #multplied abundances of CP for this value (to estimate according to the new habitat)
-  select(-prev_hab,-hab_cp,-area_prev_hab,-area_CP)#clean dataframe
+  left_join(habitat_area, by = c("hab" = "HabitatCode")) %>% 
+  select(node_from,node_to,weight,new_hab,prev_hab,hab,area_ave.x,area_ave.y) %>% 
+  rename("area_prev_hab" ="area_ave.x", "area_LP" = "area_ave.y") %>% 
+  mutate(mult_ab = (area_prev_hab/area_LP)) %>% #multplied abundances of PP for this value (to estimate according to the new habitat)
+  select(-prev_hab,-hab,-area_prev_hab,-area_LP)#clean dataframe
 
 
 # add abundances and modify them according to the new area
-abundances_CP<-state_nodes_ab %>% filter(layer_id ==1)#filter species abundances to show just layer CP
+abundances_LP<-state_nodes_ab %>% filter(layer_id ==3)#filter species abundances to show just layer PP
 
 new_habitats_ab<-converted_area %>%  
-  left_join(abundances_CP, by = c("node_from" = "node_id")) %>%  #incorporate abundances and taxa of node_from
-  left_join(abundances_CP, by = c("node_to" = "node_id")) %>%  #incorporate abundances and taxa of nodes_to
-  rename("ab_node_from_CP" = "abundance.x", "taxon_node_from" = "taxon.x",
-         "ab_node_to_CP" = "abundance.y", "taxon_node_to" = "taxon.y") %>% 
-  mutate(ab_node_from = ab_node_from_CP * mult_ab, 
-         ab_node_to = ab_node_to_CP * mult_ab ) %>% #estimate the new abundances
+  left_join(abundances_LP, by = c("node_from" = "node_id")) %>%  #incorporate abundances and taxa of node_from
+  left_join(abundances_LP, by = c("node_to" = "node_id")) %>%  #incorporate abundances and taxa of nodes_to
+  rename("ab_node_from_LP" = "abundance.x", "taxon_node_from" = "taxon.x",
+         "ab_node_to_LP" = "abundance.y", "taxon_node_to" = "taxon.y") %>% 
+  mutate(ab_node_from = ab_node_from_LP * mult_ab, 
+         ab_node_to = ab_node_to_LP * mult_ab ) %>% #estimate the new abundances
   select(new_hab,node_from,ab_node_from,taxon_node_from,node_to,ab_node_to,
          taxon_node_to,weight) %>% rename ("habitat" = "new_hab") #clean to match the rest of farm edgelist
 
