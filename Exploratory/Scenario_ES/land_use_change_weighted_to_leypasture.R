@@ -1,4 +1,4 @@
-################### CHANGE IN LAND USE SIMULATION (real abundances) ##################################
+################### CHANGE IN LAND USE SIMULATION (LEY PASTURE) ##################################
 
 
 
@@ -26,23 +26,20 @@ Norwood_farm<-readRDS("Data/Norwood_farm.RData") #read multilayer object
  
 
 
-################## --- CREATE MANAGAMENT SCENARIOS (abundances_trial)
+################## --- CREATE MANAGAMENT SCENARIOS 
 
 
 ##### -- Rearrange dataframe to include in the simulation
 
 ## Add the abundances (as state nodes attributes) 
+abundances<-read.csv("Data/species_abundances.csv",header=T) #call abundances
 
-#ACA TENGO QUE PONER LAS ABUNDANCIAS REALES CUANDO LAS OBTENGA!
-set.seed(123)
+state_nodes_ab<-Norwood_farm$state_nodes %>% left_join(abundances, 
+                                                       by = c("layer_name" = "habitat",
+                                                              "node_name" = "species_name")) %>% #add abundances
+  left_join(Norwood_farm$nodes, by = "node_id") %>% 
+  select(layer_id,node_id,abundance, taxon) ##add taxon
 
-abundances_sim<-sample(1:50, nrow(Norwood_farm$state_nodes),replace = T)#simulate abundances
-
-#EL ARCHIVO DE ABUNDANCIA SE TIENE QUE LLAMAR ASI!
-  state_nodes_ab<-cbind(Norwood_farm$state_nodes,abundances_sim) %>% 
-  rename("abundance" = "abundances_sim") %>%  #add it to the state_nodes file
-  left_join(Norwood_farm$nodes, by = "node_id") %>% select(layer_id,node_id,
-                                          abundance, taxon) ##add taxon
 
 
 ## Call dataframe of habitats' area
@@ -53,8 +50,11 @@ areas<-read.csv("Data/habitatarea.csv", sep =";") %>%
                                  HabitatCode == "WU"~ "WD",
                                  TRUE~HabitatCode))
 
-habitat_area <- areas %>% mutate(area_ave = (areas$Area_2007+  areas$Area_2008)/2)#area averaged across seasons
- 
+habitat_area <- areas %>% mutate(area_ave = case_when(
+  (Area_2007 >0) & (Area_2008 >0) ~ (Area_2007+Area_2008)/2, #if the same habitat was present in both years do the average
+  (Area_2007 >0) & (Area_2008  ==0)~ Area_2007, #if the habitat was present in one year, keep the area of the year
+  (Area_2007 ==0) & (Area_2008  >0)~ Area_2008))
+
 
 ########## -- Create Management scenarios
 
@@ -472,14 +472,10 @@ int_edgelist_aggr<-int_edgelist_no_aggr %>% select(node_from,node_to) %>%
 
 ##### ---  Final dataframe
 
-land_change_weighted_pre<-rbind(ext_edgelist_aggr,sem_ext_edgelist_aggr,mod_edgelist_aggr,
+land_change_weighted<-rbind(ext_edgelist_aggr,sem_ext_edgelist_aggr,mod_edgelist_aggr,
                           sem_int_edgelist_aggr,int_edgelist_aggr)
 
-land_change_weighted<- land_change_weighted_pre %>% filter(!(node_from <=93 &
-  (node_to > 373 & node_to < 381))) #remove int between plants and 2d parasitoid
 
-
-  
 
 #final state_node list with abundances
 state_nodes_weighted_ab<-rbind(ab_ext[,1:3],state_node_sem_ext_agg[,1:3],
@@ -525,7 +521,7 @@ direct_ES <- nodes_ES %>% filter (value ==1) %>%
           select(-value) 
 
 
-#write.csv(direct_ES,"Data/Land_use_dir_weighted.csv", row.names= FALSE)
+#write.csv(direct_ES,"Data/Land_use_dir_weighted_LP.csv", row.names= FALSE)
 
 ## -- Direct provision Ratio ES/E(D)S
 
@@ -541,63 +537,7 @@ total<-cbind(number_ES,number_EDS[,-1])
 
 ratio_direct<-total %>% mutate(ratio_direct = ES/EDS)
 
-#write.csv(ratio_direct,"Data/Land_use_rat_dir_weighted.csv", row.names= FALSE)
-
-## -- Exploratory plots direct provision
-
-## ratio direct
-
-ratio_direct_prov<-ratio_direct%>% gather("type","value", 2:3) %>% group_by(management) %>% 
-  mutate(Total = sum(value)) %>% group_by(management,type) %>% 
-  summarise(prop = value /Total) %>%  
-  ggplot(aes(y=prop, x=management, fill = type)) + 
-  geom_bar(position="stack", stat="identity")+ ggtitle("Ratio direct ES/EDS")+
-  labs(x='Manegement', y="Prop of E(D)S") +theme_bw()+
-  theme_classic()+
-  theme(panel.grid = element_blank(),
-        panel.border = element_rect(color = "black",fill = NA,size = 1),
-        panel.spacing = unit(0.5, "cm", data = NULL),
-        axis.text = element_text(size=15, color='black'),
-        axis.title = element_text(size=17, color='black'),
-        axis.line = element_blank(),
-        legend.text.align = 0,
-        legend.title =  element_text(size = 13, color = "black"),
-        legend.text = element_text(size = 11))
-
-ratio_direct_prov
-
-
-## Weight of direct ES provision according to output
-
-weights_management<-direct_ES %>% group_by(management, output) %>% 
-  summarise(weight_mean = mean(weight),
-            weight_sd = sd(weight),
-            weight_se =  sd(weight) / sqrt(n()))#calculate avergae nad standart error
-
-weights_management$management <- factor(weights_management$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
-
-#barplot
-weights_output_mangement_dir<-weights_management %>% 
-  ggplot(aes(y=weight_mean, x=management, fill =output)) + 
-  geom_errorbar(
-    aes(ymin =0 , ymax = weight_mean + weight_se),
-    position = position_dodge(width = 0.9),
-    width = 0.25
-  ) +
-  geom_bar(position="dodge", stat="identity")+
-  labs(x='Management', y="Weight direct E(D)S provision") +theme_bw()+
-  theme_classic()+
-  theme(panel.grid = element_blank(),
-        panel.border = element_rect(color = "black",fill = NA,size = 1),
-        panel.spacing = unit(0.5, "cm", data = NULL),
-        axis.text = element_text(size=15, color='black'),
-        axis.text.x= element_text(size =13, angle = 90), 
-        axis.title = element_text(size=17, color='black'),
-        axis.line = element_blank(),
-        legend.text.align = 0,
-        legend.title =  element_text(size = 13, color = "black"),
-        legend.text = element_text(size = 11),
-        legend.position = "bottom")
+#write.csv(ratio_direct,"Data/Land_use_rat_dir_weighted_LP.csv", row.names= FALSE)
 
 
 
@@ -611,7 +551,7 @@ weights_output_mangement_dir<-weights_management %>%
 
 list_nodes_ES_provi<-nodes_ES %>% ungroup() %>% select(-management,-abun) %>%
   filter (value ==1) %>% unique # list of nodes that provide ES ( = no plants and ectoparasites)
-list_nodes_ES_no_provi<- nodes_ES%>% filter(node_id <=87 | node_id >=542 ) %>% 
+list_nodes_ES_no_provi<- nodes_ES%>% filter(node_id <=93 | node_id >=548 ) %>% 
   mutate(services = "None", value = 1) %>% ungroup() %>% 
   select (-management,-abun) %>%  unique() # nodes that not provide any ES (plants and ectoparsites), ES assigned as None
 
@@ -692,13 +632,13 @@ int_without<-Indirect_1hop_landuse_weighted %>% filter(!(taxon_from == "Butterfl
 Indirect_1hop_landuse_weighted_2<-rbind(rows_birds_butt,int_without)#final dataframe containing indirect effects on ES via 1 hop
 
 
-#write.csv(Indirect_1hop_landuse_weighted_2,"Data/Land_use_ind_1hop_weighted.csv", row.names= FALSE)
+#write.csv(Indirect_1hop_landuse_weighted_2,"Data/Land_use_ind_1hop_weighted_LP.csv", row.names= FALSE)
 
 
 
 #### - Calculate indirect effects considering 2 hops (node 1 - node 2 - node 3, effect of node 1 on node 3'E(D)S via node 2)
 
-Indirect_1hop<-read.csv("Data/Land_use_ind_1hop_weighted.csv",
+Indirect_1hop<-read.csv("Data/Land_use_ind_1hop_weighted_LP.csv",
                         sep =",") #load dataframe of indirect effects using 1 hop
 
 
@@ -764,9 +704,9 @@ Indirect_2hop<- data.frame(management,node_id,taxon_from,services,node_int,
                            node_to, services_to,weight_to,type = rep("I", length(services_to)), hop = rep(2,length(services_to)))
 
 
-#write.csv(Indirect_2hop,"Data/Land_use_ind_2hop_weighted.csv", row.names= FALSE)
+#write.csv(Indirect_2hop,"Data/Land_use_ind_2hop_weighted_LP.csv", row.names= FALSE)
 
-Indirect_2hop<-read.csv("Data/Land_use_ind_2hop_weighted.csv",
+Indirect_2hop<-read.csv("Data/Land_use_ind_2hop_weighted_LP.csv",
                         sep =",") #load dataframe of indirect effects using 1 hop
 
 
@@ -789,7 +729,7 @@ Indirect_2hop_m<-Indirect_2hop_m[,c(1,4,2,3,5,6,7,8,9,10)]
 
 I_ES<- rbind(Indirect_1hop_m,Indirect_2hop_m)
 
-#write.csv(I_ES,"Data/Land_use_ind_weighted.csv")
+#write.csv(I_ES,"Data/Land_use_ind_weighted_LP.csv")
 
 
 ################## --- ESTIMATE OUTPUT OF INDIRECT EFFECTS 
@@ -801,25 +741,24 @@ I_ES<- rbind(Indirect_1hop_m,Indirect_2hop_m)
 
 ## -- Define vector of trophic groups to state the conditions
 
-plants = 1:87
-crops = 88:93
-flow_vis = 94:334
-aphid = 335:362
-pri_par = 363:373
-sec_par = 374:380
-leaf_par = 381:473
-seed_ins = 474:492
-seed_bird = 493:504
-seed_rod = 505:508
-butt = 509:524
-seed_ins_par = 525:541
-rod_par = 542:549
-
+plants = 1:93
+crops = 94:99
+flow_vis = 100:340
+aphid = 341:368
+pri_par = 369:379
+sec_par = 380:386
+leaf_par = 387:479
+seed_ins = 480:498
+seed_bird = 499:510
+seed_rod = 511:514
+butt = 515:530
+seed_ins_par = 531:547
+rod_par = 548:555
 
 
 ## --1 HOP 
 
-hop_1 <- read.csv("Data/Land_use_ind_weighted.csv", sep =",", row.names = 1) %>% 
+hop_1 <- read.csv("Data/Land_use_ind_weighted_LP.csv", sep =",", row.names = 1) %>% 
   filter(hop == 1, services_to !="None") #remove indirect effect that not affect any ES
 
 
@@ -853,7 +792,7 @@ output_ES_1hop<- hop_1 %>%
 
 ## -- 2 HOPS  
 
-hop_2 <- read.csv("Data/Land_use_ind_weighted.csv", sep =",",row.names = 1) %>% 
+hop_2 <- read.csv("Data/Land_use_ind_weighted_LP.csv", sep =",",row.names = 1) %>% 
   filter(hop == 2, services_to !="None") #remove indirect effect that not affect any ES
 
 
@@ -917,7 +856,7 @@ output_ES_2hops<- hop_2 %>%
       (services_to == "Crop damage") ~ "-",  # par --> + pop plants --> + crop damage (-)
     
     
-    (node_id%in%pri_par| node_id%in%sec_par |node_id%in%leaf_par |node_int%in%rod_par |
+    (node_id%in%pri_par| node_id%in%sec_par |node_id%in%leaf_par |node_id%in%rod_par |
        node_id%in%seed_ins_par) & (node_int%in%aphid | node_int%in%seed_bird| 
                                      node_int%in%seed_ins | node_int%in%seed_rod) &
       services_to == "Crop production" ~ "+", # par --> + pop seed predators --> + pop crops --> + crop production
@@ -936,10 +875,10 @@ output_ES_2hops<- hop_2 %>%
 output_ES<-rbind(output_ES_1hop,output_ES_2hops)
 
 
-#write.csv(output_ES,"Data/Land_use_output_weighted.csv", row.names= FALSE)
+#write.csv(output_ES,"Data/Land_use_output_weighted_LP.csv", row.names= FALSE)
 
 ##### -- Indirect provision Ratio output +/-
-output_ind_ES <- read.csv("Data/Land_use_output_weighted.csv", sep =",") 
+output_ind_ES <- read.csv("Data/Land_use_output_weighted_LP.csv", sep =",") 
 
 # ratio > 1 indicates more benefits, ratio = 1 balance between damages and benefits and ratio < 1 more damage
 
@@ -1018,12 +957,12 @@ weights_output_mangement<-weights_management %>%
 ################# PLOTS PRESENTATION
 
 #direct
-direct_ES<- read.csv("Data/Land_use_dir_weighted_trial_removal.csv", sep =",") 
+direct_ES<- read.csv("Data/Land_use_dir_weighted_LP.csv", sep =",") 
 
 direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
 
 #indirect
-output_ind_ES <- read.csv("Data/Land_use_output_weighted_trial_removal.csv", sep =",") 
+output_ind_ES <- read.csv("Data/Land_use_output_weighted_LP.csv", sep =",") 
 
 output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
 
@@ -1072,7 +1011,7 @@ Number_indir
 upper_row<- plot_grid(Number_dir,Number_indir ,
                       ncol = 2)
 upper_row
-#ggsave("Simulation_Number.png")
+#ggsave("Land_use_number_LP.png")
 
 
 
@@ -1080,7 +1019,7 @@ upper_row
 
 #direct
 
-ratio_direct<-read.csv("Data/Land_use_rat_dir_weighted_trial_removal.csv")
+ratio_direct<-read.csv("Data/Land_use_rat_dir_weighted_LP.csv")
 
 ratio_direct$management <- factor(ratio_direct$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
 
@@ -1146,7 +1085,7 @@ ratio_indirect
 upper_row<- plot_grid(ratio_direct,ratio_indirect ,
                       ncol = 2)
 upper_row
-#ggsave("Simulation_output.png")
+#ggsave("Land_use_output_LP.png")
 
 
 
@@ -1214,4 +1153,4 @@ weights_indirect<-weight_indirect %>%
 upper_row<- plot_grid(weights_direct,weights_indirect ,
                       ncol = 2)
 upper_row
-#ggsave("Simulation_weight.png")
+#ggsave("land_use_weight_LP.png")

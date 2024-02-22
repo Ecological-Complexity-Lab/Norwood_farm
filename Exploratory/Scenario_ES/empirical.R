@@ -16,38 +16,25 @@ Norwood_farm<-readRDS("Data/Norwood_farm.RData") #read multilayer object
 ################## --- CREATE MANAGAMENT SCENARIOS (abundances_trial)
 
 
-##### -- Rearrange dataframe to include in the simulation
+### Add the abundances (as state nodes attributes) 
+abundances<-read.csv("Data/species_abundances.csv",header=T) #call abundances
 
-## Add the abundances (as state nodes attributes) 
-
-#ACA TENGO QUE PONER LAS ABUNDANCIAS REALES CUANDO LAS OBTENGA!
-set.seed(123)
-
-abundances_sim<-sample(1:50, nrow(Norwood_farm$state_nodes),replace = T)#simulate abundances
-
-#EL ARCHIVO DE ABUNDANCIA SE TIENE QUE LLAMAR ASI!
-state_nodes_ab<-cbind(Norwood_farm$state_nodes,abundances_sim) %>% 
-  rename("abundance" = "abundances_sim") %>%  #add it to the state_nodes file
-  left_join(Norwood_farm$nodes, by = "node_id") %>% select(layer_id,node_id,
-                                                           abundance, taxon) ##add taxon
+state_nodes_ab<-Norwood_farm$state_nodes %>% left_join(abundances, 
+                                                       by = c("layer_name" = "habitat",
+                                                              "node_name" = "species_name")) %>% #add abundances
+  left_join(Norwood_farm$nodes, by = "node_id") %>% 
+  select(layer_id,node_id,abundance, taxon) ##add taxon
 
 
-## Call dataframe of habitats' area
 
-areas<-read.csv("Data/habitatarea.csv", sep =";") %>% 
-  filter(HabitatCode != "ST") %>% #remove standing trees
-  mutate(HabitatCode = case_when(HabitatCode == "C"~ "CP",
-                                 HabitatCode == "WU"~ "WD",
-                                 TRUE~HabitatCode))
+########## -- Create Management scenarios
 
-habitat_area <- areas %>% mutate(area_ave = (areas$Area_2007+  areas$Area_2008)/2)#area averaged across seasons
-
-    
 ##### -- Extensive
 
 extensive_edgelist<- Norwood_farm$extended_ids %>% 
   select(-layer_to) %>% rename("habitat" = "layer_from") %>% 
-  mutate(management = "E") %>%select(-habitat,-weight) %>% unique() #aggregate network
+  mutate(management = "E") %>% select(-habitat,-weight) %>% unique() #aggregate network
+
 
 # estimate relative abundances of species in the aggregated network
 ab_ext<-state_nodes_ab %>% select(-layer_id) %>% group_by(node_id,taxon) %>%
@@ -66,8 +53,34 @@ ext_edgelist_aggr<- extensive_edgelist %>% left_join(ab_ext, by = c("node_from" 
   select(node_from,node_to,weight,management)
 
 
-################## --- CALCULATE DIRECT E(D)S PROVISION AND INDIRECT EFFECT ON ES
 
+#### Check for species that provide pest control and crop pollination
+crops = 94:99
+aphid = 341:368
+seed_ins = 480:498
+seed_bird = 499:510
+seed_rod = 511:514
+butt = 515:530
+flow_vis = 100:340
+
+
+seed_rod_crop<- ext_edgelist_aggr %>% filter(node_to %in%seed_rod & node_from %in%crops)
+aphid_crop<- ext_edgelist_aggr %>% filter(node_to %in%aphid & node_from %in%crops)
+seed_ins_crop<- ext_edgelist_aggr %>% filter(node_to %in%seed_ins & node_from %in%crops)
+seed_bird_crop<- ext_edgelist_aggr %>% filter(node_to %in%seed_bird & node_from %in%crops)
+
+
+#las potenciales sps que generan crop damage son 11 aves, 1 roedor y 4 aphids. 
+
+flow_vis_crop<- ext_edgelist_aggr %>% filter(node_to %in%flow_vis & node_from %in%crops)
+butt_crop<- ext_edgelist_aggr %>% filter(node_to %in%butt & node_from %in%crops)
+
+
+#las potenciales sps que generan polinizacion en cultivo son 4
+
+
+
+################## --- CALCULATE DIRECT E(D)S PROVISION AND INDIRECT EFFECT ON ES
 
 ##### --  DIRECT E(D)S PROVISION
 
@@ -100,7 +113,7 @@ direct_ES <- nodes_ES %>% filter (value ==1) %>%
 
 ## -- Add indirect effect of species on E(D)S (previously calculated)
 
-Indirect_ES<-read.csv("Data/Land_use_output_weighted_trial_removal.csv", sep = ",") %>% 
+Indirect_ES<-read.csv("Data/Land_use_output_weighted_CP_intense.csv", sep = ",") %>% 
   filter(management == "E") %>% select(-management) #change for "Data/Land_use_output_weighted.csv" 
 
 
@@ -134,7 +147,7 @@ Number$type <- factor(Number$type, levels = c("Indirect","Direct")) #change orde
 
 Number<-Number%>%   
   ggplot(aes(y=Number, x= "E(D)S", fill =type)) + 
-  geom_bar(position="stack", stat="identity")+
+  geom_bar(position="stack", stat="identity", color = "black")+
   labs(x='Type of provision', y="Number of E(D)S provided") +theme_bw()+
   theme_classic()+
   theme(panel.grid = element_blank(),
@@ -144,7 +157,7 @@ Number<-Number%>%
         axis.title = element_text(size=17, color='black'),
         axis.line = element_blank())
 
-#ggsave("Number_EDS.png")
+#ggsave("Empirical_number_EDS.png")
 
 ### Proportion of output per type of provision
 
@@ -154,7 +167,8 @@ output_type<-Final_ES %>% group_by(type) %>%
 
 Prop_output_type<-output_type %>% 
   ggplot(aes(y=prop, x=type, fill = output)) + 
-  geom_bar(position="stack", stat="identity")+ ggtitle("Ratio direct +/- per type")+
+  geom_bar(position="stack", stat="identity", color = "black")+
+  ggtitle("Ratio direct +/- per type")+
   labs(x='Type of E(D)S provision', y="Prop of output") +theme_bw()+
   theme_classic()+
   theme(panel.grid = element_blank(),
@@ -168,7 +182,7 @@ Prop_output_type<-output_type %>%
         legend.text = element_text(size = 11),
         legend.position = "bottom")
 
-#ggsave("Output_type.png")
+#ggsave("empirical_output.png")
 
 
 ### Proportion of output provided per taxon
@@ -210,7 +224,7 @@ D_taxon_output<- D_taxon_output %>%
         legend.title =  element_blank(),
         legend.text = element_text(size = 8))
 
-#ggsave("D_taxon_output.png")
+#ggsave("empirical_output_taxon_direct.png")
 
 # Indirect
 
@@ -246,26 +260,25 @@ I_taxon_output<- I_taxon_output %>%
         legend.title =  element_blank(),
         legend.text = element_text(size = 8))
 
-#ggsave("I_taxon_output.png")
+#ggsave("empirical_output_taxon_ind.png")
 
 
 ### Proportion of trophic groups mediating indirect effects
 
-  
+plants = 1:93
+crops = 94:99
+flow_vis = 100:340
+aphid = 341:368
+pri_par = 369:379
+sec_par = 380:386
+leaf_par = 387:479
+seed_ins = 480:498
+seed_bird = 499:510
+seed_rod = 511:514
+butt = 515:530
+seed_ins_par = 531:547
+rod_par = 548:555
 
-plants = 1:87
-crops = 88:93
-flow_vis = 94:334
-aphid = 335:362
-pri_par = 363:373
-sec_par = 374:380
-leaf_par = 381:473
-seed_ins = 474:492
-seed_bird = 493:504
-seed_rod = 505:508
-butt = 509:524
-seed_ins_par = 525:541
-rod_par = 542:549
 
 int_trophic<-Final_ES %>% filter(!is.na(node_int)) %>% 
   mutate(taxon_int =case_when(
@@ -294,7 +307,7 @@ int_trophic$taxon<- factor(int_trophic$taxon,
                                        "Flw visitors", "Seed - ins Par",
                                        "Leaf par","Plants","Prim par",
                                        "Rod ectopar","Sec par","Birds",
-                                       "Seed - ins"))
+                                       "Seed - ins", "Rodents"))
 
 
 
@@ -304,25 +317,25 @@ int_indirect_effecs<- int_trophic %>%
   geom_bar(position="stack", stat="identity", color = "black")+ 
   scale_fill_manual(label = c("Aph","Butt", "Crop","Flower-visitor ins","Insect seed-feeder par", 
                               "Leaf-miner par", "Plants","Prim aphid par", "Rodent ectopar",
-                              "Sec aphid par", "Seed-feeding bird", "Seed-feeding ins"
+                              "Sec aphid par", "Seed-feeding bird", "Seed-feeding ins", "Rodents"
                               ),
                     values = c("#F8766D", "#E18A00","#BE9C00", "#8CAB00",
                                "#24B700", "#00BE70","#00C1AB", "#00BBDA", "#00ACFC",
-                               "#8B93FF", "#D575FE","#F962DD"))+
+                               "#8B93FF", "#D575FE","#F962DD",  "#FF65AC"))+
   labs( y="Prop. Ind effect mediated") +theme_bw()+
   theme_classic()+
   theme(panel.grid = element_blank(),
         panel.border = element_rect(color = "black",fill = NA,size = 1),
         panel.spacing = unit(0.5, "cm", data = NULL),
         axis.text = element_text(size=9, color='black'),
-        axis.text.x= element_text(size =9, angle = 90), 
+        axis.text.x= element_text(size =11, angle = 90), 
         axis.text.y= element_text(size =11),
         axis.title = element_text(size=15, color='black'),
         axis.line = element_blank(),
         legend.text.align = 0,
         legend.title =  element_blank(),
         legend.text = element_text(size = 8))
-#ggsave("taxon_mediating.png")
+#ggsave("empirical_taxon_mediating.png")
 
 
 
@@ -387,4 +400,71 @@ weights_output_ind<-weight %>%  filter (type == "Indirect") %>%
 upper_row<- plot_grid(weights_output_dir,weights_output_ind ,
                       ncol = 2)
 upper_row
-#ggsave("weight_empirical.png")
+#ggsave("empirical_weight.png")
+
+
+#### Abundance per trophic group
+
+abundances<-ab_ext %>% group_by(taxon) %>% summarise(ab_taxon_mean = mean(abun),
+                                                     ab_taxon_se = sd(abun)/ sqrt(length(abun)))
+
+
+ab_taxon<-  abundances %>%
+  ggplot(aes(y=ab_taxon_mean, x=taxon, fill = taxon)) + 
+  geom_errorbar(
+    aes(ymin =0 , ymax = ab_taxon_mean + ab_taxon_se),
+    position = position_dodge(width = 0.9),
+    width = 0.25) +
+  geom_bar(position="stack", stat="identity", color = "black")+ 
+  scale_fill_manual(label = c("Aph","Butt", "Crop","Flower-visitor ins","Insect seed-feeder par", 
+                              "Leaf-miner par", "Plants","Prim aphid par", "Rodent ectopar",
+                              "Sec aphid par", "Seed-feeding bird", "Seed-feeding ins", "Rodents"
+  ),
+  values = c("#F8766D", "#E18A00","#BE9C00", "#8CAB00",
+              "#24B700", "#00BE70","#00C1AB", "#00BBDA", "#00ACFC",
+              "#8B93FF", "#D575FE","#F962DD",  "#FF65AC"))+
+  labs(x='Taxon', y="Abundances") +theme_bw()+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=9, color='black'),
+        axis.text.x= element_text(size =9, angle = 90), 
+        axis.text.y= element_text(size =11),
+        axis.title = element_text(size=15, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_blank(),
+        legend.text = element_text(size = 8))
+#ggsave("empirical_abundances_taxon.png")
+
+
+
+ab_taxon_without_aphid<-  abundances %>%  filter(taxon != "Aphid") %>% 
+  ggplot(aes(y=ab_taxon_mean, x=taxon, fill = taxon)) + 
+  geom_errorbar(
+    aes(ymin =0 , ymax = ab_taxon_mean + ab_taxon_se),
+    position = position_dodge(width = 0.9),
+    width = 0.25) +
+  geom_bar(position="stack", stat="identity", color = "black")+ 
+  scale_fill_manual(label = c("Butt", "Crop","Flower-visitor ins","Insect seed-feeder par", 
+                              "Leaf-miner par", "Plants","Prim aphid par", "Rodent ectopar",
+                              "Sec aphid par", "Seed-feeding bird", "Seed-feeding ins", "Rodents"
+  ),
+  values = c( "#E18A00","#BE9C00", "#8CAB00",
+             "#24B700", "#00BE70","#00C1AB", "#00BBDA", "#00ACFC",
+             "#8B93FF", "#D575FE","#F962DD",  "#FF65AC"))+
+  labs(x='Taxon', y="Abundances") +theme_bw()+
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=9, color='black'),
+        axis.text.x= element_text(size =9, angle = 90), 
+        axis.text.y= element_text(size =11),
+        axis.title = element_text(size=15, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_blank(),
+        legend.text = element_text(size = 8))
+#ggsave("empirical_abundances_withoutaphid.png")

@@ -1,4 +1,4 @@
-####################### ESTIMATE CLEAN ABUNDANCES
+####################### ESTIMATE CLEAN ABUNDANCES AND CREATE EDGE LIST AND NODE LIST (all flower visitors together)
 
 
 library(bipartite)
@@ -9,13 +9,14 @@ library(tidyverse)
 setwd("D:/Trabajo/Papers/Norwood_Farm/norwood-ecosystem-services-main_Tinio")
 
 
-#Data frame 
-plants<-read.csv("Data/PLANT_HABITAT3.csv",header=T) # abundance of plants
+##### ESTIMATE ABUNDANCES ############
 
+#Data frame 
+plants<-read.csv("Data/PLANT_HABITAT3.csv",header=T, sep =";") # abundance of plants
 nore<-read.csv("Data/nore2.csv",header=T) #potential dataframe of abundances
 
 
-##### PLANTS
+##### Plants
 
 # Rearrange dataframe 
 plants_habitat<-plants %>% select(-ST) %>%  # remove standing trees (ST)
@@ -25,7 +26,6 @@ plants_ab<-plants_habitat %>% gather("habitat","abundance",2:12) %>%
   filter(abundance >0) %>% rename("species_name" = "lower")
   
 
-  
 ##### Animals 
 
 # summary tables
@@ -34,7 +34,7 @@ full.guild.names<-c("plants","flower visitors","aphids","aphid parasitoids (prim
 lower.guild<-substr(nore$lower,1,4)
 upper.guild<-substr(nore$upper,1,4)
 nore<-cbind(nore,lower.guild,upper.guild)
-#nore.unique<-unique(nore[,c(1,2,6,7)])
+
 
 # Remove the arbitrary self loops added for previous robustness calculations
 direct.link<-rep(1,dim(nore)[1])
@@ -51,7 +51,6 @@ nore.direct.only<-nore[direct.link==1,]
 #### Rearrange habitats to match the original paper  (Evans et al. (2013) Ecology Letters
 
 # Remove "ST" habitats
-
 nore_2<-nore.direct.only %>% filter(!(habitat == "ST")) 
 
 ## Change names of habitats
@@ -64,39 +63,10 @@ nore_names<- nore_2%>% mutate(habitat = case_when(habitat == "P"~ "PP",#typing e
                                                       TRUE~habitat))
 
 
-
-#### KEEP THIS IF WE WANT TO SEPARATE POLLINATORS (in that case we should change the direct ES assignation),
-
-## Separate "flower visitors" group (02FV) based on the potential of species as pollinators:
-# 1) 02FV: (hoverflies, bees, bumblembees) . 2) 15FVOTHER: (beetles,etc)
-
-# Filter species
-FV<- nore_names %>% filter(upper.guild=="02FV") %>% select(upper,upper.guild) %>% 
-  unique() #list of all flower visitors 
-FV.sp<-substr(FV$upper,6,nchar(FV$upper)) #substract species name
-FV.list<-cbind(FV,FV.sp) 
-
-FVOTHER<- nore_names %>% filter(upper.guild=="15FV") %>% select(upper,upper.guild) %>% 
-  unique() #list of flower visitor others
-FVOTHER.sp<-substr(FVOTHER$upper,11,nchar(FVOTHER$upper)) #substract species name
-FVOTHER.list<-cbind(FVOTHER,FVOTHER.sp) 
-
-# Eliminate flower visitor others from the flower visitor list (02FV)
-FV_justpoll<-FV.list %>% filter(!(FV.sp %in% FVOTHER.list$FVOTHER.sp))
-
-# Eliminate duplicated flower visitors in 02FV from the dataframe
-nore_fvjust_poll<-nore_names %>% filter(upper %in% FV_justpoll$upper)
-nore_flowervis<-nore_names %>% filter(upper.guild != "02FV")
-
-nore_flowervis<-rbind(nore_flowervis,nore_fvjust_poll) #remove "15FVOTHERS" pollinators from "02FV"pollinators
-nore_fwvisitor<- nore_flowervis %>% filter (!(upper.guild== "11HO" | 
-                                                upper.guild == "10BE")) #remove hoverflies and bees because they are already in 02FV
-
-## OTHERWISE: Keep just 02FV and 12BF as pollinator trophic groups  
-
-#nore_fwvisitor<-nore_names %>%   filter(!(upper.guild == "15FV" |
-                       #                              upper.guild == "11HO" |
-                        #                             upper.guild == "10BE"))
+## Keep just 02FV and 12BF as pollinator trophic groups (02FV already contains rhe guild 15FV, 11HO and 10BE) 
+nore_flowervis<-nore_names %>%   filter(!(upper.guild == "15FV" |
+                                                     upper.guild == "11HO" |
+                                                     upper.guild == "10BE"))
 
 
 
@@ -121,27 +91,33 @@ birds_PP<-birds_rest %>% mutate(habitat = ifelse(habitat =="all", "PP"))
 # Merge to create dataframe of birds abundances
 birds_abundances<-rbind(birds_WD_RG,birds_CP,birds_SF,birds_GM,birds_LP,birds_LU,
                         birds_MH,birds_NH,birds_NL,birds_PP)
-  
 
-## Final dataframe to calculate abundances
 
-nore_without_bird<- nore_fwvisitor %>% filter (!(upper.guild== "08BI")) #remove old data of birds
+# Add bird abundances
+nore_without_bird<- nore_flowervis %>% filter (!(upper.guild== "08BI")) #remove old data of birds
 nore_to_abundances<-rbind (nore_without_bird,birds_abundances)
 
 
 ## Calculate the abundances of animals 
-
-animals_ab<-nore_to_abundances %>%  group_by(upper,habitat, upper.guild) %>% 
-  summarize(abundance =sum(fortotals)) %>% select(-upper.guild) %>% 
+animals_ab1<-nore_to_abundances %>%  group_by(upper,habitat, upper.guild) %>% 
+  summarize(abundance =sum(fortotals)) %>% 
   rename("species_name" = "upper")
 
+
+animals_ab<- animals_ab1 %>%  mutate(
+                           abundance = ifelse(upper.guild == "02FV", 
+                                              abundance /2, abundance)) %>% #pollinators were sampled in 2 years, so we divided it by 2 to be comparable to other trophic groups
+                          select (-upper.guild)
 
 ### Final dataframe of species abundances per habitat
 
 species_abundances<-rbind(plants_ab,animals_ab)
 
+#write.csv(species_abundances,"Data/species_abundances.csv", row.names= FALSE)
 
-#### Final edge list 
+
+
+########## CREATE EDGELIST
 
 edge_list_nore_pre<-nore_to_abundances %>% select(-fortotals,-round,-lower.guild) %>% 
   unique()
@@ -167,7 +143,52 @@ edgelist_birds_long <- bind_rows(edgelist_birds, .id = "habitat") %>% #convert t
     habitat== 11 ~ "WD")) 
 
 ## Merge real bird-plant interaction per habitat to the previous dataframe
-edge_list_nore_withoutbird<- edge_list_nore %>% filter(upper.guild != "08BI") 
+edge_list_nore_withoutbird<- edge_list_nore_pre %>% filter(upper.guild != "08BI") 
 edge_list_nore_final<-rbind(edge_list_nore_withoutbird,edgelist_birds_long) %>% select(habitat,lower,upper) 
 
 #write.csv(edge_list_nore_final,"Data/elist_nore.csv", row.names= FALSE)
+
+
+
+
+####### CREATE NODELIST
+lower.species<-edge_list_nore_final$lower%>% as.data.frame()
+upper.species<-edge_list_nore_final$upper %>% as.data.frame()
+
+nodes_1<-rbind(lower.species,upper.species) %>% rename("node_name"=".") %>% unique() %>% 
+  arrange(node_name) 
+
+nodes_2<- nodes_1%>% cbind(node_id = 1:nrow(nodes_1)) 
+
+#trophic groups
+plants = 1:93
+crops = 94:99
+flw_vis = 100:340
+aphid = 341:368
+pri_par = 369:379
+sec_par = 380:386
+leaf_par = 387:479
+seed_ins = 480:498
+seed_bird = 499:510
+seed_rod = 511:514
+butt = 515:530
+seed_ins_par = 531:547
+rod_par = 548:555
+
+nodes<-nodes_2 %>% mutate(taxon = case_when(
+  node_id %in% plants  ~ "Plant",
+  node_id %in% crops  ~ "Crop",
+  node_id %in% flw_vis  ~ "Flower-visiting",
+  node_id %in% aphid  ~ "Aphid",
+  node_id %in% pri_par  ~ "Primary aphid parasitoid",
+  node_id %in% sec_par  ~ "Secondary aphid parasitoid",
+  node_id %in% leaf_par  ~ "Leaf-miner parasitoid",
+  node_id %in% seed_ins  ~ "Seed-feeding insect",
+  node_id %in% seed_bird  ~ "Seed-feeding bird",
+  node_id %in% seed_rod  ~ "Seed-feeding rodent",
+  node_id %in% butt  ~ "Butterfly",
+  node_id %in% seed_ins_par  ~ "Insect seed-feeder parasitoid",
+  node_id %in% rod_par  ~ "Rodent ectoparasite"
+))
+
+#write.csv(nodes,"Data/nodes.csv", row.names= FALSE)

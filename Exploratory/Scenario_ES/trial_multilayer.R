@@ -1,8 +1,10 @@
+######### In this code we create a multilayer object representing the network farm
+# We don't analyse the multilayer network but it will organize the information, such as the node list per habitat,
+#edge list and attributes of nodes in each habitat.
 
-######### CREATE MULTILAYER OBJECT with:
 #Layers: Habitats
 #Nodes: Species with attributes (trophic groups and ecosystem services)
-#Weighted intraedges connecting trophic groups
+#intraedges: presence/absence of interactions
 
 
 library(emln)#multilayer package
@@ -12,42 +14,39 @@ setwd("D:/Trabajo/Papers/Norwood_Farm/norwood-ecosystem-services-main_Tinio")
 
 ###############  CREATE MULTILAYER NETWORK #######################
 
-edges <- tibble(read.csv("Data/norwood_cleanest_edgelist.csv")) 
+edges <- tibble(read.csv("Data/elist_nore.csv")) 
 
 ###  1) Create list of link lists to use as input in create_multilayer_network function 
-edges_format<-edges %>% rename("from"="lower") %>% rename("to"="upper")
+edges_format<-edges %>% rename("from"="lower") %>% rename("to"="upper") %>% 
+  mutate(weight =1)# weight is presence/absence
 
 list_of_layers<- split(edges_format, edges_format$habitat)
 list_of_layers <- lapply(list_of_layers, function(sub_df) subset(sub_df, select = -habitat))#remove habitat from the edge list to keep the format (from, to, weight)
 
-### 2) Create input with layer's attributes (names)
 
+### 2) Create input with layer's attributes (habitat names)
 layer_attrib <- tibble(layer_id=1:11,
                        layer_name=c('CP','GM','LP', 'LU','MH','NH', 'NL','PP','RG',
                                     'SF','WD'))
 
+
 ### 3) Create input with attributes of physical nodes (taxon and ecosystem services provided)
 nodes <- tibble(read.csv("Data/nodes.csv")) #previous dataframe containing node's information
 
-#add taxon
-phy_node_atr_tax<- nodes %>% filter(group == "species") %>% select(name,taxon) %>% 
-  rename("node_name" = "name")
-
-#add ES (Concern: some species (non-crop plants and ectoparasites dont have ES associated, I suppose because they measure DIRECT and not INDIRECT))
-services <- tibble(read.csv("Data/service_edgelist.csv", sep = ";")) %>% 
-  rename (taxon = lower, ESS = upper) %>%
+## add potential direct ES to species according to the guild group
+services <- tibble(read.csv("Data/service_edgelist.csv", sep = ";")) %>%  #data frame without antagonist
+rename (node_name = lower, ESS = upper) %>%
   pivot_wider(names_from = ESS, values_from = weight, values_fill = 0) %>%
-  mutate(taxa_type = str_split(taxon, pattern = "[.]")[[2]][1]) %>% 
-  rename("node_name"="taxon")#list of ecosystem (dis)services that each species provides
+  left_join(nodes, by = "node_name") %>% select(-node_id) #list of ecosystem (dis)services that each species provides
 
-
-phy_node_atr_tax_es<- dplyr::left_join(phy_node_atr_tax, services, by = "node_name") %>% select(-taxa_type) %>% 
+## we include species that not directly provide E(D)S
+phy_node_atr_tax_es<- dplyr::left_join(nodes, services, by = "node_name") %>% select(-node_id, -taxon.y) %>% 
+  rename("taxon" = "taxon.x") %>% 
   replace(is.na(.), 0) %>% rowwise() %>%  #we assigned "0" to species that we don't know if provide ES
   mutate(ES = rowSums(across(c("Crop production","Pollination","Pest control",
-                             "Seed dispersal", "Butterfly watching", "Bird watching"))),
+                               "Seed dispersal", "Butterfly watching", "Bird watching"))),
          DES = rowSums(across(c("Crop damage"))))
                               
-
 
 
 ### Create multilayer object
