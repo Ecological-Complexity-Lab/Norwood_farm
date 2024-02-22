@@ -1,16 +1,15 @@
-# norwood-ecosystem-services
-Repository for storing code and data for the analysis of ecosystem service provision using a network framework.
+# What's new?
 
-Link to the google doc: https://docs.google.com/document/d/1xV5de-twizr4qN50wwHVC6_sXzW9lYD7Pv9kMeAM6bY/edit 
+Here we reclassified the species in a different way:
 
-In terms of data, there are lots of different files (sorry about this, I will clean up the Data folder at some point). Below I list the used of the different data files:
-1. Original data
-   * nore2_aggregated (data from the original Norwood farm network database)
-2. Social-Ecological network plot 
-   * habitat_edgelist (links between habitats and species)
-   * species_edgelist (links between species and species)
-   * service_edgelist (links between species and ecosystem services)
-   * nodes (node list for the total social-ecological networks
- 3. Bayesian network analysis
-    * norwood_cleanest_edgelist (clean edgelist aggregated to appropriate habitats)
-    * norwood_species-list (clean node list with contributions to ecosystem services)
+1. Species (birds, rodents, seed inv, and aphids) are classified as pest and potentially provide direct crop damage only when they interact with crops. Pests indirectly will reduce crop production (EDS) when interacting with crops. Otherwise, they are classified as birds, rodents, seed inv, and aphids.
+   
+2. Species (parasitoids, parasites and birds) will potentially provide direct pest control only when they interact with pests. They indirectly will reduce crop damage when interact with (hence, provide an ES) when interacting with crops.
+
+# Assumptions:
+
+1. Assume no competition between crops and weeds for pollinators because most crops are self pollinated.
+2. Assume no competition between pollinators for resources because there are plenty plant species (weeds) providing resources.
+3. Assume no competition  between crops and weeds for resources.
+
+
