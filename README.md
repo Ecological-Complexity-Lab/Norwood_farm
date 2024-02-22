@@ -2,7 +2,7 @@
 
 Here we reclassified the species in a different way:
 
-1. Species (birds, rodents, seed inv, and aphids) are classified as pest and potentially provide direct crop damage only when they interact with crops. Pests indirectly will reduce crop production (EDS) when interacting with crops. Otherwise, they are classified as birds, rodents, seed inv, and aphids.
+1. Species (birds, rodents, seed inv, and aphids) are classified as pest when interact with crops and potentially provide direct crop damage only. Pests indirectly will reduce crop production (EDS) when interacting with crops. Otherwise, they are classified as birds, rodents, seed inv, and aphids.
    
 2. Species (parasitoids, parasites and birds) will potentially provide direct pest control only when they interact with pests. They indirectly will reduce crop damage when interact with (hence, provide an ES) when interacting with crops.
 
