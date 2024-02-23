@@ -54,7 +54,7 @@ ext_edgelist_aggr<- extensive_edgelist %>% left_join(ab_ext, by = c("node_from" 
 
 
 
-#### Check for species that provide pest control and crop pollination
+#### Check for species that provide pest control and crop damage
 crops = 94:99
 aphid = 341:368
 seed_ins = 480:498
@@ -63,6 +63,7 @@ seed_rod = 511:514
 butt = 515:530
 flow_vis = 100:340
 
+#crop damage
 
 seed_rod_crop<- ext_edgelist_aggr %>% filter(node_to %in%seed_rod & node_from %in%crops)
 aphid_crop<- ext_edgelist_aggr %>% filter(node_to %in%aphid & node_from %in%crops)
@@ -70,12 +71,23 @@ seed_ins_crop<- ext_edgelist_aggr %>% filter(node_to %in%seed_ins & node_from %i
 seed_bird_crop<- ext_edgelist_aggr %>% filter(node_to %in%seed_bird & node_from %in%crops)
 
 
-#las potenciales sps que generan crop damage son 11 aves, 1 roedor y 4 aphids. 
+#pest control
+pests<-rbind(seed_rod_crop,aphid_crop,seed_bird_crop) %>% select(node_to) %>% unique()
+pest = as.vector(pests$node_to)
 
-flow_vis_crop<- ext_edgelist_aggr %>% filter(node_to %in%flow_vis & node_from %in%crops)
-butt_crop<- ext_edgelist_aggr %>% filter(node_to %in%butt & node_from %in%crops)
+#potential species controling pest 
+pri_par = 369:379
+sec_par = 380:386
+seed_ins_par = 531:547
+rod_par = 548:555
+leaf_par = 387:479
 
-
+ 
+par_1_pest<- ext_edgelist_aggr %>% filter(node_to %in%pri_par & node_from %in%pest)
+par_2_crop<- ext_edgelist_aggr %>% filter(node_to %in%sec_par & node_from %in%pest)
+seed_ins_par<- ext_edgelist_aggr %>% filter(node_to %in%seed_ins_par & node_from %in%pest)
+rod_par_pest<- ext_edgelist_aggr %>% filter(node_to %in%rod_par & node_from %in%pest)
+leaf_par_pest<- ext_edgelist_aggr %>% filter(node_to %in%leaf_par & node_from %in%crops)
 #las potenciales sps que generan polinizacion en cultivo son 4
 
 

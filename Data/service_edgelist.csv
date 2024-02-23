@@ -246,45 +246,45 @@ lower;upper;weight
 02FV.Trybliographa erythrocera;Pollination;1
 02FV.Tytthaspis sedecimpunctata;Pollination;1
 02FV.Volucella bombylans;Pollination;1
-03APH.Acyrthosiphon pisum;Crop damage;1
-03APH.Aphid species 1;Crop damage;1
-03APH.Aphis fabae;Crop damage;1
-03APH.Aphis galiiscabri;Crop damage;1
-03APH.Aphis rumicis;Crop damage;1
-03APH.Aphis urticae;Crop damage;1
-03APH.Brachycaudus helichrysii;Crop damage;1
-03APH.Capitophorus elaeagnii;Crop damage;1
-03APH.Cavariella aegopodii;Crop damage;1
-03APH.Cryptomyzus korschelti;Crop damage;1
-03APH.Dysaphis species 1;Crop damage;1
-03APH.Hyperomyzus lactucae;Crop damage;1
-03APH.Lipaphys erysimi;Crop damage;1
-03APH.Macrosiphum funestum;Crop damage;1
+03APH.Acyrthosiphon pisum;Crop damage;0
+03APH.Aphid species 1;Crop damage;0
+03APH.Aphis fabae;Crop damage;0
+03APH.Aphis galiiscabri;Crop damage;0
+03APH.Aphis rumicis;Crop damage;0
+03APH.Aphis urticae;Crop damage;0
+03APH.Brachycaudus helichrysii;Crop damage;0
+03APH.Capitophorus elaeagnii;Crop damage;0
+03APH.Cavariella aegopodii;Crop damage;0
+03APH.Cryptomyzus korschelti;Crop damage;0
+03APH.Dysaphis species 1;Crop damage;0
+03APH.Hyperomyzus lactucae;Crop damage;0
+03APH.Lipaphys erysimi;Crop damage;0
+03APH.Macrosiphum funestum;Crop damage;0
 03APH.Metopolophium dihrodum;Crop damage;1
-03APH.Microlophium carnosum;Crop damage;1
-03APH.Myzocallis coryli;Crop damage;1
-03APH.Myzus persicae;Crop damage;1
-03APH.Nasonvoia ribisnigri;Crop damage;1
-03APH.Phorodon humuli;Crop damage;1
-03APH.Sipha maydis;Crop damage;1
+03APH.Microlophium carnosum;Crop damage;0
+03APH.Myzocallis coryli;Crop damage;0
+03APH.Myzus persicae;Crop damage;0
+03APH.Nasonvoia ribisnigri;Crop damage;0
+03APH.Phorodon humuli;Crop damage;0
+03APH.Sipha maydis;Crop damage;0
 03APH.Sitobion avenae;Crop damage;1
-03APH.Sitobion fragariae;Crop damage;1
-03APH.Therioaphis trifoli;Crop damage;1
-03APH.Tubaphis ranunculina;Crop damage;1
-03APH.Uroleucon aeneum;Crop damage;1
-03APH.Uroleucon cirsii;Crop damage;1
-03APH.Uroleucon sonchi;Crop damage;1
+03APH.Sitobion fragariae;Crop damage;0
+03APH.Therioaphis trifoli;Crop damage;0
+03APH.Tubaphis ranunculina;Crop damage;0
+03APH.Uroleucon aeneum;Crop damage;0
+03APH.Uroleucon cirsii;Crop damage;0
+03APH.Uroleucon sonchi;Crop damage;0
 04PRIMARYPARA.Aphidius ervi;Pest control;1
 04PRIMARYPARA.Aphidius funebris;Pest control;1
 04PRIMARYPARA.Aphidius matricariae;Pest control;1
 04PRIMARYPARA.Aphidius picipes?;Pest control;1
 04PRIMARYPARA.Aphidius rhopalosiphi?;Pest control;1
 04PRIMARYPARA.Ephedrus plagiator;Pest control;1
-04PRIMARYPARA.Praon dorsale?;Pest control;1
-04PRIMARYPARA.Praon exoletum?;Pest control;1
-04PRIMARYPARA.Praon sp nr flavinode;Pest control;1
+04PRIMARYPARA.Praon dorsale?;Pest control;0
+04PRIMARYPARA.Praon exoletum?;Pest control;0
+04PRIMARYPARA.Praon sp nr flavinode;Pest control;0
 04PRIMARYPARA.Praon volucre;Pest control;1
-04PRIMARYPARA.Trioxys B;Pest control;1
+04PRIMARYPARA.Trioxys B;Pest control;0
 05SECONDARYPARA.Alloxysta victrix;Pest control;1
 05SECONDARYPARA.Asaphes suspensus;Pest control;1
 05SECONDARYPARA.Asaphes vulgaris;Pest control;1
@@ -292,118 +292,118 @@ lower;upper;weight
 05SECONDARYPARA.Dendrocerus aphidum;Pest control;1
 05SECONDARYPARA.Dendrocerus carpenteri;Pest control;1
 05SECONDARYPARA.Pachyneuron sp;Pest control;1
-06MINERPARA.Achrysocharoides acerianus;Pest control;1
-06MINERPARA.Achrysocharoides atys;Pest control;1
-06MINERPARA.Achrysocharoides butus;Pest control;1
-06MINERPARA.Achrysocharoides latreillei;Pest control;1
-06MINERPARA.Adelius sp;Pest control;1
-06MINERPARA.Adelurola florimela;Pest control;1
-06MINERPARA.Alysiinae sp;Pest control;1
-06MINERPARA.Anagrus sp A;Pest control;1
-06MINERPARA.Anagrus sp B;Pest control;1
-06MINERPARA.Anagrus sp C;Pest control;1
-06MINERPARA.Apanteles circumscriptus;Pest control;1
-06MINERPARA.Aphanogmus microneurus;Pest control;1
-06MINERPARA.Aphanogmus sp;Pest control;1
-06MINERPARA.Apodesmia A;Pest control;1
-06MINERPARA.Apodesmia curvata;Pest control;1
-06MINERPARA.Apodesmia irregularis;Pest control;1
-06MINERPARA.Apodesmia ocellata;Pest control;1
-06MINERPARA.Apodesmia rufipes;Pest control;1
-06MINERPARA.Apodesmia similis;Pest control;1
-06MINERPARA.Asaphes suspensus;Pest control;1
-06MINERPARA.Ascogaster varipes;Pest control;1
-06MINERPARA.Bracon sp;Pest control;1
-06MINERPARA.Campoplex sp;Pest control;1
-06MINERPARA.Chelonus scabrosus;Pest control;1
-06MINERPARA.Chelonus sp;Pest control;1
-06MINERPARA.Chelonus sp aff rimatus;Pest control;1
-06MINERPARA.Chorebus A;Pest control;1
-06MINERPARA.Chorebus amasis;Pest control;1
-06MINERPARA.Chorebus aphantus;Pest control;1
+06MINERPARA.Achrysocharoides acerianus;Pest control;0
+06MINERPARA.Achrysocharoides atys;Pest control;0
+06MINERPARA.Achrysocharoides butus;Pest control;0
+06MINERPARA.Achrysocharoides latreillei;Pest control;0
+06MINERPARA.Adelius sp;Pest control;0
+06MINERPARA.Adelurola florimela;Pest control;0
+06MINERPARA.Alysiinae sp;Pest control;0
+06MINERPARA.Anagrus sp A;Pest control;0
+06MINERPARA.Anagrus sp B;Pest control;0
+06MINERPARA.Anagrus sp C;Pest control;0
+06MINERPARA.Apanteles circumscriptus;Pest control;0
+06MINERPARA.Aphanogmus microneurus;Pest control;0
+06MINERPARA.Aphanogmus sp;Pest control;0
+06MINERPARA.Apodesmia A;Pest control;0
+06MINERPARA.Apodesmia curvata;Pest control;0
+06MINERPARA.Apodesmia irregularis;Pest control;0
+06MINERPARA.Apodesmia ocellata;Pest control;0
+06MINERPARA.Apodesmia rufipes;Pest control;0
+06MINERPARA.Apodesmia similis;Pest control;0
+06MINERPARA.Asaphes suspensus;Pest control;0
+06MINERPARA.Ascogaster varipes;Pest control;0
+06MINERPARA.Bracon sp;Pest control;0
+06MINERPARA.Campoplex sp;Pest control;0
+06MINERPARA.Chelonus scabrosus;Pest control;0
+06MINERPARA.Chelonus sp;Pest control;0
+06MINERPARA.Chelonus sp aff rimatus;Pest control;0
+06MINERPARA.Chorebus A;Pest control;0
+06MINERPARA.Chorebus amasis;Pest control;0
+06MINERPARA.Chorebus aphantus;Pest control;0
 06MINERPARA.Chorebus B;Pest control;1
-06MINERPARA.Chorebus C;Pest control;1
-06MINERPARA.Chorebus E;Pest control;1
-06MINERPARA.Chorebus fallaciosae;Pest control;1
-06MINERPARA.Chorebus lateralis;Pest control;1
-06MINERPARA.Chorebus leptogaster;Pest control;1
-06MINERPARA.Chorebus tanis;Pest control;1
-06MINERPARA.Chrysocharis chilo;Pest control;1
-06MINERPARA.Chrysocharis laomedon;Pest control;1
-06MINERPARA.Chrysocharis orbicularis;Pest control;1
+06MINERPARA.Chorebus C;Pest control;0
+06MINERPARA.Chorebus E;Pest control;0
+06MINERPARA.Chorebus fallaciosae;Pest control;0
+06MINERPARA.Chorebus lateralis;Pest control;0
+06MINERPARA.Chorebus leptogaster;Pest control;0
+06MINERPARA.Chorebus tanis;Pest control;0
+06MINERPARA.Chrysocharis chilo;Pest control;0
+06MINERPARA.Chrysocharis laomedon;Pest control;0
+06MINERPARA.Chrysocharis orbicularis;Pest control;0
 06MINERPARA.Chrysocharis pentheus;Pest control;1
-06MINERPARA.Chrysocharis polyzo;Pest control;1
-06MINERPARA.Chrysocharis prodice;Pest control;1
-06MINERPARA.Chrysocharis pubicornis;Pest control;1
-06MINERPARA.Chrysocharis viridis;Pest control;1
-06MINERPARA.Cirrospilus diallus;Pest control;1
-06MINERPARA.Cirrospilus lyncus;Pest control;1
+06MINERPARA.Chrysocharis polyzo;Pest control;0
+06MINERPARA.Chrysocharis prodice;Pest control;0
+06MINERPARA.Chrysocharis pubicornis;Pest control;0
+06MINERPARA.Chrysocharis viridis;Pest control;0
+06MINERPARA.Cirrospilus diallus;Pest control;0
+06MINERPARA.Cirrospilus lyncus;Pest control;0
 06MINERPARA.Cirrospilus vittatus;Pest control;1
-06MINERPARA.Colastes braconius;Pest control;1
-06MINERPARA.Colastes sp aff braconius;Pest control;1
-06MINERPARA.Coloneura (ate);Pest control;1
-06MINERPARA.Cyrtogaster vulgaris;Pest control;1
-06MINERPARA.Dacnusa adducta;Pest control;1
-06MINERPARA.Dacnusa areolaris;Pest control;1
-06MINERPARA.Dacnusa laevipectus;Pest control;1
-06MINERPARA.Dacnusa macrospila;Pest control;1
+06MINERPARA.Colastes braconius;Pest control;0
+06MINERPARA.Colastes sp aff braconius;Pest control;0
+06MINERPARA.Coloneura (ate);Pest control;0
+06MINERPARA.Cyrtogaster vulgaris;Pest control;0
+06MINERPARA.Dacnusa adducta;Pest control;0
+06MINERPARA.Dacnusa areolaris;Pest control;0
+06MINERPARA.Dacnusa laevipectus;Pest control;0
+06MINERPARA.Dacnusa macrospila;Pest control;0
 06MINERPARA.Dacnusa maculipes/confinis;Pest control;1
-06MINERPARA.Dacnusa tarsalis;Pest control;1
-06MINERPARA.Dacnusa temula;Pest control;1
-06MINERPARA.Dapsilarthra rufiventris;Pest control;1
-06MINERPARA.Desmiostoma parvulum;Pest control;1
-06MINERPARA.Diadegma crataegi;Pest control;1
-06MINERPARA.Diglyphus chabrias;Pest control;1
+06MINERPARA.Dacnusa tarsalis;Pest control;0
+06MINERPARA.Dacnusa temula;Pest control;0
+06MINERPARA.Dapsilarthra rufiventris;Pest control;0
+06MINERPARA.Desmiostoma parvulum;Pest control;0
+06MINERPARA.Diadegma crataegi;Pest control;0
+06MINERPARA.Diglyphus chabrias;Pest control;0
 06MINERPARA.Diglyphus isaea;Pest control;1
-06MINERPARA.Epiclerus temenus;Pest control;1
-06MINERPARA.Eulophinae sp;Pest control;1
-06MINERPARA.Exotela cyclogaster;Pest control;1
-06MINERPARA.Exotela flavicoxa;Pest control;1
-06MINERPARA.Exotela gilvipes;Pest control;1
-06MINERPARA.Exotela spinifer;Pest control;1
-06MINERPARA.Forsterella sp;Pest control;1
-06MINERPARA.Gelis anthracinus;Pest control;1
-06MINERPARA.Gelis bicolor;Pest control;1
-06MINERPARA.Hemiptarsenus dropion;Pest control;1
-06MINERPARA.Hemiptarsenus fulvicollis;Pest control;1
+06MINERPARA.Epiclerus temenus;Pest control;0
+06MINERPARA.Eulophinae sp;Pest control;0
+06MINERPARA.Exotela cyclogaster;Pest control;0
+06MINERPARA.Exotela flavicoxa;Pest control;0
+06MINERPARA.Exotela gilvipes;Pest control;0
+06MINERPARA.Exotela spinifer;Pest control;0
+06MINERPARA.Forsterella sp;Pest control;0
+06MINERPARA.Gelis anthracinus;Pest control;0
+06MINERPARA.Gelis bicolor;Pest control;0
+06MINERPARA.Hemiptarsenus dropion;Pest control;0
+06MINERPARA.Hemiptarsenus fulvicollis;Pest control;0
 06MINERPARA.Hemiptarsenus unguicellus;Pest control;1
-06MINERPARA.Ionympha carne;Pest control;1
-06MINERPARA.Microgastrinae sp;Pest control;1
-06MINERPARA.Miscogaster hortensis;Pest control;1
-06MINERPARA.Miscogaster maculata;Pest control;1
-06MINERPARA.Opiinae sp;Pest control;1
-06MINERPARA.Opius s.s.;Pest control;1
-06MINERPARA.Opius s.s. lugens;Pest control;1
-06MINERPARA.Opius sp;Pest control;1
-06MINERPARA.Pediobius acantha;Pest control;1
-06MINERPARA.Phaedrotoma exigua;Pest control;1
-06MINERPARA.Phaedrotoma variegata;Pest control;1
+06MINERPARA.Ionympha carne;Pest control;0
+06MINERPARA.Microgastrinae sp;Pest control;0
+06MINERPARA.Miscogaster hortensis;Pest control;0
+06MINERPARA.Miscogaster maculata;Pest control;0
+06MINERPARA.Opiinae sp;Pest control;0
+06MINERPARA.Opius s.s.;Pest control;0
+06MINERPARA.Opius s.s. lugens;Pest control;0
+06MINERPARA.Opius sp;Pest control;0
+06MINERPARA.Pediobius acantha;Pest control;0
+06MINERPARA.Phaedrotoma exigua;Pest control;0
+06MINERPARA.Phaedrotoma variegata;Pest control;0
 06MINERPARA.Pnigalio soemius;Pest control;1
-06MINERPARA.Seladerma diffine;Pest control;1
-06MINERPARA.Seladerma tarsale;Pest control;1
-06MINERPARA.Sympiesis gordius;Pest control;1
-06MINERPARA.Sympiesis sericeicornis;Pest control;1
-06MINERPARA.Synopeas rhanis;Pest control;1
-06MINERPARA.Torymus sp;Pest control;1
-07SEEDINVERT.Blastodacna hellerella;Crop damage;1
-07SEEDINVERT.Bruchidius varius;Crop damage;1
-07SEEDINVERT.Bruchophagus gibbus;Crop damage;1
-07SEEDINVERT.Curtonotus aulicus;Crop damage;1
-07SEEDINVERT.Olibrus aeneus;Crop damage;1
-07SEEDINVERT.Oxystoma pomonae;Crop damage;1
-07SEEDINVERT.Protapion apricans;Crop damage;1
-07SEEDINVERT.Protapion assimile;Crop damage;1
-07SEEDINVERT.Protapion fulvipes;Crop damage;1
-07SEEDINVERT.Protapion nigritarse;Crop damage;1
-07SEEDINVERT.Protapion trifolii;Crop damage;1
-07SEEDINVERT.Protapion varipes;Crop damage;1
-07SEEDINVERT.Rhinocyllus conicus;Crop damage;1
-07SEEDINVERT.Sitona lineatus;Crop damage;1
-07SEEDINVERT.Sitona sulcifrons;Crop damage;1
-07SEEDINVERT.Terellia longicauda;Crop damage;1
-07SEEDINVERT.Terellia ruficauda;Crop damage;1
-07SEEDINVERT.Terellia serratulae;Crop damage;1
-07SEEDINVERT.Urophora stylata;Crop damage;1
+06MINERPARA.Seladerma diffine;Pest control;0
+06MINERPARA.Seladerma tarsale;Pest control;0
+06MINERPARA.Sympiesis gordius;Pest control;0
+06MINERPARA.Sympiesis sericeicornis;Pest control;0
+06MINERPARA.Synopeas rhanis;Pest control;0
+06MINERPARA.Torymus sp;Pest control;0
+07SEEDINVERT.Blastodacna hellerella;Crop damage;0
+07SEEDINVERT.Bruchidius varius;Crop damage;0
+07SEEDINVERT.Bruchophagus gibbus;Crop damage;0
+07SEEDINVERT.Curtonotus aulicus;Crop damage;0
+07SEEDINVERT.Olibrus aeneus;Crop damage;0
+07SEEDINVERT.Oxystoma pomonae;Crop damage;0
+07SEEDINVERT.Protapion apricans;Crop damage;0
+07SEEDINVERT.Protapion assimile;Crop damage;0
+07SEEDINVERT.Protapion fulvipes;Crop damage;0
+07SEEDINVERT.Protapion nigritarse;Crop damage;0
+07SEEDINVERT.Protapion trifolii;Crop damage;0
+07SEEDINVERT.Protapion varipes;Crop damage;0
+07SEEDINVERT.Rhinocyllus conicus;Crop damage;0
+07SEEDINVERT.Sitona lineatus;Crop damage;0
+07SEEDINVERT.Sitona sulcifrons;Crop damage;0
+07SEEDINVERT.Terellia longicauda;Crop damage;0
+07SEEDINVERT.Terellia ruficauda;Crop damage;0
+07SEEDINVERT.Terellia serratulae;Crop damage;0
+07SEEDINVERT.Urophora stylata;Crop damage;0
 08BIRD.Alauda arvensis;Seed dispersal;0
 08BIRD.Alectoris rufa;Seed dispersal;0
 08BIRD.Carduelis cannabina;Seed dispersal;0
@@ -416,10 +416,10 @@ lower;upper;weight
 08BIRD.Fringilla coelebs;Seed dispersal;1
 08BIRD.Passer domesticus;Seed dispersal;0
 08BIRD.Streptopelia decaocto;Seed dispersal;0
-09MAMMAL.Apodemus.flavicollis;Crop damage;1
+09MAMMAL.Apodemus.flavicollis;Crop damage;0
 09MAMMAL.Apodemus.sylvaticus;Crop damage;1
-09MAMMAL.Micromys.minutus;Crop damage;1
-09MAMMAL.Myodes.glareolus;Crop damage;1
+09MAMMAL.Micromys.minutus;Crop damage;0
+09MAMMAL.Myodes.glareolus;Crop damage;0
 12BFLY.Comma;Pollination;1
 12BFLY.Common blue;Pollination;1
 12BFLY.Gatekeeper;Pollination;1
@@ -436,23 +436,23 @@ lower;upper;weight
 12BFLY.Small tortoiseshell;Pollination;1
 12BFLY.Small white;Pollination;1
 12BFLY.Speckled wood;Pollination;1
-13SFPARA.Aprostocetus sp;Pest control;1
-13SFPARA.Bracon immutator;Pest control;1
-13SFPARA.Bracon osculator;Pest control;1
-13SFPARA.Bracon praecox;Pest control;1
-13SFPARA.Crataepus marbis;Pest control;1
-13SFPARA.Eurytoma sp A;Pest control;1
-13SFPARA.Eurytoma sp B;Pest control;1
-13SFPARA.Mesopolobus incultus;Pest control;1
-13SFPARA.Pterandrophysalis levantina;Pest control;1
-13SFPARA.Pteromalus albipennis;Pest control;1
-13SFPARA.Pteromalus beryllii;Pest control;1
-13SFPARA.Pteromalus elevatus;Pest control;1
-13SFPARA.Pteromalus sequester-group;Pest control;1
-13SFPARA.Spintherus dubius;Pest control;1
-13SFPARA.Triaspis floricola;Pest control;1
-13SFPARA.Trichomalus campestris;Pest control;1
-13SFPARA.Trichomalus rufinus;Pest control;1
+13SFPARA.Aprostocetus sp;Pest control;0
+13SFPARA.Bracon immutator;Pest control;0
+13SFPARA.Bracon osculator;Pest control;0
+13SFPARA.Bracon praecox;Pest control;0
+13SFPARA.Crataepus marbis;Pest control;0
+13SFPARA.Eurytoma sp A;Pest control;0
+13SFPARA.Eurytoma sp B;Pest control;0
+13SFPARA.Mesopolobus incultus;Pest control;0
+13SFPARA.Pterandrophysalis levantina;Pest control;0
+13SFPARA.Pteromalus albipennis;Pest control;0
+13SFPARA.Pteromalus beryllii;Pest control;0
+13SFPARA.Pteromalus elevatus;Pest control;0
+13SFPARA.Pteromalus sequester-group;Pest control;0
+13SFPARA.Spintherus dubius;Pest control;0
+13SFPARA.Triaspis floricola;Pest control;0
+13SFPARA.Trichomalus campestris;Pest control;0
+13SFPARA.Trichomalus rufinus;Pest control;0
 12BFLY.Comma;Butterfly watching;1
 12BFLY.Common blue;Butterfly watching;1
 12BFLY.Gatekeeper;Butterfly watching;1
@@ -505,3 +505,11 @@ lower;upper;weight
 08BIRD.Fringilla coelebs;Pest control;1
 08BIRD.Passer domesticus;Pest control;1
 08BIRD.Streptopelia decaocto;Pest control;0
+14FLEA.Amalaraeus penicilliger mustelae;Pest control;1
+14FLEA.Ctenophthalmus nobilis vulgaris;Pest control;1
+14FLEA.Hystrichopsylla talpae talpae;Pest control;1
+14FLEA.Ixodes trianguliceps;Pest control;1
+14FLEA.Megabothris turbidus;Pest control;1
+14FLEA.Nosopsyllus fasciatus;Pest control;1
+14FLEA.Palaeopsylla minor;Pest control;1
+14FLEA.Palaeopsylla soricis soricis;Pest control;0

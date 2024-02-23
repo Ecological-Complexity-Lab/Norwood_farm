@@ -59,6 +59,16 @@ view(Norwood_farm$state_nodes)
 
 #saveRDS(Norwood_farm, file="Norwood_farm.RData")
 
+### Species list
+
+species_list<-Norwood_farm$nodes %>% select(node_id,node_name,taxon) %>% 
+  filter(taxon != "Crop") %>% 
+          separate(node_name, c("trophic_lower", "node_name"),  "[A-Z]\\.") %>% 
+          select(-trophic_lower)
+  
+#write.csv(species_list,"Data/species_list.csv", row.names= FALSE)
+
+
 
 ################ --- Exploratory analysis
 state_nodes_attributes<-right_join(Norwood_farm$state_nodes,Norwood_farm$nodes, by = "node_name") %>% 
