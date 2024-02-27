@@ -567,9 +567,11 @@ ratio_direct<-total %>% mutate(ratio_direct = ES/EDS)
 
 list_nodes_ES_provi<-nodes_ES %>% ungroup() %>% select(-management,-abun) %>%
   filter (value ==1) %>% unique # list of nodes that provide ES ( = no plants and ectoparasites)
-list_nodes_ES_no_provi<- nodes_ES%>% filter(node_id <=93 | node_id >=548 ) %>% 
-  mutate(services = "None", value = 1) %>% ungroup() %>% 
-  select (-management,-abun) %>%  unique() # nodes that not provide any ES (plants and ectoparsites), ES assigned as None
+
+list_nodes_ES_no_provi<-nodes_ES %>% ungroup() %>% select(-management,-abun,-services) %>% unique() %>% 
+  group_by(node_id) %>% mutate(tot_serv = sum(value)) %>% select(-value) %>% 
+  filter(tot_serv == 0) %>% mutate(services = "None", value = 1) %>% # filter species that not directly provide any E(D)s and assign them as None
+  select(-tot_serv)
 
 list_nodes_ES<-rbind(list_nodes_ES_provi,list_nodes_ES_no_provi) #Total list of nodes with ES (with None)
 
@@ -786,26 +788,13 @@ hop_1 <- read.csv("Data/Land_use_ind_weighted_PP_intense.csv", sep =",", row.nam
 output_ES_1hop<- hop_1 %>%  
   mutate(output = case_when(
     (node_id %in% aphid| node_id %in% seed_bird | node_id %in% seed_ins |
-       node_id %in% seed_rod) & services_to == "Crop production"  ~ "-", #aphids, birds, rodents, seed inds reduce crop production
+       node_id %in% seed_rod) & services_to == "Crop production"  ~ "-", # if aphids, birds, rodents, seed inds interact with crop, they will reduce crop production
     
-    node_id %in% plants & node_to %in% seed_bird & services_to == "Crop damage" ~ "-",#plants--->+birds--->+seed predation
-    
-    node_id %in% plants & (node_to %in% aphid| node_to %in% seed_bird | node_to %in% seed_ins |
-                             node_to %in% seed_rod) & services_to == "Crop production"  ~ "-", #plants that increase birds, rodents, insects, aphids population, increase crop damage
-    
-    node_id %in% crops & (node_to %in% aphid| node_to %in% seed_bird | node_to %in% seed_ins |
-                            node_to %in% seed_rod) & services_to == "Crop production"  ~ "-", #same for crops
-    
-    node_id %in% aphid & services_to == "Pest control" ~ "+", #aphids eat plants and crops inceasing their abundances and increasing the resource for pest control sps
-    
-    
-    (node_id %in% plants |  node_id %in% crops)  &   
-      (services_to == "Seed dispersal" | services_to == "Bird watching") ~ "+", #plants and crops increase population of birds and hence SD and bird watching
-    
-    (node_id %in% plants |  node_id %in% crops)  &   
-      services_to == "Crop damage" ~ "-", #plants and crops increase the population of birds, aphids, rodents and insects  and hence the crop damage
+    (node_id %in% plants |node_id %in% crops)  & (node_to %in% aphid| node_to %in% seed_bird | node_to %in% seed_ins |
+                                                    node_to %in% seed_rod) & services_to == "Crop damage"  ~ "-", #plants and crops that increase pest hebirovores' abundance (birds, rodents, insects, aphids which feeds on crop, will increase crop damage
     
     TRUE ~ "+"
+    
   ))
 
 
@@ -820,34 +809,9 @@ hop_2 <- read.csv("Data/Land_use_ind_weighted_PP_intense.csv", sep =",",row.name
 output_ES_2hops<- hop_2 %>%  
   mutate(output = case_when( 
     
-    (node_id %in% plants | node_id %in% crops) &  (node_int%in%aphid | node_int%in%seed_ins) &
-      services_to == "Pest control"  ~ "+",    #plants,crops --> +aphids,ins -->+parasitoides -->+ pestcontrol
-    
-    
     (node_id %in% plants | node_id %in% crops) &  (node_int%in%aphid | node_int%in%seed_bird| 
                                                      node_int%in%seed_ins | node_int%in%seed_rod) &
       services_to == "Crop production"  ~ "-",     #plants,crops --> + seed predators --> - crop --> - crop production
-    
-    
-    (node_id %in% plants | node_id %in% crops) &  (node_int%in%flow_vis | node_int%in%pri_par|
-                                                     node_int%in%sec_par | node_int%in%leaf_par | node_int%in%butt |  node_int%in%rod_par |
-                                                     node_int%in%seed_ins_par) & services_to == "Crop production" ~ "+",      #plants,crops --> + seed predators par  or poll--> + crop --> + crop production
-    
-    
-    (node_id %in% plants | node_id %in% crops) &  (node_int%in%pri_par| node_int%in%sec_par |
-                                                     node_int%in%leaf_par |   node_int%in%rod_par |  node_int%in%seed_ins_par) &
-      (services_to == "Crop damage")  ~ "+",      # plants, crops --> + parasitoides --> - herbuvires and seed predators crop damage (es un efecto +)
-    
-    
-    (node_id%in%aphid | node_id%in%seed_bird| node_id%in%seed_ins |node_id%in%seed_rod) &
-      (node_int%in%pri_par| node_int%in%sec_par |node_int%in%leaf_par | node_int%in%rod_par |
-         node_int%in%seed_ins_par) & (services_to == "Crop production" | 
-                                        services_to == "Crop damage") ~ "+",      #seed predators--> + pop. parasitoides --> - seed predators -> - crop damage and + crop productio
-    
-    
-    (node_id%in%flow_vis | node_id%in%butt) & (node_int%in%plants| node_int%in%crops) &
-      (services_to == "Pollination" | services_to == "Seed dispersal" | services_to == "Butterfly watching"| 
-         services_to == "Bird watching"| services_to == "Pest control") ~ "+", # flower visitors and butt --> + plants,crops--> + pop, pollinators, parasitoides, birds --> + poll, pest control, seed disp and bird watching
     
     
     (node_id%in%flow_vis | node_id%in%butt) & (node_int%in%plants| node_int%in%crops) &
@@ -857,35 +821,20 @@ output_ES_2hops<- hop_2 %>%
     (node_id%in%aphid | node_id%in%seed_bird| node_id%in%seed_ins |node_id%in%seed_rod) &
       (node_int%in%plants| node_int%in%crops) & (services_to == "Pollination" | 
                                                    services_to == "Butterfly watching"| services_to == "Bird watching"| services_to == "Pest control"| 
-                                                   services_to == "Seed dispersal") ~ "-",     # seed predators --> - pop crops --> - pop birds, flower vis, parasitodes --> - pest control, watching, pollination
-    
-    (node_id%in%aphid | node_id%in%seed_bird| node_id%in%seed_ins |node_id%in%seed_rod) &
-      (node_int%in%plants| node_int%in%crops) & (services_to == "Crop damage") ~ "+",     # seed predators --> - pop crops --> - pop seed predators --> - crop damage (+)
+                                                   services_to == "Seed dispersal") ~ "-",     # seed predators --> - pop crops/plants --> - pop birds, flower vis, parasitodes --> - pest control, watching, pollination
     
     
-    (node_id%in%pri_par| node_id%in%sec_par |node_id%in%leaf_par |node_int%in%rod_par |
-       node_id%in%seed_ins_par) & (node_int%in%plants| node_int%in%crops) & 
-      (services_to == "Pollination" | services_to == "Butterfly watching"|
-         services_to == "Bird watching"| services_to == "Pest control"| 
-         services_to == "Seed dispersal") ~ "+",    # par --> + pop plants --> + pop birds, flower vis, par --> + pest control, poll, bird and butt watching
+    (node_id%in%leaf_par) & (node_int%in%plants| node_int%in%crops) & 
+      (services_to == "Crop damage") ~ "-",  # + leaf miner parasitoid -->+ pop plants --> + pest --> + crop damage
     
-    
-    (node_id%in%pri_par| node_id%in%sec_par |node_id%in%leaf_par |node_int%in%rod_par |
-       node_int%in%seed_ins_par) & (node_int%in%plants| node_int%in%crops) & 
-      (services_to == "Crop damage") ~ "-",  # par --> + pop plants --> + crop damage (-)
     
     
     (node_id%in%pri_par| node_id%in%sec_par |node_id%in%leaf_par |node_id%in%rod_par |
        node_id%in%seed_ins_par) & (node_int%in%aphid | node_int%in%seed_bird| 
                                      node_int%in%seed_ins | node_int%in%seed_rod) &
-      services_to == "Crop production" ~ "+", # par --> + pop seed predators --> + pop crops --> + crop production
+      services_to == "Pest control" ~ "-", # par --> + pop seed predators --> + pop parasitoide --> - pest control
     
-    
-    (node_id%in%pri_par| node_id%in%sec_par |node_id%in%leaf_par |node_int%in%rod_par |
-       node_id%in%seed_ins_par) & (node_int%in%aphid | node_int%in%seed_bird| 
-                                     node_int%in%seed_ins | node_int%in%seed_rod) &
-      services_to == "Pest control" ~ "-" # par --> + pop seed predators --> + pop parasitoide --> - pest control
-    
+    TRUE ~ "+"
   ))
 
 
@@ -893,83 +842,8 @@ output_ES_2hops<- hop_2 %>%
 
 output_ES<-rbind(output_ES_1hop,output_ES_2hops)
 
-
 #write.csv(output_ES,"Data/Land_use_output_weighted_PP_intense.csv", row.names= FALSE)
 
-##### -- Indirect provision Ratio output +/-
-output_ind_ES <- read.csv("Data/Land_use_output_weighted_PP_intense.csv", sep =",") 
-
-# ratio > 1 indicates more benefits, ratio = 1 balance between damages and benefits and ratio < 1 more damage
-
-number_positive<-output_ind_ES %>% group_by(management) %>% 
-  filter (output == "+") %>% summarise (positive = n())#count + outputs
-
-number_negative<-output_ind_ES %>% group_by(management) %>% 
-  filter (output == "-") %>% summarise (negative = n())#count - outputs
-
-total<-cbind(number_positive,number_negative[,-1])
-
-ratio_indirect<-total %>% mutate(ratio_direct = positive/negative)
-
-ratio_indirect$management <- factor(ratio_indirect$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
-
-
-
-## -- Exploratory plots indirect provision
-
-## ratio indirect
-
-ratio_indirect_prov<-ratio_indirect%>% gather("type","value", 2:3) %>% group_by(management) %>% 
-  mutate(Total = sum(value)) %>% group_by(management,type) %>% 
-  summarise(prop = value /Total) %>%  
-  ggplot(aes(y=prop, x=management, fill = type)) + 
-  geom_bar(position="stack", stat="identity")+ ggtitle("Ratio indirect +/-")+
-  labs(x='Manegement', y="Prop of outputs") +theme_bw()+
-  theme_classic()+
-  theme(panel.grid = element_blank(),
-        panel.border = element_rect(color = "black",fill = NA,size = 1),
-        panel.spacing = unit(0.5, "cm", data = NULL),
-        axis.text = element_text(size=15, color='black'),
-        axis.title = element_text(size=17, color='black'),
-        axis.line = element_blank(),
-        legend.text.align = 0,
-        legend.title =  element_text(size = 13, color = "black"),
-        legend.text = element_text(size = 11))
-
-ratio_indirect_prov
-
-
-## Weight of indirect effects according to output
-
-weights_management<-output_ind_ES %>% group_by(management, output) %>% 
-                summarise(weight_mean = mean(weight),
-                          weight_sd = sd(weight),
-                          weight_se =  sd(weight) / sqrt(n()))#calculate avergae nad standart error
- 
-weights_management$management <- factor(weights_management$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
-
-#barplot
-weights_output_mangement<-weights_management %>% 
-  ggplot(aes(y=weight_mean, x=management, fill =output)) + 
-  geom_errorbar(
-    aes(ymin =0 , ymax = weight_mean + weight_se),
-    position = position_dodge(width = 0.9),
-    width = 0.25
-  ) +
-  geom_bar(position="dodge", stat="identity")+ ggtitle("Weight indirect effects")+
-  labs(x='Management', y="Weight indirect effect") +theme_bw()+
-  theme_classic()+
-  theme(panel.grid = element_blank(),
-        panel.border = element_rect(color = "black",fill = NA,size = 1),
-        panel.spacing = unit(0.5, "cm", data = NULL),
-        axis.text = element_text(size=15, color='black'),
-        axis.text.x= element_text(size =13, angle = 90), 
-        axis.title = element_text(size=17, color='black'),
-        axis.line = element_blank(),
-        legend.text.align = 0,
-        legend.title =  element_text(size = 13, color = "black"),
-        legend.text = element_text(size = 11),
-        legend.position = "bottom")
 
 
 
@@ -1180,7 +1054,7 @@ upper_row<- plot_grid(ratio_direct,ratio_indirect ,
                       ncol = 2)
 upper_row
 
-#ggsave("Land_use_output_PP_intense.png")
+#ggsave("Land_use_output_PP_intense_new.png")
 
 
 
