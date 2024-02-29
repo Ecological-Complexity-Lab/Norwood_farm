@@ -4,6 +4,7 @@ library(bipartite)
 library(vegan)
 library(sna)
 library(tidyverse)
+library(readxl)
 
 setwd("D:/Trabajo/Papers/Norwood_Farm/norwood-ecosystem-services-main_Tinio")
 
@@ -15,15 +16,40 @@ species_list<-Norwood_farm$nodes %>% select(node_id,node_name,taxon) %>%
   separate(node_name, c("trophic_lower", "node_name"),  "[A-Z]\\.") %>% 
   select(-trophic_lower) %>% mutate (node_name =  gsub(c("\\?"), "", node_name)) %>% 
   mutate (node_name =  gsub(c("1"), "", node_name)) %>% 
-  mutate (node_name =  gsub(c("zCROP"), "", node_name)) #keep just the species name of most rows
+  mutate (node_name =  gsub(c("zCROP"), "", node_name)) %>% 
+  mutate (node_name = gsub("\\.", " ", node_name))#keep just the species name of most rows
 
 
 
 ####### ---  Look for biomass/ind per species in different repositories
 
-## Aphid-parasitoids (Brose et al 2005 - repository (https://doi.org/10.1890/05-0379)
 
-#SOMETHING IS WRONG BECAUSE THE MEAN BIOMASS IS THE SAME FOR ALMOST ALL SPECIES
+## --
+  
+##  Bird and Mammals species (Wilman et al. (2016). repository: https://doi.org/10.6084/m9.figshare.3559887.v1)
+
+#birds
+birds.repo<-read.delim("Data/biomass_repositories/BirdFuncDat.txt") %>% 
+          select(Scientific,BodyMass.Value) %>% rename("node_name" = "Scientific",
+                                                        "Mass" = "BodyMass.Value")
+
+#check for those species in the repository that match in our dataframe
+mass.birds<- species_list %>% left_join(birds.repo, by = "node_name") %>% 
+  filter(taxon =="Seed-feeding bird")
+
+# mammals
+mam.repo<-read.delim("Data/biomass_repositories/MamFuncDat.txt")%>% 
+  select(Scientific,BodyMass.Value) %>% rename("node_name" = "Scientific",
+                                               "Mass" = "BodyMass.Value")
+
+#check for those species in the repository that match in our dataframe
+mass.mam<- species_list %>% left_join(mam.repo, by = "node_name") %>% 
+  filter(taxon =="Seed-feeding rodent")
+
+
+## ---
+
+## Aphid (data base (Brose et al 2005 - repository (https://doi.org/10.1890/05-0379)
 
 aphid.par.repo<-read.delim("Data/biomass_repositories/bodysizes_2008.txt") 
 
@@ -37,28 +63,113 @@ filter_sps<-aphid.par.repo %>% filter(Taxonomy.consumer%in%species_list$node_nam
 upper<- filter_sps[,1:2] %>% rename("node_name" = "Taxonomy.consumer", "biomass.g" ="Mean.mass..g..consumer")
 lower<-filter_sps[,3:4] %>% rename("node_name" = "Taxonomy.resource", "biomass.g" ="Mean.mass..g..resource")
 
-aphid.par.bio<-rbind(upper,lower)
-
 #function to keep the first two words in species name from the repository
 keep_first_two_words <- function(text) {
   words <- str_split(text, "\\s+")[[1]]
   paste(words[1:2], collapse = " ")
 }
 
-#apply function 
-aphid.par.bio<-rbind(upper,lower) %>% mutate( node_name = sapply(node_name, keep_first_two_words)) %>% 
-                                  mutate(node_name = gsub("\\bNA\\b", "", node_name)) #eliminate extra text in some columns
+#apply function
+aphid.par.bio<-rbind(upper,lower) %>% unique() %>% 
+  filter(biomass.g >0) %>% #eliminate species with - biomass (error in dataframe)
+  mutate( node_name = sapply(node_name, keep_first_two_words)) %>% 
+  mutate(node_name = gsub("\\bNA\\b", "", node_name)) #eliminate extra text in some columns
+ 
+#add data of biomass manually and do the average for the rest
+mass.aphid<- species_list %>% left_join(aphid.par.bio, by = "node_name") %>% 
+  unique() %>%  mutate (biomass.g = case_when(node_name == "Acyrthosiphon pisum"~ 0.0008623,
+                                              node_name == "Myzus persicae"~ 0.0002042,
+                                              node_name == "Sitobion avenae"~ 0.0031632,
+                                              TRUE~biomass.g)) %>% 
+  filter(taxon == "Aphid") %>% mutate(biomass.g =if_else(is.na(biomass.g), 
+                                                         mean(biomass.g, na.rm = TRUE), biomass.g))
 
-#check for those species in the repository that match in our dataframe
-biomass.aphid.par<- species_list %>% left_join(aphid.par.bio, by = "node_name") %>% unique()
+## --
+
+## 1 aphid parasitoids (TO DO AVERAGE AFTER ESTIMATE THE BIOMASS!)
+
+#add data of biomass manually and do the average for the rest
+mass.1.par<-species_list %>% left_join(aphid.par.bio, by = "node_name") %>% 
+  unique() %>% filter(taxon == "Primary aphid parasitoid") %>% 
+  mutate (biomass.g = case_when(node_name == "Aphidius rhopalosiphi"~ 0.000161,
+                                    TRUE~biomass.g)) #%>% #add manually more data
+      #mutate(biomass.g =if_else(is.na(biomass.g), 
+       #                         mean(biomass.g, na.rm = TRUE), biomass.g))
+
+## --
+  
+## 2 aphid parasitoids (TO DO AVERAGE AFTER ESTIMATE THE BIOMASS!)
+  
+  mass.2.par<-species_list %>% left_join(aphid.par.bio, by = "node_name") %>% 
+  unique() %>% filter(taxon == "Secondary aphid parasitoid")  #%>% 
+  #mutate(biomass.g =if_else(is.na(biomass.g), 
+  #                         mean(biomass.g, na.rm = TRUE), biomass.g)) #do the average for the rest
 
 
-##  Bird and Mammals species
+## --
+  
+## Insect seed feeder parasitoid (TO DO AVERAGE AFTER ESTIMATE THE BIOMASS of leaf minner par!)
 
-birds.repo<-read.delim("Data/biomass_repositories/BirdFuncDat.txt")
+mass.ins.par<-species_list %>% left_join(aphid.par.bio, by = "node_name") %>% 
+  unique() %>% filter(taxon == "Insect seed-feeder parasitoid") %>% 
+  mutate (biomass.g = case_when(node_name == "Pteromalus albipennis"~ 0.0013,
+                                node_name == "Mesopolobus incultus"~ 0.00045,
+                                node_name == "Pteromalus elevatus"~ 0.0121,
+                                TRUE~biomass.g)) #%>% #add manually more data
+                              #mutate(biomass.g =if_else(is.na(biomass.g), 
+    #                         mean(biomass.g, na.rm = TRUE), biomass.g)) #do the average for the rest
 
-prueba<-birds.repo %>% select(Scientific,BodyMass.Value) %>% group_by(Scientific,BodyMass.Value) %>% 
-        count()
+
+## --
+
+## Seed-feeding insect
 
 
-mam.repo<-read.delim("Data/biomass_repositories/MamFuncDat.txt")
+mass.seed.ins<-species_list %>% left_join(aphid.par.bio, by = "node_name") %>% 
+  unique() %>% filter(taxon == "Seed-feeding insect")  %>% 
+  mutate (biomass.g = case_when(node_name == "Bruchidius varius"~ 0.003,
+                                node_name == "Olibrus aeneus"~ 0.000251,
+                                node_name == "Rhinocyllus conicus"~ 0.00845,
+                                node_name == "Sitona lineatus"~ 0.00165,
+                                node_name == "Urophora stylata"~ 0.0041,
+                                TRUE~biomass.g)) %>% #add manually more data
+          mutate(biomass.g =if_else(is.na(biomass.g), 
+          mean(biomass.g, na.rm = TRUE), biomass.g)) #do the average for the rest
+
+
+##--
+
+## Leaf miners (do the average of all the parastioids (do it before averaging them)
+
+
+
+
+
+
+## --
+
+## Fleas (use the mass average of cat flea)
+
+mass.flea<-species_list %>% filter (taxon =="Rodent ectoparasite") %>% 
+            mutate(biomass.g = 0.000765)
+
+
+
+
+
+
+### --  Merge all trophic groups together (use with node_id instead of node_name because
+#I had to modify it to look for biomass)
+
+
+
+
+
+##### List of species (send to Pau)
+
+#mass.aphid.pau<-mass.aphid %>% filter(taxon == "Aphid"  |taxon == "Leaf-miner parasitoid"|
+                               #         taxon == "Seed-feeding insect" |
+                                #        taxon == "Rodent ectoparasite")
+#list_pau<-rbind (mass.aphid.pau,mass.1.par,mass.2.par,mass.ins.par)
+
+# write.csv(list_pau,"list_pau.csv")
