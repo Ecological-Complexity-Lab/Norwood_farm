@@ -31,7 +31,7 @@ species_list<-Norwood_farm$nodes %>% select(node_id,node_name,taxon) %>%
 #birds
 birds.repo<-read.delim("Data/biomass_repositories/BirdFuncDat.txt") %>% 
           select(Scientific,BodyMass.Value) %>% rename("node_name" = "Scientific",
-                                                        "Mass" = "BodyMass.Value")
+                                                        "biomass.g" = "BodyMass.Value")
 
 #check for those species in the repository that match in our dataframe
 mass.birds<- species_list %>% left_join(birds.repo, by = "node_name") %>% 
@@ -40,7 +40,7 @@ mass.birds<- species_list %>% left_join(birds.repo, by = "node_name") %>%
 # mammals
 mam.repo<-read.delim("Data/biomass_repositories/MamFuncDat.txt")%>% 
   select(Scientific,BodyMass.Value) %>% rename("node_name" = "Scientific",
-                                               "Mass" = "BodyMass.Value")
+                                               "biomass.g" = "BodyMass.Value")
 
 #check for those species in the repository that match in our dataframe
 mass.mam<- species_list %>% left_join(mam.repo, by = "node_name") %>% 
@@ -86,44 +86,48 @@ mass.aphid<- species_list %>% left_join(aphid.par.bio, by = "node_name") %>%
 
 ## --
 
-## 1 aphid parasitoids (TO DO AVERAGE AFTER ESTIMATE THE BIOMASS!)
+## 1 aphid parasitoids 
 
 #add data of biomass manually and do the average for the rest
 mass.1.par<-species_list %>% left_join(aphid.par.bio, by = "node_name") %>% 
   unique() %>% filter(taxon == "Primary aphid parasitoid") %>% 
   mutate (biomass.g = case_when(node_name == "Aphidius rhopalosiphi"~ 0.000161,
-                                    TRUE~biomass.g)) #%>% #add manually more data
-      #mutate(biomass.g =if_else(is.na(biomass.g), 
-       #                         mean(biomass.g, na.rm = TRUE), biomass.g))
+                                node_name == "Aphidius matricariae"~ 0.00088,
+                                    TRUE~biomass.g)) %>% #add manually more data
+      mutate(biomass.g =if_else(is.na(biomass.g), 
+                               mean(biomass.g, na.rm = TRUE), biomass.g))
 
 ## --
   
-## 2 aphid parasitoids (TO DO AVERAGE AFTER ESTIMATE THE BIOMASS!)
+## 2 aphid parasitoids 
   
   mass.2.par<-species_list %>% left_join(aphid.par.bio, by = "node_name") %>% 
-  unique() %>% filter(taxon == "Secondary aphid parasitoid")  #%>% 
-  #mutate(biomass.g =if_else(is.na(biomass.g), 
-  #                         mean(biomass.g, na.rm = TRUE), biomass.g)) #do the average for the rest
+  unique() %>% filter(taxon == "Secondary aphid parasitoid")%>% 
+    mutate (biomass.g = case_when(node_name == "Asaphes suspensus "~ 0.00000927,
+                                  TRUE~biomass.g)) %>% #add the data manually
+  mutate(biomass.g =if_else(is.na(biomass.g), 
+                          mean(biomass.g, na.rm = TRUE), biomass.g)) #do the average for the rest
 
 
 ## --
   
-## Insect seed feeder parasitoid (TO DO AVERAGE AFTER ESTIMATE THE BIOMASS of leaf minner par!)
-
+## Insect seed feeder parasitoid 
 mass.ins.par<-species_list %>% left_join(aphid.par.bio, by = "node_name") %>% 
   unique() %>% filter(taxon == "Insect seed-feeder parasitoid") %>% 
   mutate (biomass.g = case_when(node_name == "Pteromalus albipennis"~ 0.0013,
                                 node_name == "Mesopolobus incultus"~ 0.00045,
                                 node_name == "Pteromalus elevatus"~ 0.0121,
-                                TRUE~biomass.g)) #%>% #add manually more data
-                              #mutate(biomass.g =if_else(is.na(biomass.g), 
-    #                         mean(biomass.g, na.rm = TRUE), biomass.g)) #do the average for the rest
+                                node_name == "Bracon immutator"~ 0.0025,
+                                node_name == "Bracon osculator"~ 0.0025,
+                                node_name == "Bracon praecox"~ 0.0025,
+                                TRUE~biomass.g)) %>% #add manually more data
+                              mutate(biomass.g =if_else(is.na(biomass.g), 
+                             mean(biomass.g, na.rm = TRUE), biomass.g)) #do the average for the rest
 
 
 ## --
 
 ## Seed-feeding insect
-
 
 mass.seed.ins<-species_list %>% left_join(aphid.par.bio, by = "node_name") %>% 
   unique() %>% filter(taxon == "Seed-feeding insect")  %>% 
@@ -140,7 +144,21 @@ mass.seed.ins<-species_list %>% left_join(aphid.par.bio, by = "node_name") %>%
 ##--
 
 ## Leaf miners (do the average of all the parastioids (do it before averaging them)
-
+mass.leaf.min.par<-species_list %>% left_join(aphid.par.bio, by = "node_name") %>% 
+  unique() %>% filter(taxon == "Leaf-miner parasitoid")  %>% 
+  mutate (biomass.g = case_when(node_name == "Bracon sp"~ 0.0025,
+                                node_name == "Apanteles circumscriptus" ~ 0.0089,
+                                node_name == "Anagrus sp A" ~ 0.0000288,
+                                node_name == "Anagrus sp B" ~ 0.0000288,
+                                node_name == "Anagrus sp C" ~ 0.0000288,
+                                node_name == "Asaphes suspensus"~ 0.00000927,
+                                node_name == "Chelonus sp"~ 0.0069,
+                                node_name == "Chelonus sp aff rimatus"~ 0.0069,
+                                node_name == "Chelonus scabrosus"~ 0.0069,
+                                node_name == "Diadegma crataegi"~ 0.000674,
+                                TRUE~biomass.g)) %>% #add manually more data
+    mutate(biomass.g =if_else(is.na(biomass.g), 
+                              mean(biomass.g, na.rm = TRUE), biomass.g)) #do the average for the rest
 
 
 
@@ -151,11 +169,115 @@ mass.seed.ins<-species_list %>% left_join(aphid.par.bio, by = "node_name") %>%
 ## Fleas (use the mass average of cat flea)
 
 mass.flea<-species_list %>% filter (taxon =="Rodent ectoparasite") %>% 
-            mutate(biomass.g = 0.000765)
+            mutate(biomass.g = 0.000765) 
+
+
+## --
+
+## Crops
+
+mass.crop<-species_list %>% filter (taxon =="Crop") %>%
+  mutate (biomass.g = case_when(node_name == " Barley"~ 200,
+                                node_name == " Lucerne" ~ 500,
+                                node_name == " Oat spring" ~ 300,
+                                node_name == " Oat winter" ~ 300,
+                                node_name == " Triticale" ~ 500,
+                                node_name == " Wheat"~ 250))#add manually more data
+
+## --
+
+### Flower visitors 
+
+#repository of pollinators
+library(pollimetry) #package containing data of pollinators
+pollimetry_dataset$Weight<-as.numeric(pollimetry_dataset$Weight) #repository of pollinators
+
+poll_list_repo<-pollimetry_dataset  %>%  select(Region,Country,Species,Weight) %>% 
+  filter(Region == "Europe" & !(is.na(Weight))) %>% 
+  mutate(Species = gsub("_", " ", Species),
+         Weight = Weight / 1000) %>% #to gr
+  group_by(Species) %>% summarise(biomass.g = mean (Weight)) # calculate average of Weight   
+
+
+## we split flower visitors dataser into guilds due to the variation in the weight
+#Separate "flower visitors" group (02FV): 1) 02FV: (bees, bumblembees) . 2) 10HO: hover flies, and 3)15FVOTHER: (beetles,etc)
+
+# Check row dataframe to separate the flower visitor guild
+nore<-read.csv("Data/nore2.csv",header=T)
+lower.guild<-substr(nore$lower,1,4)
+upper.guild<-substr(nore$upper,1,4)
+nore<-cbind(nore,lower.guild,upper.guild)
+
+## Bees
+bees<-nore %>% filter(upper.guild == "10BE") %>% select(upper,upper.guild) %>% 
+  unique() %>% mutate(upper = substring(upper, 7)) #list of bees
+
+bees.list<-species_list %>% filter(node_name%in%bees$upper)#select bees from the whole species list
+
+#check for those species in the repository that match in our dataframe
+mass.bees<- bees.list %>% left_join(poll_list_repo, by = c("node_name"="Species")) %>% 
+                            mutate(biomass.g =if_else(is.na(biomass.g), 
+                            mean(biomass.g, na.rm = TRUE), biomass.g)) #do the average for the rest
+
+
+ 
+## Hover flies
+hov<-nore %>% filter(upper.guild == "11HO") %>% select(upper,upper.guild) %>% 
+  unique() %>% mutate(upper = substring(upper, 7)) #list of hover flies
+
+hov.list<-species_list %>% filter(node_name%in%hov$upper)#select hover flies from the whole species list
+
+#check for those species in the repository that match in our dataframe
+mass.hov<- hov.list %>% left_join(poll_list_repo, by = c("node_name"="Species")) %>% 
+  mutate(biomass.g =if_else(is.na(biomass.g), 
+                            mean(biomass.g, na.rm = TRUE), biomass.g)) #do the average for the rest
+
+  
+  
+## Other flower visitors
+ot.flw<-nore %>% filter(upper.guild == "15FV") %>% select(upper,upper.guild) %>% 
+unique() %>% mutate(upper = substring(upper, 11)) %>%  #list of other flower visitors
+  mutate (upper =  gsub(c("\\?"), "", upper)) %>% 
+  mutate (upper =  gsub(c("1"), "", upper)) %>% 
+  mutate (upper =  gsub(c("zCROP"), "", upper)) %>% 
+  mutate (upper = gsub("\\.", " ", upper))#keep just the species name of most rows
+
+ot.flw.list<-species_list %>% filter(node_name%in%ot.flw$upper) %>%  #select other flower visitors from the whole species list
+  filter(taxon == "Flower-visiting")
+
+#upload repository
+repo_1<-read_excel("Data/biomass_repositories/coleoptera.xlsx", sheet = 3) 
+
+repo_1_clean<-repo_1%>% select(Species, 'Mean mass (mg)') 
+repo_1_clean$`Mean mass (mg)`<-as.numeric(repo_1_clean$`Mean mass (mg)`)
+repo_1_final<-repo_1_clean %>% 
+  mutate(biomass.g = `Mean mass (mg)`/1000) #convert to g
+
+
+#check for those species in the repository that match in our dataframe
+mass.ot.flw1<- ot.flw.list %>% left_join(repo_1_final, by = c("node_name"="Species")) 
+
+#manually
+mass.ot.flw<- mass.ot.flw1 %>% mutate (biomass.g = case_when(node_name == "Bracon sp"~ 0.0025,
+                                                            node_name == "Olibrus aeneus"~ 0.000251,
+                                                            node_name == "Agriotes pallidulus"~  0.01966667,
+                                                            node_name == "Aprostocetus sp"~  0.00008,
+                                                            node_name == "Grammoptera ruficornis"~  0.005143,
+                                                            node_name == "Hemicrepidius memnonius"~  0.0327,
+                                                            node_name == "Rhagonycha fulva"~ 0.0015275,
+                                                            node_name == "Sitona puncticollis"~ 0.00165)) %>% 
+                              mutate(biomass.g =if_else(is.na(biomass.g), 
+                              mean(biomass.g, na.rm = TRUE), biomass.g)) %>% 
+                              select (node_id,node_name,taxon,biomass.g)#do the average for the rest
 
 
 
-
+full_list<-rbind(mass.leaf.min.par,mass.seed.ins,mass.ins.par,mass.2.par,mass.1.par,
+                 mass.aphid,mass.hov,mass.flea,mass.birds,mass.crop, mass.mam,mass.ot.flw)
+ 
+prueba<-full_list %>% group_by(taxon) %>% summarize(mean_mass = mean(biomass.g))
+ 
+  check<-mass.ot.flw %>% filter(!is.na(biomass.g))
 
 
 ### --  Merge all trophic groups together (use with node_id instead of node_name because
@@ -165,11 +287,4 @@ mass.flea<-species_list %>% filter (taxon =="Rodent ectoparasite") %>%
 
 
 
-##### List of species (send to Pau)
 
-#mass.aphid.pau<-mass.aphid %>% filter(taxon == "Aphid"  |taxon == "Leaf-miner parasitoid"|
-                               #         taxon == "Seed-feeding insect" |
-                                #        taxon == "Rodent ectoparasite")
-#list_pau<-rbind (mass.aphid.pau,mass.1.par,mass.2.par,mass.ins.par)
-
-# write.csv(list_pau,"list_pau.csv")
