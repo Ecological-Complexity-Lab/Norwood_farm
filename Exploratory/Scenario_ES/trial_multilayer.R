@@ -34,10 +34,17 @@ layer_attrib <- tibble(layer_id=1:11,
 nodes <- tibble(read.csv("Data/nodes.csv")) #previous dataframe containing node's information
 
 ## add potential direct ES to species according to the guild group
-services <- tibble(read.csv("Data/service_edgelist.csv", sep = ";")) %>%  #data frame without antagonist
+services_pre <- tibble(read.csv("Data/service_edgelist.csv", sep = ";")) %>%  #data frame without antagonist
 rename (node_name = lower, ESS = upper) %>%
   pivot_wider(names_from = ESS, values_from = weight, values_fill = 0) %>%
-  left_join(nodes, by = "node_name") %>% select(-node_id) #list of ecosystem (dis)services that each species provides
+  left_join(nodes, by = "node_name") %>% select(-node_id)  #list of ecosystem (dis)services that each species provides
+  
+#remove duplicate rows containing butterflies in 02fv (because they are a separated guild)
+list.butt.flw<- c("02FV.Maniola jurtina","02FV.Pieris brassicae","02FV.Polyommatus icarus",
+                    "02FV.Pyronia tithonus") #list of butterflies
+
+services<-services_pre %>% filter(!(node_name %in%list.butt.flw)) #remove dupicated butt from dataset of services
+  
 
 ## we include species that not directly provide E(D)S
 phy_node_atr_tax_es<- dplyr::left_join(nodes, services, by = "node_name") %>% select(-node_id, -taxon.y) %>% 
@@ -59,7 +66,7 @@ view(Norwood_farm$state_nodes)
 
 #saveRDS(Norwood_farm, file="Norwood_farm.RData")
 
-### Species list
+### Species list (without crops)
 
 species_list<-Norwood_farm$nodes %>% select(node_id,node_name,taxon) %>% 
   filter(taxon != "Crop") %>% 

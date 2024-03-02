@@ -220,7 +220,6 @@ mass.bees<- bees.list %>% left_join(poll_list_repo, by = c("node_name"="Species"
                             mean(biomass.g, na.rm = TRUE), biomass.g)) #do the average for the rest
 
 
- 
 ## Hover flies
 hov<-nore %>% filter(upper.guild == "11HO") %>% select(upper,upper.guild) %>% 
   unique() %>% mutate(upper = substring(upper, 7)) #list of hover flies
@@ -272,17 +271,40 @@ mass.ot.flw<- mass.ot.flw1 %>% mutate (biomass.g = case_when(node_name == "Braco
 
 
 
+
+## -- Butterflies 
+
+
+#manually add the biomass according to bibliiography 
+mass.butt<-species_list %>% filter (taxon =="Butterfly") %>% 
+  mutate (biomass.g = case_when(node_name == "Comma"~ 0.0413,
+                                node_name == "Green-veined White"~ 0.056,
+                                node_name == "Large White"~ 0.128,
+                                node_name == "Gatekeeper"~ 0.040,
+                                node_name == "Common blue"~  0.0118,
+                                node_name == "Meadow Brown"~  0.0215,
+                                node_name == "Painted Lady"~  0.0725,
+                                node_name == "Peacock"~  0.078,
+                                node_name == "Red Admiral"~ 0.0725,
+                                node_name == "Ringlet"~ 0.0376,
+                                node_name == "Small copper"~  0.051,
+                                node_name == "Small Skipper"~  0.061,
+                                node_name == "Large Skipper"~  0.088,
+                                node_name == "Small tortoiseshell"~ 0.136,
+                                node_name == "Small white"~ 0.067,
+                                node_name == "Speckled wood"~ 0.041)) %>% #add manually
+  select (node_id,node_name,taxon,biomass.g)#do the average for the rest
+
+
+
+######## -- Create dry mass final dataset of species providing directly and E(D)S (so there are some NA for some species but they don't provide direct ES)
 full_list<-rbind(mass.leaf.min.par,mass.seed.ins,mass.ins.par,mass.2.par,mass.1.par,
-                 mass.aphid,mass.hov,mass.flea,mass.birds,mass.crop, mass.mam,mass.ot.flw)
- 
-prueba<-full_list %>% group_by(taxon) %>% summarize(mean_mass = mean(biomass.g))
- 
-  check<-mass.ot.flw %>% filter(!is.na(biomass.g))
+                 mass.aphid,mass.hov,mass.bees,mass.flea,mass.birds,mass.crop, mass.mam,mass.ot.flw,mass.butt) %>% 
+            select(node_id,biomass.g)
 
+mass.species.list<-species_list %>% left_join(full_list,by="node_id")
 
-### --  Merge all trophic groups together (use with node_id instead of node_name because
-#I had to modify it to look for biomass)
-
+#write.csv(mass.species.list,"Data/biomass.csv", row.names= FALSE)
 
 
 

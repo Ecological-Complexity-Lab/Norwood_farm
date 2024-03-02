@@ -66,16 +66,23 @@ nore_names<- nore_2%>% mutate(habitat = case_when(habitat == "P"~ "PP",#typing e
 ## Keep just 02FV and 12BF as pollinator trophic groups (02FV already contains rhe guild 15FV, 11HO and 10BE) 
 nore_flowervis<-nore_names %>%   filter(!(upper.guild == "15FV" |
                                                      upper.guild == "11HO" |
-                                                     upper.guild == "10BE"))
+                                                     upper.guild == "10BE")) 
+
+
+#remove duplicate rows containing butterflies in 02fv
+list.butt.flw<- c("02FV.Maniola jurtina","02FV.Pieris brassicae","02FV.Polyommatus icarus",
+                  "02FV.Pyronia tithonus") #list of butt classified as flw visitor
+
+nore_flowervis_fin<-nore_flowervis %>%   filter(!(upper %in%list.butt.flw))#remove butterlies
 
 
 
 ## Rearrange bird abundances according to the original paper
 
-birds_WD_RG<-nore_flowervis %>% filter(upper.guild == "08BI", habitat =="RG" |
+birds_WD_RG<-nore_flowervis_fin %>% filter(upper.guild == "08BI", habitat =="RG" |
                                          habitat == "WD")  #abundances birds in WD and RG
 
-birds_rest<-nore_flowervis %>% filter(upper.guild == "08BI", habitat =="all") #Birds move widely over the landscape, and the habitats in which they were mostly observed (e.g. hedgerows) were often not the habitats in which they were feeding, so we pooled them together as abundance of all habitats (RG and WD as exception)
+birds_rest<-nore_flowervis_fin %>% filter(upper.guild == "08BI", habitat =="all") #Birds move widely over the landscape, and the habitats in which they were mostly observed (e.g. hedgerows) were often not the habitats in which they were feeding, so we pooled them together as abundance of all habitats (RG and WD as exception)
 
 #abundances of birds in the rest of the habitats
 birds_CP<-birds_rest %>% mutate(habitat = ifelse(habitat =="all", "CP"))
@@ -94,7 +101,7 @@ birds_abundances<-rbind(birds_WD_RG,birds_CP,birds_SF,birds_GM,birds_LP,birds_LU
 
 
 # Add bird abundances
-nore_without_bird<- nore_flowervis %>% filter (!(upper.guild== "08BI")) #remove old data of birds
+nore_without_bird<- nore_flowervis_fin %>% filter (!(upper.guild== "08BI")) #remove old data of birds
 nore_to_abundances<-rbind (nore_without_bird,birds_abundances)
 
 
@@ -163,17 +170,17 @@ nodes_2<- nodes_1%>% cbind(node_id = 1:nrow(nodes_1))
 #trophic groups
 plants = 1:93
 crops = 94:99
-flw_vis = 100:340
-aphid = 341:368
-pri_par = 369:379
-sec_par = 380:386
-leaf_par = 387:479
-seed_ins = 480:498
-seed_bird = 499:510
-seed_rod = 511:514
-butt = 515:530
-seed_ins_par = 531:547
-rod_par = 548:555
+flw_vis = 100:336
+aphid = 337:364
+pri_par = 365:375
+sec_par = 376:382
+leaf_par = 383:475
+seed_ins = 476:494
+seed_bird = 495:506
+seed_rod = 507:510
+butt = 511:526
+seed_ins_par = 527:543
+rod_par = 544:551
 
 nodes<-nodes_2 %>% mutate(taxon = case_when(
   node_id %in% plants  ~ "Plant",

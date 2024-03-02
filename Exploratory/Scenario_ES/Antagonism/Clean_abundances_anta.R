@@ -71,6 +71,8 @@ nore_names<- nore_2%>% mutate(habitat = case_when(habitat == "P"~ "PP",#typing e
 
 #### KEEP THIS IF WE WANT TO SEPARATE POLLINATORS (in that case we should change the direct ES assignation),
 
+##SACAR TAMBIEN MARIPOSAS!!
+
 ## Separate "flower visitors" group (02FV) based on the potential of species as pollinators:
 # 1) 02FV: (hoverflies, bees, bumblembees) . 2) 15FVOTHER: (beetles,etc)
 

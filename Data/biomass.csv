@@ -1,0 +1,552 @@
+"node_id","node_name","taxon","biomass.g"
+1,"Ash","Plant",NA
+2,"Autumn Hawkbit","Plant",NA
+3,"Bindweed sp","Plant",NA
+4,"Black Bindweed","Plant",NA
+5,"Blackthorn","Plant",NA
+6,"Bluebell","Plant",NA
+7,"Bramble","Plant",NA
+8,"Bristly Oxtongue","Plant",NA
+9,"Bugle","Plant",NA
+10,"Bush Vetch","Plant",NA
+11,"Charlock","Plant",NA
+12,"Chenopodium sp","Plant",NA
+13,"Cleavers","Plant",NA
+14,"Clover sp","Plant",NA
+15,"Common Bird's-foot-trefoil","Plant",NA
+16,"Common Chickweed","Plant",NA
+17,"Common Field Speedwell","Plant",NA
+18,"Common Fleabane","Plant",NA
+19,"Common Mouse-ear","Plant",NA
+20,"Common Poppy","Plant",NA
+21,"Common Vetch","Plant",NA
+22,"Corn Mint","Plant",NA
+23,"Corn Sowthistle","Plant",NA
+24,"Corn Spurrey","Plant",NA
+25,"Cow Parsley","Plant",NA
+26,"Creeping Buttercup","Plant",NA
+27,"Creeping Cinquefoil","Plant",NA
+28,"Creeping Thistle","Plant",NA
+29,"Cuckooflower","Plant",NA
+30,"Cut-leaved Crane's-bill","Plant",NA
+31,"Daisy","Plant",NA
+32,"Dandelion","Plant",NA
+33,"Dock sp","Plant",NA
+34,"Dog's Mercury","Plant",NA
+35,"Dogwood","Plant",NA
+36,"Elder","Plant",NA
+37,"Elm sp","Plant",NA
+38,"Field Forget-me-not","Plant",NA
+39,"Field Madder","Plant",NA
+40,"Field Maple","Plant",NA
+41,"Field Pansy","Plant",NA
+42,"Garlic Mustard","Plant",NA
+43,"Germander Speedwell","Plant",NA
+44,"Grass sp","Plant",NA
+45,"Ground Ivy","Plant",NA
+46,"Groundsel","Plant",NA
+47,"Hairy Tare","Plant",NA
+48,"Hawkish Complex sp","Plant",NA
+49,"Hawthorn","Plant",NA
+50,"Hazel","Plant",NA
+51,"Hedge Woundwort","Plant",NA
+52,"Herb Bennet","Plant",NA
+53,"Herb Robert","Plant",NA
+54,"Hogweed","Plant",NA
+55,"Honeysuckle","Plant",NA
+56,"Ivy-leaved Speedwell","Plant",NA
+57,"Knotgrass sp","Plant",NA
+58,"Lesser Burdock","Plant",NA
+59,"Lesser Stitchwort","Plant",NA
+60,"Lesser Trefoil","Plant",NA
+61,"Mayweed sp","Plant",NA
+62,"Meadow Buttercup","Plant",NA
+63,"Nipplewort","Plant",NA
+64,"Oak","Plant",NA
+65,"Oil Seed Rape","Plant",NA
+66,"Parsley Piert","Plant",NA
+67,"Persicaria sp","Plant",NA
+68,"Pineappleweed","Plant",NA
+69,"Plantain sp","Plant",NA
+70,"Ragwort","Plant",NA
+71,"Red Campion","Plant",NA
+72,"Red Dead-nettle","Plant",NA
+73,"Rose sp","Plant",NA
+74,"Rough Chervil","Plant",NA
+75,"Selfheal","Plant",NA
+76,"Shepherd's Purse","Plant",NA
+77,"Sow-thistle sp","Plant",NA
+78,"Spear Thistle","Plant",NA
+79,"Spindle","Plant",NA
+80,"Stinging Nettle","Plant",NA
+81,"Sun Spurge","Plant",NA
+82,"Sycamore","Plant",NA
+83,"Teasel","Plant",NA
+84,"Traveller's Joy","Plant",NA
+85,"Upright Hedge-parsley","Plant",NA
+86,"Wall Speedwell","Plant",NA
+87,"Water Figwort","Plant",NA
+88,"Wayfaring-tree","Plant",NA
+89,"White Dead-nettle","Plant",NA
+90,"Wild Privet","Plant",NA
+91,"Willowherb sp","Plant",NA
+92,"Woodruff","Plant",NA
+93,"Yellow Archangel","Plant",NA
+94," Barley","Crop",200
+95," Lucerne","Crop",500
+96," Oat spring","Crop",300
+97," Oat winter","Crop",300
+98," Triticale","Crop",500
+99," Wheat","Crop",250
+100,"Agriotes pallidulus","Flower-visiting",0.01966667
+101,"Alysiinae sp","Flower-visiting",0.00440259571428571
+102,"Anapausis soluta","Flower-visiting",0.00440259571428571
+103,"Anaspis maculata","Flower-visiting",0.00440259571428571
+104,"Anaspis pulicaria","Flower-visiting",0.00440259571428571
+105,"Andrena dorsata","Flower-visiting",0.343
+106,"Andrena minutula","Flower-visiting",0.1635
+107,"Anthocomus fasciatus","Flower-visiting",0.00440259571428571
+108,"Anthomyia liturata","Flower-visiting",0.00440259571428571
+109,"Anthomyia pluvialis","Flower-visiting",0.00440259571428571
+110,"Anthomyza gracilis","Flower-visiting",0.00440259571428571
+111,"Anthophila fabriciana","Flower-visiting",0.00440259571428571
+112,"Apis mellifera","Flower-visiting",0.50625
+113,"Aprostocetus sp","Flower-visiting",8e-05
+114,"Asecodes coronis","Flower-visiting",0.00440259571428571
+115,"Authonomus rubi","Flower-visiting",0.00440259571428571
+116,"Azelia cilipes","Flower-visiting",0.00440259571428571
+117,"Azelia zetterstedtii","Flower-visiting",0.00440259571428571
+118,"Baccha elongate","Flower-visiting",0.77820202020202
+119,"Bellardia pandia","Flower-visiting",0.00440259571428571
+120,"Bicellaria vana","Flower-visiting",0.00440259571428571
+121,"Bicellaria varia","Flower-visiting",0.00440259571428571
+122,"Bombus hortorum","Flower-visiting",0.656666666666667
+123,"Bombus lapidarius","Flower-visiting",0.615121951219512
+124,"Bombus pascuorum","Flower-visiting",0.673046511627907
+125,"Bombus pratorum","Flower-visiting",0.55324
+126,"Bombus terrestris","Flower-visiting",0.738241379310345
+127,"Bombus vestalis","Flower-visiting",0.675333333333333
+128,"Botanophila fugax","Flower-visiting",0.00440259571428571
+129,"Botanophila striolata","Flower-visiting",0.00440259571428571
+130,"Brachypterus urticae","Flower-visiting",0.00440259571428571
+131,"Bracon sp","Flower-visiting",0.0025
+132,"Bruchus rufimanus","Flower-visiting",0.00440259571428571
+133,"Byturus tomentosus","Flower-visiting",0.00440259571428571
+134,"Calliphora vicina","Flower-visiting",0.00440259571428571
+135,"Calliphora vomitoria","Flower-visiting",0.00440259571428571
+136,"Cantharis decipiens","Flower-visiting",0.00440259571428571
+137,"Cantharis lateralis","Flower-visiting",0.00440259571428571
+138,"Cantharis nigra","Flower-visiting",0.00440259571428571
+139,"Cecidomyiidae sp","Flower-visiting",0.00440259571428571
+140,"Centrorhynchus obstrictus","Flower-visiting",0.00440259571428571
+141,"Cephus pygmaeus","Flower-visiting",0.00440259571428571
+142,"Ceraphron trissacantha","Flower-visiting",0.00440259571428571
+143,"Cetema elongata","Flower-visiting",0.00440259571428571
+144,"Cheilosia albitarsis","Flower-visiting",0.77820202020202
+145,"Cheilosia honesta","Flower-visiting",0.77820202020202
+146,"Cheilosia illustrata","Flower-visiting",0.77820202020202
+147,"Cheilosia pagana","Flower-visiting",0.77820202020202
+148,"Cheilosia proxima","Flower-visiting",0.77820202020202
+149,"Cheilosia proxima group sp  D","Flower-visiting",NA
+150,"Chloromyia formosa","Flower-visiting",0.00440259571428571
+151,"Chlorops hypostigma","Flower-visiting",0.00440259571428571
+152,"Chlorops pumilionis","Flower-visiting",0.00440259571428571
+153,"Chorebus sp","Flower-visiting",0.00440259571428571
+154,"Chorebus sp nov","Flower-visiting",0.00440259571428571
+155,"Chromatomyia nigra","Flower-visiting",0.00440259571428571
+156,"Chrysopilus asiliformis","Flower-visiting",0.00440259571428571
+157,"Chrysotoxum bicinctum","Flower-visiting",0.678
+158,"Chrysotus sp","Flower-visiting",0.00440259571428571
+159,"Coccinella septempunctata","Flower-visiting",0.00440259571428571
+160,"Coenosia tigrina","Flower-visiting",0.00440259571428571
+161,"Copromyza similes","Flower-visiting",0.00440259571428571
+162,"Crossopalpus sp","Flower-visiting",0.00440259571428571
+163,"Dacnusa (maculipes)","Flower-visiting",0.00440259571428571
+164,"Delia sp","Flower-visiting",0.00440259571428571
+165,"Demetrias atricapillus","Flower-visiting",0.00440259571428571
+166,"Desmometopa sp","Flower-visiting",0.00440259571428571
+167,"Dicraeus tibialis","Flower-visiting",0.00440259571428571
+168,"Dicraeus vagans","Flower-visiting",0.00440259571428571
+169,"Dilophus febrilis","Flower-visiting",0.00440259571428571
+170,"Diospilus capito","Flower-visiting",0.00440259571428571
+171,"Diplonevra sp","Flower-visiting",0.00440259571428571
+172,"Dolerus haematodes","Flower-visiting",0.00440259571428571
+173,"Dolichopus festivus","Flower-visiting",0.00440259571428571
+174,"Dolichopus ungulatus","Flower-visiting",0.00440259571428571
+175,"Ectemnius cephalotes","Flower-visiting",0.00440259571428571
+176,"Empis (Xanthempis) sp","Flower-visiting",0.00440259571428571
+177,"Empis caudatula","Flower-visiting",0.00440259571428571
+178,"Empis chioptera","Flower-visiting",0.00440259571428571
+179,"Empis livida","Flower-visiting",0.00440259571428571
+180,"Empis nigripes","Flower-visiting",0.00440259571428571
+181,"Empis nuntia","Flower-visiting",0.00440259571428571
+182,"Endasys sp","Flower-visiting",0.00440259571428571
+183,"Episyrphus balteatus","Flower-visiting",0.6738
+184,"Epuraea melanocephala","Flower-visiting",0.00440259571428571
+185,"Eriothrix rufomaculata","Flower-visiting",0.00440259571428571
+186,"Eristalis arbustorum","Flower-visiting",0.993111111111111
+187,"Eristalis pertinax","Flower-visiting",1.007
+188,"Eristalis tenax","Flower-visiting",0.876363636363636
+189,"Eudasyphora cyanella","Flower-visiting",0.00440259571428571
+190,"Eupeodes corollae","Flower-visiting",0.7942
+191,"Eupeodes luniger","Flower-visiting",0.28775
+192,"Fannia serena","Flower-visiting",0.00440259571428571
+193,"Fannia sp","Flower-visiting",0.00440259571428571
+194,"Formicidae A","Flower-visiting",0.00440259571428571
+195,"Formicidae B","Flower-visiting",0.00440259571428571
+196,"Gastrophysa viridular","Flower-visiting",0.00440259571428571
+197,"Geomyza tripunctata","Flower-visiting",0.00440259571428571
+198,"Glyphipterix simpliciella","Flower-visiting",0.00440259571428571
+199,"Grammoptera ruficornis","Flower-visiting",0.005143
+200,"Halticoptera sp","Flower-visiting",0.00440259571428571
+201,"Helina sp","Flower-visiting",0.00440259571428571
+202,"Helophilus pendulus","Flower-visiting",1.01766666666667
+203,"Helophilus trivittatus","Flower-visiting",1.03
+204,"Hemicrepidius hirtus","Flower-visiting",0.00440259571428571
+205,"Hercostomus parvilamellatus","Flower-visiting",0.00440259571428571
+206,"Herina longistylata","Flower-visiting",0.00440259571428571
+207,"Heteronychia vagans","Flower-visiting",0.00440259571428571
+208,"Hexacola hexatoma","Flower-visiting",0.00440259571428571
+209,"Hydrellia griseola","Flower-visiting",0.00440259571428571
+210,"Hydrellia maura","Flower-visiting",0.00440259571428571
+211,"Hylaeus communis","Flower-visiting",0.229
+212,"Hylaeus hyalinatus","Flower-visiting",0.515339984215776
+213,"Hylemya urbica/variata","Flower-visiting",0.00440259571428571
+214,"Hylemya vagans","Flower-visiting",0.00440259571428571
+215,"Hylemya variata","Flower-visiting",0.00440259571428571
+216,"Ichneumonidae","Flower-visiting",0.00440259571428571
+217,"Kleidotoma tetratoma","Flower-visiting",0.00440259571428571
+218,"Kuzinia sp","Flower-visiting",0.00440259571428571
+219,"Lasioglossum sp","Flower-visiting",0.515339984215776
+220,"Limnia unguicornis","Flower-visiting",0.00440259571428571
+221,"Limnophora triangula","Flower-visiting",0.00440259571428571
+222,"Lonchoptera lutea","Flower-visiting",0.00440259571428571
+223,"Longitarsus sp","Flower-visiting",0.00440259571428571
+224,"Lotophila atra","Flower-visiting",0.00440259571428571
+225,"Lucilia caesar","Flower-visiting",0.00440259571428571
+226,"Lucilia richardsi","Flower-visiting",0.00440259571428571
+227,"Lucilia sericata","Flower-visiting",0.00440259571428571
+228,"Malachius bipustulatus","Flower-visiting",0.00440259571428571
+229,"Malthodes minimus","Flower-visiting",0.00440259571428571
+230,"Megaselia sp","Flower-visiting",0.00440259571428571
+231,"Melangyna sp","Flower-visiting",0.77820202020202
+232,"Melanostoma mellinum","Flower-visiting",0.740583333333333
+233,"Melanostoma scalare","Flower-visiting",0.911272727272727
+234,"Melanostoma sp","Flower-visiting",0.77820202020202
+235,"Melinda viridicyanea","Flower-visiting",0.00440259571428571
+236,"Metasyrphus luniger","Flower-visiting",0.77820202020202
+237,"Metopina sp","Flower-visiting",0.00440259571428571
+238,"Microchrysa polita","Flower-visiting",0.00440259571428571
+239,"Microphor anomalus","Flower-visiting",0.00440259571428571
+240,"Micropterix calthella","Flower-visiting",0.00440259571428571
+241,"Miscogaster maculata","Flower-visiting",0.00440259571428571
+242,"Musca autumnalis","Flower-visiting",0.00440259571428571
+243,"Neoascia podagrica","Flower-visiting",0.77820202020202
+244,"Neomyia cornicina","Flower-visiting",0.00440259571428571
+245,"Neomyia viridescens","Flower-visiting",0.00440259571428571
+246,"Norellisoma spinimanum","Flower-visiting",0.00440259571428571
+247,"Oedemera lurida","Flower-visiting",0.00440259571428571
+248,"Oedemera nobilis","Flower-visiting",0.00440259571428571
+249,"Olibrus aeneus","Flower-visiting",0.000251
+250,"Omphalapion hookerorum","Flower-visiting",0.00440259571428571
+251,"Ophiomyia sp","Flower-visiting",0.00440259571428571
+252,"Opomyza germinationis","Flower-visiting",0.00440259571428571
+253,"Opomyza petrei","Flower-visiting",0.00440259571428571
+254,"Oscinella cariciphila","Flower-visiting",0.00440259571428571
+255,"Oscinella frit","Flower-visiting",0.00440259571428571
+256,"Oscinella hortensis","Flower-visiting",0.00440259571428571
+257,"Oscinella nigerrima","Flower-visiting",0.00440259571428571
+258,"Oscinella nitidissima","Flower-visiting",0.00440259571428571
+259,"Pegoplata aestiva or Adia cinerella","Flower-visiting",0.00440259571428571
+260,"Pegoplata depilis","Flower-visiting",0.00440259571428571
+261,"Pegoplata infirma","Flower-visiting",0.00440259571428571
+262,"Phaenocarpa (ruficeps)","Flower-visiting",0.00440259571428571
+263,"Phaonia lasiophthalma","Flower-visiting",0.00440259571428571
+264,"Phasia obesa","Flower-visiting",0.00440259571428571
+265,"Phasia pusilla","Flower-visiting",0.00440259571428571
+266,"Phradis morionellus","Flower-visiting",0.00440259571428571
+267,"Phyllobius virideaeris","Flower-visiting",0.00440259571428571
+268,"Phyllonorycter sp","Flower-visiting",0.00440259571428571
+269,"Phytomyza cineracea","Flower-visiting",0.00440259571428571
+270,"Phytomyza notata","Flower-visiting",0.00440259571428571
+271,"Pierretia sp","Flower-visiting",0.00440259571428571
+272,"Pimpla contemplator","Flower-visiting",0.00440259571428571
+273,"Pionini sp","Flower-visiting",0.00440259571428571
+274,"Pipiza noctiluca","Flower-visiting",0.972
+275,"Plagiatrochus sp","Flower-visiting",0.00440259571428571
+276,"Platycheirus albimanus","Flower-visiting",0.444111111111111
+277,"Platycheirus clypeatus","Flower-visiting",0.5485
+278,"Platycheirus manicatus","Flower-visiting",0.77820202020202
+279,"Platycheirus nielseni","Flower-visiting",0.77820202020202
+280,"Platycheirus peltatus","Flower-visiting",0.77820202020202
+281,"Platycheirus scutatus","Flower-visiting",0.77820202020202
+282,"Platycheirus sp","Flower-visiting",0.77820202020202
+283,"Platypalpus sp","Flower-visiting",0.00440259571428571
+284,"Pollenia amentaria","Flower-visiting",0.00440259571428571
+285,"Pollenia pediculata","Flower-visiting",0.00440259571428571
+286,"Pollenia rudis","Flower-visiting",0.00440259571428571
+287,"Psallinae sp","Flower-visiting",0.00440259571428571
+288,"Psocoptera sp","Flower-visiting",0.00440259571428571
+289,"Psychodidae sp","Flower-visiting",0.00440259571428571
+290,"Psyllidae sp","Flower-visiting",0.00440259571428571
+291,"Pteromalidae","Flower-visiting",0.00440259571428571
+292,"Rhagio notatus","Flower-visiting",0.00440259571428571
+293,"Rhagio tringarius","Flower-visiting",0.00440259571428571
+294,"Rhagonycha fulva","Flower-visiting",0.0015275
+295,"Rhingia campestris","Flower-visiting",0.957666666666667
+296,"Rhinophora lepida","Flower-visiting",0.00440259571428571
+297,"Rhoptromeris heptoma","Flower-visiting",0.00440259571428571
+298,"Rhoptromeris rufiventris","Flower-visiting",0.00440259571428571
+299,"Saltella sphondylii","Flower-visiting",0.00440259571428571
+300,"Sarcophaga carnaria","Flower-visiting",0.00440259571428571
+301,"Scaptomyza flava","Flower-visiting",0.00440259571428571
+302,"Scaptomyza pallida","Flower-visiting",0.00440259571428571
+303,"Scathophaga stercoraria","Flower-visiting",0.00440259571428571
+304,"Scatopsidae sp","Flower-visiting",0.00440259571428571
+305,"Sciaridae sp","Flower-visiting",0.00440259571428571
+306,"Sepsis cynipsea or neocynipsea","Flower-visiting",0.00440259571428571
+307,"Sepsis flavimana","Flower-visiting",0.00440259571428571
+308,"Sepsis fulgens","Flower-visiting",0.00440259571428571
+309,"Sepsis orthocnemis","Flower-visiting",0.00440259571428571
+310,"Sepsis violacea","Flower-visiting",0.00440259571428571
+311,"Sicus ferrugineus","Flower-visiting",0.00440259571428571
+312,"Simulium sp","Flower-visiting",0.00440259571428571
+313,"Siphona geniculata","Flower-visiting",0.00440259571428571
+314,"Sitona puncticollis","Flower-visiting",0.00165
+315,"Sphaerophoria menthastri","Flower-visiting",0.77820202020202
+316,"Sphaerophoria rueppellii","Flower-visiting",0.77820202020202
+317,"Sphaerophoria scripta","Flower-visiting",0.706444444444444
+318,"Sphaerophoria sp","Flower-visiting",0.77820202020202
+319,"Stenodiplosis sp","Flower-visiting",0.00440259571428571
+320,"Stenomalina sp","Flower-visiting",0.00440259571428571
+321,"Sussaba cognata","Flower-visiting",0.00440259571428571
+322,"Syritta pipiens","Flower-visiting",0.861416666666667
+323,"Syrphus ribesii","Flower-visiting",0.50775
+324,"Tenthredopsis nassata","Flower-visiting",0.00440259571428571
+325,"Tersilochus sp","Flower-visiting",0.00440259571428571
+326,"Tetramesa sp","Flower-visiting",0.00440259571428571
+327,"Tetrastichinae sp","Flower-visiting",0.00440259571428571
+328,"Thaumatomyia glabra","Flower-visiting",0.00440259571428571
+329,"Theroscopus sp","Flower-visiting",0.00440259571428571
+330,"Tiphia minuta","Flower-visiting",0.00440259571428571
+331,"Torymus sp","Flower-visiting",0.00440259571428571
+332,"Tricimba cincta","Flower-visiting",0.00440259571428571
+333,"Triphleba sp","Flower-visiting",0.00440259571428571
+334,"Trybliographa erythrocera","Flower-visiting",0.00440259571428571
+335,"Tytthaspis sedecimpunctata","Flower-visiting",0.00440259571428571
+336,"Volucella bombylans","Flower-visiting",0.77820202020202
+337,"Acyrthosiphon pisum","Aphid",0.0008623
+338,"Aphid species ","Aphid",0.0014099
+339,"Aphis fabae","Aphid",0.0014099
+340,"Aphis galiiscabri","Aphid",0.0014099
+341,"Aphis rumicis","Aphid",0.0014099
+342,"Aphis urticae","Aphid",0.0014099
+343,"Brachycaudus helichrysii","Aphid",0.0014099
+344,"Capitophorus elaeagnii","Aphid",0.0014099
+345,"Cavariella aegopodii","Aphid",0.0014099
+346,"Cryptomyzus korschelti","Aphid",0.0014099
+347,"Dysaphis species ","Aphid",0.0014099
+348,"Hyperomyzus lactucae","Aphid",0.0014099
+349,"Lipaphys erysimi","Aphid",0.0014099
+350,"Macrosiphum funestum","Aphid",0.0014099
+351,"Metopolophium dihrodum","Aphid",0.0014099
+352,"Microlophium carnosum","Aphid",0.0014099
+353,"Myzocallis coryli","Aphid",0.0014099
+354,"Myzus persicae","Aphid",0.0002042
+355,"Nasonvoia ribisnigri","Aphid",0.0014099
+356,"Phorodon humuli","Aphid",0.0014099
+357,"Sipha maydis","Aphid",0.0014099
+358,"Sitobion avenae","Aphid",0.0031632
+359,"Sitobion fragariae","Aphid",0.0014099
+360,"Therioaphis trifoli","Aphid",0.0014099
+361,"Tubaphis ranunculina","Aphid",0.0014099
+362,"Uroleucon aeneum","Aphid",0.0014099
+363,"Uroleucon cirsii","Aphid",0.0014099
+364,"Uroleucon sonchi","Aphid",0.0014099
+365,"Aphidius ervi","Primary aphid parasitoid",0.000116
+366,"Aphidius funebris","Primary aphid parasitoid",0.000385666666666667
+367,"Aphidius matricariae","Primary aphid parasitoid",0.00088
+368,"Aphidius picipes","Primary aphid parasitoid",0.000385666666666667
+369,"Aphidius rhopalosiphi","Primary aphid parasitoid",0.000161
+370,"Ephedrus plagiator","Primary aphid parasitoid",0.000385666666666667
+371,"Praon dorsale","Primary aphid parasitoid",0.000385666666666667
+372,"Praon exoletum","Primary aphid parasitoid",0.000385666666666667
+373,"Praon sp nr flavinode","Primary aphid parasitoid",0.000385666666666667
+374,"Praon volucre","Primary aphid parasitoid",0.000385666666666667
+375,"Trioxys B","Primary aphid parasitoid",0.000385666666666667
+376,"Alloxysta victrix","Secondary aphid parasitoid",5.86e-05
+377,"Asaphes suspensus","Secondary aphid parasitoid",7.44e-05
+378,"Asaphes vulgaris","Secondary aphid parasitoid",7.44e-05
+379,"Coruna clavata","Secondary aphid parasitoid",7.44e-05
+380,"Dendrocerus aphidum","Secondary aphid parasitoid",7.44e-05
+381,"Dendrocerus carpenteri","Secondary aphid parasitoid",9.02e-05
+382,"Pachyneuron sp","Secondary aphid parasitoid",7.44e-05
+383,"Achrysocharoides acerianus","Leaf-miner parasitoid",0.003286967
+384,"Achrysocharoides atys","Leaf-miner parasitoid",0.003286967
+385,"Achrysocharoides butus","Leaf-miner parasitoid",0.003286967
+386,"Achrysocharoides latreillei","Leaf-miner parasitoid",0.003286967
+387,"Adelius sp","Leaf-miner parasitoid",0.003286967
+388,"Adelurola florimela","Leaf-miner parasitoid",0.003286967
+389,"Alysiinae sp","Leaf-miner parasitoid",0.003286967
+390,"Anagrus sp A","Leaf-miner parasitoid",2.88e-05
+391,"Anagrus sp B","Leaf-miner parasitoid",2.88e-05
+392,"Anagrus sp C","Leaf-miner parasitoid",2.88e-05
+393,"Apanteles circumscriptus","Leaf-miner parasitoid",0.0089
+394,"Aphanogmus microneurus","Leaf-miner parasitoid",0.003286967
+395,"Aphanogmus sp","Leaf-miner parasitoid",0.003286967
+396,"Apodesmia A","Leaf-miner parasitoid",0.003286967
+397,"Apodesmia curvata","Leaf-miner parasitoid",0.003286967
+398,"Apodesmia irregularis","Leaf-miner parasitoid",0.003286967
+399,"Apodesmia ocellata","Leaf-miner parasitoid",0.003286967
+400,"Apodesmia rufipes","Leaf-miner parasitoid",0.003286967
+401,"Apodesmia similis","Leaf-miner parasitoid",0.003286967
+402,"Asaphes suspensus","Leaf-miner parasitoid",9.27e-06
+403,"Ascogaster varipes","Leaf-miner parasitoid",0.003286967
+404,"Bracon sp","Leaf-miner parasitoid",0.0025
+405,"Campoplex sp","Leaf-miner parasitoid",0.003286967
+406,"Chelonus scabrosus","Leaf-miner parasitoid",0.0069
+407,"Chelonus sp","Leaf-miner parasitoid",0.0069
+408,"Chelonus sp aff rimatus","Leaf-miner parasitoid",0.0069
+409,"Chorebus A","Leaf-miner parasitoid",0.003286967
+410,"Chorebus amasis","Leaf-miner parasitoid",0.003286967
+411,"Chorebus aphantus","Leaf-miner parasitoid",0.003286967
+412,"Chorebus B","Leaf-miner parasitoid",0.003286967
+413,"Chorebus C","Leaf-miner parasitoid",0.003286967
+414,"Chorebus E","Leaf-miner parasitoid",0.003286967
+415,"Chorebus fallaciosae","Leaf-miner parasitoid",0.003286967
+416,"Chorebus lateralis","Leaf-miner parasitoid",0.003286967
+417,"Chorebus leptogaster","Leaf-miner parasitoid",0.003286967
+418,"Chorebus tanis","Leaf-miner parasitoid",0.003286967
+419,"Chrysocharis chilo","Leaf-miner parasitoid",0.003286967
+420,"Chrysocharis laomedon","Leaf-miner parasitoid",0.003286967
+421,"Chrysocharis orbicularis","Leaf-miner parasitoid",0.003286967
+422,"Chrysocharis pentheus","Leaf-miner parasitoid",0.003286967
+423,"Chrysocharis polyzo","Leaf-miner parasitoid",0.003286967
+424,"Chrysocharis prodice","Leaf-miner parasitoid",0.003286967
+425,"Chrysocharis pubicornis","Leaf-miner parasitoid",0.003286967
+426,"Chrysocharis viridis","Leaf-miner parasitoid",0.003286967
+427,"Cirrospilus diallus","Leaf-miner parasitoid",0.003286967
+428,"Cirrospilus lyncus","Leaf-miner parasitoid",0.003286967
+429,"Cirrospilus vittatus","Leaf-miner parasitoid",0.003286967
+430,"Colastes braconius","Leaf-miner parasitoid",0.003286967
+431,"Colastes sp aff braconius","Leaf-miner parasitoid",0.003286967
+432,"Coloneura (ate)","Leaf-miner parasitoid",0.003286967
+433,"Cyrtogaster vulgaris","Leaf-miner parasitoid",0.003286967
+434,"Dacnusa adducta","Leaf-miner parasitoid",0.003286967
+435,"Dacnusa areolaris","Leaf-miner parasitoid",0.003286967
+436,"Dacnusa laevipectus","Leaf-miner parasitoid",0.003286967
+437,"Dacnusa macrospila","Leaf-miner parasitoid",0.003286967
+438,"Dacnusa maculipes/confinis","Leaf-miner parasitoid",0.003286967
+439,"Dacnusa tarsalis","Leaf-miner parasitoid",0.003286967
+440,"Dacnusa temula","Leaf-miner parasitoid",0.003286967
+441,"Dapsilarthra rufiventris","Leaf-miner parasitoid",0.003286967
+442,"Desmiostoma parvulum","Leaf-miner parasitoid",0.003286967
+443,"Diadegma crataegi","Leaf-miner parasitoid",0.000674
+444,"Diglyphus chabrias","Leaf-miner parasitoid",0.003286967
+445,"Diglyphus isaea","Leaf-miner parasitoid",0.003286967
+446,"Epiclerus temenus","Leaf-miner parasitoid",0.003286967
+447,"Eulophinae sp","Leaf-miner parasitoid",0.003286967
+448,"Exotela cyclogaster","Leaf-miner parasitoid",0.003286967
+449,"Exotela flavicoxa","Leaf-miner parasitoid",0.003286967
+450,"Exotela gilvipes","Leaf-miner parasitoid",0.003286967
+451,"Exotela spinifer","Leaf-miner parasitoid",0.003286967
+452,"Forsterella sp","Leaf-miner parasitoid",0.003286967
+453,"Gelis anthracinus","Leaf-miner parasitoid",0.003286967
+454,"Gelis bicolor","Leaf-miner parasitoid",0.003286967
+455,"Hemiptarsenus dropion","Leaf-miner parasitoid",0.003286967
+456,"Hemiptarsenus fulvicollis","Leaf-miner parasitoid",0.003286967
+457,"Hemiptarsenus unguicellus","Leaf-miner parasitoid",0.003286967
+458,"Ionympha carne","Leaf-miner parasitoid",0.003286967
+459,"Microgastrinae sp","Leaf-miner parasitoid",0.003286967
+460,"Miscogaster hortensis","Leaf-miner parasitoid",0.003286967
+461,"Miscogaster maculata","Leaf-miner parasitoid",0.003286967
+462,"Opiinae sp","Leaf-miner parasitoid",0.003286967
+463,"Opius s s ","Leaf-miner parasitoid",0.003286967
+464,"Opius s s  lugens","Leaf-miner parasitoid",0.003286967
+465,"Opius sp","Leaf-miner parasitoid",0.003286967
+466,"Pediobius acantha","Leaf-miner parasitoid",0.003286967
+467,"Phaedrotoma exigua","Leaf-miner parasitoid",0.003286967
+468,"Phaedrotoma variegata","Leaf-miner parasitoid",0.003286967
+469,"Pnigalio soemius","Leaf-miner parasitoid",0.003286967
+470,"Seladerma diffine","Leaf-miner parasitoid",0.003286967
+471,"Seladerma tarsale","Leaf-miner parasitoid",0.003286967
+472,"Sympiesis gordius","Leaf-miner parasitoid",0.003286967
+473,"Sympiesis sericeicornis","Leaf-miner parasitoid",0.003286967
+474,"Synopeas rhanis","Leaf-miner parasitoid",0.003286967
+475,"Torymus sp","Leaf-miner parasitoid",0.003286967
+476,"Blastodacna hellerella","Seed-feeding insect",0.0034902
+477,"Bruchidius varius","Seed-feeding insect",0.003
+478,"Bruchophagus gibbus","Seed-feeding insect",0.0034902
+479,"Curtonotus aulicus","Seed-feeding insect",0.0034902
+480,"Olibrus aeneus","Seed-feeding insect",0.000251
+481,"Oxystoma pomonae","Seed-feeding insect",0.0034902
+482,"Protapion apricans","Seed-feeding insect",0.0034902
+483,"Protapion assimile","Seed-feeding insect",0.0034902
+484,"Protapion fulvipes","Seed-feeding insect",0.0034902
+485,"Protapion nigritarse","Seed-feeding insect",0.0034902
+486,"Protapion trifolii","Seed-feeding insect",0.0034902
+487,"Protapion varipes","Seed-feeding insect",0.0034902
+488,"Rhinocyllus conicus","Seed-feeding insect",0.00845
+489,"Sitona lineatus","Seed-feeding insect",0.00165
+490,"Sitona sulcifrons","Seed-feeding insect",0.0034902
+491,"Terellia longicauda","Seed-feeding insect",0.0034902
+492,"Terellia ruficauda","Seed-feeding insect",0.0034902
+493,"Terellia serratulae","Seed-feeding insect",0.0034902
+494,"Urophora stylata","Seed-feeding insect",0.0041
+495,"Alauda arvensis","Seed-feeding bird",37.31
+496,"Alectoris rufa","Seed-feeding bird",527.86
+497,"Carduelis cannabina","Seed-feeding bird",19.53
+498,"Carduelis carduelis","Seed-feeding bird",16
+499,"Carduelis chloris","Seed-feeding bird",26
+500,"Columba palumbus","Seed-feeding bird",490
+501,"Corvus frugilegus","Seed-feeding bird",452.1
+502,"Corvus monedula","Seed-feeding bird",246
+503,"Emberiza citrinella","Seed-feeding bird",29.7
+504,"Fringilla coelebs","Seed-feeding bird",23.81
+505,"Passer domesticus","Seed-feeding bird",26.51
+506,"Streptopelia decaocto","Seed-feeding bird",148.96
+507,"Apodemus flavicollis","Seed-feeding rodent",26.7
+508,"Apodemus sylvaticus","Seed-feeding rodent",30.45
+509,"Micromys minutus","Seed-feeding rodent",6
+510,"Myodes glareolus","Seed-feeding rodent",20.73
+511,"Comma","Butterfly",0.0413
+512,"Common blue","Butterfly",0.0118
+513,"Gatekeeper","Butterfly",0.04
+514,"Green-veined White","Butterfly",0.056
+515,"Large Skipper","Butterfly",0.088
+516,"Large White","Butterfly",0.128
+517,"Meadow Brown","Butterfly",0.0215
+518,"Painted Lady","Butterfly",0.0725
+519,"Peacock","Butterfly",0.078
+520,"Red Admiral","Butterfly",0.0725
+521,"Ringlet","Butterfly",0.0376
+522,"Small copper","Butterfly",0.051
+523,"Small Skipper","Butterfly",0.061
+524,"Small tortoiseshell","Butterfly",0.136
+525,"Small white","Butterfly",0.067
+526,"Speckled wood","Butterfly",0.041
+527,"Aprostocetus sp","Insect seed-feeder parasitoid",8e-05
+528,"Bracon immutator","Insect seed-feeder parasitoid",0.0025
+529,"Bracon osculator","Insect seed-feeder parasitoid",0.0025
+530,"Bracon praecox","Insect seed-feeder parasitoid",0.0025
+531,"Crataepus marbis","Insect seed-feeder parasitoid",0.00306142857142857
+532,"Eurytoma sp A","Insect seed-feeder parasitoid",0.00306142857142857
+533,"Eurytoma sp B","Insect seed-feeder parasitoid",0.00306142857142857
+534,"Mesopolobus incultus","Insect seed-feeder parasitoid",0.00045
+535,"Pterandrophysalis levantina","Insect seed-feeder parasitoid",0.00306142857142857
+536,"Pteromalus albipennis","Insect seed-feeder parasitoid",0.0013
+537,"Pteromalus beryllii","Insect seed-feeder parasitoid",0.00306142857142857
+538,"Pteromalus elevatus","Insect seed-feeder parasitoid",0.0121
+539,"Pteromalus sequester-group","Insect seed-feeder parasitoid",0.00306142857142857
+540,"Spintherus dubius","Insect seed-feeder parasitoid",0.00306142857142857
+541,"Triaspis floricola","Insect seed-feeder parasitoid",0.00306142857142857
+542,"Trichomalus campestris","Insect seed-feeder parasitoid",0.00306142857142857
+543,"Trichomalus rufinus","Insect seed-feeder parasitoid",0.00306142857142857
+544,"Amalaraeus penicilliger mustelae","Rodent ectoparasite",0.000765
+545,"Ctenophthalmus nobilis vulgaris","Rodent ectoparasite",0.000765
+546,"Hystrichopsylla talpae talpae","Rodent ectoparasite",0.000765
+547,"Ixodes trianguliceps","Rodent ectoparasite",0.000765
+548,"Megabothris turbidus","Rodent ectoparasite",0.000765
+549,"Nosopsyllus fasciatus","Rodent ectoparasite",0.000765
+550,"Palaeopsylla minor","Rodent ectoparasite",0.000765
+551,"Palaeopsylla soricis soricis","Rodent ectoparasite",0.000765
