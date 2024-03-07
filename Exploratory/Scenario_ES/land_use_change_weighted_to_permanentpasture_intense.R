@@ -144,23 +144,25 @@ sem_ext_edgelist_no_aggr<- rbind(sem_ext_edgelist_rem,new_habitats_ab_rem)  #joi
 state_node_sem_ext_from<- sem_ext_edgelist_no_aggr %>% select(habitat,node_from,ab_node_from,
                                                         taxon_node_from) %>% 
                         rename("node_id" ="node_from", "abundances" = "ab_node_from",
-                               "taxon" = "taxon_node_from")
+                               "taxon" = "taxon_node_from")%>% 
+  group_by(habitat,node_id) %>% unique() #eliminate duplicate species within each habitat
+
 #node_to
 state_node_sem_ext_to<- sem_ext_edgelist_no_aggr %>% select(habitat,node_to,ab_node_to,
                                                         taxon_node_to) %>% 
   rename("node_id" ="node_to", "abundances" = "ab_node_to",
-         "taxon" = "taxon_node_to")
+         "taxon" = "taxon_node_to")%>% 
+  group_by(habitat,node_id) %>% unique() #eliminate duplicate species within each habitat
 
 
 # final state nodes (calculate abundance and relative abundance of species)
 
-state_node_sem_ext_agg<-rbind(state_node_sem_ext_from, state_node_sem_ext_to) %>% 
-                    unique() %>% select(-habitat) %>% group_by(node_id,taxon) %>% 
-                    mutate(abun = sum(abundances)) %>% distinct(abun) %>% group_by(taxon) %>% 
-                    mutate(tot_ab_taxon = sum(abun)) %>% #total abundance per taxon
-                    group_by(node_id) %>% 
-                mutate(rel_ab=abun/tot_ab_taxon)#rel abundance of species per taxon
-
+state_node_sem_ext_agg<-rbind(state_node_sem_ext_from, state_node_sem_ext_to)%>% ungroup() %>% 
+  select(-habitat) %>% group_by(node_id,taxon) %>% 
+  mutate(abun = sum(abundances)) %>% distinct(abun) %>% group_by(taxon) %>% 
+  mutate(tot_ab_taxon = sum(abun)) %>% #total abundance per taxon
+  group_by(node_id) %>% 
+  mutate(rel_ab=abun/tot_ab_taxon)#rel abundance of species per taxon
 
 
 ## --  Recalculate weight according to the new habitats and abundances
@@ -243,17 +245,21 @@ mod_edgelist_no_aggr<- rbind(mod_edgelist_rem,new_habitats_ab_rem)  #join new ha
 state_node_mod_from<- mod_edgelist_no_aggr %>% select(habitat,node_from,ab_node_from,
                                                               taxon_node_from) %>% 
   rename("node_id" ="node_from", "abundances" = "ab_node_from",
-         "taxon" = "taxon_node_from")
+         "taxon" = "taxon_node_from")%>% 
+  group_by(habitat,node_id) %>% unique() #eliminate duplicate species within each habitat
+
 #node_to
 state_node_mod_to<- mod_edgelist_no_aggr %>% select(habitat,node_to,ab_node_to,
                                                             taxon_node_to) %>% 
   rename("node_id" ="node_to", "abundances" = "ab_node_to",
-         "taxon" = "taxon_node_to")
+         "taxon" = "taxon_node_to")%>% 
+  group_by(habitat,node_id) %>% unique() #eliminate duplicate species within each habitat
+
 
 # final state nodes (calculate abundance and relative abundance of species)
 
-state_node_mod_agg<-rbind(state_node_mod_from, state_node_mod_to) %>% 
-  unique() %>% select(-habitat) %>% group_by(node_id,taxon) %>% 
+state_node_mod_agg<-rbind(state_node_mod_from, state_node_mod_to)%>% ungroup() %>% 
+  select(-habitat) %>% group_by(node_id,taxon) %>% 
   mutate(abun = sum(abundances)) %>% distinct(abun) %>% group_by(taxon) %>% 
   mutate(tot_ab_taxon = sum(abun)) %>% #total abundance per taxon
   group_by(node_id) %>% 
@@ -347,18 +353,22 @@ sem_int_edgelist_no_aggr<- rbind(sem_int_edgelist_rem,new_habitats_ab_rem)  #joi
 state_node_sem_int_from<- sem_int_edgelist_no_aggr %>% select(habitat,node_from,ab_node_from,
                                                       taxon_node_from) %>% 
   rename("node_id" ="node_from", "abundances" = "ab_node_from",
-         "taxon" = "taxon_node_from")
+         "taxon" = "taxon_node_from")%>% 
+  group_by(habitat,node_id) %>% unique() #eliminate duplicate species within each habitat
+
 #node_to
 state_node_sem_int_to<- sem_int_edgelist_no_aggr %>% select(habitat,node_to,ab_node_to,
                                                     taxon_node_to) %>% 
   rename("node_id" ="node_to", "abundances" = "ab_node_to",
-         "taxon" = "taxon_node_to")
+         "taxon" = "taxon_node_to")%>% 
+  group_by(habitat,node_id) %>% unique() #eliminate duplicate species within each habitat
+
 
 
 # final state nodes (calculate abundance and relative abundance of species)
 
-state_node_sem_int_agg<-rbind(state_node_sem_int_from, state_node_sem_int_to) %>% 
-  unique() %>% select(-habitat) %>% group_by(node_id,taxon) %>% 
+state_node_sem_int_agg<-rbind(state_node_sem_int_from, state_node_sem_int_to)%>% ungroup() %>% 
+  select(-habitat) %>% group_by(node_id,taxon) %>% 
   mutate(abun = sum(abundances)) %>% distinct(abun) %>% group_by(taxon) %>% 
   mutate(tot_ab_taxon = sum(abun)) %>% #total abundance per taxon
   group_by(node_id) %>% 
@@ -455,18 +465,22 @@ int_edgelist_no_aggr<- rbind(int_edgelist_rem,new_habitats_ab_rem)  #join new ha
 state_node_int_from<- int_edgelist_no_aggr %>% select(habitat,node_from,ab_node_from,
                                                               taxon_node_from) %>% 
   rename("node_id" ="node_from", "abundances" = "ab_node_from",
-         "taxon" = "taxon_node_from")
+         "taxon" = "taxon_node_from")%>% 
+  group_by(habitat,node_id) %>% unique() #eliminate duplicate species within each habitat
+
 #node_to
 state_node_int_to<- int_edgelist_no_aggr %>% select(habitat,node_to,ab_node_to,
                                                             taxon_node_to) %>% 
   rename("node_id" ="node_to", "abundances" = "ab_node_to",
-         "taxon" = "taxon_node_to")
+         "taxon" = "taxon_node_to")%>% 
+  group_by(habitat,node_id) %>% unique() #eliminate duplicate species within each habitat
+
 
 
 # final state nodes (calculate abundance and relative abundance of species)
 
-state_node_int_agg<-rbind(state_node_int_from, state_node_int_to) %>% 
-  unique() %>% select(-habitat) %>% group_by(node_id,taxon) %>% 
+state_node_int_agg<-rbind(state_node_int_from, state_node_int_to) %>% ungroup() %>% 
+  select(-habitat) %>% group_by(node_id,taxon) %>% 
   mutate(abun = sum(abundances)) %>% distinct(abun) %>% group_by(taxon) %>% 
   mutate(tot_ab_taxon = sum(abun)) %>% #total abundance per taxon
   group_by(node_id) %>% 
@@ -520,20 +534,21 @@ nodes_ES<- right_join(state_nodes_weighted, Norwood_farm$nodes, by = "node_id")%
 
 nodes_ES$management <- factor(nodes_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
 
-## -- Estimate direct E(D)S provision with the abundances (however, we multiply for trophic group's body size when differenr trophic groups provide the same ES (case of crop damage))
+## -- Estimate the amount of direct E(D)S provision per species (weight = abundance * body mass
+
+#upload file with body mass
+body_mass<-read.csv("Data/biomass.csv",header=T)
+
+#add body mass to the dataframe
 direct_ES <- nodes_ES %>% filter (value ==1) %>% 
+  left_join(body_mass,by = "node_id") %>% select(-node_name,-taxon.y) %>% 
+  rename("taxon"="taxon.x", "body_mass" = "biomass.g") %>% 
   mutate (type = "D",
-          body_size =  case_when( #to control ES for body size
-            services != "Crop damage"~ 1,
-            (services == "Crop damage") &
-            (taxon == "Seed-feeding bird"|taxon == "Seed-feeding rodent")~1, #birds and rodents receives a 1 cause they are the biggest producing crop damage 
-            (services == "Crop damage") & (taxon == "Aphid"|
-            taxon == "Seed-feeding insect")~0.5),
-           weight = abun * body_size,
+          weight = abun * body_mass,
           output = case_when( #output + or - according to the service
             services == "Crop damage"~ "-",
-             TRUE ~ "+")) %>% #weight of direct ES provision
-          select(-value) 
+            TRUE ~ "+")) %>% #weight of direct ES provision
+  select(-value) 
 
 
 #write.csv(direct_ES,"Data/Land_use_dir_weighted_PP_intense.csv", row.names= FALSE)
@@ -764,17 +779,17 @@ I_ES<- rbind(Indirect_1hop_m,Indirect_2hop_m)
 
 plants = 1:93
 crops = 94:99
-flow_vis = 100:340
-aphid = 341:368
-pri_par = 369:379
-sec_par = 380:386
-leaf_par = 387:479
-seed_ins = 480:498
-seed_bird = 499:510
-seed_rod = 511:514
-butt = 515:530
-seed_ins_par = 531:547
-rod_par = 548:555
+flow_vis = 100:336
+aphid = 337:364
+pri_par = 365:375
+sec_par = 376:382
+leaf_par = 383:475
+seed_ins = 476:494
+seed_bird = 495:506
+seed_rod = 507:510
+butt = 511:526
+seed_ins_par = 527:543
+rod_par = 544:551
 
 
 ## --1 HOP 
@@ -1054,32 +1069,42 @@ upper_row<- plot_grid(ratio_direct,ratio_indirect ,
                       ncol = 2)
 upper_row
 
-#ggsave("Land_use_output_PP_intense_new.png")
+#ggsave("Land_use_output_PP_intense.png")
 
 
 
 
 
-### Weight according to direct and indirect
+### Prop Amount of direct E(D)S
 
-#direct
+tot_services_emp<-direct_ES %>% filter(management=="E") %>% group_by(management,services) %>% 
+  summarize(tot_empirical = sum(weight))
 
-weight_direct<-direct_ES %>% group_by(management,output) %>% 
-  summarise(weight_mean = mean(weight),
-            weight_se = sd(weight)/ sqrt(n()))
+Prop_weight<-direct_ES %>% group_by(management,services) %>% 
+  summarize(tot = sum(weight)) %>% ungroup() %>%  
+  mutate(Extensive_tot = case_when(
+    services == "Bird watching"~ 823859.6127,
+    services == "Butterfly watching"~ 249.5355,
+    services == "Crop damage"~ 1291466.5674,
+    services == "Crop production"~ 343050.0000,
+    services == "Pest control"~ 39399.6775,
+    services == "Pollination"~ 37052.8931,
+    services == "Seed dispersal"~ 851745.2231),
+    ratio_change = tot / Extensive_tot  #ratio of change: values higher than 1 indicates increasing in the amount of E(D)S
+  )
 
-#barplot
-weights_direct<-weight_direct %>% 
-  ggplot(aes(y=weight_mean, x=management, fill =output)) + 
-  geom_errorbar(
-    aes(ymin =0 , ymax = weight_mean + weight_se),
-    position = position_dodge(width = 0.9),
-    width = 0.25
-  ) +scale_y_continuous(limits = c(0,40000000))+
-  geom_bar(position="dodge", stat="identity")+ ggtitle("Direct provision")+
-  labs(x='Management', y="Weight") +theme_bw()+
-  theme_classic()+
-  theme(panel.grid = element_blank(),
+
+
+prop_weight_direct<- Prop_weight %>% ggplot(aes(x = management, y = ratio_change)) +
+  geom_boxplot(color = "black") +
+  geom_point(position=position_jitterdodge(jitter.width=2, dodge.width = 0.5), 
+             pch=21, aes(fill=factor(services)), size = 4, show.legend = T) +
+  # scale_fill_manual(values = col) + 
+  scale_fill_brewer(palette="PRGn") +
+  scale_y_continuous(name = "Change in the amount of direct E(D)S provided ", limits = c(0, 1.4)) + 
+  scale_x_discrete(name = "Management")+
+  theme(panel.background = element_rect(fill = "white"),
+        panel.grid.major=element_line(color = "gray"),
         panel.border = element_rect(color = "black",fill = NA,size = 1),
         panel.spacing = unit(0.5, "cm", data = NULL),
         axis.text.y = element_text(size=11, color='black'),
@@ -1092,36 +1117,6 @@ weights_direct<-weight_direct %>%
         legend.text = element_text(size = 11),
         legend.position = "bottom")
 
-#indirect
-weight_indirect<-output_ind_ES %>% group_by(management,output) %>% 
-  summarise(weight_mean = mean(weight),
-            weight_se = sd(weight)/ sqrt(n()))
-
-#barplot
-weights_indirect<-weight_indirect %>% 
-  ggplot(aes(y=weight_mean, x=management, fill =output)) + 
-  geom_errorbar(
-    aes(ymin =0 , ymax = weight_mean + weight_se),
-    position = position_dodge(width = 0.9),
-    width = 0.25) +  scale_y_continuous(limits = c(0,0.0125))+
-  geom_bar(position="dodge", stat="identity")+ ggtitle("Indirect effects")+
-  labs(x='Management', y="Weight") +theme_bw()+
-  theme_classic()+
-  theme(panel.grid = element_blank(),
-        panel.border = element_rect(color = "black",fill = NA,size = 1),
-        panel.spacing = unit(0.5, "cm", data = NULL),
-        axis.text.y = element_text(size=11, color='black'),
-        axis.text = element_text(size=15, color='black'),
-        axis.text.x= element_text(size =13), 
-        axis.title = element_text(size=17, color='black'),
-        axis.line = element_blank(),
-        legend.text.align = 0,
-        legend.title =  element_text(size = 13, color = "black"),
-        legend.text = element_text(size = 11),
-        legend.position = "bottom")
-
-upper_row<- plot_grid(weights_direct,weights_indirect ,
-                      ncol = 2)
-upper_row
+prop_weight_direct
 
 #ggsave("Land_use_weight_PP_intense.png")

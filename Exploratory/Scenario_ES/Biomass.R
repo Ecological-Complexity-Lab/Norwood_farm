@@ -222,7 +222,8 @@ mass.bees<- bees.list %>% left_join(poll_list_repo, by = c("node_name"="Species"
 
 ## Hover flies
 hov<-nore %>% filter(upper.guild == "11HO") %>% select(upper,upper.guild) %>% 
-  unique() %>% mutate(upper = substring(upper, 7)) #list of hover flies
+  unique() %>% mutate(upper = substring(upper, 7),
+                      upper = gsub("\\.", " ", upper)) #list of hover flies
 
 hov.list<-species_list %>% filter(node_name%in%hov$upper)#select hover flies from the whole species list
 
