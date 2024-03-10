@@ -493,18 +493,6 @@ lower;upper;weight
 08BIRD.Fringilla coelebs;Crop damage;1
 08BIRD.Passer domesticus;Crop damage;1
 08BIRD.Streptopelia decaocto;Crop damage;1
-08BIRD.Alauda arvensis;Pest control;1
-08BIRD.Alectoris rufa;Pest control;0
-08BIRD.Carduelis cannabina;Pest control;1
-08BIRD.Carduelis carduelis;Pest control;1
-08BIRD.Carduelis chloris;Pest control;0
-08BIRD.Columba palumbus;Pest control;0
-08BIRD.Corvus frugilegus;Pest control;0
-08BIRD.Corvus monedula;Pest control;0
-08BIRD.Emberiza citrinella;Pest control;1
-08BIRD.Fringilla coelebs;Pest control;1
-08BIRD.Passer domesticus;Pest control;1
-08BIRD.Streptopelia decaocto;Pest control;0
 14FLEA.Amalaraeus penicilliger mustelae;Pest control;1
 14FLEA.Ctenophthalmus nobilis vulgaris;Pest control;1
 14FLEA.Hystrichopsylla talpae talpae;Pest control;1
