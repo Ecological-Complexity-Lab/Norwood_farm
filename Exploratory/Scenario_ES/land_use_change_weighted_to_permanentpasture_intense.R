@@ -19,7 +19,8 @@ library(emln)#multilayer package
 library(readr)
 library(ggplot2)
 library(cowplot)
-setwd("D:/Trabajo/Papers/Norwood_Farm/norwood-ecosystem-services-main_Tinio")
+
+setwd("/Users/agustin/Desktop/Papers/Norwood_farm/Norwood_Tinio")
 
 ######### --- Upload multilayer network
 Norwood_farm<-readRDS("Data/Norwood_farm.RData") #read multilayer object
@@ -44,7 +45,7 @@ state_nodes_ab<-Norwood_farm$state_nodes %>% left_join(abundances,
 
 ## Call dataframe of habitats' area
 
-areas<-read.csv("Data/habitatarea.csv", sep =";") %>% 
+areas<-read.csv("Data/habitatarea.csv", sep =,) %>% 
   filter(HabitatCode != "ST") %>% #remove standing trees
   mutate(HabitatCode = case_when(HabitatCode == "C"~ "CP",
                                  HabitatCode == "WU"~ "WD",
@@ -87,7 +88,7 @@ ext_edgelist_aggr<- extensive_edgelist %>% left_join(ab_ext, by = c("node_from" 
 
 ##-- Remove habitats from norwood (the ones to replace) and incorporate abundances and taxon 
 
-sem_ext_edgelist_rem<- Norwood_farm$extended_ids %>% filter(layer_from != 9 & layer_from != 11) %>% 
+sem_ext_edgelist_rem<- Norwood_farm$extended_ids %>% filter(layer_from != 8 & layer_from != 10) %>% 
   select(-layer_to) %>% rename("habitat" = "layer_from") %>%   #links from "WD" and "RG" removed
   left_join(state_nodes_ab, by = c("node_from" = "node_id",
                                    "habitat" = "layer_id")) %>%  #incorporate abundances and taxa of node_from
@@ -102,11 +103,11 @@ sem_ext_edgelist_rem<-sem_ext_edgelist_rem[,c(1,2,5,6,3,7,8,4)]
 ##--  Create new habitats 
 
 # create habitats PP to replace WD and RG
-WD_PP<- Norwood_farm$extended_ids %>% filter(layer_from  == 8) %>% select(-layer_to,-layer_from) %>% 
-   mutate (new_hab = 12, prev_hab = "WD", hab = "PP")#links from "PP" to add as new habitat (12)
+WD_PP<- Norwood_farm$extended_ids %>% filter(layer_from  == 7) %>% select(-layer_to,-layer_from) %>% 
+   mutate (new_hab = 11, prev_hab = "WD", hab = "PP")#links from "PP" to add as new habitat (12)
 
-RG_PP<- Norwood_farm$extended_ids %>% filter(layer_from  == 8) %>% select(-layer_to,-layer_from) %>% 
-  mutate (new_hab = 13, prev_hab = "RG", hab = "PP")#links from "PP" to add as new habitat (13)
+RG_PP<- Norwood_farm$extended_ids %>% filter(layer_from  == 7) %>% select(-layer_to,-layer_from) %>% 
+  mutate (new_hab = 12, prev_hab = "RG", hab = "PP")#links from "PP" to add as new habitat (13)
 
 #calculate changes in the area between PP and the habitat to replace 
 converted_area<-rbind(WD_PP, RG_PP) %>% left_join(habitat_area, 
@@ -119,7 +120,7 @@ converted_area<-rbind(WD_PP, RG_PP) %>% left_join(habitat_area,
 
 
 # add abundances and modify it according to the new area
-abundances_PP<-state_nodes_ab %>% filter(layer_id ==8)#filter species abundances to show just layer PP
+abundances_PP<-state_nodes_ab %>% filter(layer_id ==7)#filter species abundances to show just layer PP
 
 new_habitats_ab<-converted_area %>%  
   left_join(abundances_PP, by = c("node_from" = "node_id")) %>%  #incorporate abundances and taxa of node_from
@@ -188,7 +189,7 @@ sem_ext_edgelist_aggr<-sem_ext_edgelist_no_aggr %>% select(node_from,node_to) %>
 ##-- Remove habitats from norwood (the ones to replace) and incorporate abundances and taxon 
 
 mod_edgelist_rem<- Norwood_farm$extended_ids %>% 
-  filter(layer_from != 9 & layer_from != 11 & layer_from != 5 & layer_from != 6) %>% #links from "WD", "RG", "MH", and "NH" removed
+  filter(layer_from != 8 & layer_from != 10 & layer_from != 4 & layer_from != 5) %>% #links from "WD", "RG", "MH", and "NH" removed
   select(-layer_to) %>% rename("habitat" = "layer_from") %>%   
   left_join(state_nodes_ab, by = c("node_from" = "node_id",
                                    "habitat" = "layer_id")) %>%  #incorporate abundances and taxa of node_from
@@ -203,11 +204,11 @@ mod_edgelist_rem<-mod_edgelist_rem[,c(1,2,5,6,3,7,8,4)]
 #--  Create new habitats 
 
 # create habitats PP to replace WD,RG, MH and NH (WD and RG were created before)
-MH_PP<- Norwood_farm$extended_ids %>% filter(layer_from  == 8) %>% select(-layer_to,-layer_from) %>% 
-  mutate (new_hab = 14, prev_hab = "MH", hab = "PP")#links from "PP" to add as new habitat (14)
+MH_PP<- Norwood_farm$extended_ids %>% filter(layer_from  == 7) %>% select(-layer_to,-layer_from) %>% 
+  mutate (new_hab = 13, prev_hab = "MH", hab = "PP")#links from "PP" to add as new habitat (14)
 
-NH_PP<- Norwood_farm$extended_ids %>% filter(layer_from  == 8) %>% select(-layer_to,-layer_from) %>% 
-  mutate (new_hab = 15, prev_hab = "NH", hab = "PP")#links from "PP" to add as new habitat (15)
+NH_PP<- Norwood_farm$extended_ids %>% filter(layer_from  == 7) %>% select(-layer_to,-layer_from) %>% 
+  mutate (new_hab = 14, prev_hab = "NH", hab = "PP")#links from "PP" to add as new habitat (15)
 
 # calculate changes in the area between PP and the habitat to replace 
 converted_area<-rbind(WD_PP, RG_PP, MH_PP, NH_PP) %>% left_join(habitat_area, 
@@ -220,7 +221,7 @@ converted_area<-rbind(WD_PP, RG_PP, MH_PP, NH_PP) %>% left_join(habitat_area,
 
 
 # add abundances and modify them according to the new area
-abundances_PP<-state_nodes_ab %>% filter(layer_id ==8)#filter species abundances to show just layer PP
+abundances_PP<-state_nodes_ab %>% filter(layer_id ==7)#filter species abundances to show just layer PP
 
 new_habitats_ab<-converted_area %>%  
   left_join(abundances_PP, by = c("node_from" = "node_id")) %>%  #incorporate abundances and taxa of node_from
@@ -289,9 +290,9 @@ mod_edgelist_aggr<-mod_edgelist_no_aggr %>% select(node_from,node_to) %>%
 ##-- Remove habitats from norwood (the ones to replace) and incorporate abundances and taxon 
 
 sem_int_edgelist_rem<- Norwood_farm$extended_ids %>% 
-  filter(layer_from != 9 & layer_from != 11 &  layer_from != 5 &
-           layer_from != 6 & layer_from != 2 &
-           layer_from != 10 & layer_from != 1 ) %>% #links from "WD", "RG", "MH", "NH"" and "GM"","SF","CP" removed
+  filter(layer_from != 8 & layer_from != 10 &  layer_from != 4 &
+           layer_from != 5 & layer_from != 2 & layer_from != 9 &
+           layer_from != 1 ) %>% #links from "WD", "RG", "MH", "NH"" and "GM"","SF","CP" removed
   select(-layer_to) %>% rename("habitat" = "layer_from") %>%   
   left_join(state_nodes_ab, by = c("node_from" = "node_id",
                                    "habitat" = "layer_id")) %>%  #incorporate abundances and taxa of node_from
@@ -306,14 +307,14 @@ sem_int_edgelist_rem<-sem_int_edgelist_rem[,c(1,2,5,6,3,7,8,4)]
 #--  Create new habitats 
 
 # create habitats PP to replace WD,RG, MH,NH,GM,SF and CP (WD,RG,MH and NH were created before)
-GM_PP<- Norwood_farm$extended_ids %>% filter(layer_from  == 8) %>% select(-layer_to,-layer_from) %>% 
-  mutate (new_hab = 16, prev_hab = "GM", hab = "PP")#links from "PP" to add as new habitat (16)
+GM_PP<- Norwood_farm$extended_ids %>% filter(layer_from  == 7) %>% select(-layer_to,-layer_from) %>% 
+  mutate (new_hab = 15, prev_hab = "GM", hab = "PP")#links from "PP" to add as new habitat (16)
 
-SF_PP<- Norwood_farm$extended_ids %>% filter(layer_from  == 8) %>% select(-layer_to,-layer_from) %>% 
-  mutate (new_hab = 17, prev_hab = "SF", hab = "PP")#links from "PP" to add as new habitat (17)
+SF_PP<- Norwood_farm$extended_ids %>% filter(layer_from  == 7) %>% select(-layer_to,-layer_from) %>% 
+  mutate (new_hab = 16, prev_hab = "SF", hab = "PP")#links from "PP" to add as new habitat (17)
 
-CP_PP<- Norwood_farm$extended_ids %>% filter(layer_from  == 8) %>% select(-layer_to,-layer_from) %>% 
-  mutate (new_hab = 18, prev_hab = "CP", hab = "PP")#links from "PP" to add as new habitat (18)
+CP_PP<- Norwood_farm$extended_ids %>% filter(layer_from  == 7) %>% select(-layer_to,-layer_from) %>% 
+  mutate (new_hab = 17, prev_hab = "CP", hab = "PP")#links from "PP" to add as new habitat (18)
 
 
 # calculate changes in the area between PP and the habitat to replace 
@@ -327,7 +328,7 @@ converted_area<-rbind(WD_PP, RG_PP, MH_PP, NH_PP, GM_PP,SF_PP,CP_PP) %>%
 
 
 # add abundances and modify them according to the new area
-abundances_PP<-state_nodes_ab %>% filter(layer_id ==8)#filter species abundances to show just layer PP
+abundances_PP<-state_nodes_ab %>% filter(layer_id ==7)#filter species abundances to show just layer PP
 
 new_habitats_ab<-converted_area %>%  
   left_join(abundances_PP, by = c("node_from" = "node_id")) %>%  #incorporate abundances and taxa of node_from
@@ -392,16 +393,15 @@ sem_int_edgelist_aggr<-sem_int_edgelist_no_aggr %>% select(node_from,node_to) %>
 
 
 
-##### -- Intensive (replace "WD","RG","MH","NH","GM","SF","CP", "LP","LU", "NL" for "PP")
+##### -- Intensive (replace "WD","RG","MH","NH","GM","SF","CP", "LP", and "NL" for "PP")
 
 
 ##-- Remove habitats from norwood (the ones to replace) and incorporate abundances and taxon 
 
 int_edgelist_rem<- Norwood_farm$extended_ids %>% 
-  filter(layer_from != 9 & layer_from != 11 &  layer_from != 5 &
-           layer_from != 6 & layer_from != 2 & layer_from != 10 &
-           layer_from != 1 & layer_from != 3 & layer_from != 4 &
-           layer_from != 7) %>% #links from habitats removed (except from PP)
+  filter(layer_from != 8 & layer_from != 10 &  layer_from != 4 &
+           layer_from != 5 & layer_from != 2 & layer_from != 9 &
+           layer_from != 1 & layer_from != 3 & layer_from != 6 ) %>% #links from habitats removed (except from PP)
   select(-layer_to) %>% rename("habitat" = "layer_from") %>%   
   left_join(state_nodes_ab, by = c("node_from" = "node_id",
                                    "habitat" = "layer_id")) %>%  #incorporate abundances and taxa of node_from
@@ -417,18 +417,15 @@ int_edgelist_rem<-int_edgelist_rem[,c(1,2,5,6,3,7,8,4)]
 #--  Create new habitats 
 
 # create habitats PP to replace WD,RG, MH,NH,GM and SF (WD,RG,MH,NH andGM were created before)
-LP_PP<- Norwood_farm$extended_ids %>% filter(layer_from  == 8) %>% select(-layer_to,-layer_from) %>% 
-  mutate (new_hab = 19, prev_hab = "LP", hab = "PP")#links from "PP" to add as new habitat (19)
+LP_PP<- Norwood_farm$extended_ids %>% filter(layer_from  == 7) %>% select(-layer_to,-layer_from) %>% 
+  mutate (new_hab = 18, prev_hab = "LP", hab = "PP")#links from "PP" to add as new habitat (19)
 
-LU_PP<- Norwood_farm$extended_ids %>% filter(layer_from  == 8) %>% select(-layer_to,-layer_from) %>% 
-  mutate (new_hab = 20, prev_hab = "LU", hab = "PP")#links from "PP" to add as new habitat (20)
-
-NL_PP<- Norwood_farm$extended_ids %>% filter(layer_from  == 8) %>% select(-layer_to,-layer_from) %>% 
-  mutate (new_hab = 21, prev_hab = "NL", hab = "PP")#links from "PP" to add as new habitat (21)
+NL_PP<- Norwood_farm$extended_ids %>% filter(layer_from  == 7) %>% select(-layer_to,-layer_from) %>% 
+  mutate (new_hab = 19, prev_hab = "NL", hab = "PP")#links from "PP" to add as new habitat (21)
 
 
 # calculate changes in the area between PP and the habitat to replace 
-converted_area<-rbind(WD_PP, RG_PP, MH_PP, NH_PP, GM_PP,SF_PP,CP_PP,LP_PP,LU_PP,
+converted_area<-rbind(WD_PP, RG_PP, MH_PP, NH_PP, GM_PP,SF_PP,CP_PP,LP_PP,
                       NL_PP) %>%
   left_join(habitat_area, by = c("prev_hab" = "HabitatCode")) %>% 
   left_join(habitat_area, by = c("hab" = "HabitatCode")) %>% 
@@ -439,7 +436,7 @@ converted_area<-rbind(WD_PP, RG_PP, MH_PP, NH_PP, GM_PP,SF_PP,CP_PP,LP_PP,LU_PP,
 
 
 # add abundances and modify them according to the new area
-abundances_PP<-state_nodes_ab %>% filter(layer_id ==8)#filter species abundances to show just layer PP
+abundances_PP<-state_nodes_ab %>% filter(layer_id ==7)#filter species abundances to show just layer PP
 
 new_habitats_ab<-converted_area %>%  
   left_join(abundances_PP, by = c("node_from" = "node_id")) %>%  #incorporate abundances and taxa of node_from
@@ -551,7 +548,7 @@ direct_ES <- nodes_ES %>% filter (value ==1) %>%
   select(-value) 
 
 
-#write.csv(direct_ES,"Data/Land_use_dir_weighted_PP_intense.csv", row.names= FALSE)
+#rite.csv(direct_ES,"Data/Land_use_dir_weighted_PP_intense.csv", row.names= FALSE)
 
 ## -- Direct provision Ratio ES/E(D)S
 
@@ -948,9 +945,9 @@ prop_EDS_direct<- Prop %>% ggplot(aes(x = management, y = prop)) +
         panel.grid.major=element_line(color = "gray"),
         panel.border = element_rect(color = "black",fill = NA,size = 1),
         panel.spacing = unit(0.5, "cm", data = NULL),
-        axis.text.y = element_text(size=11, color='black'),
+        axis.text.y = element_text(size=13, color='black'),
         axis.text = element_text(size=15, color='black'),
-        axis.text.x= element_text(size =13), 
+        axis.text.x= element_text(size =15), 
         axis.title = element_text(size=17, color='black'),
         axis.line = element_blank(),
         legend.text.align = 0,
@@ -982,9 +979,9 @@ prop_EDS_indirect<- Prop_ind %>% ggplot(aes(x = management, y = prop)) +
         panel.grid.major=element_line(color = "gray"),
         panel.border = element_rect(color = "black",fill = NA,size = 1),
         panel.spacing = unit(0.5, "cm", data = NULL),
-        axis.text.y = element_text(size=11, color='black'),
+        axis.text.y = element_text(size=13, color='black'),
         axis.text = element_text(size=15, color='black'),
-        axis.text.x= element_text(size =13), 
+        axis.text.x= element_text(size =15), 
         axis.title = element_text(size=17, color='black'),
         axis.line = element_blank(),
         legend.text.align = 0,
@@ -1083,13 +1080,13 @@ tot_services_emp<-direct_ES %>% filter(management=="E") %>% group_by(management,
 Prop_weight<-direct_ES %>% group_by(management,services) %>% 
   summarize(tot = sum(weight)) %>% ungroup() %>%  
   mutate(Extensive_tot = case_when(
-    services == "Bird watching"~ 823859.6127,
-    services == "Butterfly watching"~ 249.5355,
-    services == "Crop damage"~ 1291466.5674,
-    services == "Crop production"~ 343050.0000,
-    services == "Pest control"~ 39399.6775,
-    services == "Pollination"~ 37052.8931,
-    services == "Seed dispersal"~ 851745.2231),
+    services == "Bird watching"~ 329214.2231,
+    services == "Butterfly watching"~ 244.9927,
+    services == "Crop damage"~ 645455.5694,
+    services == "Crop production"~ 209300.0000,
+    services == "Pest control"~ 7108.3108,
+    services == "Pollination"~ 37048.3503,
+    services == "Seed dispersal"~ 306339.5102),
     ratio_change = tot / Extensive_tot  #ratio of change: values higher than 1 indicates increasing in the amount of E(D)S
   )
 
@@ -1101,15 +1098,15 @@ prop_weight_direct<- Prop_weight %>% ggplot(aes(x = management, y = ratio_change
              pch=21, aes(fill=factor(services)), size = 4, show.legend = T) +
   # scale_fill_manual(values = col) + 
   scale_fill_brewer(palette="PRGn") +
-  scale_y_continuous(name = "Change in the amount of direct E(D)S provided ", limits = c(0, 1.4)) + 
+  scale_y_continuous(name = "Change in the amount of direct E(D)S provided ", limits = c(0, 2.8)) + 
   scale_x_discrete(name = "Management")+
   theme(panel.background = element_rect(fill = "white"),
         panel.grid.major=element_line(color = "gray"),
         panel.border = element_rect(color = "black",fill = NA,size = 1),
         panel.spacing = unit(0.5, "cm", data = NULL),
-        axis.text.y = element_text(size=11, color='black'),
+        axis.text.y = element_text(size=13, color='black'),
         axis.text = element_text(size=15, color='black'),
-        axis.text.x= element_text(size =13), 
+        axis.text.x= element_text(size =15), 
         axis.title = element_text(size=17, color='black'),
         axis.line = element_blank(),
         legend.text.align = 0,

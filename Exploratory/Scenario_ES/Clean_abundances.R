@@ -6,8 +6,7 @@ library(vegan)
 library(sna)
 library(tidyverse)
 
-setwd("D:/Trabajo/Papers/Norwood_Farm/norwood-ecosystem-services-main_Tinio")
-
+setwd("/Users/agustin/Desktop/Papers/Norwood_farm/Norwood_Tinio")
 
 ##### ESTIMATE ABUNDANCES ############
 
@@ -20,9 +19,19 @@ nore<-read.csv("Data/nore2.csv",header=T) #potential dataframe of abundances
 
 # Rearrange dataframe 
 plants_habitat<-plants %>% select(-ST) %>%  # remove standing trees (ST)
-                rename ("WD" = "W", "SF" ="CSF", "CP" = "C")
+                rename ("WD" = "W", "SF" ="CSF") %>% 
+                mutate( CP = C + LU) %>% # Merge LU and CP 
+                select (-LU,-C)
 
-plants_ab<-plants_habitat %>% gather("habitat","abundance",2:12) %>% 
+# Fix abundances of crops in non-crop production habitats
+noncrop_hab<- c("SF", "GM","MH","NH","LP","PP","RG","NL")  # Replace values from these habitats
+crop_sp <- c(96:101) # rows indicating crops
+
+plants_noncrop<- plants_habitat %>% 
+  mutate((across(all_of(noncrop_hab), ~if_else(row_number() %in% crop_sp, 0, .))))
+
+# rearranged dataframe
+plants_ab<-plants_noncrop %>% gather("habitat","abundance",2:11) %>% 
   filter(abundance >0) %>% rename("species_name" = "lower")
   
 
@@ -57,14 +66,30 @@ nore_2<-nore.direct.only %>% filter(!(habitat == "ST"))
 nore_names<- nore_2%>% mutate(habitat = case_when(habitat == "P"~ "PP",#typing error
                                                        habitat == "C"~ "CP",
                                                        habitat == "CSF"~ "SF",
-                                                        habitat == "RGyard"~"RG", # tomerge RG and RGyard into "RG"
+                                                        habitat == "RGyard"~"RG", # to merge RG and RGyard into "RG"
                                                        habitat == "W"~ "WD", 
+                                                  habitat == "LU"~ "CP", # to merge LU and CP
                                                       habitat == "WU"~ "WD", # to merge W and WU into "WD"
                                                       TRUE~habitat))
 
 
+## Remove interactions involving crops in non-CP habitats
+
+nore_intcrop_clean<- nore_names %>% filter( (!(habitat == "CP")) & # dataframe of non-CP habitat without crops
+                                          !(lower == '01PLANT.zCROP Barley' |
+                                            lower == '01PLANT.zCROP Lucerne' |
+                                            lower == '01PLANT.zCROP Oat spring' |
+                                            lower == '01PLANT.zCROP Oat winter' |
+                                            lower == '01PLANT.zCROP Triticale' |
+                                            lower == '01PLANT.zCROP Wheat' ))
+  
+nore_CP<- nore_names %>%  filter(habitat == "CP") # dataframe of CP habitat
+
+nore_ready<- rbind(nore_intcrop_clean,nore_CP) #merge dataframes
+
+
 ## Keep just 02FV and 12BF as pollinator trophic groups (02FV already contains rhe guild 15FV, 11HO and 10BE) 
-nore_flowervis<-nore_names %>%   filter(!(upper.guild == "15FV" |
+nore_flowervis<-nore_ready %>%   filter(!(upper.guild == "15FV" |
                                                      upper.guild == "11HO" |
                                                      upper.guild == "10BE")) 
 
@@ -89,14 +114,13 @@ birds_CP<-birds_rest %>% mutate(habitat = ifelse(habitat =="all", "CP"))
 birds_SF<-birds_rest %>% mutate(habitat = ifelse(habitat =="all", "SF"))
 birds_GM<-birds_rest %>% mutate(habitat = ifelse(habitat =="all", "GM"))
 birds_LP<-birds_rest %>% mutate(habitat = ifelse(habitat =="all", "LP"))
-birds_LU<- birds_rest %>% mutate(habitat = ifelse(habitat =="all", "LU"))
 birds_MH<-birds_rest %>% mutate(habitat = ifelse(habitat =="all", "MH"))
 birds_NH<-birds_rest %>% mutate(habitat = ifelse(habitat =="all", "NH"))
 birds_NL<-birds_rest %>% mutate(habitat = ifelse(habitat =="all", "NL"))
 birds_PP<-birds_rest %>% mutate(habitat = ifelse(habitat =="all", "PP"))
 
 # Merge to create dataframe of birds abundances
-birds_abundances<-rbind(birds_WD_RG,birds_CP,birds_SF,birds_GM,birds_LP,birds_LU,
+birds_abundances<-rbind(birds_WD_RG,birds_CP,birds_SF,birds_GM,birds_LP,
                         birds_MH,birds_NH,birds_NL,birds_PP)
 
 
@@ -145,13 +169,14 @@ for (i in 1:length(elistbirds_split)){
 
 edgelist_birds_long <- bind_rows(edgelist_birds, .id = "habitat") %>% #convert to edgelist again
   mutate(habitat= case_when(
-    habitat== 1 ~ "CP", habitat== 2 ~ "GM", habitat== 3 ~ "LP" , habitat== 4 ~ "LU", habitat== 5 ~ "MH", habitat== 6 ~ "NH",
-    habitat== 7 ~ "NL", habitat== 8 ~ "PP", habitat== 9 ~ "RG" , habitat== 10 ~ "SF", 
-    habitat== 11 ~ "WD")) 
+    habitat== 1 ~ "CP", habitat== 2 ~ "GM", habitat== 3 ~ "LP" , habitat== 4 ~ "MH", habitat== 5 ~ "NH",
+    habitat== 6 ~ "NL", habitat== 7 ~ "PP", habitat== 8 ~ "RG" , habitat== 9 ~ "SF", 
+    habitat== 10 ~ "WD")) 
 
 ## Merge real bird-plant interaction per habitat to the previous dataframe
 edge_list_nore_withoutbird<- edge_list_nore_pre %>% filter(upper.guild != "08BI") 
 edge_list_nore_final<-rbind(edge_list_nore_withoutbird,edgelist_birds_long) %>% select(habitat,lower,upper) 
+
 
 #write.csv(edge_list_nore_final,"Data/elist_nore.csv", row.names= FALSE)
 

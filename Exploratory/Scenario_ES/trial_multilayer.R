@@ -6,11 +6,12 @@
 #Nodes: Species with attributes (trophic groups and ecosystem services)
 #intraedges: presence/absence of interactions
 
-
 library(emln)#multilayer package
 library(readr)
 library(ggplot2)
-setwd("D:/Trabajo/Papers/Norwood_Farm/norwood-ecosystem-services-main_Tinio")
+library(tidyverse)
+
+setwd("/Users/agustin/Desktop/Papers/Norwood_farm/Norwood_Tinio")
 
 ###############  CREATE MULTILAYER NETWORK #######################
 
@@ -25,8 +26,8 @@ list_of_layers <- lapply(list_of_layers, function(sub_df) subset(sub_df, select 
 
 
 ### 2) Create input with layer's attributes (habitat names)
-layer_attrib <- tibble(layer_id=1:11,
-                       layer_name=c('CP','GM','LP', 'LU','MH','NH', 'NL','PP','RG',
+layer_attrib <- tibble(layer_id=1:10,
+                       layer_name=c('CP','GM','LP','MH','NH', 'NL','PP','RG',
                                     'SF','WD'))
 
 

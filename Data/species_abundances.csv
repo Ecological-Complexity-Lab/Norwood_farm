@@ -1,63 +1,4 @@
 "species_name","habitat","abundance"
-"01PLANT.Black Bindweed","CP",22
-"01PLANT.Blackthorn","CP",110
-"01PLANT.Bramble","CP",287
-"01PLANT.Bristly Oxtongue","CP",12
-"01PLANT.Charlock","CP",738
-"01PLANT.Chenopodium sp","CP",51
-"01PLANT.Cleavers","CP",33
-"01PLANT.Clover sp","CP",990
-"01PLANT.Common Chickweed","CP",70
-"01PLANT.Common Field Speedwell","CP",77
-"01PLANT.Common Mouse-ear","CP",124
-"01PLANT.Common Poppy","CP",96
-"01PLANT.Common Vetch","CP",18
-"01PLANT.Corn Mint","CP",22
-"01PLANT.Corn Sowthistle","CP",20
-"01PLANT.Corn Spurrey","CP",14
-"01PLANT.Creeping Buttercup","CP",7659
-"01PLANT.Creeping Thistle","CP",1414
-"01PLANT.Cut-leaved Crane's-bill","CP",7
-"01PLANT.Daisy","CP",40
-"01PLANT.Dandelion","CP",29
-"01PLANT.Dock sp","CP",119
-"01PLANT.Elder","CP",31
-"01PLANT.Field Forget-me-not","CP",605
-"01PLANT.Field Madder","CP",10
-"01PLANT.Field Pansy","CP",32
-"01PLANT.Grass sp","CP",1037
-"01PLANT.Ground Ivy","CP",18
-"01PLANT.Groundsel","CP",10
-"01PLANT.Hairy Tare","CP",26
-"01PLANT.Hawkish Complex sp","CP",12
-"01PLANT.Hawthorn","CP",1
-"01PLANT.Hedge Woundwort","CP",31
-"01PLANT.Ivy-leaved Speedwell","CP",8
-"01PLANT.Knotgrass sp","CP",43
-"01PLANT.Lesser Stitchwort","CP",23
-"01PLANT.Mayweed sp","CP",2872
-"01PLANT.Meadow Buttercup","CP",14
-"01PLANT.Oak","CP",224
-"01PLANT.Parsley Piert","CP",2
-"01PLANT.Persicaria sp","CP",117
-"01PLANT.Pineappleweed","CP",93
-"01PLANT.Plantain sp","CP",2
-"01PLANT.Ragwort","CP",75
-"01PLANT.Red Dead-nettle","CP",81
-"01PLANT.Shepherd's Purse","CP",30
-"01PLANT.Sow-thistle sp","CP",264
-"01PLANT.Spear Thistle","CP",124
-"01PLANT.Stinging Nettle","CP",98
-"01PLANT.Sun Spurge","CP",3
-"01PLANT.Sycamore","CP",21
-"01PLANT.Wall Speedwell","CP",33
-"01PLANT.Willowherb sp","CP",36
-"01PLANT.zCROP Barley","CP",9
-"01PLANT.zCROP Lucerne","CP",70
-"01PLANT.zCROP Oat spring","CP",12
-"01PLANT.zCROP Oat winter","CP",28
-"01PLANT.zCROP Triticale","CP",32
-"01PLANT.zCROP Wheat","CP",158
 "01PLANT.Black Bindweed","SF",22
 "01PLANT.Charlock","SF",246
 "01PLANT.Cleavers","SF",33
@@ -86,7 +27,6 @@
 "01PLANT.Spear Thistle","SF",124
 "01PLANT.Wall Speedwell","SF",11
 "01PLANT.Willowherb sp","SF",18
-"01PLANT.zCROP Wheat","SF",158
 "01PLANT.Autumn Hawkbit","GM",54
 "01PLANT.Bindweed sp","GM",18
 "01PLANT.Blackthorn","GM",110
@@ -126,7 +66,6 @@
 "01PLANT.Sow-thistle sp","GM",132
 "01PLANT.Spear Thistle","GM",124
 "01PLANT.Stinging Nettle","GM",98
-"01PLANT.zCROP Lucerne","GM",140
 "01PLANT.Ash","LP",28
 "01PLANT.Bindweed sp","LP",18
 "01PLANT.Blackthorn","LP",110
@@ -158,31 +97,6 @@
 "01PLANT.Sow-thistle sp","LP",132
 "01PLANT.Spear Thistle","LP",124
 "01PLANT.Wall Speedwell","LP",11
-"01PLANT.Black Bindweed","LU",11
-"01PLANT.Chenopodium sp","LU",51
-"01PLANT.Clover sp","LU",660
-"01PLANT.Common Chickweed","LU",14
-"01PLANT.Common Field Speedwell","LU",11
-"01PLANT.Common Mouse-ear","LU",31
-"01PLANT.Common Poppy","LU",24
-"01PLANT.Creeping Buttercup","LU",851
-"01PLANT.Creeping Thistle","LU",707
-"01PLANT.Cut-leaved Crane's-bill","LU",7
-"01PLANT.Daisy","LU",40
-"01PLANT.Dandelion","LU",29
-"01PLANT.Dock sp","LU",119
-"01PLANT.Field Forget-me-not","LU",55
-"01PLANT.Grass sp","LU",1037
-"01PLANT.Hawkish Complex sp","LU",12
-"01PLANT.Knotgrass sp","LU",43
-"01PLANT.Mayweed sp","LU",359
-"01PLANT.Parsley Piert","LU",2
-"01PLANT.Plantain sp","LU",2
-"01PLANT.Shepherd's Purse","LU",15
-"01PLANT.Sow-thistle sp","LU",66
-"01PLANT.Stinging Nettle","LU",98
-"01PLANT.Willowherb sp","LU",18
-"01PLANT.zCROP Lucerne","LU",210
 "01PLANT.Ash","MH",28
 "01PLANT.Bindweed sp","MH",18
 "01PLANT.Blackthorn","MH",220
@@ -246,7 +160,6 @@
 "01PLANT.Wayfaring-tree","MH",5
 "01PLANT.Wild Privet","MH",48
 "01PLANT.Yellow Archangel","MH",10
-"01PLANT.zCROP Wheat","MH",158
 "01PLANT.Ash","NH",28
 "01PLANT.Autumn Hawkbit","NH",54
 "01PLANT.Bindweed sp","NH",18
@@ -298,7 +211,6 @@
 "01PLANT.Wayfaring-tree","NH",10
 "01PLANT.Wild Privet","NH",48
 "01PLANT.Willowherb sp","NH",36
-"01PLANT.zCROP Lucerne","NH",210
 "01PLANT.Bush Vetch","NL",13
 "01PLANT.Charlock","NL",123
 "01PLANT.Clover sp","NL",2640
@@ -331,7 +243,6 @@
 "01PLANT.Sow-thistle sp","NL",66
 "01PLANT.Spear Thistle","NL",124
 "01PLANT.Wall Speedwell","NL",11
-"01PLANT.zCROP Barley","NL",9
 "01PLANT.Autumn Hawkbit","PP",162
 "01PLANT.Bindweed sp","PP",18
 "01PLANT.Bramble","PP",287
@@ -370,7 +281,6 @@
 "01PLANT.Spear Thistle","PP",124
 "01PLANT.Stinging Nettle","PP",98
 "01PLANT.Willowherb sp","PP",18
-"01PLANT.zCROP Wheat","PP",79
 "01PLANT.Ash","RG",28
 "01PLANT.Autumn Hawkbit","RG",54
 "01PLANT.Bindweed sp","RG",54
@@ -434,7 +344,6 @@
 "01PLANT.Water Figwort","RG",2
 "01PLANT.White Dead-nettle","RG",9
 "01PLANT.Willowherb sp","RG",36
-"01PLANT.zCROP Lucerne","RG",70
 "01PLANT.Ash","WD",28
 "01PLANT.Bindweed sp","WD",18
 "01PLANT.Blackthorn","WD",110
@@ -479,6 +388,65 @@
 "01PLANT.Willowherb sp","WD",18
 "01PLANT.Woodruff","WD",3
 "01PLANT.Yellow Archangel","WD",10
+"01PLANT.Black Bindweed","CP",33
+"01PLANT.Blackthorn","CP",110
+"01PLANT.Bramble","CP",287
+"01PLANT.Bristly Oxtongue","CP",12
+"01PLANT.Charlock","CP",738
+"01PLANT.Chenopodium sp","CP",102
+"01PLANT.Cleavers","CP",33
+"01PLANT.Clover sp","CP",1650
+"01PLANT.Common Chickweed","CP",84
+"01PLANT.Common Field Speedwell","CP",88
+"01PLANT.Common Mouse-ear","CP",155
+"01PLANT.Common Poppy","CP",120
+"01PLANT.Common Vetch","CP",18
+"01PLANT.Corn Mint","CP",22
+"01PLANT.Corn Sowthistle","CP",20
+"01PLANT.Corn Spurrey","CP",14
+"01PLANT.Creeping Buttercup","CP",8510
+"01PLANT.Creeping Thistle","CP",2121
+"01PLANT.Cut-leaved Crane's-bill","CP",14
+"01PLANT.Daisy","CP",80
+"01PLANT.Dandelion","CP",58
+"01PLANT.Dock sp","CP",238
+"01PLANT.Elder","CP",31
+"01PLANT.Field Forget-me-not","CP",660
+"01PLANT.Field Madder","CP",10
+"01PLANT.Field Pansy","CP",32
+"01PLANT.Grass sp","CP",2074
+"01PLANT.Ground Ivy","CP",18
+"01PLANT.Groundsel","CP",10
+"01PLANT.Hairy Tare","CP",26
+"01PLANT.Hawkish Complex sp","CP",24
+"01PLANT.Hawthorn","CP",1
+"01PLANT.Hedge Woundwort","CP",31
+"01PLANT.Ivy-leaved Speedwell","CP",8
+"01PLANT.Knotgrass sp","CP",86
+"01PLANT.Lesser Stitchwort","CP",23
+"01PLANT.Mayweed sp","CP",3231
+"01PLANT.Meadow Buttercup","CP",14
+"01PLANT.Oak","CP",224
+"01PLANT.Parsley Piert","CP",4
+"01PLANT.Persicaria sp","CP",117
+"01PLANT.Pineappleweed","CP",93
+"01PLANT.Plantain sp","CP",4
+"01PLANT.Ragwort","CP",75
+"01PLANT.Red Dead-nettle","CP",81
+"01PLANT.Shepherd's Purse","CP",45
+"01PLANT.Sow-thistle sp","CP",330
+"01PLANT.Spear Thistle","CP",124
+"01PLANT.Stinging Nettle","CP",196
+"01PLANT.Sun Spurge","CP",3
+"01PLANT.Sycamore","CP",21
+"01PLANT.Wall Speedwell","CP",33
+"01PLANT.Willowherb sp","CP",54
+"01PLANT.zCROP Barley","CP",9
+"01PLANT.zCROP Lucerne","CP",280
+"01PLANT.zCROP Oat spring","CP",12
+"01PLANT.zCROP Oat winter","CP",28
+"01PLANT.zCROP Triticale","CP",32
+"01PLANT.zCROP Wheat","CP",158
 "02FV.Agriotes pallidulus","MH",19.69379018
 "02FV.Alysiinae sp","GM",9.496916815
 "02FV.Alysiinae sp","LP",476.1544443
@@ -498,9 +466,9 @@
 "02FV.Anthomyza gracilis","RG",24.85305119
 "02FV.Anthophila fabriciana","MH",19.69379018
 "02FV.Anthophila fabriciana","RG",49.70610238
+"02FV.Apis mellifera","CP",8548.9970925
 "02FV.Apis mellifera","GM",185.08987035
 "02FV.Apis mellifera","LP",1190.38611075
-"02FV.Apis mellifera","LU",8548.9970925
 "02FV.Apis mellifera","MH",206.78479691
 "02FV.Apis mellifera","NH",11.974559389
 "02FV.Apis mellifera","NL",302.47111985
@@ -535,9 +503,8 @@
 "02FV.Bombus pascuorum","RG",223.677460695
 "02FV.Bombus pratorum","PP",369.78950215
 "02FV.Bombus pratorum","RG",24.85305119
-"02FV.Bombus terrestris","CP",1110.167196
+"02FV.Bombus terrestris","CP",1680.1003355
 "02FV.Bombus terrestris","LP",2633.0832534
-"02FV.Bombus terrestris","LU",569.9331395
 "02FV.Bombus terrestris","MH",29.54068527
 "02FV.Bombus terrestris","NL",604.9422397
 "02FV.Bombus terrestris","RG",24.85305119
@@ -675,8 +642,7 @@
 "02FV.Formicidae A","RG",24.85305119
 "02FV.Formicidae B","GM",18.99383363
 "02FV.Formicidae B","PP",739.5790043
-"02FV.Gastrophysa viridular","CP",1156.62638925
-"02FV.Gastrophysa viridular","LU",569.9331395
+"02FV.Gastrophysa viridular","CP",1726.55952875
 "02FV.Geomyza tripunctata","LP",476.1544443
 "02FV.Glyphipterix simpliciella","CP",373.787165
 "02FV.Glyphipterix simpliciella","GM",123.459918595
@@ -860,8 +826,8 @@
 "02FV.Rhagonycha fulva","MH",9.84689509
 "02FV.Rhagonycha fulva","NH",4.3543852315
 "02FV.Rhagonycha fulva","RG",223.67746069
+"02FV.Rhingia campestris","CP",569.9331395
 "02FV.Rhingia campestris","GM",138.8174028
-"02FV.Rhingia campestris","LU",569.9331395
 "02FV.Rhingia campestris","SF",575.224976
 "02FV.Rhingia campestris","WD",149.1518293
 "02FV.Rhinophora lepida","MH",78.775160735
@@ -1005,7 +971,7 @@
 "03APH.Sitobion avenae","CP",18969880.123955
 "03APH.Sitobion avenae","GM",414065.5730818
 "03APH.Sitobion avenae","LP",15871.814811
-"03APH.Sitobion avenae","MH",20569.0697474
+"03APH.Sitobion avenae","MH",20131.4299656
 "03APH.Sitobion avenae","NH",245369.60782024
 "03APH.Sitobion avenae","NL",50411.853303
 "03APH.Sitobion avenae","PP",19623496.251631
@@ -1117,9 +1083,8 @@
 "06MINERPARA.Apodesmia ocellata","MH",218.8198909
 "06MINERPARA.Apodesmia ocellata","RG",552.2900264
 "06MINERPARA.Apodesmia rufipes","NH",96.76411626
-"06MINERPARA.Apodesmia similis","CP",15432.92479
+"06MINERPARA.Apodesmia similis","CP",21765.51523
 "06MINERPARA.Apodesmia similis","GM",16452.432921
-"06MINERPARA.Apodesmia similis","LU",6332.59044
 "06MINERPARA.Apodesmia similis","NH",145.14617438
 "06MINERPARA.Apodesmia similis","PP",6163.158369
 "06MINERPARA.Asaphes suspensus","SF",6391.388622
@@ -1142,10 +1107,9 @@
 "06MINERPARA.Chorebus aphantus","NH",403.43379168
 "06MINERPARA.Chorebus aphantus","PP",9244.737554
 "06MINERPARA.Chorebus aphantus","WD",89885.521307
-"06MINERPARA.Chorebus fallaciosae","CP",117881.72899
+"06MINERPARA.Chorebus fallaciosae","CP",136879.50031
 "06MINERPARA.Chorebus fallaciosae","GM",47814.883174
 "06MINERPARA.Chorebus fallaciosae","LP",17846.22104
-"06MINERPARA.Chorebus fallaciosae","LU",18997.77132
 "06MINERPARA.Chorebus fallaciosae","NH",145.14617438
 "06MINERPARA.Chorebus fallaciosae","RG",2209.1601056
 "06MINERPARA.Chorebus lateralis","WD",828.6212739
@@ -1156,9 +1120,8 @@
 "06MINERPARA.Chrysocharis orbicularis","CP",25881.251183
 "06MINERPARA.Chrysocharis orbicularis","MH",218.8198909
 "06MINERPARA.Chrysocharis orbicularis","WD",3314.485096
-"06MINERPARA.Chrysocharis pentheus","CP",18722.955721
+"06MINERPARA.Chrysocharis pentheus","CP",44053.317481
 "06MINERPARA.Chrysocharis pentheus","GM",3084.831172
-"06MINERPARA.Chrysocharis pentheus","LU",25330.36176
 "06MINERPARA.Chrysocharis pentheus","MH",218.8198909
 "06MINERPARA.Chrysocharis pentheus","NH",774.11293008
 "06MINERPARA.Chrysocharis pentheus","PP",6163.158369
@@ -1167,10 +1130,9 @@
 "06MINERPARA.Chrysocharis polyzo","NH",232.0161598
 "06MINERPARA.Chrysocharis prodice","MH",656.4596727
 "06MINERPARA.Chrysocharis prodice","WD",1657.2425478
-"06MINERPARA.Chrysocharis pubicornis","CP",6580.061862
+"06MINERPARA.Chrysocharis pubicornis","CP",19245.242742
 "06MINERPARA.Chrysocharis pubicornis","GM",27763.48055
 "06MINERPARA.Chrysocharis pubicornis","LP",13384.66578
-"06MINERPARA.Chrysocharis pubicornis","LU",12665.18088
 "06MINERPARA.Chrysocharis pubicornis","MH",948.2195273
 "06MINERPARA.Chrysocharis pubicornis","NH",9178.85053981
 "06MINERPARA.Chrysocharis pubicornis","PP",21571.054292
@@ -1193,10 +1155,9 @@
 "06MINERPARA.Colastes braconius","WD",14915.1829318
 "06MINERPARA.Colastes sp aff braconius","RG",1656.8700792
 "06MINERPARA.Coloneura (ate)","NH",72.57308719
-"06MINERPARA.Cyrtogaster vulgaris","CP",22012.986652
+"06MINERPARA.Cyrtogaster vulgaris","CP",28345.577092
 "06MINERPARA.Cyrtogaster vulgaris","GM",1542.415586
 "06MINERPARA.Cyrtogaster vulgaris","LP",53538.66312
-"06MINERPARA.Cyrtogaster vulgaris","LU",6332.59044
 "06MINERPARA.Cyrtogaster vulgaris","MH",656.4596727
 "06MINERPARA.Cyrtogaster vulgaris","NH",1745.38274695
 "06MINERPARA.Cyrtogaster vulgaris","WD",30066.5229238
@@ -1218,10 +1179,9 @@
 "06MINERPARA.Dacnusa macrospila","GM",9254.493517
 "06MINERPARA.Dacnusa macrospila","LP",17846.22104
 "06MINERPARA.Dacnusa macrospila","PP",22598.247355
-"06MINERPARA.Dacnusa maculipes/confinis","CP",45891.832543
+"06MINERPARA.Dacnusa maculipes/confinis","CP",64889.603863
 "06MINERPARA.Dacnusa maculipes/confinis","GM",32390.727308
 "06MINERPARA.Dacnusa maculipes/confinis","LP",116000.43676
-"06MINERPARA.Dacnusa maculipes/confinis","LU",18997.77132
 "06MINERPARA.Dacnusa maculipes/confinis","MH",4595.2177089
 "06MINERPARA.Dacnusa maculipes/confinis","NH",5384.77792337
 "06MINERPARA.Dacnusa maculipes/confinis","PP",111964.043709
@@ -1245,10 +1205,9 @@
 "06MINERPARA.Desmiostoma parvulum","PP",49305.266958
 "06MINERPARA.Diadegma crataegi","MH",583.5197092
 "06MINERPARA.Diglyphus chabrias","MH",218.8198909
-"06MINERPARA.Diglyphus isaea","CP",321104.5612
+"06MINERPARA.Diglyphus isaea","CP",498417.09352
 "06MINERPARA.Diglyphus isaea","GM",60411.27712
 "06MINERPARA.Diglyphus isaea","LP",504155.74438
-"06MINERPARA.Diglyphus isaea","LU",177312.53232
 "06MINERPARA.Diglyphus isaea","MH",437.6397818
 "06MINERPARA.Diglyphus isaea","NH",8992.53123401
 "06MINERPARA.Diglyphus isaea","PP",288641.250295
@@ -1320,17 +1279,15 @@
 "06MINERPARA.Phaedrotoma exigua","RG",1104.5800528
 "06MINERPARA.Phaedrotoma exigua","SF",6391.388622
 "06MINERPARA.Phaedrotoma variegata","WD",1657.2425478
-"06MINERPARA.Pnigalio soemius","CP",35041.950927
+"06MINERPARA.Pnigalio soemius","CP",41374.541367
 "06MINERPARA.Pnigalio soemius","GM",4627.246759
-"06MINERPARA.Pnigalio soemius","LU",6332.59044
 "06MINERPARA.Pnigalio soemius","NH",2786.92750336
 "06MINERPARA.Pnigalio soemius","PP",22598.247355
 "06MINERPARA.Pnigalio soemius","RG",1656.870079
 "06MINERPARA.Pnigalio soemius","WD",828.6212739
-"06MINERPARA.Seladerma diffine","CP",79418.587683
+"06MINERPARA.Seladerma diffine","CP",85751.178123
 "06MINERPARA.Seladerma diffine","GM",49357.298752
 "06MINERPARA.Seladerma diffine","LP",544309.74172
-"06MINERPARA.Seladerma diffine","LU",6332.59044
 "06MINERPARA.Seladerma diffine","MH",656.4596727
 "06MINERPARA.Seladerma diffine","NH",836.79188639
 "06MINERPARA.Seladerma diffine","PP",80121.058797
@@ -1354,18 +1311,17 @@
 "07SEEDINVERT.Curtonotus aulicus","RG",552.2900264
 "07SEEDINVERT.Olibrus aeneus","RG",552.2900264
 "07SEEDINVERT.Oxystoma pomonae","RG",6075.190291
-"07SEEDINVERT.Protapion apricans","CP",3868.264531
-"07SEEDINVERT.Protapion apricans","LU",25330.36176
+"07SEEDINVERT.Protapion apricans","CP",29198.626291
 "07SEEDINVERT.Protapion apricans","PP",57522.81145
 "07SEEDINVERT.Protapion apricans","RG",5522.9002644
-"07SEEDINVERT.Protapion assimile","LU",126651.8088
+"07SEEDINVERT.Protapion assimile","CP",126651.8088
 "07SEEDINVERT.Protapion assimile","RG",4970.610238
 "07SEEDINVERT.Protapion fulvipes","GM",382519.06546
 "07SEEDINVERT.Protapion fulvipes","LP",232000.87354
 "07SEEDINVERT.Protapion fulvipes","PP",131480.71188
 "07SEEDINVERT.Protapion fulvipes","RG",2209.1601054
 "07SEEDINVERT.Protapion nigritarse","PP",8217.544493
-"07SEEDINVERT.Protapion trifolii","LU",405285.7882
+"07SEEDINVERT.Protapion trifolii","CP",405285.7882
 "07SEEDINVERT.Protapion trifolii","PP",57522.81145
 "07SEEDINVERT.Protapion trifolii","RG",3313.7401584
 "07SEEDINVERT.Protapion varipes","RG",552.2900264
@@ -1382,124 +1338,112 @@
 "07SEEDINVERT.Urophora stylata","GM",18508.98704
 "07SEEDINVERT.Urophora stylata","NH",1161.169395
 "07SEEDINVERT.Urophora stylata","RG",53572.1325634
-"08BIRD.Alauda arvensis","CP",6.243417661
-"08BIRD.Alauda arvensis","GM",6.243417661
-"08BIRD.Alauda arvensis","LP",6.243417661
-"08BIRD.Alauda arvensis","LU",6.243417661
-"08BIRD.Alauda arvensis","MH",6.243417661
-"08BIRD.Alauda arvensis","NH",6.243417661
-"08BIRD.Alauda arvensis","NL",6.243417661
-"08BIRD.Alauda arvensis","PP",6.243417661
-"08BIRD.Alauda arvensis","SF",6.243417661
-"08BIRD.Alectoris rufa","CP",52.952689065
-"08BIRD.Alectoris rufa","GM",52.952689065
-"08BIRD.Alectoris rufa","LP",52.952689065
-"08BIRD.Alectoris rufa","LU",52.952689065
-"08BIRD.Alectoris rufa","MH",52.952689065
-"08BIRD.Alectoris rufa","NH",52.952689065
-"08BIRD.Alectoris rufa","NL",52.952689065
-"08BIRD.Alectoris rufa","PP",52.952689065
+"08BIRD.Alauda arvensis","CP",6.212200661
+"08BIRD.Alauda arvensis","GM",6.212200661
+"08BIRD.Alauda arvensis","LP",6.212200661
+"08BIRD.Alauda arvensis","MH",6.212200661
+"08BIRD.Alauda arvensis","NH",6.212200661
+"08BIRD.Alauda arvensis","NL",6.212200661
+"08BIRD.Alauda arvensis","PP",6.212200661
+"08BIRD.Alauda arvensis","SF",6.212200661
+"08BIRD.Alectoris rufa","CP",36.609175695
+"08BIRD.Alectoris rufa","GM",36.609175695
+"08BIRD.Alectoris rufa","LP",36.609175695
+"08BIRD.Alectoris rufa","MH",36.609175695
+"08BIRD.Alectoris rufa","NH",36.609175695
+"08BIRD.Alectoris rufa","NL",36.609175695
+"08BIRD.Alectoris rufa","PP",36.609175695
 "08BIRD.Alectoris rufa","RG",3.000016455
-"08BIRD.Alectoris rufa","SF",52.952689065
-"08BIRD.Carduelis cannabina","CP",5.4022149564
-"08BIRD.Carduelis cannabina","GM",5.4022149564
-"08BIRD.Carduelis cannabina","LP",5.4022149564
-"08BIRD.Carduelis cannabina","LU",5.4022149564
-"08BIRD.Carduelis cannabina","MH",5.4022149564
-"08BIRD.Carduelis cannabina","NH",5.4022149564
-"08BIRD.Carduelis cannabina","NL",5.4022149564
-"08BIRD.Carduelis cannabina","PP",5.4022149564
-"08BIRD.Carduelis cannabina","SF",5.4022149564
-"08BIRD.Carduelis carduelis","CP",125.142310917
-"08BIRD.Carduelis carduelis","GM",125.142310917
-"08BIRD.Carduelis carduelis","LP",125.142310917
-"08BIRD.Carduelis carduelis","LU",125.142310917
-"08BIRD.Carduelis carduelis","MH",125.142310917
-"08BIRD.Carduelis carduelis","NH",125.142310917
-"08BIRD.Carduelis carduelis","NL",125.142310917
-"08BIRD.Carduelis carduelis","PP",125.142310917
+"08BIRD.Alectoris rufa","SF",36.609175695
+"08BIRD.Carduelis cannabina","CP",5.3752041234
+"08BIRD.Carduelis cannabina","GM",5.3752041234
+"08BIRD.Carduelis cannabina","LP",5.3752041234
+"08BIRD.Carduelis cannabina","MH",5.3752041234
+"08BIRD.Carduelis cannabina","NH",5.3752041234
+"08BIRD.Carduelis cannabina","NL",5.3752041234
+"08BIRD.Carduelis cannabina","PP",5.3752041234
+"08BIRD.Carduelis cannabina","SF",5.3752041234
+"08BIRD.Carduelis carduelis","CP",124.516600084
+"08BIRD.Carduelis carduelis","GM",124.516600084
+"08BIRD.Carduelis carduelis","LP",124.516600084
+"08BIRD.Carduelis carduelis","MH",124.516600084
+"08BIRD.Carduelis carduelis","NH",124.516600084
+"08BIRD.Carduelis carduelis","NL",124.516600084
+"08BIRD.Carduelis carduelis","PP",124.516600084
 "08BIRD.Carduelis carduelis","RG",23.500060543
-"08BIRD.Carduelis carduelis","SF",125.142310917
-"08BIRD.Carduelis chloris","CP",16.052721493
-"08BIRD.Carduelis chloris","GM",16.052721493
-"08BIRD.Carduelis chloris","LP",16.052721493
-"08BIRD.Carduelis chloris","LU",16.052721493
-"08BIRD.Carduelis chloris","MH",16.052721493
-"08BIRD.Carduelis chloris","NH",16.052721493
-"08BIRD.Carduelis chloris","NL",16.052721493
-"08BIRD.Carduelis chloris","PP",16.052721493
-"08BIRD.Carduelis chloris","SF",16.052721493
-"08BIRD.Columba palumbus","CP",54.860435939
-"08BIRD.Columba palumbus","GM",54.860435939
-"08BIRD.Columba palumbus","LP",54.860435939
-"08BIRD.Columba palumbus","LU",54.860435939
-"08BIRD.Columba palumbus","MH",54.860435939
-"08BIRD.Columba palumbus","NH",54.860435939
-"08BIRD.Columba palumbus","NL",54.860435939
-"08BIRD.Columba palumbus","PP",54.860435939
+"08BIRD.Carduelis carduelis","SF",124.516600084
+"08BIRD.Carduelis chloris","CP",13.174954723
+"08BIRD.Carduelis chloris","GM",13.174954723
+"08BIRD.Carduelis chloris","LP",13.174954723
+"08BIRD.Carduelis chloris","MH",13.174954723
+"08BIRD.Carduelis chloris","NH",13.174954723
+"08BIRD.Carduelis chloris","NL",13.174954723
+"08BIRD.Carduelis chloris","PP",13.174954723
+"08BIRD.Carduelis chloris","SF",13.174954723
+"08BIRD.Columba palumbus","CP",33.281528365
+"08BIRD.Columba palumbus","GM",33.281528365
+"08BIRD.Columba palumbus","LP",33.281528365
+"08BIRD.Columba palumbus","MH",33.281528365
+"08BIRD.Columba palumbus","NH",33.281528365
+"08BIRD.Columba palumbus","NL",33.281528365
+"08BIRD.Columba palumbus","PP",33.281528365
 "08BIRD.Columba palumbus","RG",0.4999947
-"08BIRD.Columba palumbus","SF",54.860435939
-"08BIRD.Corvus frugilegus","CP",129.546104365
-"08BIRD.Corvus frugilegus","GM",129.546104365
-"08BIRD.Corvus frugilegus","LP",129.546104365
-"08BIRD.Corvus frugilegus","LU",129.546104365
-"08BIRD.Corvus frugilegus","MH",129.546104365
-"08BIRD.Corvus frugilegus","NH",129.546104365
-"08BIRD.Corvus frugilegus","NL",129.546104365
-"08BIRD.Corvus frugilegus","PP",129.546104365
+"08BIRD.Columba palumbus","SF",33.281528365
+"08BIRD.Corvus frugilegus","CP",37.022472295
+"08BIRD.Corvus frugilegus","GM",37.022472295
+"08BIRD.Corvus frugilegus","LP",37.022472295
+"08BIRD.Corvus frugilegus","MH",37.022472295
+"08BIRD.Corvus frugilegus","NH",37.022472295
+"08BIRD.Corvus frugilegus","NL",37.022472295
+"08BIRD.Corvus frugilegus","PP",37.022472295
 "08BIRD.Corvus frugilegus","RG",11.5
-"08BIRD.Corvus frugilegus","SF",129.546104365
+"08BIRD.Corvus frugilegus","SF",37.022472295
 "08BIRD.Corvus frugilegus","WD",19.000078969
-"08BIRD.Corvus monedula","CP",25.225545128
-"08BIRD.Corvus monedula","GM",25.225545128
-"08BIRD.Corvus monedula","LP",25.225545128
-"08BIRD.Corvus monedula","LU",25.225545128
-"08BIRD.Corvus monedula","MH",25.225545128
-"08BIRD.Corvus monedula","NH",25.225545128
-"08BIRD.Corvus monedula","NL",25.225545128
-"08BIRD.Corvus monedula","PP",25.225545128
+"08BIRD.Corvus monedula","CP",8.975712819
+"08BIRD.Corvus monedula","GM",8.975712819
+"08BIRD.Corvus monedula","LP",8.975712819
+"08BIRD.Corvus monedula","MH",8.975712819
+"08BIRD.Corvus monedula","NH",8.975712819
+"08BIRD.Corvus monedula","NL",8.975712819
+"08BIRD.Corvus monedula","PP",8.975712819
 "08BIRD.Corvus monedula","RG",6.500036877
-"08BIRD.Corvus monedula","SF",25.225545128
+"08BIRD.Corvus monedula","SF",8.975712819
 "08BIRD.Corvus monedula","WD",12.00000768
-"08BIRD.Emberiza citrinella","CP",17.259562776
-"08BIRD.Emberiza citrinella","GM",17.259562776
-"08BIRD.Emberiza citrinella","LP",17.259562776
-"08BIRD.Emberiza citrinella","LU",17.259562776
-"08BIRD.Emberiza citrinella","MH",17.259562776
-"08BIRD.Emberiza citrinella","NH",17.259562776
-"08BIRD.Emberiza citrinella","NL",17.259562776
-"08BIRD.Emberiza citrinella","PP",17.259562776
-"08BIRD.Emberiza citrinella","SF",17.259562776
-"08BIRD.Fringilla coelebs","CP",20.7673817172
-"08BIRD.Fringilla coelebs","GM",20.7673817172
-"08BIRD.Fringilla coelebs","LP",20.7673817172
-"08BIRD.Fringilla coelebs","LU",20.7673817172
-"08BIRD.Fringilla coelebs","MH",20.7673817172
-"08BIRD.Fringilla coelebs","NH",20.7673817172
-"08BIRD.Fringilla coelebs","NL",20.7673817172
-"08BIRD.Fringilla coelebs","PP",20.7673817172
+"08BIRD.Emberiza citrinella","CP",15.126090622
+"08BIRD.Emberiza citrinella","GM",15.126090622
+"08BIRD.Emberiza citrinella","LP",15.126090622
+"08BIRD.Emberiza citrinella","MH",15.126090622
+"08BIRD.Emberiza citrinella","NH",15.126090622
+"08BIRD.Emberiza citrinella","NL",15.126090622
+"08BIRD.Emberiza citrinella","PP",15.126090622
+"08BIRD.Emberiza citrinella","SF",15.126090622
+"08BIRD.Fringilla coelebs","CP",15.3497860652
+"08BIRD.Fringilla coelebs","GM",15.3497860652
+"08BIRD.Fringilla coelebs","LP",15.3497860652
+"08BIRD.Fringilla coelebs","MH",15.3497860652
+"08BIRD.Fringilla coelebs","NH",15.3497860652
+"08BIRD.Fringilla coelebs","NL",15.3497860652
+"08BIRD.Fringilla coelebs","PP",15.3497860652
 "08BIRD.Fringilla coelebs","RG",0.500051278
-"08BIRD.Fringilla coelebs","SF",20.7673817172
+"08BIRD.Fringilla coelebs","SF",15.3497860652
 "08BIRD.Fringilla coelebs","WD",2.000012869
-"08BIRD.Passer domesticus","CP",1.399153919
-"08BIRD.Passer domesticus","GM",1.399153919
-"08BIRD.Passer domesticus","LP",1.399153919
-"08BIRD.Passer domesticus","LU",1.399153919
-"08BIRD.Passer domesticus","MH",1.399153919
-"08BIRD.Passer domesticus","NH",1.399153919
-"08BIRD.Passer domesticus","NL",1.399153919
-"08BIRD.Passer domesticus","PP",1.399153919
+"08BIRD.Passer domesticus","CP",0.719764586
+"08BIRD.Passer domesticus","GM",0.719764586
+"08BIRD.Passer domesticus","LP",0.719764586
+"08BIRD.Passer domesticus","MH",0.719764586
+"08BIRD.Passer domesticus","NH",0.719764586
+"08BIRD.Passer domesticus","NL",0.719764586
+"08BIRD.Passer domesticus","PP",0.719764586
 "08BIRD.Passer domesticus","RG",52.499977696
-"08BIRD.Passer domesticus","SF",1.399153919
+"08BIRD.Passer domesticus","SF",0.719764586
 "08BIRD.Streptopelia decaocto","RG",1.9999947
 "09MAMMAL.Apodemus.flavicollis","MH",27.746880451
 "09MAMMAL.Apodemus.flavicollis","WD",5.36799788
-"09MAMMAL.Apodemus.sylvaticus","CP",389.748976856
+"09MAMMAL.Apodemus.sylvaticus","CP",399.27198499
 "09MAMMAL.Apodemus.sylvaticus","GM",23.86546702
-"09MAMMAL.Apodemus.sylvaticus","LU",9.523008134
 "09MAMMAL.Apodemus.sylvaticus","MH",292.639916447
 "09MAMMAL.Apodemus.sylvaticus","NH",17.335868253
-"09MAMMAL.Apodemus.sylvaticus","PP",135.724930761
+"09MAMMAL.Apodemus.sylvaticus","PP",135.706960761
 "09MAMMAL.Apodemus.sylvaticus","RG",28.087908421
 "09MAMMAL.Apodemus.sylvaticus","WD",171.510351616
 "09MAMMAL.Micromys.minutus","MH",12.885568285
@@ -1510,7 +1454,7 @@
 "09MAMMAL.Myodes.glareolus","RG",28.108993411
 "09MAMMAL.Myodes.glareolus","WD",326.258887665
 "12BFLY.Comma","MH",10.11510555
-"12BFLY.Common blue","GM",16.604964114
+"12BFLY.Common blue","GM",13.837470095
 "12BFLY.Common blue","PP",47.408974357
 "12BFLY.Gatekeeper","CP",28.415711952
 "12BFLY.Gatekeeper","GM",190.957087335
@@ -1520,19 +1464,17 @@
 "12BFLY.Gatekeeper","PP",94.817948711
 "12BFLY.Gatekeeper","RG",32.097353218
 "12BFLY.Gatekeeper","WD",8.473333333
-"12BFLY.Green-veined White","CP",114.80380283
-"12BFLY.Green-veined White","GM",16.604964114
+"12BFLY.Green-veined White","CP",142.09930091
+"12BFLY.Green-veined White","GM",11.974733736
 "12BFLY.Green-veined White","LP",35.13035871
-"12BFLY.Green-veined White","LU",27.29549808
 "12BFLY.Green-veined White","MH",15.17269737
 "12BFLY.Green-veined White","RG",9.170664208
 "12BFLY.Large Skipper","GM",24.907446173
 "12BFLY.Large Skipper","LP",35.130358707
 "12BFLY.Large Skipper","RG",4.585332102
-"12BFLY.Large White","CP",21.01073232
-"12BFLY.Large White","GM",49.814892344
+"12BFLY.Large White","CP",102.89722657
+"12BFLY.Large White","GM",16.604964114
 "12BFLY.Large White","LP",35.13035871
-"12BFLY.Large White","LU",81.88649425
 "12BFLY.Large White","MH",15.172697368
 "12BFLY.Large White","RG",9.170664206
 "12BFLY.Meadow Brown","CP",943.376451867
@@ -1544,10 +1486,9 @@
 "12BFLY.Meadow Brown","RG",68.78004973
 "12BFLY.Meadow Brown","SF",25.31822183
 "12BFLY.Painted Lady","PP",47.40897436
-"12BFLY.Peacock","CP",56.8314239
+"12BFLY.Peacock","CP",111.42242007
 "12BFLY.Peacock","GM",49.814892335
 "12BFLY.Peacock","LP",35.13035871
-"12BFLY.Peacock","LU",54.59099617
 "12BFLY.Peacock","MH",45.518044469
 "12BFLY.Peacock","NH",1.407817811
 "12BFLY.Peacock","PP",47.40897436
@@ -1558,14 +1499,13 @@
 "12BFLY.Red Admiral","RG",4.585332103
 "12BFLY.Ringlet","GM",16.60496411
 "12BFLY.Ringlet","NH",1.407817811
-"12BFLY.Small Skipper","CP",56.83145031
+"12BFLY.Small Skipper","CP",84.12691459
 "12BFLY.Small Skipper","GM",24.907458344
-"12BFLY.Small Skipper","LU",27.29546428
 "12BFLY.Small copper","CP",10.50536616
 "12BFLY.Small copper","GM",24.907446169
 "12BFLY.Small copper","LP",35.13037506
+"12BFLY.Small tortoiseshell","CP",27.29549808
 "12BFLY.Small tortoiseshell","GM",41.512410279
-"12BFLY.Small tortoiseshell","LU",27.29549808
 "12BFLY.Small tortoiseshell","MH",5.057539761
 "12BFLY.Small tortoiseshell","RG",4.585332103
 "12BFLY.Small white","CP",160.254894056
@@ -1585,17 +1525,17 @@
 "13SFPARA.Crataepus marbis","RG",3313.7401588
 "13SFPARA.Eurytoma sp A","RG",552.290026433
 "13SFPARA.Eurytoma sp B","RG",552.290026433
+"13SFPARA.Mesopolobus incultus","CP",6332.59044
 "13SFPARA.Mesopolobus incultus","GM",53470.40699
 "13SFPARA.Mesopolobus incultus","LP",35692.44208
-"13SFPARA.Mesopolobus incultus","LU",6332.59044
 "13SFPARA.Mesopolobus incultus","PP",304049.14617
 "13SFPARA.Pterandrophysalis levantina","RG",1104.5800527
 "13SFPARA.Pteromalus albipennis","PP",24652.63348
 "13SFPARA.Pteromalus beryllii","MH",1167.0394183
 "13SFPARA.Pteromalus elevatus","RG",1104.5800528
 "13SFPARA.Pteromalus sequester-group","RG",1656.870079
+"13SFPARA.Spintherus dubius","CP",6332.59044
 "13SFPARA.Spintherus dubius","GM",10282.77058
-"13SFPARA.Spintherus dubius","LU",6332.59044
 "13SFPARA.Spintherus dubius","PP",8217.544493
 "13SFPARA.Spintherus dubius","RG",16568.7007929
 "13SFPARA.Triaspis floricola","RG",2209.16010546
