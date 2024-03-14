@@ -503,6 +503,8 @@ land_change_weighted<-rbind(ext_edgelist_aggr,sem_ext_edgelist_aggr,mod_edgelist
                           sem_int_edgelist_aggr,int_edgelist_aggr)
 
 
+#write.csv(land_change_weighted,"Data/Land_use_rat_edgelist_weighted_PP_intense.csv", row.names= FALSE)
+
 #final state_node list with abundances
 state_nodes_weighted_ab<-rbind(ab_ext[,1:3],state_node_sem_ext_agg[,1:3],
                                   state_node_mod_agg[,1:3],state_node_sem_int_agg[,1:3],
@@ -862,12 +864,17 @@ output_ES<-rbind(output_ES_1hop,output_ES_2hops)
 ################# PLOTS PRESENTATION
 
 #direct
-direct_ES<- read.csv("Data/Land_use_dir_weighted_PP_intense.csv", sep =",") 
+direct_ES<- read.csv("Data/Land_use_dir_weighted_PP_intense.csv", sep =",") %>% 
+            mutate(services = case_when(services == "Crop production"~ "Resource provision",
+                              TRUE~services))
 
 direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
 
 #indirect
-output_ind_ES <- read.csv("Data/Land_use_output_weighted_PP_intense.csv", sep =",") 
+output_ind_ES <- read.csv("Data/Land_use_output_weighted_PP_intense.csv", sep =",") %>% 
+  mutate(services_to = case_when(services_to == "Crop production"~ "Resource provision",
+                                 TRUE~services_to))
+
 
 output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
 
