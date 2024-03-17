@@ -514,6 +514,7 @@ state_nodes_weighted<-cbind(management = rep(c("E","SE","M","SI","I"),
                                                        nrow(state_node_int_agg))), state_nodes_weighted_ab)
 
 
+#write.csv(state_nodes_weighted,"Data/Land_use_rat_state_nodes_CP_intense.csv", row.names= FALSE)
 
 ################## --- CALCULATE DIRECT E(D)S PROVISION AND INDIRECT EFFECT ON ES
 
