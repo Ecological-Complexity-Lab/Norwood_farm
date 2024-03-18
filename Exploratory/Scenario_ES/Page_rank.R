@@ -5,6 +5,7 @@
 #load packages
 library(igraph)
 library(dplyr)
+library(tidyverse)
 
 #Before estimating PageRank we have to create a network with:
 
@@ -60,23 +61,34 @@ ES.species_edge<- read.csv("Data/Land_use_dir_weighted_CP_intense.csv", sep = ",
 edge_list<-rbind(edge.list.sp_sp,ES.species_edge)
 
 
-#### PRUEBA FILTER JUST EMPIRICAL
-
-edge_list
-#edge_list_E<-edge_list %>% filter(management == "E") %>% select(-management)
-
-# create graph object using edges.ES
-net.ES <- graph.data.frame(edge_list_E,
-                           directed = T,
-                           vertices = nodes)
-plot(net.ES) # check to make sure arrows are flipped
-
-net.ES
-
-
 
 
 ######## 1. Estimate species importance (Pagerank)
+
+
+### Create the network for each management using the edge list
+
+network.ES<-list()
+
+for (i in unique(edge_list$management)){# for each treatment
+  
+  #Filter data
+  edge_list_management<-edge_list %>% filter(management== i) #filter edge list according to the management
+  
+  #Create igraph object
+  net.ES <- graph.data.frame(edge_list_management, 
+                             directed = T,
+                             vertices = nodes)
+  
+  # Storage the results
+  list_name <- paste0(i, i) 
+  network.ES[[i]] <- net.ES
+}
+
+
+
+
+### Test the importance of species using PageRank
 
 # we run pagerank for each ES to look at species importance.  The higher probability can be
 #interpreted as “more important” to the ecosystem service node.
@@ -87,20 +99,6 @@ net.ES
 
 
 
-
-### ACA INTENTAR HACER EL LOOP CONSIDERANDO CADA MANEJO
-
-
-
-
-
-
-
-
-
-
-##Now I will try to do a loop for the differents ES
-
 management = c()
 services = c()
 sp_rank = NULL
@@ -110,74 +108,135 @@ for (i in 552:558){ #for each E(D)S
   
   j = nodes[i,2] #identity of E(D)S
   
-  #Pagerank function
-  pers.page <- rep(0, nrow(nodes)) %>% replace(i,1) #create personalized pagerank 
- 
-  page.rank<-data.frame (NodesID=nodes$node_id, 
-              prob=page_rank(graph=net.ES, damping = 0.85, directed = T, 
-              personalized = pers.page)$vector)
-
-  page.rank.spp<- page.rank %>% filter(!(NodesID>551)) # remove nodes representing E(D)S
+for (m in unique(edge_list$management)) {  #for each habitat management
   
-  #ACA ES DONDE TENGO QUE FILTRAR POR MANAGEMENT
-  page.rank.direct <- data.frame(NodesID = ifelse(edge_list_E$node_from == i,
-                                                 edge_list_E$node_to,NA))  # assign NA to species providing directly the particular ES
+    edge_list_management <- edge_list %>% filter(management == m) #select the edge list
+    
+  #Pagerank function
+  pers.page <- rep(0, nrow(nodes)) %>% replace(i,1)  
+  
+  page.rank<-data.frame (NodesID=nodes$node_id, 
+                         prob=page_rank(graph=network.ES[[m]], #create personalized pagerank for each habitat management
+                                        damping = 0.85, directed = T, 
+                                        personalized = pers.page)$vector)
+  
+  page.rank.spp<- page.rank %>% filter(!(NodesID>551)) # remove nodes representing E(D)S
  
+  page.rank.direct <- data.frame(NodesID = ifelse(edge_list_management$node_from == i,
+                                                  edge_list_management$node_to,NA))  # assign NA to species providing directly the particular ES
+  
   page.rank.direct <- c(na.omit(page.rank.direct)) # and remove those species
   
   page.rank.ind.support <- page.rank.spp[!(page.rank.spp$NodesID %in% page.rank.direct$NodesID),] # keep only ind supporting spp! 
   
-  # Storage the results)
+  # Storage the results
   
   sp_rank<- rbind(sp_rank, page.rank.ind.support)
-  services <- c(services, rep(j,nrow(page.rank.ind.support))) # services
-  #management  CREATE WHEN I DO NESTED
-
+  services <- c(services, rep(j, nrow(page.rank.ind.support))) # services
+  management <- c(management, rep (m,nrow(page.rank.ind.support))) #management
+  
+  }
 }
 
-page_rank_sp<-data.frame(sp_rank,services)
+page_rank_sp<-data.frame(sp_rank,services,management) %>% rename("pagerank" = "prob") %>% 
+              select(management,NodesID,services,pagerank)
+
+## Calculate the mean prob (importance) for each species across all services
+
+mean_page_rank<-page_rank_sp %>% group_by(management,NodesID)  %>% 
+  mutate(all_mean = mean(pagerank), #calculate the mean and standard error
+         all_std = sd(pagerank)/ sqrt(n())) %>% 
+  gather("services","pagerank",5:6) %>% select(management,NodesID,services,pagerank)
+
+
+## Merge into the final dataframe
+page_rank_sp_final<-rbind(page_rank_sp,mean_page_rank) %>% ungroup() %>% unique() #eliminate duplicated rows
+
+#write.csv(page_rank_sp_final,"Data/page_rank_sp.csv", row.names= FALSE)
 
 
 
 
 
+### PLOT CIRCULAR GRAPH OF THE FIRST 50 MOST IMPORTANT SPECIES IN EXTENSIVE
+library(ggplot2)
+library(circlize)
+library(viridis)
+library(ComplexHeatmap)
 
+#we plot a circular plot using each layer as management and values the average importance of species to
+#indirectly provide E(D)S
 
-##########################################################################
-##########################################################################
-##########################################################################
+#Arrange dataframe
 
-
-# we have already exported .csv file for each service individually
-# we want to get an mean prob for each species across all services for the main ES robustness
-
-all.support <- rbind(water.filt.support,wathunt.support,carbon.seq.support,fishery.support,birdwatch.support)
-all.support$SpeciesID <- as.factor(all.support$SpeciesID)
-mean.support <- aggregate(prob ~ SpeciesID, all.support, mean) # calculate mean prob. for each spp.
-
-attach(mean.support)
-mean.support <- mean.support[order(-prob),]
-detach(mean.support)
-
-write.csv(mean.support, "EPB_IndirectAll.csv")
+page_rank_circ<-read.csv("Data/page_rank_sp.csv", sep = ",") %>%
+                  filter(services == "all_mean") %>% #just average for now (maybe add error bars in the future)
+                  spread(management,pagerank) %>% #rearrange dataframe
+                  select(NodesID,services,E,SE,M,SI,I)  %>% 
+                 arrange(desc(E)) %>% slice(1:50)
 
 
 
-## Crop production (node 522)
+# Plot general structure
 
-crop.pro <- data.frame(NodesID=nodes$node_id, prob=page_rank(graph=net.ES, damping = 0.85, directed = T, 
-                                                             personalized = c(rep(0,times=nrow(nodes)-nrow(nodes[nodes$type!="species",])),
-                                                                              1,0,0,0,0,0,0))$vector)
+sp_names<-page_rank_circ[,1] #vector with nodes ID
+page_rank_values<-page_rank_circ %>% select(-NodesID,-services) #dataframe just with pagerankvalues
+rownames(page_rank_values) <- sp_names
 
-crop.pro.SPP <- crop.pro%>% filter(!(NodesID>521)) # remove nodes representing E(D)S
 
-crop.pro.direct <- data.frame(NodesID = ifelse(edge_list_E$node_from=="552",
-                                               edge_list_E$node_to,NA))  # assign NA to species providing directly the particular ES
-crop.pro.direct <- c(na.omit(crop.pro.direct)) # and remove those species 
+png(file="Versatility_tricolor_NI.png",
+    width=1200, height=800)
 
-crop.pro.ind.support <- crop.pro.SPP[!(crop.pro.SPP$NodesID %in% crop.pro.direct$NodesID),] # keep only ind supporting spp! 
+# Extensive layer
+mean_E<- page_rank_values[,1]
 
-crop.pro.ind.sup<- crop.pro.ind.support %>% arrange(desc(prob)) #order species according to their ind importance in affecting the ES
+color = colorRamp2(seq(min(0.000088), max(0.06), length = 100),viridis(100))
+#Empty a paragraph for adding label (E,SE,M,SI,I)
+
+circle.margin(2)
+circos.heatmap(mean_E, col = color, rownames.side = "outside", rownames.cex = 1, track.height = 0.15)
+
+circos.clear()
+
+# SemI-Extensive layer
+mean_SE<- page_rank_values[,2]
+color = colorRamp2(seq(min(0.000088), max(0.06), length = 100),viridis(100))
+
+circos.par(gap.degree = 1)#Empty a paragraph for adding label (E,SE,M,SI,I)
+
+circos.heatmap(mean_SE, col = color, track.height = 0.15)
+
+# Moderate layer
+mean_M<- page_rank_values[,3]
+color = colorRamp2(seq(min(0.000088), max(0.06), length = 100),viridis(100))
+
+circos.par(gap.degree = 10)#Empty a paragraph for adding label (E,SE,M,SI,I)
+
+circos.heatmap(mean_M, col = color, track.height = 0.15)
+
+
+# Semi-intensive layer
+mean_SI<- page_rank_values[,4]
+color = colorRamp2(seq(min(0.000088), max(0.06), length = 100),viridis(100))
+
+circos.par(gap.after = 1)#Empty a paragraph for adding label (E,SE,M,SI,I)
+
+circos.heatmap(mean_SI, col = color, track.height = 0.15)
+
+
+# Intensive layer
+mean_I<- page_rank_values[,5]
+color = colorRamp2(seq(min(0.000088), max(0.06), length = 100),viridis(100))
+
+circos.par(gap.after = 40)#Empty a paragraph for adding label (E,SE,M,SI,I)
+
+circos.heatmap(mean_I, col = color, track.height = 0.15)
+
+#Legend
+lgd_mult = Legend(col_fun =color, 
+                  legend_gp = gpar(col = 1),  title_position = "topleft", title = "Page Rank", direction = "horizontal")
+draw(lgd_mult, x = unit(1, "npc") - unit(30, "mm"), y = unit(6, "mm"), 
+     just = c("right", "bottom"))
 
 
 
