@@ -167,79 +167,118 @@ library(ComplexHeatmap)
 #we plot a circular plot using each layer as management and values the average importance of species to
 #indirectly provide E(D)S
 
-#Arrange dataframe
+###### Arrange dataframe
 
 page_rank_circ<-read.csv("Data/page_rank_sp.csv", sep = ",") %>%
                   filter(services == "all_mean") %>% #just average for now (maybe add error bars in the future)
                   spread(management,pagerank) %>% #rearrange dataframe
                   select(NodesID,services,E,SE,M,SI,I)  %>% 
-                 arrange(desc(E)) %>% slice(1:50)
+                 arrange(desc(E)) %>% slice(1:50) %>% #select the fifty more important species
+                  sample_n(nrow(.))
+
+sp_names<-page_rank_circ$NodesID #create temporal species name to filter the big database
+
+##### set up parameters and structure
 
 
+# Define color of each layer and sps
 
-# Plot general structure
+#layer
+color = colorRamp2(seq(min(0.000088), max(0.06), length = 100),viridis(100)) #color layer
 
-sp_names<-page_rank_circ[,1] #vector with nodes ID
-page_rank_values<-page_rank_circ %>% select(-NodesID,-services) #dataframe just with pagerankvalues
+
+#sps
+Norwood_farm<-readRDS("Data/Norwood_farm.RData") #read multilayer object
+
+species_list<-Norwood_farm$nodes %>% select(node_id,node_name,taxon) %>% #clean names
+  separate(node_name, c("trophic_lower", "node_name"),  "[A-Z]\\.") %>% 
+  select(-trophic_lower) %>% mutate (node_name =  gsub(c("\\?"), "", node_name)) %>% 
+  mutate (node_name =  gsub(c("1"), "", node_name)) %>% 
+  mutate (node_name =  gsub(c("zCROP"), "", node_name)) %>% 
+  mutate (node_name = gsub("\\.", " ", node_name)) %>% #keep just the species name of most rows
+  filter(node_id%in%sp_names) %>% #filter species in the dataframe
+  mutate(color_sp =case_when(taxon == "Plant"~ "#00C1AB", #assign color to species according to the taxon
+                             taxon == "Crop"~ "#BE9C00",
+                             taxon == "Flower-visiting"~ "#8CAB00",
+                             taxon == "Aphid"~ "#F8766D",
+                             taxon == "Primary aphid parasitoid"~ "#00BBDA",
+                             taxon == "Secondary aphid parasitoid"~ "#8B93FF",
+                             taxon == "Leaf-miner parasitoid"~ "#00BE70",
+                             taxon == "Seed-feeding insect"~ "#F962DD",
+                             taxon == "Seed-feeding bird"~ "#D575FE",
+                             taxon == "Seed-feeding rodent"~ "#FF65AC",
+                             taxon == "Butterfly"~ "#E18A00",
+                             taxon == "Insect seed-feeder parasitoid"~ "#24B700",
+                             taxon == "Rodent ectoparasite"~ "#00ACFC") ) %>% 
+                              arrange(taxon) #order according to taxon
+
+color_sp <- as.vector(species_list$color_sp)
+
+
+# Arrange pagerankvalues order and prepare the final version of species list
+
+page_rank_circ2<-page_rank_circ %>%  #arrange order according to rows in species_list
+  arrange(match(NodesID, species_list$node_id)) 
+
+sp_names<-page_rank_circ2$NodesID#vector with nodes ID
+sp_names<-as.factor(species_list$node_name) # to plot species name
+
+page_rank_values<- page_rank_circ2 %>% select(-NodesID,-services)
 rownames(page_rank_values) <- sp_names
 
 
-png(file="Versatility_tricolor_NI.png",
-    width=1200, height=800)
 
-# Extensive layer
-mean_E<- page_rank_values[,1]
 
-color = colorRamp2(seq(min(0.000088), max(0.06), length = 100),viridis(100))
-#Empty a paragraph for adding label (E,SE,M,SI,I)
-
-circle.margin(2)
-circos.heatmap(mean_E, col = color, rownames.side = "outside", rownames.cex = 1, track.height = 0.15)
+#PLOT
 
 circos.clear()
 
+png(file="Page_rank_ave.png",
+    width=1600, height=1200)
+
+# Extensive layer
+mean_E<- page_rank_values[,1, drop= FALSE]
+
+circos.par(gap.after = c("Creeping Buttercup"= 30))
+circos.heatmap(mean_E, col = color, rownames.side = "outside", rownames.col	=color_sp,
+rownames.cex = 1.4, track.height = 0.1)
+
+
+
 # SemI-Extensive layer
-mean_SE<- page_rank_values[,2]
+mean_SE<- page_rank_values[,2,drop= FALSE]
 color = colorRamp2(seq(min(0.000088), max(0.06), length = 100),viridis(100))
 
-circos.par(gap.degree = 1)#Empty a paragraph for adding label (E,SE,M,SI,I)
-
-circos.heatmap(mean_SE, col = color, track.height = 0.15)
+circos.heatmap(mean_SE, col = color, track.height = 0.1)
 
 # Moderate layer
-mean_M<- page_rank_values[,3]
-color = colorRamp2(seq(min(0.000088), max(0.06), length = 100),viridis(100))
-
-circos.par(gap.degree = 10)#Empty a paragraph for adding label (E,SE,M,SI,I)
-
-circos.heatmap(mean_M, col = color, track.height = 0.15)
+mean_M<- page_rank_values[,3,drop= FALSE]
+circos.heatmap(mean_M, col = color, track.height = 0.1)
 
 
 # Semi-intensive layer
-mean_SI<- page_rank_values[,4]
-color = colorRamp2(seq(min(0.000088), max(0.06), length = 100),viridis(100))
-
-circos.par(gap.after = 1)#Empty a paragraph for adding label (E,SE,M,SI,I)
-
-circos.heatmap(mean_SI, col = color, track.height = 0.15)
+mean_SI<- page_rank_values[,4,drop= FALSE]
+circos.heatmap(mean_SI, col = color, track.height = 0.1)
 
 
 # Intensive layer
-mean_I<- page_rank_values[,5]
-color = colorRamp2(seq(min(0.000088), max(0.06), length = 100),viridis(100))
-
-circos.par(gap.after = 40)#Empty a paragraph for adding label (E,SE,M,SI,I)
-
-circos.heatmap(mean_I, col = color, track.height = 0.15)
+mean_I<- page_rank_values[,5,drop= FALSE]
+circos.heatmap(mean_I, col = color, track.height = 0.1)
 
 #Legend
-lgd_mult = Legend(col_fun =color, 
-                  legend_gp = gpar(col = 1),  title_position = "topleft", title = "Page Rank", direction = "horizontal")
-draw(lgd_mult, x = unit(1, "npc") - unit(30, "mm"), y = unit(6, "mm"), 
-     just = c("right", "bottom"))
+lgd_mult = Legend(col_fun =color,
+                  legend_gp = gpar(col = 1), labels_gp = gpar(fontsize = 16),  title_position = "topleft", title = "Page Rank", direction = "horizontal",
+                  grid_height = unit(1.6,"cm"),  grid_width = unit(5,"cm"),title_gp = gpar(fontsize = 20, fontface = "bold"))
+
+draw(lgd_mult, x = unit(20, "mm"), y = unit(90, "mm"), 
+     just = c("left", "bottom"))
+
+legend("bottomleft", inset=.02, title="Guild", c ("Aphid","Crop","Plant","Seed-feeding rodent"), fill= unique(color_sp), horiz=FALSE, cex=2)
+
+dev.off()
 
 
-
+##ADD THE TREATMENTS MANUALLY
 
 
 
