@@ -77,7 +77,7 @@ for (i in unique(edge_list$management)){# for each treatment
   
   #Create igraph object
   net.ES <- graph.data.frame(edge_list_management, 
-                             directed = T,
+                             directed = F,
                              vertices = nodes)
   
   # Storage the results
@@ -97,7 +97,7 @@ for (i in unique(edge_list$management)){# for each treatment
 # to account for spp directly providing, we will replace prob. with 0 or NA
 # if they are directly linked to a service
 
-
+#DO the example with pollinators and E (they should appear because they are also affecting ind pollination)... check
 
 management = c()
 services = c()
@@ -106,10 +106,12 @@ sp_rank = NULL
 
 for (i in 552:558){ #for each E(D)S
   
+  i = 553
   j = nodes[i,2] #identity of E(D)S
   
 for (m in unique(edge_list$management)) {  #for each habitat management
   
+  m = "E"
     edge_list_management <- edge_list %>% filter(management == m) #select the edge list
     
   #Pagerank function
@@ -117,19 +119,25 @@ for (m in unique(edge_list$management)) {  #for each habitat management
   
   page.rank<-data.frame (NodesID=nodes$node_id, 
                          prob=page_rank(graph=network.ES[[m]], #create personalized pagerank for each habitat management
-                                        damping = 0.85, directed = T, 
-                                        personalized = pers.page)$vector)
+                                        damping = 0.85, directed = F, #ACAA 
+                                        personalized = pers.page)$vector,
+                                        max_iter = 3) #ACAAA
   
   page.rank.spp<- page.rank %>% filter(!(NodesID>551)) # remove nodes representing E(D)S
  
   page.rank.direct <- data.frame(NodesID = ifelse(edge_list_management$node_from == i,
                                                   edge_list_management$node_to,NA))  # assign NA to species providing directly the particular ES
+
   
   page.rank.direct <- c(na.omit(page.rank.direct)) # and remove those species
   
   page.rank.ind.support <- page.rank.spp[!(page.rank.spp$NodesID %in% page.rank.direct$NodesID),] # keep only ind supporting spp! 
   
-  # Storage the results
+  
+  #isolated.sp<- page.rank %>% filter(!((NodesID%in%edge_list_management$node_from) | 
+   #                                   (NodesID%in%edge_list_management$node_to)))  # we detected the isolatred species because igraph objects maintain isolated nodes. Then, we will asign 0 to those species (0 because they can be in other management scenarios, so its easy to compare)
+  
+    # Storage the results
   
   sp_rank<- rbind(sp_rank, page.rank.ind.support)
   services <- c(services, rep(j, nrow(page.rank.ind.support))) # services
@@ -172,9 +180,9 @@ library(ComplexHeatmap)
 page_rank_circ<-read.csv("Data/page_rank_sp.csv", sep = ",") %>%
                   filter(services == "all_mean") %>% #just average for now (maybe add error bars in the future)
                   spread(management,pagerank) %>% #rearrange dataframe
-                  select(NodesID,services,E,SE,M,SI,I)  %>% 
-                 arrange(desc(E)) %>% slice(1:50) %>% #select the fifty more important species
-                  sample_n(nrow(.))
+                  select(NodesID,services,E,SE,M,SI,I)#  %>% 
+                # arrange(desc(E)) %>% slice(1:50) %>% #select the fifty more important species
+                #  sample_n(nrow(.))
 
 sp_names<-page_rank_circ$NodesID #create temporal species name to filter the big database
 
