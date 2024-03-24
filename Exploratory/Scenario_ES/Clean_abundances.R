@@ -138,6 +138,7 @@ animals_ab1<-nore_to_abundances %>%  group_by(upper,habitat, upper.guild) %>%
 animals_ab<- animals_ab1 %>%  mutate(
                            abundance = ifelse(upper.guild == "02FV", 
                                               abundance /2, abundance)) %>% #pollinators were sampled in 2 years, so we divided it by 2 to be comparable to other trophic groups
+                         mutate(abundance = round(abundance)) %>% 
                           select (-upper.guild)
 
 ### Final dataframe of species abundances per habitat
