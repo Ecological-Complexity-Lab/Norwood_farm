@@ -1,10 +1,11 @@
-# What's new?
+## Previous version
 
 We reclassified the habitats:
 
 * Move Lucerne (LU) into Crop production (CP).
 * Clean the abundances of crops in the data.
 * Change the name CSF -> SF
+
   
 
 # Assumptions:
@@ -20,3 +21,8 @@ Here we reclassified the species in a different way:
 3. Assume no competition between crops and weeds for resources.
 
 
+## What's new?
+
+* Reclassify the group flower visitors as:
+  1) FV (Flower visitors): species with high pollination potential (bumblebees, bees, hoverflies, butterflies). We assume they directly provide pollination.
+  2) OFV (Other flower visitors): species with low/null potential as pollinators (mosquitos, beetles). We assume they don't directly provide pollination.
