@@ -109,107 +109,104 @@ nore_flowervis_fin<-nore_flowervis %>%   filter(!(upper %in%list.butt.flw))#remo
 
 ## Filter in 15FVOTHER those species according to its potential role as pollinator (using bibliography)
 
-# Diptera, coleoptera and hymenoptera (bees and bumbebless) species
-
 #We assume that species will be classified as 02FV if they were recorded transporting at least one grain of pollen in the data base, otherwise they will be classified as 15FV.
 
-list_to_compare<- read.csv("Data/Biomass_repositories/Orford_et_al_2015.csv",header=T, sep =",") %>%  #data containing list of visitors transporting pollen grain from data from Orford et al 2015 (https://doi.org/10.1098/rspb.2014.2934)
+# Diptera, coleoptera and hymenoptera (bees and bumbebless) species (database from Orford et al 2015 (https://doi.org/10.1098/rspb.2014.2934))
+
+list_to_compare<- read.csv("Data/repositories/Orford_et_al_2015.csv",header=T, sep =",") %>%  #data containing list of visitors transporting pollen grain from data from Orford et al 2015 (https://doi.org/10.1098/rspb.2014.2934)
                   select(-Plant.species) %>% group_by(Insect.species) %>% 
                   summarise (Tot_pol_grain= sum(Pollen.grains)) %>% #calculate the total grain of pollen per sp
                   mutate(Insect.species = paste0("15FVOTHER.", Insect.species)) %>%  # arrange the format before filtering
-                  rename ( "upper "= "Insect.species")
+                  rename ( "upper "= "Insect.species") %>% select(-Tot_pol_grain)
 
-coleop_dipt<-nore_flowervis_fin %>% filter(upper.guild == "15FV" & upper%in%list_to_compare$`upper `) %>% 
-      ungroup() %>% select(upper) %>% unique() # species (coleoptera, diptera and hymenoptera) that we keep in the 02FV
+# Full hymenoptera (DoPI database from Balfour et al 2022 (doi: 10.1002/ecy.3801))
 
+list_to_compare_hym <- read.csv("Data/repositories/DoPI.csv",header=T, sep =",") %>% 
+  select(Pollinator.Species,Pollination,Pollen) %>% 
+  filter(Pollination == 1 | Pollination == 2) %>% #pollinators that were recorded transfering pollen grains
+  select(Pollinator.Species) %>% unique() %>% 
+  mutate(Pollinator.Species = paste0("15FVOTHER.", Pollinator.Species)) %>%  # arrange the format before filtering
+  rename ( "upper "= "Pollinator.Species")
 
-# Do something similar with hymenptera parasitoids.
-#PONER LA LISTA ENORME
-
-
-
-#Then remove those species from 15FV
-
-
-
-
-
-
-FV<- nore_names %>% filter(upper.guild=="02FV") %>% select(upper,upper.guild) %>% 
-  unique() #list of all flower visitors 
-FV.sp<-substr(FV$upper,6,nchar(FV$upper)) #substract species name
-FV.list<-cbind(FV,FV.sp) 
-
-FVOTHER<- nore_names %>% filter(upper.guild=="15FV") %>% select(upper,upper.guild) %>% 
-  unique() #list of flower visitor others
-FVOTHER.sp<-substr(FVOTHER$upper,11,nchar(FVOTHER$upper)) #substract species name
-FVOTHER.list<-cbind(FVOTHER,FVOTHER.sp) 
-
-# Eliminate flower visitor others from the flower visitor list (02FV)
-FV_justpoll<-FV.list %>% filter(!(FV.sp %in% FVOTHER.list$FVOTHER.sp))
-
-# Eliminate duplicated flower visitors in 02FV from the dataframe
-nore_fvjust_poll<-nore_names %>% filter(upper %in% FV_justpoll$upper)
-nore_flowervis<-nore_names %>% filter(upper.guild != "02FV")
-
-nore_flowervis<-rbind(nore_flowervis,nore_fvjust_poll) #remove "15FVOTHERS" pollinators from "02FV"pollinators
-nore_fwvisitor<- nore_flowervis %>% filter (!(upper.guild== "11HO" | 
-                                                upper.guild == "10BE")) #remove hoverflies and bees because they are already in 02FV
-
-## OTHERWISE: Keep just 02FV and 12BF as pollinator trophic groups  
-
-#nore_fwvisitor<-nore_names %>%   filter(!(upper.guild == "15FV" |
-                       #                              upper.guild == "11HO" |
-                        #                             upper.guild == "10BE"))
+# List of species in 15FV that provide directly pollination 
+species<-nore_flowervis_fin %>% filter((upper.guild == "15FV" & upper%in%list_to_compare$`upper `) |
+                                             (upper.guild == "15FV" & upper%in%list_to_compare_hym$`upper `)) %>% 
+      ungroup() %>% select(upper) %>% unique()
 
 
+# Remove all the species in 02FV previously classified as 15FV
+species_to_remove_02FV<- nore_flowervis_fin %>% filter(upper.guild == "15FV") %>% select(upper) %>%
+  mutate(upper= gsub("15FVOTHER\\.", "02FV\\.", upper)) #prepare the dataframe 
+
+
+nore_flowervis_split<- nore_flowervis_fin %>% filter(!(upper%in%species_to_remove_02FV$upper)) # remove these species
+
+# Move species from 15FV that were recorded transporting pollen grains to 02FV
+
+nore_flowervis_final<- nore_flowervis_split %>% 
+                      mutate(upper = case_when(
+                        upper%in%species$upper ~ gsub("15FVOTHER\\.", "02FV.", upper),
+                             TRUE ~ upper)) %>% #move species from 15fvother to 2fv if they were recorded as pollinators
+                      mutate(upper.guild = case_when(
+                            grepl("^02FV", upper) ~ "02FV",
+                            TRUE ~ upper.guild)
+                            )
+                        
 
 ## Rearrange bird abundances according to the original paper
 
-birds_WD_RG<-nore_flowervis %>% filter(upper.guild == "08BI", habitat =="RG" |
-                                         habitat == "WD")  #abundances birds in WD and RG
+birds_WD_RG<-nore_flowervis_final %>% filter(upper.guild == "08BI", habitat =="RG" |
+                                             habitat == "WD")  #abundances birds in WD and RG
 
-birds_rest<-nore_flowervis %>% filter(upper.guild == "08BI", habitat =="all") #Birds move widely over the landscape, and the habitats in which they were mostly observed (e.g. hedgerows) were often not the habitats in which they were feeding, so we pooled them together as abundance of all habitats (RG and WD as exception)
+birds_rest<-nore_flowervis_final %>% filter(upper.guild == "08BI", habitat =="all") #Birds move widely over the landscape, and the habitats in which they were mostly observed (e.g. hedgerows) were often not the habitats in which they were feeding, so we pooled them together as abundance of all habitats (RG and WD as exception)
 
 #abundances of birds in the rest of the habitats
 birds_CP<-birds_rest %>% mutate(habitat = ifelse(habitat =="all", "CP"))
 birds_SF<-birds_rest %>% mutate(habitat = ifelse(habitat =="all", "SF"))
 birds_GM<-birds_rest %>% mutate(habitat = ifelse(habitat =="all", "GM"))
 birds_LP<-birds_rest %>% mutate(habitat = ifelse(habitat =="all", "LP"))
-birds_LU<- birds_rest %>% mutate(habitat = ifelse(habitat =="all", "LU"))
 birds_MH<-birds_rest %>% mutate(habitat = ifelse(habitat =="all", "MH"))
 birds_NH<-birds_rest %>% mutate(habitat = ifelse(habitat =="all", "NH"))
 birds_NL<-birds_rest %>% mutate(habitat = ifelse(habitat =="all", "NL"))
 birds_PP<-birds_rest %>% mutate(habitat = ifelse(habitat =="all", "PP"))
 
 # Merge to create dataframe of birds abundances
-birds_abundances<-rbind(birds_WD_RG,birds_CP,birds_SF,birds_GM,birds_LP,birds_LU,
+birds_abundances<-rbind(birds_WD_RG,birds_CP,birds_SF,birds_GM,birds_LP,
                         birds_MH,birds_NH,birds_NL,birds_PP)
-  
 
-## Final dataframe to calculate abundances of animals
-nore_without_bird<- nore_fwvisitor %>% filter (!(upper.guild== "08BI")) #remove old data of birds
+
+# Add bird abundances
+nore_without_bird<- nore_flowervis_final %>% filter (!(upper.guild== "08BI")) #remove old data of birds
 nore_to_abundances<-rbind (nore_without_bird,birds_abundances)
 
 
 ## Calculate the abundances of animals 
-animals_ab<-nore_to_abundances %>%  group_by(upper,habitat, upper.guild) %>% 
-  summarize(abundance =sum(fortotals)) %>% select(-upper.guild) %>% 
+animals_ab1<-nore_to_abundances %>%  group_by(upper,habitat, upper.guild) %>% 
+  summarize(abundance =sum(fortotals)) %>% 
   rename("species_name" = "upper")
 
+
+animals_ab<- animals_ab1 %>%  mutate(
+  abundance = ifelse(upper.guild == "02FV", 
+                     abundance /2, abundance)) %>% #pollinators were sampled in 2 years, so we divided it by 2 to be comparable to other trophic groups
+  mutate(abundance = round(abundance)) %>% 
+  select (-upper.guild)
 
 ### Final dataframe of species abundances per habitat
 
 species_abundances<-rbind(plants_ab,animals_ab)
 
-#write.csv(species_abundances,"Data/species_abundances_anta.csv", row.names= FALSE)
+#write.csv(species_abundances,"Data/species_abundances.csv", row.names= FALSE)
+
+
+
 
 
 ########## CREATE EDGELIST
 
 edge_list_nore_pre<-nore_to_abundances %>% select(-fortotals,-round,-lower.guild) %>% 
   unique()
-  
+
 ## Filtering bird-plant interactions in each habitat according to the list of plants 
 elist_birds<-edge_list_nore_pre %>% filter(upper.guild== "08BI")
 
@@ -226,58 +223,62 @@ for (i in 1:length(elistbirds_split)){
 
 edgelist_birds_long <- bind_rows(edgelist_birds, .id = "habitat") %>% #convert to edgelist again
   mutate(habitat= case_when(
-    habitat== 1 ~ "CP", habitat== 2 ~ "GM", habitat== 3 ~ "LP" , habitat== 4 ~ "LU", habitat== 5 ~ "MH", habitat== 6 ~ "NH",
-    habitat== 7 ~ "NL", habitat== 8 ~ "PP", habitat== 9 ~ "RG" , habitat== 10 ~ "SF", 
-    habitat== 11 ~ "WD")) 
+    habitat== 1 ~ "CP", habitat== 2 ~ "GM", habitat== 3 ~ "LP" , habitat== 4 ~ "MH", habitat== 5 ~ "NH",
+    habitat== 6 ~ "NL", habitat== 7 ~ "PP", habitat== 8 ~ "RG" , habitat== 9 ~ "SF", 
+    habitat== 10 ~ "WD")) 
 
 ## Merge real bird-plant interaction per habitat to the previous dataframe
 edge_list_nore_withoutbird<- edge_list_nore_pre %>% filter(upper.guild != "08BI") 
 edge_list_nore_final<-rbind(edge_list_nore_withoutbird,edgelist_birds_long) %>% select(habitat,lower,upper) 
 
-#write.csv(edge_list_nore_final,"Data/elist_nore_anta.csv", row.names= FALSE)
+
+#write.csv(edge_list_nore_final,"Data/elist_nore.csv", row.names= FALSE)
+
 
 
 
 ####### CREATE NODELIST
-guild.names<-sort(unique(substr(nore$lower,1,4)))  #define guild names
-full.guild.names<-c("plants","flower visitors","aphids","aphid parasitoids (primary)","aphid parasitoids (secondary)","leaf miner parasitoids","seed-feeding invertebrates","birds (seed feeders)","mammals (seed feeders)","bees","hoverflies","butterflies","fleas","other flower visitors")
 lower.species<-edge_list_nore_final$lower%>% as.data.frame()
 upper.species<-edge_list_nore_final$upper %>% as.data.frame()
 
 nodes_1<-rbind(lower.species,upper.species) %>% rename("node_name"=".") %>% unique() %>% 
-  arrange(node_name) %>% cbind(node_id = 1:nrow(nodes_1)) 
+  arrange(node_name) 
+
+nodes_2<- nodes_1%>% cbind(node_id = 1:nrow(nodes_1)) 
 
 #trophic groups
 plants = 1:93
 crops = 94:99
-flw_vis = 100:153
-aphid = 154:181
-pri_par = 182:192
-sec_par = 193:199
-leaf_par = 200:292
-seed_ins = 293:311
-seed_bird = 312:323
-seed_rod = 324:327
-butt = 328:343
-seed_ins_par = 344:360
-rod_par = 361:368
-flw_vis_oth = 369:555
+flw_vis = 100:200
+aphid = 201:228
+pri_par = 229:239
+sec_par = 240:246
+leaf_par = 247:339
+seed_ins = 340:358
+seed_bird = 359:370
+seed_rod = 371:374
+butt = 375:390
+seed_ins_par = 391:407
+rod_par = 408:415
+other_flw = 416:551
 
-nodes_anta<-nodes_1 %>% mutate(taxon = case_when(
-                          node_id %in% plants  ~ "Plant",
-                          node_id %in% crops  ~ "Crop",
-                          node_id %in% flw_vis  ~ "Flower-visiting",
-                          node_id %in% aphid  ~ "Aphid",
-                          node_id %in% pri_par  ~ "Primary aphid parasitoid",
-                          node_id %in% sec_par  ~ "Secondary aphid parasitoid",
-                          node_id %in% leaf_par  ~ "Leaf-miner parasitoid",
-                          node_id %in% seed_ins  ~ "Seed-feeding insect",
-                          node_id %in% seed_bird  ~ "Seed-feeding bird",
-                          node_id %in% seed_rod  ~ "Seed-feeding rodent",
-                          node_id %in% butt  ~ "Butterfly",
-                          node_id %in% seed_ins_par  ~ "Insect seed-feeder parasitoid",
-                          node_id %in% rod_par  ~ "Rodent ectoparasite",
-                          node_id %in% flw_vis_oth  ~ "Flower-visiting others"
+nodes<-nodes_2 %>% mutate(taxon = case_when(
+  node_id %in% plants  ~ "Plant",
+  node_id %in% crops  ~ "Crop",
+  node_id %in% flw_vis  ~ "Flower-visiting",
+  node_id %in% aphid  ~ "Aphid",
+  node_id %in% pri_par  ~ "Primary aphid parasitoid",
+  node_id %in% sec_par  ~ "Secondary aphid parasitoid",
+  node_id %in% leaf_par  ~ "Leaf-miner parasitoid",
+  node_id %in% seed_ins  ~ "Seed-feeding insect",
+  node_id %in% seed_bird  ~ "Seed-feeding bird",
+  node_id %in% seed_rod  ~ "Seed-feeding rodent",
+  node_id %in% butt  ~ "Butterfly",
+  node_id %in% seed_ins_par  ~ "Insect seed-feeder parasitoid",
+  node_id %in% rod_par  ~ "Rodent ectoparasite",
+  node_id %in% other_flw   ~ "Other flower visitors"
 ))
 
-#write.csv(nodes_anta,"Data/nodes_anta.csv", row.names= FALSE)
+#write.csv(nodes,"Data/nodes.csv", row.names= FALSE)
+
+
