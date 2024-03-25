@@ -24,5 +24,8 @@ Here we reclassified the species in a different way:
 ## What's new?
 
 * Reclassify the group flower visitors as:
-  1) FV (Flower visitors): species with high pollination potential (bumblebees, bees, hoverflies, butterflies). We assume they directly provide pollination.
-  2) OFV (Other flower visitors): species with low/null potential as pollinators (mosquitos, beetles). We assume they don't directly provide pollination.
+  1) 02FV (Flower visitors): species that were recorded transporting pollen grains (mainly bumblebees, bees, hoverflies, butterflies). We assume they directly provide pollination.
+  2) 15FVOTHER (Other flower visitors): species that were not recorded transporting pollen grains (mosquitos, beetles). We assume they don't directly provide pollination.
+
+To reclassify species, we used two databases: DoPI repository (doi: 10.1002/ecy.3801) and database from Orford et al 2015 (https://doi.org/10.1098/rspb.2014.2934). 
+
