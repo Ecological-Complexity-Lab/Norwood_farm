@@ -44,11 +44,20 @@ rename (node_name = lower, ESS = upper) %>%
 list.butt.flw<- c("02FV.Maniola jurtina","02FV.Pieris brassicae","02FV.Polyommatus icarus",
                     "02FV.Pyronia tithonus") #list of butterflies
 
-services<-services_pre %>% filter(!(node_name %in%list.butt.flw)) #remove dupicated butt from dataset of services
-  
+services<-services_pre %>% filter(!(node_name %in%list.butt.flw)) #remove duplicated butt from dataset of services
+
+# we keep pollination  service to jusr for flower visitors recorded transporting pollen in repositories 
+flw_poll  <- read.csv("Data/pollinators_sp.csv", sep = ",") #call the file
+
+tot_pol<-services %>% filter(taxon == "Flower-visiting" )
+
+flw_nopoll<- services %>% select(node_name,taxon) %>% 
+        filter(taxon == "Flower-visiting") %>% filter (!(node_name%in%flw_poll$upper)) #flw vis that not provide pollination
+
+services_pre2<-services %>% filter (!(node_name%in%flw_nopoll$node_name)) #
 
 ## we include species that not directly provide E(D)S
-phy_node_atr_tax_es<- dplyr::left_join(nodes, services, by = "node_name") %>% select(-node_id, -taxon.y) %>% 
+phy_node_atr_tax_es<- dplyr::left_join(nodes, services_pre2, by = "node_name") %>% select(-node_id, -taxon.y) %>% 
   rename("taxon" = "taxon.x") %>% 
   replace(is.na(.), 0) %>% rowwise() %>%  #we assigned "0" to species that we don't know if provide ES
   mutate(ES = rowSums(across(c("Crop production","Pollination","Pest control",

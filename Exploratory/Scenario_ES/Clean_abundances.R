@@ -152,13 +152,21 @@ nore_flowervis_final<- nore_flowervis_split %>%
                             TRUE ~ upper.guild)
                             )
                         
+# save flower visitors that directly provide pollination according to the data base (to assign ES later)
+pollinators<-nore_flowervis_final  %>% filter(upper.guild == "02FV") %>%  select(upper) %>% unique()
+#write.csv(pollinators,"Data/pollinators_sp.csv")
+
+# Move the rest of species from 15FV to 02FV, creating the flower visiting group (we already saved the file of pollinators)
+nore_flowervis_final2<- nore_flowervis_final %>% 
+  mutate(upper = gsub("15FVOTHER", "02FV", upper),
+         upper.guild = gsub("15FV", "02FV", upper.guild))
 
 ## Rearrange bird abundances according to the original paper
 
-birds_WD_RG<-nore_flowervis_final %>% filter(upper.guild == "08BI", habitat =="RG" |
+birds_WD_RG<-nore_flowervis_final2 %>% filter(upper.guild == "08BI", habitat =="RG" |
                                              habitat == "WD")  #abundances birds in WD and RG
 
-birds_rest<-nore_flowervis_final %>% filter(upper.guild == "08BI", habitat =="all") #Birds move widely over the landscape, and the habitats in which they were mostly observed (e.g. hedgerows) were often not the habitats in which they were feeding, so we pooled them together as abundance of all habitats (RG and WD as exception)
+birds_rest<-nore_flowervis_final2 %>% filter(upper.guild == "08BI", habitat =="all") #Birds move widely over the landscape, and the habitats in which they were mostly observed (e.g. hedgerows) were often not the habitats in which they were feeding, so we pooled them together as abundance of all habitats (RG and WD as exception)
 
 #abundances of birds in the rest of the habitats
 birds_CP<-birds_rest %>% mutate(habitat = ifelse(habitat =="all", "CP"))
@@ -176,7 +184,7 @@ birds_abundances<-rbind(birds_WD_RG,birds_CP,birds_SF,birds_GM,birds_LP,
 
 
 # Add bird abundances
-nore_without_bird<- nore_flowervis_final %>% filter (!(upper.guild== "08BI")) #remove old data of birds
+nore_without_bird<- nore_flowervis_final2 %>% filter (!(upper.guild== "08BI")) #remove old data of birds
 nore_to_abundances<-rbind (nore_without_bird,birds_abundances)
 
 
@@ -249,18 +257,18 @@ nodes_2<- nodes_1%>% cbind(node_id = 1:nrow(nodes_1))
 #trophic groups
 plants = 1:93
 crops = 94:99
-flw_vis = 100:200
-aphid = 201:228
-pri_par = 229:239
-sec_par = 240:246
-leaf_par = 247:339
-seed_ins = 340:358
-seed_bird = 359:370
-seed_rod = 371:374
-butt = 375:390
-seed_ins_par = 391:407
-rod_par = 408:415
-other_flw = 416:551
+flw_vis = 100:336
+aphid = 337:364
+pri_par = 365:375
+sec_par = 376:382
+leaf_par = 383:475
+seed_ins = 476:494
+seed_bird = 495:506
+seed_rod = 507:510
+butt = 511:526
+seed_ins_par = 527:543
+rod_par = 544:551
+
 
 nodes<-nodes_2 %>% mutate(taxon = case_when(
   node_id %in% plants  ~ "Plant",
@@ -275,8 +283,7 @@ nodes<-nodes_2 %>% mutate(taxon = case_when(
   node_id %in% seed_rod  ~ "Seed-feeding rodent",
   node_id %in% butt  ~ "Butterfly",
   node_id %in% seed_ins_par  ~ "Insect seed-feeder parasitoid",
-  node_id %in% rod_par  ~ "Rodent ectoparasite",
-  node_id %in% other_flw   ~ "Other flower visitors"
+  node_id %in% rod_par  ~ "Rodent ectoparasite"
 ))
 
 #write.csv(nodes,"Data/nodes.csv", row.names= FALSE)

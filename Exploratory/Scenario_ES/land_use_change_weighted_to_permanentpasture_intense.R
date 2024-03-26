@@ -515,6 +515,7 @@ state_nodes_weighted<-cbind(management = rep(c("E","SE","M","SI","I"),
                                                        nrow(state_node_mod_agg), nrow(state_node_sem_int_agg),
                                                        nrow(state_node_int_agg))), state_nodes_weighted_ab)
 
+#write.csv(state_nodes_weighted,"Data/Land_use_rat_state_nodes_PP_intense.csv", row.names= FALSE)
 
 
 ################## --- CALCULATE DIRECT E(D)S PROVISION AND INDIRECT EFFECT ON ES
@@ -550,7 +551,7 @@ direct_ES <- nodes_ES %>% filter (value ==1) %>%
   select(-value) 
 
 
-#rite.csv(direct_ES,"Data/Land_use_dir_weighted_PP_intense.csv", row.names= FALSE)
+#write.csv(direct_ES,"Data/Land_use_dir_weighted_PP_intense.csv", row.names= FALSE)
 
 ## -- Direct provision Ratio ES/E(D)S
 
@@ -811,6 +812,9 @@ output_ES_1hop<- hop_1 %>%
     
   ))
 
+# remove from the data set those flower visitors that not provide pollination to crops
+output_ES_1hop_fin<- output_ES_1hop %>% filter(!(services == "None" & taxon == "Flower-visiting"))
+
 
 ## -- 2 HOPS  
 
@@ -831,6 +835,11 @@ output_ES_2hops<- hop_2 %>%
     (node_id%in%flow_vis | node_id%in%butt) & (node_int%in%plants| node_int%in%crops) &
       (services_to == "Crop damage")  ~ "-", # flower visitors and butt --> + plants,crops--> + pop seed predators --> + crop damage 
     
+    (node_id%in%flow_vis) & (services == "None") & (node_int%in%plants| node_int%in%crops) &
+      !(services_to == "Crop damage")  ~ "-",
+    
+    (node_id%in%flow_vis) & (services == "None") &
+      (services_to == "Crop damage")  ~ "+", # flowe visitors that not provide poll --> - plants,crops -- > - pest abundance --> - crop damage
     
     (node_id%in%aphid | node_id%in%seed_bird| node_id%in%seed_ins |node_id%in%seed_rod) &
       (node_int%in%plants| node_int%in%crops) & (services_to == "Pollination" | 
@@ -854,7 +863,7 @@ output_ES_2hops<- hop_2 %>%
 
 ### -- Final dataframe output of indirect effects  ---
 
-output_ES<-rbind(output_ES_1hop,output_ES_2hops)
+output_ES<-rbind(output_ES_1hop_fin,output_ES_2hops)
 
 #write.csv(output_ES,"Data/Land_use_output_weighted_PP_intense.csv", row.names= FALSE)
 
@@ -959,9 +968,7 @@ prop_EDS_direct<- Prop %>% ggplot(aes(x = management, y = prop)) +
         axis.line = element_blank(),
         legend.text.align = 0,
         legend.title =  element_text(size = 13, color = "black"),
-        legend.text = element_text(size = 11),
-        legend.position = "bottom")
-
+        legend.text = element_text(size = 11))
 prop_EDS_direct
 
 #ggsave("Land_use_retained_direct_PP_intense.png")
@@ -993,9 +1000,7 @@ prop_EDS_indirect<- Prop_ind %>% ggplot(aes(x = management, y = prop)) +
         axis.line = element_blank(),
         legend.text.align = 0,
         legend.title =  element_text(size = 13, color = "black"),
-        legend.text = element_text(size = 11),
-        legend.position = "bottom")
-
+        legend.text = element_text(size = 11))
 prop_EDS_indirect
 
 #ggsave("Land_use_retained_indirect_PP_intense.png")
@@ -1087,13 +1092,13 @@ tot_services_emp<-direct_ES %>% filter(management=="E") %>% group_by(management,
 Prop_weight<-direct_ES %>% group_by(management,services) %>% 
   summarize(tot = sum(weight)) %>% ungroup() %>%  
   mutate(Extensive_tot = case_when(
-    services == "Bird watching"~ 329214.2231,
-    services == "Butterfly watching"~ 244.9927,
-    services == "Crop damage"~ 645455.5694,
-    services == "Crop production"~ 209300.0000,
+    services == "Bird watching"~ 330890.9200,
+    services == "Butterfly watching"~ 244.7676,
+    services == "Crop damage"~ 645963.6269,
+    services == "Resource provision"~ 209300.0000,
     services == "Pest control"~ 7108.3108,
-    services == "Pollination"~ 37048.3503,
-    services == "Seed dispersal"~ 306339.5102),
+    services == "Pollination"~ 36736.7426,
+    services == "Seed dispersal"~ 305215.3300),
     ratio_change = tot / Extensive_tot  #ratio of change: values higher than 1 indicates increasing in the amount of E(D)S
   )
 
@@ -1118,8 +1123,7 @@ prop_weight_direct<- Prop_weight %>% ggplot(aes(x = management, y = ratio_change
         axis.line = element_blank(),
         legend.text.align = 0,
         legend.title =  element_text(size = 13, color = "black"),
-        legend.text = element_text(size = 11),
-        legend.position = "bottom")
+        legend.text = element_text(size = 11))
 
 prop_weight_direct
 

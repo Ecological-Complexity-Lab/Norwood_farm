@@ -19,7 +19,8 @@ library(emln)#multilayer package
 library(readr)
 library(ggplot2)
 library(cowplot)
-setwd("D:/Trabajo/Papers/Norwood_Farm/norwood-ecosystem-services-main_Tinio")
+
+setwd("/Users/agustin/Desktop/Papers/Norwood_farm/Norwood_Tinio")
 
 ######### --- Upload multilayer network
 Norwood_farm<-readRDS("Data/Norwood_farm.RData") #read multilayer object
@@ -44,7 +45,7 @@ state_nodes_ab<-Norwood_farm$state_nodes %>% left_join(abundances,
 
 ## Call dataframe of habitats' area
 
-areas<-read.csv("Data/habitatarea.csv", sep =";") %>% 
+areas<-read.csv("Data/habitatarea.csv", sep =",") %>% 
   filter(HabitatCode != "ST") %>% #remove standing trees
   mutate(HabitatCode = case_when(HabitatCode == "C"~ "CP",
                                  HabitatCode == "WU"~ "WD",
@@ -475,6 +476,7 @@ int_edgelist_aggr<-int_edgelist_no_aggr %>% select(node_from,node_to) %>%
 land_change_weighted<-rbind(ext_edgelist_aggr,sem_ext_edgelist_aggr,mod_edgelist_aggr,
                           sem_int_edgelist_aggr,int_edgelist_aggr)
 
+#write.csv(land_change_weighted,"Data/Land_use_rat_edgelist_weighted_PP.csv", row.names= FALSE)
 
 #final state_node list with abundances
 state_nodes_weighted_ab<-rbind(ab_ext[,1:3],state_node_sem_ext_agg[,1:3],
@@ -486,7 +488,7 @@ state_nodes_weighted<-cbind(management = rep(c("E","SE","M","SI","I"),
                                                        nrow(state_node_mod_agg), nrow(state_node_sem_int_agg),
                                                        nrow(state_node_int_agg))), state_nodes_weighted_ab)
 
-
+#write.csv(state_nodes_weighted,"Data/Land_use_rat_state_nodes_PP.csv", row.names= FALSE)
 
 ################## --- CALCULATE DIRECT E(D)S PROVISION AND INDIRECT EFFECT ON ES
 

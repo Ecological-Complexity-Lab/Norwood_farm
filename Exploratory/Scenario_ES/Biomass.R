@@ -6,7 +6,7 @@ library(sna)
 library(tidyverse)
 library(readxl)
 
-setwd("D:/Trabajo/Papers/Norwood_Farm/norwood-ecosystem-services-main_Tinio")
+setwd("/Users/agustin/Desktop/Papers/Norwood_farm/Norwood_Tinio")
 
 ### Upload list of nodes
 Norwood_farm<-readRDS("Data/Norwood_farm.RData") #read multilayer object
@@ -29,7 +29,7 @@ species_list<-Norwood_farm$nodes %>% select(node_id,node_name,taxon) %>%
 ##  Bird and Mammals species (Wilman et al. (2016). repository: https://doi.org/10.6084/m9.figshare.3559887.v1)
 
 #birds
-birds.repo<-read.delim("Data/biomass_repositories/BirdFuncDat.txt") %>% 
+birds.repo<-read.delim("Data/repositories/BirdFuncDat.txt") %>% 
           select(Scientific,BodyMass.Value) %>% rename("node_name" = "Scientific",
                                                         "biomass.g" = "BodyMass.Value")
 
@@ -38,7 +38,7 @@ mass.birds<- species_list %>% left_join(birds.repo, by = "node_name") %>%
   filter(taxon =="Seed-feeding bird")
 
 # mammals
-mam.repo<-read.delim("Data/biomass_repositories/MamFuncDat.txt")%>% 
+mam.repo<-read.delim("Data/repositories/MamFuncDat.txt")%>% 
   select(Scientific,BodyMass.Value) %>% rename("node_name" = "Scientific",
                                                "biomass.g" = "BodyMass.Value")
 
@@ -51,7 +51,7 @@ mass.mam<- species_list %>% left_join(mam.repo, by = "node_name") %>%
 
 ## Aphid (data base (Brose et al 2005 - repository (https://doi.org/10.1890/05-0379)
 
-aphid.par.repo<-read.delim("Data/biomass_repositories/bodysizes_2008.txt") 
+aphid.par.repo<-read.delim("Data/repositories/bodysizes_2008.txt") 
 
 filter_sps<-aphid.par.repo %>% filter(Taxonomy.consumer%in%species_list$node_name |
                                         Taxonomy.resource%in%species_list$node_name) %>% 
@@ -188,7 +188,26 @@ mass.crop<-species_list %>% filter (taxon =="Crop") %>%
 
 ### Flower visitors 
 
+##CHECK THIS!!
+
 #repository of pollinators
+if(!requireNamespace("devtools")) {
+  install.packages("devtools")
+}
+devtools::install_github("liamkendall/pollimetry")
+
+devtools::install_github("liamkendall/pollimetry")
+
+
+library(pollimetry)
+
+#Loading is slow (~ up to 26 Mb per model file)
+if (!requireNamespace("devtools")) {
+  install.packages("devtools")
+}
+devtools::install_github("liamkendall/pollimetrydata")
+library(pollimetrydata)
+
 library(pollimetry) #package containing data of pollinators
 pollimetry_dataset$Weight<-as.numeric(pollimetry_dataset$Weight) #repository of pollinators
 
@@ -246,7 +265,7 @@ ot.flw.list<-species_list %>% filter(node_name%in%ot.flw$upper) %>%  #select oth
   filter(taxon == "Flower-visiting")
 
 #upload repository
-repo_1<-read_excel("Data/biomass_repositories/coleoptera.xlsx", sheet = 3) 
+repo_1<-read_excel("Data/repositories/coleoptera.xlsx", sheet = 3) 
 
 repo_1_clean<-repo_1%>% select(Species, 'Mean mass (mg)') 
 repo_1_clean$`Mean mass (mg)`<-as.numeric(repo_1_clean$`Mean mass (mg)`)
@@ -306,7 +325,6 @@ full_list<-rbind(mass.leaf.min.par,mass.seed.ins,mass.ins.par,mass.2.par,mass.1.
 mass.species.list<-species_list %>% left_join(full_list,by="node_id")
 
 #write.csv(mass.species.list,"Data/biomass.csv", row.names= FALSE)
-
 
 
 
