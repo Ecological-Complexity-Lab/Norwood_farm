@@ -9,6 +9,7 @@
 library(igraph)
 library(dplyr)
 library(tidyverse)
+library(emln)
 
 setwd("/Users/agustin/Desktop/Papers/Norwood_farm/Norwood_Tinio") #set directory
 
@@ -29,7 +30,6 @@ edge_list<- read.csv("Data/Land_use_rat_edgelist_weighted_CP_intense.csv", sep =
 
 
 ####### 2. Estimate the shortest path
-
 
 ## Create an igraph object for each management using the edge list
 
@@ -53,15 +53,6 @@ for (i in unique(edge_list$management)){# for each treatment
 
 ## Estimate shortest path between  species in each network 
 
-#Function to convert adjacency matrix into edge_list 
-adjacency_matrix_to_edge_list <- function(adj_matrix) {
-  edge_list <- which(adj_matrix != 0, arr.ind = TRUE)
-  weights <- adj_matrix[edge_list]
-  edge_list <- cbind(edge_list, weights)
-  colnames(edge_list) <- c("node_from", "node_to", "short_path")
-  return(edge_list)
-}
-
 
 short_man<-NULL
 management<-c()
@@ -74,10 +65,13 @@ for (m in names(network.ES)) { #for each management
   # Calculate distance between nodes (shortest path)
   dis<-distances(igraph_management)
   
+  
   # Convert adjacency matrix to edge list 
-  short<-as.data.frame(adjacency_matrix_to_edge_list(dis))  %>% 
-  filter (short_path!=Inf) #eliminate isolated nodes
-  row.names(short)<-NULL
+  short_1<-matrix_to_list_unipartite(dis, directed =FALSE)
+  short <- as.data.frame(short_1$edge_list)%>%
+            rename("node_from"="from","node_to" = "to", "short_path"= "weight") %>% 
+            filter (short_path!=Inf) #eliminate isolated nodes
+
   
   #Store 
   short_man<- rbind(short_man, short) #
@@ -85,175 +79,303 @@ for (m in names(network.ES)) { #for each management
   
 } 
 
+
 species_shortpath_raw<- cbind(short_man,management)
+species_shortpath_raw$node_to<-as.integer(species_shortpath_raw$node_to)
+species_shortpath_raw$node_from<-as.integer(species_shortpath_raw$node_from)
 
 
+## Create the inverted link version 
+species_shortpath_raw_inverted<- tibble(values = species_shortpath_raw$node_to,species_shortpath_raw$node_from, 
+                                        species_shortpath_raw$short_path,species_shortpath_raw$management)
+colnames(species_shortpath_raw_inverted) <- c("node_from", "node_to","short_path", "management")
 
-
-#ESTA HECHO HASTA ACA: VER COMO METER HABITAT MANAGEMENT EN EL SIGUIENTE LOOP
+## Combine both dataframe
+species_shortpath_raw_fin<- bind_rows(species_shortpath_raw, species_shortpath_raw_inverted)
 
 
 ## Add services_to to the data frame 
-short_serv<- species_shortpath_raw %>% left_join(nodes, by = c("node_to" = "node_id"), relationship = "many-to-many") %>% 
-              select(-node_name,-taxon,-value) %>%  filter(!(is.na(services)))
+short_serv<- species_shortpath_raw_fin %>% left_join(nodes, by = c("node_to" = "node_id"), relationship = "many-to-many") %>% 
+              select(-node_name,-taxon,-value) %>%  
+              filter(!(is.na(services)))  #remove when node_from don't provide any dirct ES
 
+ 
+ 
 
 ## Calculate the average of shortest path according to each ecosystem services
+species_shortpath<- short_serv %>% group_by(management,node_from,services) %>% 
+  summarise(short_ave = mean(short_path)) %>% rename ("node_id" = "node_from")
 
-services = c()
-species_short_path = NULL
 
-
-for (i in unique(short_serv$services)) {  #for each ecosystem service
-  
-  # Filtering data
-  edge_list_service <- short_serv %>% filter(services == i) #select species that interact with species providing the specific ES
-  
-  # Calculate average of short path per node_from
-  species_short<- edge_list_service %>% group_by(node_from) %>% 
-                  summarise(short_ave = mean(short_path))
-  
-  
-  #Store results
-  
-  species_short_path<- rbind(species_short_path, species_short) #
-  services <- c(services, rep (i, nrow(species_short))) # services
-  
-}
-
-species_shortpath<- cbind(species_short_path,services)
-
-check<-species_shortpath %>% filter(services == "Pest control")
-
-hist(check$short_ave)
-## Add the rest of variables (node_name,taxon)
+## Add more attributes of node_from to the dataset (node_name,taxon)
+species_shortpath_fin<- species_shortpath %>%  
+                    left_join(Norwood_farm$nodes, by = "node_id", relationship = "many-to-many") %>%  #add name of species and taxon of species
+                    select(management,node_id,node_name,taxon,services,short_ave)
 
 
 
-
-##KEEP G, TRANSFORM A LIST AND JOIN WIRTH ATTRIBUTES. PLOT ANILLO UNO CONN TODOS LOS HABITAT MANAGEMENT Y AVERAGE Y OTRO DESCRIPTIVO DE EMPIRICAL CON TODOS LOS ES
-
-
-#prueba for pollination
-
-g_colnames <- colnames(g)
+#write.csv(species_shortpath_fin, "Data/Land_use_shortpath_weighted_CP_intense.csv")
 
 
-# Filter dataframe based on matching column names
-matching_colnames <- intersect(names(g),g_colnames)
-filtered_df <- df[, matching_colnames]
+########## PLOTS
 
-
-Pollination_g<-g %>% filter()
-
-# Between centrality (da un valor por especie pero yo necesito que este especifiado)
- c<-closeness(prueba_E)
- 
-b<-betweenness(prueba_E)
-b
-e<-edge.betweenness(prueba_E)
-
-
-
-
-######## 1. Estimate species importance (Pagerank)
-
-
-### Create the network for each management using the edge list
-
-network.ES<-list()
-
-for (i in unique(edge_list$management)){# for each treatment
-  
-  #Filter data
-  edge_list_management<-edge_list %>% filter(management== i) #filter edge list according to the management
-  
-  #Create igraph object
-  net.ES <- graph.data.frame(edge_list_management, 
-                             directed = F,
-                             vertices = nodes)
-  
-  # Storage the results
-  list_name <- paste0(i, i) 
-  network.ES[[i]] <- net.ES
-}
+## Arrange the matrix to fix the names of species
+short_path<- read.csv("Data/Land_use_shortpath_weighted_CP_intense.csv", sep =",", row.names = 1) %>% 
+  separate(node_name, c("trophic_lower", "node_name"),  "[A-Z]\\.") %>% 
+  select(-trophic_lower) %>% mutate (node_name =  gsub(c("\\?"), "", node_name)) %>% 
+  mutate (node_name =  gsub(c("1"), "", node_name)) %>% 
+  mutate (node_name =  gsub(c("zCROP"), "", node_name)) %>% 
+  mutate (node_name = gsub("\\.", " ", node_name)) %>% 
+  mutate(color_sp =case_when(taxon == "Plant"~ "#00C1AB", #assign color to species according to the taxon
+                             taxon == "Crop"~ "#BE9C00",
+                             taxon == "Flower-visiting"~ "#8CAB00",
+                             taxon == "Aphid"~ "#F8766D",
+                             taxon == "Primary aphid parasitoid"~ "#00BBDA",
+                             taxon == "Secondary aphid parasitoid"~ "#8B93FF",
+                             taxon == "Leaf-miner parasitoid"~ "#00BE70",
+                             taxon == "Seed-feeding insect"~ "#F962DD",
+                             taxon == "Seed-feeding bird"~ "#D575FE",
+                             taxon == "Seed-feeding rodent"~ "#FF65AC",
+                             taxon == "Butterfly"~ "#E18A00",
+                             taxon == "Insect seed-feeder parasitoid"~ "#24B700",
+                             taxon == "Rodent ectoparasite"~ "#00ACFC") ) %>% 
+  arrange(taxon) #order according to taxon
 
 
 
+########## Plot 1: Extensive plot
 
-### Test the importance of species using PageRank
+# Using ggplot
 
-# we run pagerank for each ES to look at species importance.  The higher probability can be
-#interpreted as “more important” to the ecosystem service node.
+#Create a multi donut plot for the extensive scenario. Each ring represents a particular ES.
+short_path_E <- short_path %>% filter(management == "E") 
 
-# for each of the services, we'll run a pagerank algorithm
-# to account for spp directly providing, we will replace prob. with 0 or NA
-# if they are directly linked to a service
+#### Considering the 25 most important species
 
-#DO the example with pollinators and E (they should appear because they are also affecting ind pollination)... check
+# Select the most important species to indirectly affect ES 
+species_imp<- short_path_E %>% 
+  group_by(node_id) %>% 
+  summarise(short_aver_ES = mean(short_ave)) %>% 
+  arrange(short_aver_ES)
 
-management = c()
-services = c()
-sp_rank = NULL
+top_25<-species_imp[1:25,1] #identify the list of species that make up the top 25%
 
-
-for (i in 552:558){ #for each E(D)S
-  
-  i = 553
-  j = nodes[i,2] #identity of E(D)S
-  
-for (m in unique(edge_list$management)) {  #for each habitat management
-  
-  m = "E"
-    edge_list_management <- edge_list %>% filter(management == m) #select the edge list
+top_25_sp<-short_path_E %>% filter(node_id%in%top_25$node_id) %>%  #Data frame containing the 25% most important species
+  mutate(services_code = case_when(
+    services == "Crop production"~ 1,
+    services == "Pollination"~ 2,
+    services == "Butterfly watching"~ 3,
+    services == "Seed dispersal"~ 4,
+    services == "Bird watching"~ 5,
+    services == "Pest control"~ 6,
+    services == "Crop damage"~ 7
     
-  #Pagerank function
-  pers.page <- rep(0, nrow(nodes)) %>% replace(i,1)  
-  
-  page.rank<-data.frame (NodesID=nodes$node_id, 
-                         prob=page_rank(graph=network.ES[[m]], #create personalized pagerank for each habitat management
-                                        damping = 0.85, directed = F, #ACAA 
-                                        personalized = pers.page)$vector,
-                                        max_iter = 3) #ACAAA
-  
-  page.rank.spp<- page.rank %>% filter(!(NodesID>551)) # remove nodes representing E(D)S
- 
-  page.rank.direct <- data.frame(NodesID = ifelse(edge_list_management$node_from == i,
-                                                  edge_list_management$node_to,NA))  # assign NA to species providing directly the particular ES
-
-  
-  page.rank.direct <- c(na.omit(page.rank.direct)) # and remove those species
-  
-  page.rank.ind.support <- page.rank.spp[!(page.rank.spp$NodesID %in% page.rank.direct$NodesID),] # keep only ind supporting spp! 
-  
-  
-  #isolated.sp<- page.rank %>% filter(!((NodesID%in%edge_list_management$node_from) | 
-   #                                   (NodesID%in%edge_list_management$node_to)))  # we detected the isolatred species because igraph objects maintain isolated nodes. Then, we will asign 0 to those species (0 because they can be in other management scenarios, so its easy to compare)
-  
-    # Storage the results
-  
-  sp_rank<- rbind(sp_rank, page.rank.ind.support)
-  services <- c(services, rep(j, nrow(page.rank.ind.support))) # services
-  management <- c(management, rep (m,nrow(page.rank.ind.support))) #management
-  
-  }
-}
-
-page_rank_sp<-data.frame(sp_rank,services,management) %>% rename("pagerank" = "prob") %>% 
-              select(management,NodesID,services,pagerank)
-
-## Calculate the mean prob (importance) for each species across all services
-
-mean_page_rank<-page_rank_sp %>% group_by(management,NodesID)  %>% 
-  mutate(all_mean = mean(pagerank), #calculate the mean and standard error
-         all_std = sd(pagerank)/ sqrt(n())) %>% 
-  gather("services","pagerank",5:6) %>% select(management,NodesID,services,pagerank)
+  ))
 
 
-## Merge into the final dataframe
-page_rank_sp_final<-rbind(page_rank_sp,mean_page_rank) %>% ungroup() %>% unique() #eliminate duplicated rows
+# Step 1: Identify the External Ring Data Points
+external_ring <- top_25_sp %>%
+  group_by(node_name) %>%
+  filter(services_code == 7) %>%
+  ungroup()
 
-#write.csv(page_rank_sp_final,"Data/page_rank_sp.csv", row.names= FALSE)
+# Step 2: Create the plot and add labels
+ggplot(top_25_sp, aes(x = node_name, y = services_code, fill = short_ave)) +
+  geom_tile(width = 1, height = 0.85, color = "black") + 
+  scale_fill_gradient(low = "#ef3b2c", high = "#fff5f0") +
+  coord_polar() +
+  geom_label(data = external_ring, aes(label = node_name),show.legend = FALSE
+  )+
+  ylim(c(2, NA)) +
+  theme_minimal() +
+  theme(axis.text = element_blank(),
+        axis.title = element_blank(),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank())
+
+
+
+
+### SAME PLOT WITH CIRCLIZE
+library(circlize)
+library(viridis)
+library(ComplexHeatmap)
+top_25_sp
+
+
+short_top_25<-top_25_sp %>% #just average for now (maybe add error bars in the future)
+  select(node_name,services,short_ave) %>% 
+  spread(services,short_ave)  #rearrange dataframe
+
+
+sp_names <- short_top_25$node_name #create temporal species name to filter the big database
+
+
+##### set up parameters and structure
+
+# Define color of each layer and sps
+
+#layer
+color = colorRamp2(seq(max(short_top_25[,2:8]), min(short_top_25[,2:8]), length = 50),viridis(50)) #color layer
+
+
+#sps
+species_list<- read.csv("Data/Land_use_shortpath_weighted_CP_intense.csv", sep =",", row.names = 1) %>% 
+  separate(node_name, c("trophic_lower", "node_name"),  "[A-Z]\\.") %>% 
+  select(-trophic_lower) %>% mutate (node_name =  gsub(c("\\?"), "", node_name)) %>% 
+  mutate (node_name =  gsub(c("1"), "", node_name)) %>% 
+  mutate (node_name =  gsub(c("zCROP"), "", node_name)) %>% 
+  mutate (node_name = gsub("\\.", " ", node_name)) %>% 
+  filter(node_name%in%sp_names) %>% #filter species in the dataframe
+  mutate(color_sp =case_when(taxon == "Plant"~ "#00C1AB", #assign color to species according to the taxon
+                             taxon == "Crop"~ "#BE9C00",
+                             taxon == "Flower-visiting"~ "#8CAB00",
+                             taxon == "Aphid"~ "#F8766D",
+                             taxon == "Primary aphid parasitoid"~ "#00BBDA",
+                             taxon == "Secondary aphid parasitoid"~ "#8B93FF",
+                             taxon == "Leaf-miner parasitoid"~ "#00BE70",
+                             taxon == "Seed-feeding insect"~ "#F962DD",
+                             taxon == "Seed-feeding bird"~ "#D575FE",
+                             taxon == "Seed-feeding rodent"~ "#FF65AC",
+                             taxon == "Butterfly"~ "#E18A00",
+                             taxon == "Insect seed-feeder parasitoid"~ "#24B700",
+                             taxon == "Rodent ectoparasite"~ "#00ACFC") ) %>% 
+  ungroup() %>% select(node_name,color_sp) %>% unique()
+
+
+
+  
+
+# Arrange short path order and prepare the final version of species list
+
+sp_names<-short_top_25$node_name#vector with nodes ID
+sp_names<-as.factor(sp_names) # to plot species name
+
+top_25_values<- short_top_25 %>% select(-node_name)
+rownames(top_25_values) <- sp_names
+
+species_list_ordered <- species_list[match(sp_names, species_list$node_name), ]
+
+color_sp<-species_list_ordered$color_sp
+
+#Plotting
+
+circos.clear()
+
+png(file="Short_top25_Ext.png",
+   width=1600, height=1200)
+
+# Crop production
+CP<- top_25_values[,4, drop= FALSE]
+
+# Define the border color for the heatmap cells
+border_color = "black"  # You can choose any color
+
+circos.heatmap(CP, col = color, rownames.side = "outside", rownames.col	=color_sp,
+               rownames.cex = 1.06, track.height = 0.1, cell.border = "black")
+
+# Pollination
+PO<- top_25_values[,6,drop= FALSE]
+
+circos.heatmap(PO, col = color, track.height = 0.05,  cell.border = "black")
+
+# Seed dispersal
+SD<- top_25_values[,7,drop= FALSE]
+
+circos.heatmap(SD, col = color, track.height = 0.05,  cell.border = "black")
+
+# Pest control
+PC<- top_25_values[,5,drop= FALSE]
+
+circos.heatmap(PC, col = color, track.height = 0.05,  cell.border = "black")
+
+# Bird watching
+BW<- top_25_values[,1,drop= FALSE]
+
+circos.heatmap(BW, col = color, track.height = 0.05,  cell.border = "black")
+
+# Butterfly watching
+BTW<- top_25_values[,2,drop= FALSE]
+
+circos.heatmap(BTW, col = color, track.height = 0.05,  cell.border = "black")
+
+# Crop damage
+CD<- top_25_values[,3,drop= FALSE]
+
+circos.heatmap(CD, col = color, track.height = 0.05,  cell.border = "black")
+
+#Legend
+lgd_mult = Legend(col_fun =color,
+                  legend_gp = gpar(col = 1), labels_gp = gpar(fontsize = 20),  title_position = "topleft", title = "Short path", direction = "horizontal",
+                  grid_height = unit(1.6,"cm"),  grid_width = unit(11,"cm"),title_gp = gpar(fontsize = 20, fontface = "bold"))
+
+draw(lgd_mult, x = unit(20, "mm"), y = unit(90, "mm"), 
+     just = c("left", "bottom"))
+
+#legend("bottomleft", inset=.02, title="Guild", c ("Aphid","Crop","Plant","Seed-feeding rodent"), fill= unique(color_sp), horiz=FALSE, cex=2)
+
+dev.off()
+
+
+
+
+
+
+
+##### DESPUES DE ARREGLAR ESO MOVERSE AL OTRO PLOT!
+
+#### All species
+
+##COPIAR ACA QUEONDA
+
+short_path_E <- short_path %>% filter(management == "E")
+
+#PROBAR ABRIR EL ANILLO PARA PONER EL NOMBRE DE LOS SERVICIOS
+
+
+ggplot(short_path_E, aes(x = node_name, y = services, fill = short_ave)) +
+  geom_tile(width = 3, height = 3,  color = "white") + # Adjust tile size for a clearer donut shape
+  scale_fill_gradient(low = "green", high = "red") + # Color gradient
+  coord_polar() + # Transform to polar coordinates
+  #geom_text(aes(label = services), position = position_stack(vjust = 0.5)) + # Add ring names
+  # ylim(c(1.5, 3.5)) + # Adjust y-limits to create the donut's hole
+ # scale_y_continuous(limits = c(0, max(short_path_E$services) * 0.9), expand = c(0, 0)) + # Adjust y-axis limits to create a hole in 
+  theme_minimal() +
+  theme(axis.text = element_blank(),
+        axis.title = element_blank(),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank())
+
+
+
+
+
+
+
+## Plot 2: Each ring represents a particular habitat management and values indicate the average importance of a species to indirectly
+#affect ES
+
+
+short_path_aver<-short_path %>% group_by(management,node_id) %>% 
+                summarise(short_aver_ES = mean(short_ave))
+
+short_path_aver$management <- factor(short_path_aver$management, levels = c("I", "SI", "M", "SE","E")) #change order of factors
+
+
+#PLOT ANILLO UNO CONN TODOS LOS HABITAT MANAGEMENT Y AVERAGE Y OTRO DESCRIPTIVO DE EMPIRICAL CON TODOS LOS ES
+
+
+ggplot(short_path_aver, aes(x = node_id, y = management, fill = short_aver_ES)) +
+  geom_tile(width = 3, height = 3,  color = "black") + # Adjust tile size for a clearer donut shape
+  scale_fill_gradient(low = "green", high = "red", na.value = 'gray') + # Color gradient
+  coord_polar() + # Transform to polar coordinates
+  #geom_text(aes(label = services), position = position_stack(vjust = 0.5)) + # Add ring names
+  # ylim(c(1.5, 3.5)) + # Adjust y-limits to create the donut's hole
+  theme_minimal() +
+  theme(axis.text = element_blank(),
+        axis.title = element_blank(),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank())
 
 
 
