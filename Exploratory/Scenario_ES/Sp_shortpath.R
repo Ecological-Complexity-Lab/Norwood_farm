@@ -145,7 +145,6 @@ short_path<- read.csv("Data/Land_use_shortpath_weighted_CP_intense.csv", sep =",
 
 ########## Plot 1: Extensive plot
 
-# Using ggplot
 
 #Create a multi donut plot for the extensive scenario. Each ring represents a particular ES.
 short_path_E <- short_path %>% filter(management == "E") 
@@ -172,26 +171,6 @@ top_25_sp<-short_path_E %>% filter(node_id%in%top_25$node_id) %>%  #Data frame c
     
   ))
 
-
-# Step 1: Identify the External Ring Data Points
-external_ring <- top_25_sp %>%
-  group_by(node_name) %>%
-  filter(services_code == 7) %>%
-  ungroup()
-
-# Step 2: Create the plot and add labels
-ggplot(top_25_sp, aes(x = node_name, y = services_code, fill = short_ave)) +
-  geom_tile(width = 1, height = 0.85, color = "black") + 
-  scale_fill_gradient(low = "#ef3b2c", high = "#fff5f0") +
-  coord_polar() +
-  geom_label(data = external_ring, aes(label = node_name),show.legend = FALSE
-  )+
-  ylim(c(2, NA)) +
-  theme_minimal() +
-  theme(axis.text = element_blank(),
-        axis.title = element_blank(),
-        panel.grid = element_blank(),
-        axis.ticks = element_blank())
 
 
 
@@ -268,11 +247,11 @@ png(file="Short_top25_Ext.png",
 # Crop production
 CP<- top_25_values[,4, drop= FALSE]
 
-# Define the border color for the heatmap cells
-border_color = "black"  # You can choose any color
+circos.par(gap.degree = 20)
+
 
 circos.heatmap(CP, col = color, rownames.side = "outside", rownames.col	=color_sp,
-               rownames.cex = 1.06, track.height = 0.1, cell.border = "black")
+               rownames.cex = 1.06, track.height = 0.05, cell.border = "black")
 
 # Pollination
 PO<- top_25_values[,6,drop= FALSE]
@@ -306,27 +285,52 @@ circos.heatmap(CD, col = color, track.height = 0.05,  cell.border = "black")
 
 #Legend
 lgd_mult = Legend(col_fun =color,
-                  legend_gp = gpar(col = 1), labels_gp = gpar(fontsize = 20),  title_position = "topleft", title = "Short path", direction = "horizontal",
-                  grid_height = unit(1.6,"cm"),  grid_width = unit(11,"cm"),title_gp = gpar(fontsize = 20, fontface = "bold"))
+                  legend_gp = gpar(col = 1), labels_gp = gpar(fontsize = 26),  title_position = "topleft", title = "Short path", direction = "horizontal",
+                  grid_height = unit(1.8,"cm"),  grid_width = unit(1,"cm"),title_gp = gpar(fontsize = 28, fontface = "bold"))
 
 draw(lgd_mult, x = unit(20, "mm"), y = unit(90, "mm"), 
      just = c("left", "bottom"))
 
-#legend("bottomleft", inset=.02, title="Guild", c ("Aphid","Crop","Plant","Seed-feeding rodent"), fill= unique(color_sp), horiz=FALSE, cex=2)
+legend("bottomleft", inset=.02, title="Guild", c ("Seed-feeding bird","Seed-feeding rodent",
+      "Plant", "Leaf-miner parasitoid"), fill= unique(color_sp), horiz=FALSE, cex=2)
 
 dev.off()
 
 
 
+## Using ggplot
+
+# Step 1: Identify the External Ring Data Points
+#external_ring <- top_25_sp %>%
+ # group_by(node_name) %>%
+ # filter(services_code == 7) %>%
+#  ungroup()
+
+# Step 2: Create the plot and add labels
+#ggplot(top_25_sp, aes(x = node_name, y = services_code, fill = short_ave)) +
+#  geom_tile(width = 1, height = 0.85, color = "black") + 
+#  scale_fill_gradient(low = "#ef3b2c", high = "#fff5f0") +
+#  coord_polar() +
+#  geom_label(data = external_ring, aes(label = node_name),show.legend = FALSE
+#  )+
+##  ylim(c(2, NA)) +
+#  theme_minimal() +
+#  theme(axis.text = element_blank(),
+#        axis.title = element_blank(),
+#        panel.grid = element_blank(),
+  #      axis.ticks = element_blank())
 
 
 
 
-##### DESPUES DE ARREGLAR ESO MOVERSE AL OTRO PLOT!
+
+
+
+##### A HACER, LO MISMO PERO CON TODAS LAS ESPECIES (A HACER)
 
 #### All species
 
-##COPIAR ACA QUEONDA
+##POR AHORA USAMOS GGPLOT
 
 short_path_E <- short_path %>% filter(management == "E")
 
@@ -351,157 +355,223 @@ ggplot(short_path_E, aes(x = node_name, y = services, fill = short_ave)) +
 
 
 
+########### PLOT 2: Each ring represents a particular habitat management and values
+#indicate the average importance of the top 25 species  in extesive to indirectly affect ES
 
-## Plot 2: Each ring represents a particular habitat management and values indicate the average importance of a species to indirectly
-#affect ES
-
-
-short_path_aver<-short_path %>% group_by(management,node_id) %>% 
-                summarise(short_aver_ES = mean(short_ave))
-
-short_path_aver$management <- factor(short_path_aver$management, levels = c("I", "SI", "M", "SE","E")) #change order of factors
+#This graph shows if the most important species changes with habitat management
 
 
-#PLOT ANILLO UNO CONN TODOS LOS HABITAT MANAGEMENT Y AVERAGE Y OTRO DESCRIPTIVO DE EMPIRICAL CON TODOS LOS ES
-
-
-ggplot(short_path_aver, aes(x = node_id, y = management, fill = short_aver_ES)) +
-  geom_tile(width = 3, height = 3,  color = "black") + # Adjust tile size for a clearer donut shape
-  scale_fill_gradient(low = "green", high = "red", na.value = 'gray') + # Color gradient
-  coord_polar() + # Transform to polar coordinates
-  #geom_text(aes(label = services), position = position_stack(vjust = 0.5)) + # Add ring names
-  # ylim(c(1.5, 3.5)) + # Adjust y-limits to create the donut's hole
-  theme_minimal() +
-  theme(axis.text = element_blank(),
-        axis.title = element_blank(),
-        panel.grid = element_blank(),
-        axis.ticks = element_blank())
-
-
-
-
-
-### PLOT CIRCULAR GRAPH OF THE FIRST 50 MOST IMPORTANT SPECIES IN EXTENSIVE
-library(ggplot2)
-library(circlize)
-library(viridis)
-library(ComplexHeatmap)
-
-#we plot a circular plot using each layer as management and values the average importance of species to
-#indirectly provide E(D)S
-
-###### Arrange dataframe
-
-page_rank_circ<-read.csv("Data/page_rank_sp.csv", sep = ",") %>%
-                  filter(services == "all_mean") %>% #just average for now (maybe add error bars in the future)
-                  spread(management,pagerank) %>% #rearrange dataframe
-                  select(NodesID,services,E,SE,M,SI,I)#  %>% 
-                # arrange(desc(E)) %>% slice(1:50) %>% #select the fifty more important species
-                #  sample_n(nrow(.))
-
-sp_names<-page_rank_circ$NodesID #create temporal species name to filter the big database
 
 ##### set up parameters and structure
 
-
 # Define color of each layer and sps
 
-#layer
-color = colorRamp2(seq(min(0.000088), max(0.06), length = 100),viridis(100)) #color layer
+# species
+short_path_aver_25<- short_path %>% filter (node_name %in%short_top_25$node_name) %>% 
+                  group_by(management,node_id) %>% 
+                  mutate(short_aver_ES = mean(short_ave)) %>% 
+                  select(-services,-short_ave) %>% unique()
+  
+short_path_aver_25$management <- factor(short_path_aver_25$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
 
+short_top_aver_25<-short_path_aver_25 %>% 
+  select(node_name,management,short_aver_ES) %>% 
+  spread(management,short_aver_ES) %>%  #rearrange dataframe
+ungroup() %>% select(-node_id)
 
-#sps
-Norwood_farm<-readRDS("Data/Norwood_farm.RData") #read multilayer object
+# layer
+color = colorRamp2(seq(max(3), min(1.6), length = 10),viridis(10)) #color layer
 
-species_list<-Norwood_farm$nodes %>% select(node_id,node_name,taxon) %>% #clean names
-  separate(node_name, c("trophic_lower", "node_name"),  "[A-Z]\\.") %>% 
-  select(-trophic_lower) %>% mutate (node_name =  gsub(c("\\?"), "", node_name)) %>% 
-  mutate (node_name =  gsub(c("1"), "", node_name)) %>% 
-  mutate (node_name =  gsub(c("zCROP"), "", node_name)) %>% 
-  mutate (node_name = gsub("\\.", " ", node_name)) %>% #keep just the species name of most rows
-  filter(node_id%in%sp_names) %>% #filter species in the dataframe
-  mutate(color_sp =case_when(taxon == "Plant"~ "#00C1AB", #assign color to species according to the taxon
-                             taxon == "Crop"~ "#BE9C00",
-                             taxon == "Flower-visiting"~ "#8CAB00",
-                             taxon == "Aphid"~ "#F8766D",
-                             taxon == "Primary aphid parasitoid"~ "#00BBDA",
-                             taxon == "Secondary aphid parasitoid"~ "#8B93FF",
-                             taxon == "Leaf-miner parasitoid"~ "#00BE70",
-                             taxon == "Seed-feeding insect"~ "#F962DD",
-                             taxon == "Seed-feeding bird"~ "#D575FE",
-                             taxon == "Seed-feeding rodent"~ "#FF65AC",
-                             taxon == "Butterfly"~ "#E18A00",
-                             taxon == "Insect seed-feeder parasitoid"~ "#24B700",
-                             taxon == "Rodent ectoparasite"~ "#00ACFC") ) %>% 
-                              arrange(taxon) #order according to taxon
+# Arrange short path order and prepare the final version of species list
 
-color_sp <- as.vector(species_list$color_sp)
+sp_names <- short_top_aver_25$node_name #create temporal species name to filter the big database
+sp_names<-as.factor(sp_names) # to plot species name
 
+top_aver_25_values<- as.data.frame(short_top_aver_25) %>% select(-node_name)
+rownames(top_aver_25_values) <- sp_names
 
-# Arrange pagerankvalues order and prepare the final version of species list
+species_list_ordered <- species_list[match(sp_names, species_list$node_name), ]
 
-page_rank_circ2<-page_rank_circ %>%  #arrange order according to rows in species_list
-  arrange(match(NodesID, species_list$node_id)) 
-
-sp_names<-page_rank_circ2$NodesID#vector with nodes ID
-sp_names<-as.factor(species_list$node_name) # to plot species name
-
-page_rank_values<- page_rank_circ2 %>% select(-NodesID,-services)
-rownames(page_rank_values) <- sp_names
+color_sp<-species_list_ordered$color_sp
 
 
 
-
-#PLOT
+#Plotting
 
 circos.clear()
 
-png(file="Page_rank_ave.png",
+png(file="change_top_25_CP.png",
     width=1600, height=1200)
 
-# Extensive layer
-mean_E<- page_rank_values[,1, drop= FALSE]
 
-circos.par(gap.after = c("Creeping Buttercup"= 30))
-circos.heatmap(mean_E, col = color, rownames.side = "outside", rownames.col	=color_sp,
-rownames.cex = 1.4, track.height = 0.1)
+# Extensive
+E<- top_aver_25_values[,1,drop=FALSE]
 
+circos.par(gap.degree = 16)
 
+circos.heatmap(E, col = color, rownames.side = "outside", rownames.col	=color_sp,
+               rownames.cex = 1.06, track.height = 0.1, cell.border = "black")
 
-# SemI-Extensive layer
-mean_SE<- page_rank_values[,2,drop= FALSE]
-color = colorRamp2(seq(min(0.000088), max(0.06), length = 100),viridis(100))
+# Semi Extensive
+SE<- top_aver_25_values[,2, drop= FALSE]
 
-circos.heatmap(mean_SE, col = color, track.height = 0.1)
+circos.heatmap(SE, col = color, track.height = 0.1, cell.border = "black")
 
-# Moderate layer
-mean_M<- page_rank_values[,3,drop= FALSE]
-circos.heatmap(mean_M, col = color, track.height = 0.1)
+# Moderate
+M<- top_aver_25_values[,3, drop= FALSE]
 
+circos.heatmap(M, col = color,  track.height = 0.1, cell.border = "black")
 
-# Semi-intensive layer
-mean_SI<- page_rank_values[,4,drop= FALSE]
-circos.heatmap(mean_SI, col = color, track.height = 0.1)
+# Semi-Intensive
+SI<- top_aver_25_values[,4, drop= FALSE]
 
+circos.heatmap(SI, col = color, track.height = 0.1, cell.border = "black")
 
-# Intensive layer
-mean_I<- page_rank_values[,5,drop= FALSE]
-circos.heatmap(mean_I, col = color, track.height = 0.1)
+# Intensive
+I<- top_aver_25_values[,5, drop= FALSE]
+
+circos.heatmap(I, col = color, track.height = 0.1, cell.border = "black")
 
 #Legend
-lgd_mult = Legend(col_fun =color,
-                  legend_gp = gpar(col = 1), labels_gp = gpar(fontsize = 16),  title_position = "topleft", title = "Page Rank", direction = "horizontal",
-                  grid_height = unit(1.6,"cm"),  grid_width = unit(5,"cm"),title_gp = gpar(fontsize = 20, fontface = "bold"))
+lgd_mult = Legend(col_fun = color ,
+                  legend_gp = gpar(col = 1), labels_gp = gpar(fontsize = 20),  title_position = "topleft", title = "Short path", direction = "horizontal",
+                  grid_height = unit(1.6,"cm"),  grid_width = unit(8,"cm"),title_gp = gpar(fontsize = 23, fontface = "bold"))
 
 draw(lgd_mult, x = unit(20, "mm"), y = unit(90, "mm"), 
      just = c("left", "bottom"))
 
-legend("bottomleft", inset=.02, title="Guild", c ("Aphid","Crop","Plant","Seed-feeding rodent"), fill= unique(color_sp), horiz=FALSE, cex=2)
+legend("bottomleft", inset=.02, title="Guild", c ("Plant", "Leaf-miner parasitoid","Seed-feeding bird","Seed-feeding rodent")
+                                                  , fill= unique(color_sp), horiz=FALSE, cex=2)
 
 dev.off()
 
 
-##ADD THE TREATMENTS MANUALLY
+## Using ggplot
+#ggplot(short_path_aver, aes(x = node_id, y = management, fill = short_aver_ES)) +
+# geom_tile(width = 3, height = 3,  color = "black") + # Adjust tile size for a clearer donut shape
+#  scale_fill_gradient(low = "green", high = "red", na.value = 'gray') + # Color gradient
+#  coord_polar() + # Transform to polar coordinates
+#geom_text(aes(label = services), position = position_stack(vjust = 0.5)) + # Add ring names
+# ylim(c(1.5, 3.5)) + # Adjust y-limits to create the donut's hole
+# theme_minimal() +
+#  theme(axis.text = element_blank(),
+#        axis.title = element_blank(),
+#        panel.grid = element_blank(),
+#        axis.ticks = element_blank())
+
+
+
+
+
+
+########### PLOT 3: Each ring represents a particular habitat management and values
+#indicate the average importance of species to indirectly affect ES (all species)
+
+
+
+##### set up parameters and structure
+
+# Define color of each layer and sps
+
+# species
+short_path_all<- short_path  %>% 
+  group_by(management,node_id) %>% 
+  mutate(short_aver_ES = mean(short_ave)) %>% 
+  select(-services,-short_ave) %>% unique()
+
+short_path_all$management <- factor(short_path_all$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+
+short_all_aver<-short_path_all %>% 
+  select(node_id,taxon,management,short_aver_ES) %>% 
+  spread(management,short_aver_ES) %>%  #rearrange dataframe
+  ungroup() %>% 
+  arrange(taxon) #rearrange according to trophic group
+
+
+# layer
+color = colorRamp2(seq(max(short_all_aver[,3:5], na.rm = TRUE), min(short_all_aver[,3:5], na.rm = TRUE),
+                       length =50),viridis(50))#color layer
+
+
+
+# Arrange short path order and prepare the final version of species list
+
+sp_names <- short_all_aver$node_id #create temporal species name to filter the big database
+sp_names<-as.factor(sp_names) # to plot species name
+
+short_all_aver_values<- as.data.frame(short_all_aver) %>% select(-node_id,-taxon)
+rownames(short_all_aver_values) <- sp_names
+
+species_list_color <- short_path %>% select(node_id,color_sp) %>% unique() #list of species and color according to the taxon
+  
+species_list_color_ordered<- species_list_color[match(sp_names, species_list_color$node_id), ] #order to match the database
+
+color_sp<-species_list_color_ordered$color_sp #vector of color assigned to each species
+
+
+#Plotting
+
+circos.clear()
+
+png(file="short_path_ave_all_CP.png",
+    width=1600, height=1200)
+
+
+# Extensive
+E<- short_all_aver_values[,1,drop=FALSE]
+
+circos.par(gap.degree = 16)
+
+circos.heatmap(E, col = color, rownames.side = "outside", rownames.col	=color_sp,
+               rownames.cex = 1, track.height = 0.11, cell.border = "black", cluster = FALSE)
+
+#name2<-rownames(E)
+#color_sp
+# Semi Extensive
+SE<- short_all_aver_values[,2, drop= FALSE]
+
+
+circos.heatmap(SE, col = color, track.height = 0.11, cell.border = "black")
+
+
+# Moderate
+M<- short_all_aver_values[,3, drop= FALSE]
+
+circos.heatmap(M, col = color,  track.height = 0.11, cell.border = "black")
+
+# Semi-Intensive
+SI<- short_all_aver_values[,4, drop= FALSE]
+
+circos.heatmap(SI, col = color, track.height = 0.11, cell.border = "black")
+
+# Intensive
+I<- short_all_aver_values[,5, drop= FALSE]
+
+circos.heatmap(I, col = color, track.height = 0.11, cell.border = "black")
+
+#Legend
+lgd_mult = Legend(col_fun = color ,
+                  legend_gp = gpar(col = 1), labels_gp = gpar(fontsize = 20),  title_position = "topleft", title = "Short path", direction = "horizontal",
+                  grid_height = unit(1.6,"cm"),  grid_width = unit(8,"cm"),title_gp = gpar(fontsize = 23, fontface = "bold"))
+
+draw(lgd_mult, x = unit(20, "mm"), y = unit(100, "mm"), 
+     just = c("left", "bottom"))
+
+legend("bottomleft", inset=.02, title="Guild", c ("Aphid", "Butterfly","Crop","Flower-visiting",
+          "Insect seed-feeder parasitoid","Leaf-miner parasitoid","Plant","Primary aphid parasitoid", "Rodent ectoparasite",
+          "Secondary aphid parasitoid",  "Seed-feeding bird","Seed-feeding insect","Seed-feeding rodent") , fill= unique(color_sp), horiz=FALSE, cex=1)
+
+dev.off()
+
+
+
+
+
+
+
+
+
+
 
 
 
