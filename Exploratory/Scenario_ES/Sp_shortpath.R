@@ -175,7 +175,6 @@ short_PP<- glmmTMB(short_path_ave~management+taxon+ (1|node_id),
                   family = Gamma(link = "log"), data = short_path_land_change_PP) #we already check and this is the best model
 summary(short_PP)
 
-#replace species that went extinct with 0? because we know they are extinct
 
 
 ########### Test if land use change produce a replacement of the top 25 most important species in each treatment
@@ -186,7 +185,9 @@ summary(short_PP)
 # Step 1: Get Top 25 species in 'extensive' management
 top_25_extensive <- short_path_land_change_CP %>%
   filter(management == "E") %>% group_by(management) %>% 
-  slice_min(order_by = short_path_ave, n = 25) 
+  slice_min(order_by = short_path_ave, n = 25) %>% 
+  select(land_use,management,node_id,taxon) %>% 
+  mutate(presence = 1)
 
 # Step 2: Get Top 25 species in other managements
 top_25_other_managements <- short_path_land_change_CP %>%
@@ -200,16 +201,23 @@ change_top_25_CP<- unique(top_25_other_managements$management) %>%
   expand.grid(management = ., node_id = top_25_extensive$node_id) %>%
   left_join(top_25_other_managements, by = c("management", "node_id" )) %>%
   mutate(presence = ifelse(is.na(short_path_ave), 0, 1)) %>% #assign 1 when the species is still in the top 25
-  select(management, node_id = node_id, presence)
+  select(management, node_id = node_id, presence) %>% 
+  left_join(top_25_extensive, by = "node_id") %>% #add taxon information
+  select(land_use,management.x,node_id,taxon,presence.x) %>% rename("management" = "management.x",
+                                                                    "presence" = "presence.x")
 
+# Merge dataset
+change_top_25_CP_fin<- rbind(top_25_extensive,change_top_25_CP)
 
 # Model
 library(lme4)
 library("stats4")
 library("bbmle")
 
-pers_1<-glmer (presence ~ management + ( 1| node_id), family = binomial(link="logit"), data = change_top_25_CP)
+pers_1<-glmer (presence ~ management + ( 1| node_id), family = binomial(link="logit"), data = change_top_25_CP_fin,
+               control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 1000)))
 summary(pers_1)
+
 
 #Homogeneity
 EM<-resid(pers_1, type= "deviance") 
@@ -227,7 +235,9 @@ boxplot(E1_lme~change_top_25_CP$management, main="Tratamiento")
 # Step 1: Get Top 25 species in 'extensive' management
 top_25_extensive <- short_path_land_change_PP %>%
   filter(management == "E") %>% group_by(management) %>% 
-  slice_min(order_by = short_path_ave, n = 25) 
+  slice_min(order_by = short_path_ave, n = 25) %>% 
+  select(land_use,management,node_id,taxon) %>% 
+  mutate(presence = 1)
 
 # Step 2: Get Top 25 species in other managements
 top_25_other_managements <- short_path_land_change_PP %>%
@@ -241,16 +251,22 @@ change_top_25_PP<- unique(top_25_other_managements$management) %>%
   expand.grid(management = ., node_id = top_25_extensive$node_id) %>%
   left_join(top_25_other_managements, by = c("management", "node_id" )) %>%
   mutate(presence = ifelse(is.na(short_path_ave), 0, 1)) %>% #assign 1 when the species is still in the top 25
-  select(management, node_id = node_id, presence)
+  select(management, node_id = node_id, presence) %>% 
+  left_join(top_25_extensive, by = "node_id") %>% #add taxon information
+  select(land_use,management.x,node_id,taxon,presence.x) %>% rename("management" = "management.x",
+                                                                    "presence" = "presence.x")
 
+
+# Merge dataset
+change_top_25_PP_fin<- rbind(top_25_extensive,change_top_25_PP)
 
 # Model
 library(lme4)
 library("stats4")
 library("bbmle")
 
-pers_2<-glmer (presence ~ management + ( 1| node_id), family = binomial(link="logit"), data = change_top_25_PP,
-               control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000)))
+pers_2<-glmer (presence ~ management + ( 1| node_id), family = binomial(link= "logit"), data = change_top_25_PP_fin,
+               control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 1000)))
 summary(pers_2)
 
 #Homogeneity
@@ -262,6 +278,63 @@ abline(0,0, col="red", lwd= 3)
 #independence 
 E1_lme<-resid(pers_2, type= "deviance") 
 boxplot(E1_lme~change_top_25_PP$management, main="Tratamiento")
+
+
+
+########### Test if land use change in the importance of the top 25 most important species across land use change
+# Check if the indirect importance (average short path) of the top 25 species change in each treatment
+
+#Filter the improtance of the top25 species (from the extensive) across treatment
+top_25_average<- short_path_land_change_ave %>%  filter(node_id%in%top_25_extensive$node_id)
+
+## From Extensive to intensive CP
+top_25_average_CP<- top_25_average %>% filter(land_use== "CP") 
+
+#summarise
+average_change_CP<- top_25_average_CP %>% group_by(management) %>%  summarise(average = mean(short_path_ave))
+
+
+# Model
+library(glmmTMB)
+top_25_CP<- glmmTMB(short_path_ave~management+(1|node_id), 
+                   family = Gamma(link = "log"), data = top_25_average_CP) #we already check and this is the best model
+summary(top_25_CP) #this model fits the best (drop taxon no significant difference)
+
+
+#Homogeneity
+EM<-resid(top_25_CP) 
+FM<-fitted(top_25_CP) 
+plot(x=FM, y=EM, xlab = "Ajustados", ylab = "Residuales normalizados")
+abline(0,0, col="red", lwd= 3) 
+
+#independence 
+E1_lme<-resid(top_25_CP) 
+boxplot(E1_lme~top_25_average_CP$management, main="Tratamiento")
+
+## From Extensive to intensive PP
+top_25_average_PP<- top_25_average %>% filter(land_use== "PP") 
+
+#summarise 
+average_change<- top_25_average_PP %>% group_by(management) %>%  summarise(average = mean(short_path_ave))
+
+# Model
+top_25_PP<- glmmTMB(short_path_ave~management +(1|node_id), 
+                    family = Gamma(link = "log"), data = top_25_average_PP) #we already check and this is the best model
+summary(top_25_PP) #this model fits the best (drop it because was not significant)
+
+
+#Homogeneity
+EM<-resid(top_25_PP) 
+FM<-fitted(top_25_PP) 
+plot(x=FM, y=EM, xlab = "Ajustados", ylab = "Residuales normalizados")
+abline(0,0, col="red", lwd= 3) 
+
+#independence 
+E1_lme<-resid(top_25_PP) 
+boxplot(E1_lme~top_25_average_PP$management, main="Tratamiento")
+
+
+
 
 
 

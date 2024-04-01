@@ -883,8 +883,136 @@ ratio_indirect$management <- factor(ratio_indirect$management, levels = c("E", "
 
 
 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                      Analyses                            
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-################# PLOTS PRESENTATION
+#### Proportion of direct E(D)S retained across land use change --
+
+#upload and prepare dataframe
+direct_ES<- read.csv("Data/Land_use_dir_weighted_CP_intense.csv", sep =",") %>% 
+  mutate(services = case_when(services == "Crop production"~ "Resource provision",
+                              TRUE~services))
+
+direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+
+Prop_dir<-direct_ES %>% group_by(management,services) %>% 
+  mutate(tot = n()) %>% ungroup() %>%  
+  group_by(services) %>% 
+  mutate(prop = tot/max(tot)) %>%  #prop of E(D)S rtained across habitat management
+  select(management,services,tot,prop) %>% unique()
+
+# adjust the extreme values according to the beta conditions
+Prop_dir$prop <- ifelse(Prop_dir$prop == 0, 0.000001, 
+                        ifelse(Prop_dir$prop == 1, 0.9999999, Prop_dir$prop))
+
+# Model
+library("glmmTMB")
+library("stats4")
+library("bbmle")
+library(emmeans)
+
+Prop_dire<-glmmTMB (prop ~ management + ( 1| services), family=beta_family(link="logit"), data = Prop_dir)
+summary(Prop_dir)
+
+#Homogeneity
+EM<-resid(Prop_dire, type= "response") 
+FM<-fitted(Prop_dire) 
+plot(x=FM, y=EM, xlab = "Ajustados", ylab = "Residuales normalizados")
+abline(0,0, col="red", lwd= 3) 
+
+#independence 
+E1_lme<-resid(Prop_dire, type= "response") 
+boxplot(E1_lme ~ management, data = Prop_dir, main = "Management")
+
+# posthoc ()
+post_dir<- emmeans(Prop_dire, ~ management)
+pairs(post_dir)
+
+#### Proportion of indirect effect on E(D)S retained across land use change --
+
+#upload and prepare dataframe
+output_ind_ES <- read.csv("Data/Land_use_output_weighted_CP_intense.csv", sep =",") 
+output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+
+Prop_ind<-output_ind_ES %>% group_by(management,services_to) %>% 
+  mutate(tot = n()) %>% ungroup() %>%  
+  group_by(services_to) %>% 
+  mutate(prop = tot/max(tot)) %>%  #prop of E(D)S rtained across habitat management
+  select(management,services_to,tot,prop) %>% unique()
+
+
+# adjust the extreme values according to the beta conditions
+Prop_ind$prop <- ifelse(Prop_ind$prop == 0, 0.000001, 
+                        ifelse(Prop_ind$prop == 1, 0.9999999, Prop_ind$prop))
+
+# Model
+library("glmmTMB")
+library("stats4")
+library("bbmle")
+
+Prop_indi<-glmmTMB (prop ~ management + ( 1| services_to), family=beta_family(link="logit"), data = Prop_ind)
+summary(Prop_indi)
+
+#Homogeneity
+EM<-resid(Prop_indi, type= "response") 
+FM<-fitted(Prop_indi) 
+plot(x=FM, y=EM, xlab = "Ajustados", ylab = "Residuales normalizados")
+abline(0,0, col="red", lwd= 3) 
+
+#independence 
+E1_lme<-resid(Prop_indi, type= "response") 
+boxplot(E1_lme ~ management, data = Prop_ind, main = "Management")
+
+# posthoc
+post_ind<- emmeans(Prop_indi, ~ management)
+pairs(post_ind)
+
+#### Change in the amount of direct E(D)S provided change across land use change --
+
+#prepare dataframe
+tot_services_emp<-direct_ES %>% filter(management=="E") %>% group_by(management,services) %>% 
+  summarize(tot_empirical = sum(weight))
+
+dir_amount<-direct_ES %>% group_by(management,services) %>% 
+  summarize(tot = sum(weight)) %>% ungroup() %>%  
+  mutate(Extensive_tot = case_when(
+    services == "Bird watching"~ 330890.9200,
+    services == "Butterfly watching"~ 244.7676,
+    services == "Crop damage"~ 645963.6269,
+    services == "Resource provision"~ 209300.0000,
+    services == "Pest control"~ 7108.3108,
+    services == "Pollination"~ 36736.7426,
+    services == "Seed dispersal"~ 305215.3300),
+    ratio_change = tot / Extensive_tot  #ratio of change: values higher than 1 indicates increasing in the amount of E(D)S
+  )
+
+
+# Model
+library(glmmTMB)
+
+m_amount<- glmmTMB(ratio_change ~ management + (1|services),family = Gamma(link = "log"),
+                   data = dir_amount) 
+summary(m_amount)
+
+#Homogeneity
+EM<-resid(m_amount, type= "response") 
+FM<-fitted(m_amount) 
+plot(x=FM, y=EM, xlab = "Ajustados", ylab = "Residuales normalizados")
+abline(0,0, col="red", lwd= 3) 
+
+#independence 
+E1_lme<-resid(m_amount, type= "response") 
+boxplot(E1_lme~dir_amount$management, main="Management")
+
+# posthoc
+post_amount<- emmeans(m_amount, ~ management)
+pairs(post_amount)
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                      Plots                          
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #direct
 direct_ES<- read.csv("Data/Land_use_dir_weighted_CP_intense.csv", sep =",") %>% 
