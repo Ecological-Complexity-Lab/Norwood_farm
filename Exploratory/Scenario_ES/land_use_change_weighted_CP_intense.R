@@ -900,7 +900,9 @@ Prop_dir<-direct_ES %>% group_by(management,services) %>%
   mutate(tot = n()) %>% ungroup() %>%  
   group_by(services) %>% 
   mutate(prop = tot/max(tot)) %>%  #prop of E(D)S rtained across habitat management
-  select(management,services,tot,prop) %>% unique()
+  dplyr::select(management,services,tot,prop) %>%
+  unique()
+
 
 # adjust the extreme values according to the beta conditions
 Prop_dir$prop <- ifelse(Prop_dir$prop == 0, 0.000001, 
@@ -911,9 +913,13 @@ library("glmmTMB")
 library("stats4")
 library("bbmle")
 library(emmeans)
+library(car)
 
-Prop_dire<-glmmTMB (prop ~ management + ( 1| services), family=beta_family(link="logit"), data = Prop_dir)
-summary(Prop_dir)
+Prop_dire<- glmmTMB (prop ~ management + services, family=beta_family(link="logit"), data = Prop_dir) # model that best fit
+#Prop_dire2<-glmmTMB (prop ~ management + ( 1| services), family=beta_family(link="logit"), data = Prop_dir)
+Anova(Prop_dire)
+summary(Prop_dire)
+
 
 #Homogeneity
 EM<-resid(Prop_dire, type= "response") 
@@ -929,6 +935,9 @@ boxplot(E1_lme ~ management, data = Prop_dir, main = "Management")
 post_dir<- emmeans(Prop_dire, ~ management)
 pairs(post_dir)
 
+post_ser<- emmeans(Prop_dire, ~ services)
+pairs(post_ser)
+
 #### Proportion of indirect effect on E(D)S retained across land use change --
 
 #upload and prepare dataframe
@@ -939,7 +948,7 @@ Prop_ind<-output_ind_ES %>% group_by(management,services_to) %>%
   mutate(tot = n()) %>% ungroup() %>%  
   group_by(services_to) %>% 
   mutate(prop = tot/max(tot)) %>%  #prop of E(D)S rtained across habitat management
-  select(management,services_to,tot,prop) %>% unique()
+  dplyr::select(management,services_to,tot,prop) %>% unique()
 
 
 # adjust the extreme values according to the beta conditions
@@ -951,7 +960,9 @@ library("glmmTMB")
 library("stats4")
 library("bbmle")
 
-Prop_indi<-glmmTMB (prop ~ management + ( 1| services_to), family=beta_family(link="logit"), data = Prop_ind)
+Prop_indi<-glmmTMB (prop ~ management + services_to, family=beta_family(link="logit"), data = Prop_ind) #model that best fit
+#Prop_indi_2<-glmmTMB (prop ~ management :services_to, family=beta_family(link="logit"), data = Prop_ind)
+Anova(Prop_indi)
 summary(Prop_indi)
 
 #Homogeneity
@@ -967,33 +978,32 @@ boxplot(E1_lme ~ management, data = Prop_ind, main = "Management")
 # posthoc
 post_ind<- emmeans(Prop_indi, ~ management)
 pairs(post_ind)
+post_ser<- emmeans(Prop_indi, ~ services_to)
+pairs(post_ser)
+
+
+
 
 #### Change in the amount of direct E(D)S provided change across land use change --
 
-#prepare dataframe
-tot_services_emp<-direct_ES %>% filter(management=="E") %>% group_by(management,services) %>% 
-  summarize(tot_empirical = sum(weight))
+#Amount of ES provided by each species
+extensive_amount <- direct_ES %>% 
+  filter(management == "E") %>%
+  select(node_id, services, weight)
 
-dir_amount<-direct_ES %>% group_by(management,services) %>% 
-  summarize(tot = sum(weight)) %>% ungroup() %>%  
-  mutate(Extensive_tot = case_when(
-    services == "Bird watching"~ 330890.9200,
-    services == "Butterfly watching"~ 244.7676,
-    services == "Crop damage"~ 645963.6269,
-    services == "Resource provision"~ 209300.0000,
-    services == "Pest control"~ 7108.3108,
-    services == "Pollination"~ 36736.7426,
-    services == "Seed dispersal"~ 305215.3300),
-    ratio_change = tot / Extensive_tot  #ratio of change: values higher than 1 indicates increasing in the amount of E(D)S
-  )
 
+# Merging and other managements and calculate ratio of change
+dir_amount <- direct_ES %>% 
+  left_join(extensive_amount, by = c("node_id", "services"), suffix = c("", "_extensive")) %>%
+  mutate(ratio_change = weight / weight_extensive) #ratio of change: values higher than 1 indicates increasing in the amount of E(D)S
 
 # Model
 library(glmmTMB)
-
-m_amount<- glmmTMB(ratio_change ~ management + (1|services),family = Gamma(link = "log"),
+m_amount<- glmmTMB(ratio_change ~ management:services + (1|node_id),family = Gamma(link = "log"),
                    data = dir_amount) 
+Anova(m_amount)
 summary(m_amount)
+
 
 #Homogeneity
 EM<-resid(m_amount, type= "response") 
@@ -1006,8 +1016,10 @@ E1_lme<-resid(m_amount, type= "response")
 boxplot(E1_lme~dir_amount$management, main="Management")
 
 # posthoc
-post_amount<- emmeans(m_amount, ~ management)
-pairs(post_amount)
+emms <- emmeans(m_amount, pairwise ~ management | services)
+contrast <- contrast(emms, method = "pairwise")  # pairwise comparisons
+summary(contrast)
+contrast
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1269,3 +1281,146 @@ prop_weight_direct<- Prop_weight %>% ggplot(aes(x = management, y = ratio_change
 prop_weight_direct
 
 #ggsave("Land_use_weight_CP_intense.png")
+
+
+
+
+### Plot of proportion of output provided per taxon according to trophic group
+
+
+## Direct and indirect two hops (- and +)
+
+
+# Direct
+D_taxon_output<-direct_ES %>% group_by(management,output) %>% 
+  mutate(Total = n()) %>% group_by(management,output, taxon) %>% 
+  summarise(Number = n(), Prop = Number /Total) %>% unique()
+
+
+# positive
+D_taxon_positive<- D_taxon_output %>% filter(output == "+")
+Direct_taxon_positive<- D_taxon_positive  %>%  
+  ggplot(aes(y=Prop, x= management, fill = taxon)) + 
+  geom_bar(position="stack", stat="identity", color = "black")+ 
+  scale_fill_manual(label = c("Butterfly", "Crop","Flower-visitor ins",
+                               "Leaf-miner par", 
+                              "Prim aphid par","Rodent ectoparasite","Sec aphid par", "Seed-feeding bird", 
+                              "Seed-feeding ins","Seed-feeding rod"), 
+                    values = c("#E18A00",  "#BE9C00", "#8CAB00", "#00BE70","#00BBDA", "#00ACFC",
+                       "#8B93FF",  "#D575FE","#F962DD", "#FF65AC" ))+
+  ggtitle("Direct provision")+
+  labs(x='Output', y="Prop output provided per taxon") +theme_bw()+
+  theme_classic()+
+  theme(panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text.y = element_text(size=13, color='black'),
+        axis.text = element_text(size=15, color='black'),
+        axis.text.x= element_text(size =15), 
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11),
+        legend.position = "bottom")
+        
+Direct_taxon_positive
+ggsave("output_taxon_direct_positive_CP.png")
+
+# negative
+D_taxon_negative<- D_taxon_output %>% filter(output == "-")
+Direct_taxon_negative<- D_taxon_negative  %>%  
+  ggplot(aes(y=Prop, x= management, fill = taxon)) + 
+  geom_bar(position="stack", stat="identity", color = "black")+ 
+  scale_fill_manual(label = c("Aphid",  "Seed-feeding bird", 
+                              "Seed-feeding rod"), 
+                    values = c("#F8766D", "#D575FE", "#FF65AC" ))+
+  ggtitle("Direct provision")+
+  labs(x='Output', y="Prop output provided per taxon") +theme_bw()+
+  theme_classic()+
+  theme(panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text.y = element_text(size=13, color='black'),
+        axis.text = element_text(size=15, color='black'),
+        axis.text.x= element_text(size =15), 
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11),
+        legend.position = "bottom")
+Direct_taxon_negative
+#ggsave("output_taxon_direct_negative_CP.png")
+
+
+# Indirect
+I_taxon_output<-output_ind_ES %>% group_by(management,output) %>% 
+  mutate(Total = n()) %>% group_by(management,output, taxon) %>% 
+  summarise(Number = n(), Prop = Number /Total) %>% unique()
+
+#Positive
+I_taxon_positive<- I_taxon_output %>% filter(output == "+")
+
+Indirect_taxon_positive<- I_taxon_positive%>% 
+  ggplot(aes(y=Prop, x=management, fill = taxon)) + 
+  geom_bar(position="stack", stat="identity", color = "black")+ 
+  scale_fill_manual(label = c("Aph","Butt", "Crop","Flower-visitor ins","Insect seed-feeder par", 
+                              "Leaf-miner par", "Plants","Prim aphid par", "Rodent ectopar",
+                              "Sec aphid par", "Seed-feeding bird", "Seed-feeding ins",
+                              "Seed-feeding rod"),
+                    values = c("#F8766D", "#E18A00","#BE9C00", "#8CAB00",
+                               "#24B700", "#00BE70","#00C1AB", "#00BBDA", "#00ACFC",
+                               "#8B93FF", "#D575FE","#F962DD", "#FF65AC"))+
+  ggtitle("Indirect provision")+
+  labs(x='Output', y="Prop output provided per taxon") +theme_bw()+
+  theme_classic()+
+  theme(panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text.y = element_text(size=13, color='black'),
+        axis.text = element_text(size=15, color='black'),
+        axis.text.x= element_text(size =15), 
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11),
+        legend.position = "bottom")
+
+Indirect_taxon_positive
+#ggsave("output_taxon_indirect_positive_CP.png")
+
+
+#Negative
+I_taxon_negative<- I_taxon_output %>% filter(output == "-")
+
+Indirect_taxon_negative<- I_taxon_negative %>% 
+  ggplot(aes(y=Prop, x=management, fill = taxon)) + 
+  geom_bar(position="stack", stat="identity", color = "black")+ 
+  scale_fill_manual(label = c("Aph","Butt", "Crop","Flower-visitor ins","Insect seed-feeder par", 
+                              "Leaf-miner par", "Plants","Prim aphid par", "Rodent ectopar",
+                              "Sec aphid par", "Seed-feeding bird", "Seed-feeding ins",
+                              "Seed-feeding rod"),
+                    values = c("#F8766D", "#E18A00","#BE9C00", "#8CAB00",
+                               "#24B700", "#00BE70","#00C1AB", "#00BBDA", "#00ACFC",
+                               "#8B93FF", "#D575FE","#F962DD", "#FF65AC"))+
+  ggtitle("Indirect provision")+
+  labs(x='Output', y="Prop output provided per taxon") +theme_bw()+
+  theme_classic()+
+  theme(panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text.y = element_text(size=13, color='black'),
+        axis.text = element_text(size=15, color='black'),
+        axis.text.x= element_text(size =15), 
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11),
+        legend.position = "bottom")
+
+Indirect_taxon_negative
+
+#ggsave("output_taxon_indirect_negative_CP.png")

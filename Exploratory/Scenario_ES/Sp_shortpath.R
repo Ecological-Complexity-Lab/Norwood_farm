@@ -132,7 +132,9 @@ species_shortpath_fin<- species_shortpath %>%
 
 
 
-########################### Statistical analysis ###################################
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                      Analyses                            
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #upload and arrange dataframe
 short_path_CP<-read.csv("Data/Land_use_shortpath_weighted_CP_intense.csv", row.names = 1) %>% mutate(land_use = "CP")
@@ -144,7 +146,8 @@ short_path_land_change<-rbind(short_path_CP,short_path_PP)
 ## check exploratory tendency
 exploratory_taxon<-short_path_land_change %>% group_by(land_use,taxon) %>% 
             summarise(mean_short = mean(short_ave),
-                      se_short = sd(short_ave)/ sqrt(n()))
+                      se_short = sd(short_ave)/ sqrt(n())) %>% 
+            arrange(mean_short)
 
 exploratory_management<-short_path_land_change %>% group_by(land_use,management) %>% 
   summarise(mean_short = mean(short_ave),
@@ -162,19 +165,57 @@ short_path_land_change_CP<- short_path_land_change_ave %>% filter(land_use== "CP
 
 # Model
 library(glmmTMB)
-short_CP<- glmmTMB(short_path_ave~management+taxon+ (1|node_id), 
+library(emmeans)
+library(car)
+
+short_CP<- glmmTMB(short_path_ave~management + taxon+ (1|node_id), 
                   family = Gamma(link = "log"), data = short_path_land_change_CP) #we already check and this is the best model
+Anova(short_CP)
 summary(short_CP)
+
+#Homogeneity
+EM<-resid(short_CP, type= "response") 
+FM<-fitted(short_CP) 
+plot(x=FM, y=EM, xlab = "Ajustados", ylab = "Residuales normalizados")
+abline(0,0, col="red", lwd= 3) 
+
+#independence 
+E1_lme<-resid(short_CP, type= "response") 
+boxplot(E1_lme~short_path_land_change_CP$management, main="Management")
+
+# posthoc
+post_amount<- emmeans(short_CP, ~ management)#management
+pairs(post_amount)
+
+post_amount_taxon<- emmeans(short_CP, ~ taxon)#management
+pairs(post_amount_taxon)
+
 
 ## From Extensive to intensive PP
 short_path_land_change_PP<- short_path_land_change_ave %>% filter(land_use== "PP") 
 
 # Model
-library(glmmTMB)
-short_PP<- glmmTMB(short_path_ave~management+taxon+ (1|node_id), 
+short_PP<- glmmTMB(short_path_ave~management + taxon+ (1|node_id), 
                   family = Gamma(link = "log"), data = short_path_land_change_PP) #we already check and this is the best model
+Anova(short_PP)
 summary(short_PP)
 
+#Homogeneity
+EM<-resid(short_PP, type= "response") 
+FM<-fitted(short_PP) 
+plot(x=FM, y=EM, xlab = "Ajustados", ylab = "Residuales normalizados")
+abline(0,0, col="red", lwd= 3) 
+
+#independence 
+E1_lme<-resid(short_PP, type= "response") 
+boxplot(E1_lme~short_path_land_change_PP$management, main="Management")
+
+# posthoc
+post_amount<- emmeans(short_PP, ~ management)#management
+pairs(post_amount)
+
+post_amount_taxon<- emmeans(short_PP, ~ taxon)#management
+pairs(post_amount_taxon)
 
 
 ########### Test if land use change produce a replacement of the top 25 most important species in each treatment
@@ -213,11 +254,12 @@ change_top_25_CP_fin<- rbind(top_25_extensive,change_top_25_CP)
 library(lme4)
 library("stats4")
 library("bbmle")
+library(emmeans)
 
 pers_1<-glmer (presence ~ management + ( 1| node_id), family = binomial(link="logit"), data = change_top_25_CP_fin,
                control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 1000)))
+Anova(pers_1)
 summary(pers_1)
-
 
 #Homogeneity
 EM<-resid(pers_1, type= "deviance") 
@@ -227,7 +269,7 @@ abline(0,0, col="red", lwd= 3)
 
 #independence 
 E1_lme<-resid(pers_1, type= "deviance") 
-boxplot(E1_lme~change_top_25_CP$management, main="Tratamiento")
+boxplot(E1_lme~change_top_25_CP_fin$management, main="Tratamiento")
 
 
 ## From Extensive to intensive PP
@@ -261,12 +303,9 @@ change_top_25_PP<- unique(top_25_other_managements$management) %>%
 change_top_25_PP_fin<- rbind(top_25_extensive,change_top_25_PP)
 
 # Model
-library(lme4)
-library("stats4")
-library("bbmle")
-
 pers_2<-glmer (presence ~ management + ( 1| node_id), family = binomial(link= "logit"), data = change_top_25_PP_fin,
-               control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 1000)))
+               control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 10000)))
+Anova(pers_2)
 summary(pers_2)
 
 #Homogeneity
@@ -290,14 +329,14 @@ top_25_average<- short_path_land_change_ave %>%  filter(node_id%in%top_25_extens
 ## From Extensive to intensive CP
 top_25_average_CP<- top_25_average %>% filter(land_use== "CP") 
 
-#summarise
+# exploratory
 average_change_CP<- top_25_average_CP %>% group_by(management) %>%  summarise(average = mean(short_path_ave))
 
 
 # Model
-library(glmmTMB)
 top_25_CP<- glmmTMB(short_path_ave~management+(1|node_id), 
                    family = Gamma(link = "log"), data = top_25_average_CP) #we already check and this is the best model
+Anova(top_25_CP)
 summary(top_25_CP) #this model fits the best (drop taxon no significant difference)
 
 
@@ -311,17 +350,22 @@ abline(0,0, col="red", lwd= 3)
 E1_lme<-resid(top_25_CP) 
 boxplot(E1_lme~top_25_average_CP$management, main="Tratamiento")
 
+# posthoc
+post_short<- emmeans(top_25_CP, ~ management)
+pairs(post_short)
+
+
 ## From Extensive to intensive PP
 top_25_average_PP<- top_25_average %>% filter(land_use== "PP") 
 
-#summarise 
-average_change<- top_25_average_PP %>% group_by(management) %>%  summarise(average = mean(short_path_ave))
+#exploratory 
+average_change_PP<- top_25_average_PP %>% group_by(management) %>%  summarise(average = mean(short_path_ave))
 
 # Model
 top_25_PP<- glmmTMB(short_path_ave~management +(1|node_id), 
                     family = Gamma(link = "log"), data = top_25_average_PP) #we already check and this is the best model
+Anova(top_25_PP)
 summary(top_25_PP) #this model fits the best (drop it because was not significant)
-
 
 #Homogeneity
 EM<-resid(top_25_PP) 
@@ -333,12 +377,14 @@ abline(0,0, col="red", lwd= 3)
 E1_lme<-resid(top_25_PP) 
 boxplot(E1_lme~top_25_average_PP$management, main="Tratamiento")
 
+# posthoc
+post_short<- emmeans(top_25_PP, ~ management)
+pairs(post_short)
 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                      Plots                          
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-
-
-############################ PLOTS #################
 library(circlize)
 library(viridis)
 library(ComplexHeatmap)
