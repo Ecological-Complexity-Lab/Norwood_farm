@@ -1260,7 +1260,68 @@ prop_weight_direct
 #ggsave("Land_use_weight_PP_intense.png")
 
 
+### Plot of proportion of each direct E(D)S per management (also indicating if it's a services and disservices)
 
+# Direct
+D_ES<-direct_ES %>% group_by(management) %>% 
+  mutate(Total = n()) %>% group_by(management,services) %>% 
+  summarise(Number = n(), Prop = Number /Total) %>% unique()
+
+
+Direct_ES_management<- D_ES  %>%  
+  ggplot(aes(y=Prop, x= management, fill = services)) + 
+  geom_bar(position="stack", stat="identity", color = "black")+ 
+  scale_fill_brewer(palette="PRGn") +
+  ggtitle("Direct provision")+
+  labs(x='Management', y="Prop E(D)S per management") +theme_bw()+
+  theme_classic()+
+  theme(panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text.y = element_text(size=13, color='black'),
+        axis.text = element_text(size=15, color='black'),
+        axis.text.x= element_text(size =15), 
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11),
+        legend.position = "bottom") 
+
+Direct_ES_management
+#ggsave("Prop_ES_direct_PP.png")
+
+
+### Plot of proportion of each indirect effects on E(D)S per management
+
+# Direct
+I_ES<-output_ind_ES %>% group_by(management) %>% 
+  mutate(Total = n()) %>% group_by(management,services_to) %>% 
+  summarise(Number = n(), Prop = Number /Total) %>% unique()
+
+
+Indirect_ES_management<- I_ES  %>%  
+  ggplot(aes(y=Prop, x= management, fill = services_to)) + 
+  geom_bar(position="stack", stat="identity", color = "black")+ 
+  scale_fill_brewer(palette="PRGn") +
+  ggtitle("InDirect provision")+
+  labs(x='Management', y="Prop indirect effects on E(D)S per management") +theme_bw()+
+  theme_classic()+
+  theme(panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text.y = element_text(size=13, color='black'),
+        axis.text = element_text(size=15, color='black'),
+        axis.text.x= element_text(size =15), 
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11),
+        legend.position = "bottom") 
+
+Indirect_ES_management
+#ggsave("Prop_ES_indirect_PP.png")
 
 ### Plot of proportion of output provided per taxon according to trophic group
 
