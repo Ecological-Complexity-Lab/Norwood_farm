@@ -407,7 +407,7 @@ PP_clean<-shuff_PP %>% ungroup() %>% mutate(habitat = 17) %>% select(habitat,nod
 shuff_pre<-read.csv("Data/shuff_hab_M_CP.csv", sep =,) # shuff habitats from previous habitat management
 
 shuff_habitats<-rbind(shuff_pre,GM_clean,SF_clean,PP_clean)  
-#write.csv(shuff_habitats,"Data/shuff_hab_SI_CP.csv", row.names= FALSE) #save to add in the next management scenario
+#write.csv(shuff_habitats,"Data/shuff_hab_SI_CP.csv", row.names= FALSE) #save to add in the next management scenario. Too heavy to upload on github
 
 ## -- Merge each simulation of transformed habitats with the non-transformed habitats to create 1000 simulation of the management scenario (SI)
 sem_int_sim_no_aggr<- comb_edge_list(sem_int_edgelist_rem,shuff_habitats) #call function to merge dataframes. In each iteration, habitats are not aggregated yet
@@ -515,7 +515,7 @@ NL_clean<-shuff_NL %>% ungroup() %>% mutate(habitat = 19) %>% select(habitat,nod
 shuff_pre<-read.csv("Data/shuff_hab_SI_CP.csv", sep =,) # shuff habitats from previous habitat management
 
 shuff_habitats<-rbind(shuff_pre,LP_clean,NL_clean)  
-#write.csv(shuff_habitats,"Data/shuff_hab_I_CP.csv", row.names= FALSE) #save to add in the next management scenario
+#write.csv(shuff_habitats,"Data/shuff_hab_I_CP.csv", row.names= FALSE) #save to add in the next management scenario. Too heavy to upload on github
 
 
 ## -- Merge each simulation of transformed habitats with the non-transformed habitats to create 1000 simulation of the management scenario (I)
