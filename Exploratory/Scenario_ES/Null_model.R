@@ -11,7 +11,7 @@ library(ggplot2)
 library(cowplot)
 
 setwd("/Users/agustin/Desktop/Papers/Norwood_farm/Norwood_Tinio")
-
+source("/Users/agustin/Desktop/Papers/Norwood_farm/Norwood_Tinio/Exploratory/Scenario_ES/functions.R")
 
 ######### --- Call and arrange dataframes 
 Norwood_farm<-readRDS("Data/Norwood_farm.RData") #read multilayer object
@@ -47,6 +47,7 @@ habitat_area <- areas %>% mutate(area_ave = case_when(
 #                      NULL MODEL                        
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+set.seed(123)
 
 
 ############# 1. Species to remove
@@ -95,6 +96,8 @@ ext_edgelist_aggr<- extensive_edgelist %>% left_join(ab_ext, by = c("node_from" 
   rename ("rel_ab_from" = "rel_ab.x", "rel_ab_to" = "rel_ab.y") %>% 
   mutate(weight = rel_ab_from * rel_ab_to) %>% #calculate weight
   select(node_from,node_to,weight,management)
+
+
 
 
 ##### -- Semi - extensive (replace "WD" and "RG")
@@ -149,7 +152,7 @@ new_habitats_ab<-converted_area %>%  group_by(layer_from) %>%
 # remove interactions where one partner have less than 1 individual(threshold)
 
 new_habitats_ab_rem<- new_habitats_ab %>% filter(ab_node_from >=1 & ab_node_to >=1) %>% 
-  mutate(layer_from = case_when(
+  mutate(layer_from = case_when( #change  name of layers
     layer_from == 1 ~ "CP",
     layer_from == 8 ~ "RG",
     layer_from == 10 ~ "WD"),
@@ -161,83 +164,74 @@ new_habitats_ab_rem<- new_habitats_ab %>% filter(ab_node_from >=1 & ab_node_to >
 
 
 ## -- Remove species at random (1000 times)
-#In each new habitat, we randomly remove the number of species according to the step 1.
 
-simple<- new_habitats_ab_rem %>%  filter(new_habitat =="WD_CP")
+#In each new habitat, we randomly remove the number of species according to the step 1. 
 
-combined_nodes<- simple %>% filter (!(taxon_node_from == "Crop"| taxon_node_to == "Crop")) %>% 
-  select(node_from,node_to) %>% pivot_longer(cols = c(node_from, node_to)) %>% ungroup() %>% select(-layer_from,-name) %>% 
-  unique() %>% pull(value) #vector containing potential species to randomly remove (except crops) 
+#WD
+WD_edge_list<-new_habitats_ab_rem %>%  filter(pre_hab =="WD")
+shuff_WD<-sim_sp_removal(WD_edge_list,absent_species_count) #function to randomly remove the same number of species according to the original simulation
+WD_clean<-shuff_WD %>% ungroup() %>% mutate(habitat = 11) 
 
-edge_list_shuff<-NULL
-iteration <-c()
+#RG
+RG_edge_list<-new_habitats_ab_rem %>%  filter(pre_hab =="RG")
+shuff_RG<-sim_sp_removal(RG_edge_list,absent_species_count) #function to randomly remove the same number of species according to the original simulation
+RG_clean<-shuff_RG %>% ungroup() %>% mutate(habitat = 12) 
 
-for (i in 1:20){
-  print(i)
-  #Select randomly species to remove
-  sp_to_remove = sample(combined_nodes,absent_species_count[absent_species_count$habitat== unique(simple$pre_hab),2], replace = FALSE)
+#Merge shuff habitats and arrange dataframe to merge with the rest of the habitats
+shuff_habitats<-rbind(WD_clean,RG_clean) %>% select(habitat,node_from,ab_node_from,taxon_node_from,
+                                                  node_to,ab_node_to,taxon_node_to,weight, iteration)
 
-  #Remove species from the edgelist
-  edge_list_remov<-simple %>% filter (!(node_from%in%sp_to_remove | node_to%in%sp_to_remove))
+## -- Merge each simulation of transformed habitats with the non-transformed habitats to create 1000 simulation of the management scenario (SE)
+sem_ext_sim_no_aggr<- comb_edge_list(sem_ext_edgelist_rem,shuff_habitats) #call function to merge dataframes. In each iteration, habitats are not aggregated yet
+
+## -- create state_node_list of each simulated management scenario
+state_node_sem_ext_sim<-lapply(sem_ext_sim_no_aggr,state_node_list) #call the function to create node list and apply to every element of the list
+state_node_sem_ext_sim<-bind_rows(state_node_sem_ext_sim)
+
+#write.csv(state_node_sem_ext_sim,"Data/SE_sim_state_node.csv", row.names= FALSE)
+
+## -- aggregate habitat within simulated management scenario 
+SE_sim<-lapply(sem_ext_sim_no_aggr,function(data) {
+  data %>%  mutate(management = "SE") %>% 
+    select(management,iteration,node_from,node_to) %>% 
+    unique()
+})
+
+SE_sim<-bind_rows(SE_sim)
+#write.csv(SE_sim,"Data/SE_sim.csv", row.names= FALSE)
+
+
+
+#####  -- Moderate (replace "WD","RG","MH"and "NH" for "CP")
+
+
+##-- Remove habitats from norwood (the ones to replace) and incorporate abundances and taxon 
+
+sem_ext_edgelist_rem<- Norwood_farm$extended_ids %>% filter(layer_from != 8 & layer_from != 10) %>% 
+  select(-layer_to) %>% rename("habitat" = "layer_from") %>%   #links from "WD" and "RG" removed
+  left_join(state_nodes_ab, by = c("node_from" = "node_id",
+                                   "habitat" = "layer_id")) %>%  #incorporate abundances and taxa of node_from
+  left_join(state_nodes_ab, by = c("node_to" = "node_id",
+                                   "habitat" = "layer_id")) %>%  #incorporate abundances and taxa of nodes_to
+  rename("ab_node_from" = "abundance.x", "taxon_node_from" = "taxon.x",
+         "ab_node_to" = "abundance.y", "taxon_node_to" = "taxon.y")
+
+sem_ext_edgelist_rem<-sem_ext_edgelist_rem[,c(1,2,5,6,3,7,8,4)]
+
+
+##--  Create new habitats 
+
+# Merge edge list of CP and the habitats to convert
+WD_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1 | layer_from == 10) %>% 
+  mutate (pre_hab= "WD",new_habitat = "WD_CP")
+
+RG_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1 | layer_from == 8) %>% 
+  mutate (pre_hab = "RG",new_habitat = "RG_CP")
+
+converted_area<-rbind(WD_CP, RG_CP) 
+
+
   
-  
-  #Store results
-  edge_list_shuff<-rbind(edge_list_shuff,edge_list_remov)
-  iteration <- c(iteration, rep(i,nrow(edge_list_remov))) #number of rep
-  
-}
-
-prueba<-cbind(edge_list_shuff, iteration = iteration)
-
-
-#NEXT STEPS: 1) CREAR LA FUNCION GENERAL (TESTEAR SI FUNCTIONA) 2) FILTRAR EL SUBSET DE CADA HABITAT, APLICAR LA FUNCION A CADA UNI
-#Y UNIRLAS AL FINAL
-
-## -- create state_node_list of the management scenario
-
-sem_ext_edgelist_no_aggr<- rbind(sem_ext_edgelist_rem,new_habitats_ab_rem)  #join new habitats and old habitats
-
-#node_from       
-state_node_sem_ext_from<- sem_ext_edgelist_no_aggr %>% select(habitat,node_from,ab_node_from,
-                                                        taxon_node_from) %>% 
-                        rename("node_id" ="node_from", "abundances" = "ab_node_from",
-                               "taxon" = "taxon_node_from") %>% 
-        group_by(habitat,node_id) %>% unique() #eliminate duplicate species within each habitat
-
-#node_to
-state_node_sem_ext_to<- sem_ext_edgelist_no_aggr %>% select(habitat,node_to,ab_node_to,
-                                                        taxon_node_to) %>% 
-  rename("node_id" ="node_to", "abundances" = "ab_node_to",
-         "taxon" = "taxon_node_to") %>% 
-  group_by(habitat,node_id) %>% unique() #eliminate duplicate species within each habitat
-
-
-# final state nodes (calculate abundance and relative abundance of species)
-
-state_node_sem_ext_agg<-rbind(state_node_sem_ext_from, state_node_sem_ext_to) %>% ungroup() %>% 
-                    select(-habitat) %>% group_by(node_id,taxon) %>% 
-                    mutate(abun = sum(abundances)) %>% distinct(abun) %>% group_by(taxon) %>% 
-                    mutate(tot_ab_taxon = sum(abun)) %>% #total abundance per taxon
-                    group_by(node_id) %>% 
-                mutate(rel_ab=abun/tot_ab_taxon)#rel abundance of species per taxon
-
-
-
-## --  Recalculate weight according to the new habitats and abundances
-
-# Edge list new management scenario
-
-sem_ext_edgelist_aggr<-sem_ext_edgelist_no_aggr %>% select(node_from,node_to) %>% 
-                      unique() %>%  #aggregated edge list
-      left_join(state_node_sem_ext_agg, by = c("node_from" = "node_id")) %>%  #incorporate rel abundances of node_from
-       left_join(state_node_sem_ext_agg, by = c("node_to" = "node_id")) %>%  #incorporate rel abundances of nodes_to
-       select(node_from,node_to, rel_ab.x,rel_ab.y) %>% 
-  mutate(weight = rel_ab.x * rel_ab.y,management = "SE") %>% #calculate weight 
-  select(-rel_ab.x,-rel_ab.y)
-  
-
-
-
 
 
 ##### -- Moderate (replace "WD","RG","MH"and "NH" for "CP")
