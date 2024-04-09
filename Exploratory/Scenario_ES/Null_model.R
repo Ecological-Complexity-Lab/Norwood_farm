@@ -181,7 +181,7 @@ RG_clean<-shuff_RG %>% ungroup() %>% mutate(habitat = 12)
 shuff_habitats<-rbind(WD_clean,RG_clean) %>% select(habitat,node_from,ab_node_from,taxon_node_from,
                                                   node_to,ab_node_to,taxon_node_to,weight, iteration)
 
-#write.csv(shuff_habitats,"Data/shuff_hab_WD_RG.csv", row.names= FALSE) #save to add in the next management scenario
+#write.csv(shuff_habitats,"Data/shuff_hab_WD_RG_CP.csv", row.names= FALSE) #save to add in the next management scenario
 
 ## -- Merge each simulation of transformed habitats with the non-transformed habitats to create 1000 simulation of the management scenario (SE)
 sem_ext_sim_no_aggr<- comb_edge_list(sem_ext_edgelist_rem,shuff_habitats) #call function to merge dataframes. In each iteration, habitats are not aggregated yet
@@ -190,7 +190,7 @@ sem_ext_sim_no_aggr<- comb_edge_list(sem_ext_edgelist_rem,shuff_habitats) #call 
 state_node_sem_ext_sim<-lapply(sem_ext_sim_no_aggr,state_node_list) #call the function to create node list and apply to every element of the list
 state_node_sem_ext_sim<-bind_rows(state_node_sem_ext_sim)
 
-#write.csv(state_node_sem_ext_sim,"Data/SE_sim_state_node.csv", row.names= FALSE)
+#write.csv(state_node_sem_ext_sim,"Data/SE_sim_state_node_CP.csv", row.names= FALSE)
 
 ## -- aggregate habitat within simulated management scenario 
 SE_sim<-lapply(sem_ext_sim_no_aggr,function(data) {
@@ -200,7 +200,7 @@ SE_sim<-lapply(sem_ext_sim_no_aggr,function(data) {
 })
 
 SE_sim<-bind_rows(SE_sim)
-#write.csv(SE_sim,"Data/SE_sim.csv", row.names= FALSE)
+#write.csv(SE_sim,"Data/SE_sim_CP.csv", row.names= FALSE)
 
 
 
@@ -283,10 +283,10 @@ NH_clean<-shuff_NH %>% ungroup() %>% mutate(habitat = 14) %>% select(habitat,nod
                                                                      node_to,ab_node_to,taxon_node_to,weight, iteration)
 
 #Merge shuff habitats from this management scenario (M) with the precvious mangaement (SE)
-shuff_pre<-read.csv("Data/shuff_hab_WD_RG.csv", sep =,) # shuff habitats from previous habitat management
+shuff_pre<-read.csv("Data/shuff_hab_WD_RG_CP.csv", sep =,) # shuff habitats from previous habitat management
 
 shuff_habitats<-rbind(shuff_pre,MH_clean,NH_clean)  
-#write.csv(shuff_habitats,"Data/shuff_hab_M.csv", row.names= FALSE) #save to add in the next management scenario
+#write.csv(shuff_habitats,"Data/shuff_hab_M_CP.csv", row.names= FALSE) #save to add in the next management scenario
 
 ## -- Merge each simulation of transformed habitats with the non-transformed habitats to create 1000 simulation of the management scenario (M)
 mod_sim_no_aggr<- comb_edge_list(mod_edgelist_rem,shuff_habitats) #call function to merge dataframes. In each iteration, habitats are not aggregated yet
@@ -294,7 +294,7 @@ mod_sim_no_aggr<- comb_edge_list(mod_edgelist_rem,shuff_habitats) #call function
 ## -- create state_node_list of each simulated management scenario
 state_node_mod_sim<-lapply(mod_sim_no_aggr,state_node_list) #call the function to create node list and apply to every element of the list
 state_node_mod_sim<-bind_rows(state_node_mod_sim)
-#write.csv(state_node_mod_sim,"Data/M_sim_state_node.csv", row.names= FALSE)
+#write.csv(state_node_mod_sim,"Data/M_sim_state_node_CP.csv", row.names= FALSE)
 
 ## -- aggregate habitat within simulated management scenario 
 M_sim<-lapply(mod_sim_no_aggr,function(data) {
@@ -304,7 +304,7 @@ M_sim<-lapply(mod_sim_no_aggr,function(data) {
 })
 
 M_sim<-bind_rows(M_sim)
-#write.csv(M_sim,"Data/M_sim.csv", row.names= FALSE)
+#write.csv(M_sim,"Data/M_sim_CP.csv", row.names= FALSE)
 
 
 
@@ -329,89 +329,105 @@ sem_int_edgelist_rem<- Norwood_farm$extended_ids %>%
 sem_int_edgelist_rem<-sem_int_edgelist_rem[,c(1,2,5,6,3,7,8,4)]
 
 
-#--  Create new habitats 
+##--  Create new habitats 
 
-# create habitats CP to replace WD,RG, MH,NH and GM (WD,RG,MH and NH were created before)
-GM_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1) %>% select(-layer_to,-layer_from) %>% 
-  mutate (new_hab = 15, prev_hab = "GM", hab_cp = "CP")#links from "CP" to add as new habitat (16)
+# Merge edge list of CP and the habitats to convert
+GM_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1 | layer_from == 2) %>% 
+  mutate (pre_hab= "GM",new_habitat = "GM_CP")
 
-SF_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1) %>% select(-layer_to,-layer_from) %>% 
-  mutate (new_hab = 16, prev_hab = "SF", hab_cp = "CP")#links from "CP" to add as new habitat (17)
+SF_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1 | layer_from == 9) %>% 
+  mutate (pre_hab = "SF",new_habitat = "SF_CP")
 
-PP_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1) %>% select(-layer_to,-layer_from) %>% 
-  mutate (new_hab = 17, prev_hab = "PP", hab_cp = "CP")#links from "CP" to add as new habitat (18)
+PP_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1 | layer_from == 7) %>% 
+  mutate (pre_hab = "PP",new_habitat = "PP_CP")
 
-
-# calculate changes in the area between CP and the habitat to replace 
-converted_area<-rbind(WD_CP, RG_CP, MH_CP, NH_CP, GM_CP,SF_CP,PP_CP) %>%
-  left_join(habitat_area,  by = c("prev_hab" = "HabitatCode")) %>% 
-  left_join(habitat_area, by = c("hab_cp" = "HabitatCode")) %>% 
-  select(node_from,node_to,weight,new_hab,prev_hab,hab_cp,area_ave.x,area_ave.y) %>% 
-  rename("area_prev_hab" ="area_ave.x", "area_CP" = "area_ave.y") %>% 
-  mutate(mult_ab = (area_prev_hab/area_CP)) %>% #multplied abundances of CP for this value (to estimate according to the new habitat)
-  select(-prev_hab,-hab_cp,-area_prev_hab,-area_CP)#clean dataframe
+converted_area<-rbind(GM_CP, SF_CP, PP_CP) 
 
 
-# add abundances and modify them according to the new area
-abundances_CP<-state_nodes_ab %>% filter(layer_id ==1)#filter species abundances to show just layer CP
+## -- Add abundances of species and modify it according to the new area (for species from CP that are in the new habitat)
 
-new_habitats_ab<-converted_area %>%  
-  left_join(abundances_CP, by = c("node_from" = "node_id")) %>%  #incorporate abundances and taxa of node_from
-  left_join(abundances_CP, by = c("node_to" = "node_id")) %>%  #incorporate abundances and taxa of nodes_to
-  rename("ab_node_from_CP" = "abundance.x", "taxon_node_from" = "taxon.x",
-         "ab_node_to_CP" = "abundance.y", "taxon_node_to" = "taxon.y") %>% 
-  mutate(ab_node_from = ab_node_from_CP * mult_ab, 
-         ab_node_to = ab_node_to_CP * mult_ab ) %>% #estimate the new abundances
-  select(new_hab,node_from,ab_node_from,taxon_node_from,node_to,ab_node_to,
-         taxon_node_to,weight) %>% rename ("habitat" = "new_hab") #clean to match the rest of farm edgelist
-
-# remove interactio where one partner have less than 1 indidivual (threshold)
-
-new_habitats_ab_rem<- new_habitats_ab %>% filter(ab_node_from >=1 & ab_node_to >=1)
-
-
-
-## -- create state_node_list of the management scenario
-
-sem_int_edgelist_no_aggr<- rbind(sem_int_edgelist_rem,new_habitats_ab_rem)  #join new habitats and old habitats
-
-#node_from       
-state_node_sem_int_from<- sem_int_edgelist_no_aggr %>% select(habitat,node_from,ab_node_from,
-                                                      taxon_node_from) %>% 
-  rename("node_id" ="node_from", "abundances" = "ab_node_from",
-         "taxon" = "taxon_node_from")%>% 
-  group_by(habitat,node_id) %>% unique() #eliminate duplicate species within each habitat
-
-#node_to
-state_node_sem_int_to<- sem_int_edgelist_no_aggr %>% select(habitat,node_to,ab_node_to,
-                                                    taxon_node_to) %>% 
-  rename("node_id" ="node_to", "abundances" = "ab_node_to",
-         "taxon" = "taxon_node_to")%>% 
-  group_by(habitat,node_id) %>% unique() #eliminate duplicate species within each habitat
+# add abundances and modify those from CP according to the new area
+abundances_sp<-state_nodes_ab %>% filter(layer_id ==1 |layer_id ==2 |
+                                           layer_id ==9| layer_id ==7) 
+new_habitats_ab<-converted_area %>%  group_by(layer_from) %>% 
+  left_join(abundances_sp, by = c("layer_from" ="layer_id","node_from" = "node_id")) %>%  #incorporate abundances and taxa of node_from
+  left_join(abundances_sp, by = c("layer_from" ="layer_id","node_to" = "node_id")) %>%  #incorporate abundances and taxa of nodes_to
+  rename("ab_node_from" = "abundance.x", "taxon_node_from" = "taxon.x",
+         "ab_node_to" = "abundance.y", "taxon_node_to" = "taxon.y") %>% 
+  mutate(ab_node_from = case_when(
+    (layer_from == 1 & new_habitat == "GM_CP") ~ ab_node_from * habitat_area[habitat_area$HabitatCode == "GM",6 ],
+    (layer_from == 1 & new_habitat == "SF_CP") ~ ab_node_from * habitat_area[habitat_area$HabitatCode == "SF",6 ],
+    (layer_from == 1 & new_habitat == "PP_CP") ~ ab_node_from * habitat_area[habitat_area$HabitatCode == "PP",6 ],
+    TRUE~ab_node_from), #Change the abundance of species (node_from) from CP according to the area of the new habitat
+    ab_node_to = case_when(
+      (layer_from == 1 & new_habitat == "GM_CP") ~ ab_node_to * habitat_area[habitat_area$HabitatCode == "GM",6 ],
+      (layer_from == 1 & new_habitat == "SF_CP") ~ ab_node_to * habitat_area[habitat_area$HabitatCode == "SF",6 ],
+      (layer_from == 1 & new_habitat == "PP_CP") ~ ab_node_to * habitat_area[habitat_area$HabitatCode == "PP",6 ],
+      TRUE~ab_node_to)) #Change the abundance of species (node_to) from CP according to the area of the new habitat
 
 
+# remove interactions where one partner have less than 1 individual(threshold)
+new_habitats_ab_rem<- new_habitats_ab %>% filter(ab_node_from >=1 & ab_node_to >=1) %>% 
+  mutate(layer_from = case_when( #change  name of layers
+    layer_from == 1 ~ "CP",
+    layer_from == 2 ~ "GM",
+    layer_from == 9 ~ "SF",
+    layer_from == 7 ~ "PP"),
+    layer_to= case_when(
+      layer_to == 1 ~ "CP",
+      layer_from == 2 ~ "GM",
+      layer_from == 9 ~ "SF",
+      layer_from == 7 ~ "PP"
+    ))
 
-# final state nodes (calculate abundance and relative abundance of species)
 
-state_node_sem_int_agg<-rbind(state_node_sem_int_from, state_node_sem_int_to) %>% ungroup() %>% 
-  select(-habitat) %>% group_by(node_id,taxon) %>% 
-  mutate(abun = sum(abundances)) %>% distinct(abun) %>% group_by(taxon) %>% 
-  mutate(tot_ab_taxon = sum(abun)) %>% #total abundance per taxon
-  group_by(node_id) %>% 
-  mutate(rel_ab=abun/tot_ab_taxon)#rel abundance of species per taxon
+## -- Remove species at random (1000 times)
+
+#In each new habitat, we randomly remove the number of species according to the step 1. 
+
+#GM
+GM_edge_list<-new_habitats_ab_rem %>%  filter(pre_hab =="GM")
+shuff_GM<-sim_sp_removal(GM_edge_list,absent_species_count) #function to randomly remove the same number of species according to the original simulation
+GM_clean<-shuff_GM %>% ungroup() %>% mutate(habitat = 15) %>% select(habitat,node_from,ab_node_from,taxon_node_from,
+                                                                     node_to,ab_node_to,taxon_node_to,weight, iteration)
+
+#SF
+SF_edge_list<-new_habitats_ab_rem %>%  filter(pre_hab =="SF")
+shuff_SF<-sim_sp_removal(SF_edge_list,absent_species_count) #function to randomly remove the same number of species according to the original simulation
+SF_clean<-shuff_SF %>% ungroup() %>% mutate(habitat = 16) %>% select(habitat,node_from,ab_node_from,taxon_node_from,
+                                                                     node_to,ab_node_to,taxon_node_to,weight, iteration)
+
+#PP
+PP_edge_list<-new_habitats_ab_rem %>%  filter(pre_hab =="PP")
+shuff_PP<-sim_sp_removal(PP_edge_list,absent_species_count) #function to randomly remove the same number of species according to the original simulation
+PP_clean<-shuff_PP %>% ungroup() %>% mutate(habitat = 17) %>% select(habitat,node_from,ab_node_from,taxon_node_from,
+                                                                     node_to,ab_node_to,taxon_node_to,weight, iteration)
+
+#Merge shuff habitats from this management scenario (SI) with the previous mangaement (M)
+shuff_pre<-read.csv("Data/shuff_hab_M_CP.csv", sep =,) # shuff habitats from previous habitat management
+
+shuff_habitats<-rbind(shuff_pre,GM_clean,SF_clean,PP_clean)  
+#write.csv(shuff_habitats,"Data/shuff_hab_SI_CP.csv", row.names= FALSE) #save to add in the next management scenario
+
+## -- Merge each simulation of transformed habitats with the non-transformed habitats to create 1000 simulation of the management scenario (SI)
+sem_int_sim_no_aggr<- comb_edge_list(sem_int_edgelist_rem,shuff_habitats) #call function to merge dataframes. In each iteration, habitats are not aggregated yet
 
 
-## --  Recalculate weight according to the new habitats and abundances
+## -- create state_node_list of each simulated management scenario
+state_node_SI_sim<-lapply(sem_int_sim_no_aggr,state_node_list) #call the function to create node list and apply to every element of the list
+state_node_SI_sim<-bind_rows(state_node_SI_sim)
+#write.csv(state_node_SI_sim,"Data/SI_sim_state_node_CP.csv", row.names= FALSE)
 
-# Edge list new management scenario
+## -- aggregate habitat within simulated management scenario 
+SI_sim<-lapply(sem_int_sim_no_aggr,function(data) {
+  data %>%  mutate(management = "SI") %>% 
+    select(management,iteration,node_from,node_to) %>% 
+    unique()
+})
 
-sem_int_edgelist_aggr<-sem_int_edgelist_no_aggr %>% select(node_from,node_to) %>% 
-  unique() %>%  #aggregated edge list
-  left_join(state_node_sem_int_agg, by = c("node_from" = "node_id")) %>%  #incorporate rel abundances of node_from
-  left_join(state_node_sem_int_agg, by = c("node_to" = "node_id")) %>%  #incorporate rel abundances of nodes_to
-  select(node_from,node_to, rel_ab.x,rel_ab.y) %>% 
-  mutate(weight = rel_ab.x * rel_ab.y,management = "SI") %>% #calculate weight 
-  select(-rel_ab.x,-rel_ab.y)
+SI_sim<-bind_rows(SI_sim)
+#write.csv(SI_sim,"Data/SI_sim_CP.csv", row.names= FALSE)
+
 
 
 
@@ -435,108 +451,152 @@ int_edgelist_rem<- Norwood_farm$extended_ids %>%
 
 int_edgelist_rem<-int_edgelist_rem[,c(1,2,5,6,3,7,8,4)]
 
-
-
 #--  Create new habitats 
 
-# create habitats CP to replace LP,LU and NL (the rest were created before)
-LP_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1) %>% select(-layer_to,-layer_from) %>% 
-  mutate (new_hab = 18, prev_hab = "LP", hab_cp = "CP")#links from "CP" to add as new habitat (19)
+# Merge edge list of CP and the habitats to convert
+LP_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1 | layer_from == 3) %>% 
+  mutate (pre_hab= "LP",new_habitat = "LP_CP")
 
-NL_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1) %>% select(-layer_to,-layer_from) %>% 
-  mutate (new_hab = 19, prev_hab = "NL", hab_cp = "CP")#links from "CP" to add as new habitat (21)
+NL_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1 | layer_from == 6) %>% 
+  mutate (pre_hab = "NL",new_habitat = "NL_CP")
 
-# calculate changes in the area between CP and the habitat to replace 
-converted_area<-rbind(WD_CP, RG_CP, MH_CP, NH_CP, GM_CP,SF_CP,PP_CP, LP_CP,NL_CP) %>%
-  left_join(habitat_area,   by = c("prev_hab" = "HabitatCode")) %>% 
-  left_join(habitat_area, by = c("hab_cp" = "HabitatCode")) %>% 
-  select(node_from,node_to,weight,new_hab,prev_hab,hab_cp,area_ave.x,area_ave.y) %>% 
-  rename("area_prev_hab" ="area_ave.x", "area_CP" = "area_ave.y") %>% 
-  mutate(mult_ab = (area_prev_hab/area_CP)) %>% #multplied abundances of CP for this value (to estimate according to the new habitat)
-  select(-prev_hab,-hab_cp,-area_prev_hab,-area_CP)#clean dataframe
+converted_area<-rbind(LP_CP, NL_CP)
 
 
-# add abundances and modify them according to the new area
-abundances_CP<-state_nodes_ab %>% filter(layer_id ==1)#filter species abundances to show just layer CP
+## -- Add abundances of species and modify it according to the new area (for species from CP that are in the new habitat)
 
-new_habitats_ab<-converted_area %>%  
-  left_join(abundances_CP, by = c("node_from" = "node_id")) %>%  #incorporate abundances and taxa of node_from
-  left_join(abundances_CP, by = c("node_to" = "node_id")) %>%  #incorporate abundances and taxa of nodes_to
-  rename("ab_node_from_CP" = "abundance.x", "taxon_node_from" = "taxon.x",
-         "ab_node_to_CP" = "abundance.y", "taxon_node_to" = "taxon.y") %>% 
-  mutate(ab_node_from = ab_node_from_CP * mult_ab, 
-         ab_node_to = ab_node_to_CP * mult_ab ) %>% #estimate the new abundances
-  select(new_hab,node_from,ab_node_from,taxon_node_from,node_to,ab_node_to,
-         taxon_node_to,weight) %>% rename ("habitat" = "new_hab") #clean to match the rest of farm edgelist
+# add abundances and modify those from CP according to the new area
+abundances_sp<-state_nodes_ab %>% filter(layer_id ==1 |layer_id ==3 |
+                                           layer_id ==6) 
+new_habitats_ab<-converted_area %>%  group_by(layer_from) %>% 
+  left_join(abundances_sp, by = c("layer_from" ="layer_id","node_from" = "node_id")) %>%  #incorporate abundances and taxa of node_from
+  left_join(abundances_sp, by = c("layer_from" ="layer_id","node_to" = "node_id")) %>%  #incorporate abundances and taxa of nodes_to
+  rename("ab_node_from" = "abundance.x", "taxon_node_from" = "taxon.x",
+         "ab_node_to" = "abundance.y", "taxon_node_to" = "taxon.y") %>% 
+  mutate(ab_node_from = case_when(
+    (layer_from == 1 & new_habitat == "LP_CP") ~ ab_node_from * habitat_area[habitat_area$HabitatCode == "LP",6 ],
+    (layer_from == 1 & new_habitat == "NL_CP") ~ ab_node_from * habitat_area[habitat_area$HabitatCode == "NL",6 ],
+    TRUE~ab_node_from), #Change the abundance of species (node_from) from CP according to the area of the new habitat
+    ab_node_to = case_when(
+      (layer_from == 1 & new_habitat == "LP_CP") ~ ab_node_to * habitat_area[habitat_area$HabitatCode == "LP",6 ],
+      (layer_from == 1 & new_habitat == "NL_CP") ~ ab_node_to * habitat_area[habitat_area$HabitatCode == "NL",6 ],
+      TRUE~ab_node_to)) #Change the abundance of species (node_to) from CP according to the area of the new habitat
 
-# remove interactio where one partner have less than 1 indidivual (threshold)
-
-new_habitats_ab_rem<- new_habitats_ab %>% filter(ab_node_from >=1 & ab_node_to >=1)
-
-
-
-## -- create state_node_list of the management scenario
-
-int_edgelist_no_aggr<- rbind(int_edgelist_rem,new_habitats_ab_rem)  #join new habitats and old habitats
-
-#node_from       
-state_node_int_from<- int_edgelist_no_aggr %>% select(habitat,node_from,ab_node_from,
-                                                              taxon_node_from) %>% 
-  rename("node_id" ="node_from", "abundances" = "ab_node_from",
-         "taxon" = "taxon_node_from")%>% 
-  group_by(habitat,node_id) %>% unique() #eliminate duplicate species within each habitat
-
-#node_to
-state_node_int_to<- int_edgelist_no_aggr %>% select(habitat,node_to,ab_node_to,
-                                                            taxon_node_to) %>% 
-  rename("node_id" ="node_to", "abundances" = "ab_node_to",
-         "taxon" = "taxon_node_to") %>% 
-  group_by(habitat,node_id) %>% unique() #eliminate duplicate species within each habitat
+# remove interactions where one partner have less than 1 individual(threshold)
+new_habitats_ab_rem<- new_habitats_ab %>% filter(ab_node_from >=1 & ab_node_to >=1) %>% 
+  mutate(layer_from = case_when( #change  name of layers
+    layer_from == 1 ~ "CP",
+    layer_from == 3 ~ "LP",
+    layer_from == 6 ~ "NL"),
+    layer_to= case_when(
+      layer_to == 1 ~ "CP",
+      layer_to == 3 ~ "LP",
+      layer_to == 6 ~ "NL"
+    ))
 
 
+## -- Remove species at random (1000 times)
 
-# final state nodes (calculate abundance and relative abundance of species)
+#In each new habitat, we randomly remove the number of species according to the step 1. 
 
-state_node_int_agg<-rbind(state_node_int_from, state_node_int_to) %>% ungroup() %>% 
-  select(-habitat) %>% group_by(node_id,taxon) %>% 
-  mutate(abun = sum(abundances)) %>% distinct(abun) %>% group_by(taxon) %>% 
-  mutate(tot_ab_taxon = sum(abun)) %>% #total abundance per taxon
-  group_by(node_id) %>% 
-  mutate(rel_ab=abun/tot_ab_taxon)#rel abundance of species per taxon
+#LP
+LP_edge_list<-new_habitats_ab_rem %>%  filter(pre_hab =="LP")
+shuff_LP<-sim_sp_removal(LP_edge_list,absent_species_count) #function to randomly remove the same number of species according to the original simulation
+LP_clean<-shuff_LP %>% ungroup() %>% mutate(habitat = 18) %>% select(habitat,node_from,ab_node_from,taxon_node_from,
+                                                                     node_to,ab_node_to,taxon_node_to,weight, iteration)
 
+#NL
+NL_edge_list<-new_habitats_ab_rem %>%  filter(pre_hab =="NL")
+shuff_NL<-sim_sp_removal(NL_edge_list,absent_species_count) #function to randomly remove the same number of species according to the original simulation
+NL_clean<-shuff_NL %>% ungroup() %>% mutate(habitat = 19) %>% select(habitat,node_from,ab_node_from,taxon_node_from,
+                                                                     node_to,ab_node_to,taxon_node_to,weight, iteration)
 
-## --  Recalculate weight according to the new habitats and abundances
+#Merge shuff habitats from this management scenario (I) with the precvious mangaement (SI)
+shuff_pre<-read.csv("Data/shuff_hab_SI_CP.csv", sep =,) # shuff habitats from previous habitat management
 
-# Edge list new management scenario
-
-int_edgelist_aggr<-int_edgelist_no_aggr %>% select(node_from,node_to) %>% 
-  unique() %>%  #aggregated edge list
-  left_join(state_node_int_agg, by = c("node_from" = "node_id")) %>%  #incorporate rel abundances of node_from
-  left_join(state_node_int_agg, by = c("node_to" = "node_id")) %>%  #incorporate rel abundances of nodes_to
-  select(node_from,node_to, rel_ab.x,rel_ab.y) %>% 
-  mutate(weight = rel_ab.x * rel_ab.y,management = "I") %>% #calculate weight 
-  select(-rel_ab.x,-rel_ab.y)
-
-
-##### ---  Final dataframe
-
-land_change_weighted<-rbind(ext_edgelist_aggr,sem_ext_edgelist_aggr,mod_edgelist_aggr,
-                          sem_int_edgelist_aggr,int_edgelist_aggr)
+shuff_habitats<-rbind(shuff_pre,LP_clean,NL_clean)  
+#write.csv(shuff_habitats,"Data/shuff_hab_I_CP.csv", row.names= FALSE) #save to add in the next management scenario
 
 
-#write.csv(land_change_weighted,"Data/Land_use_rat_edgelist_weighted_CP_intense.csv", row.names= FALSE)
+## -- Merge each simulation of transformed habitats with the non-transformed habitats to create 1000 simulation of the management scenario (I)
+int_sim_no_aggr<- comb_edge_list(int_edgelist_rem,shuff_habitats) #call function to merge dataframes. In each iteration, habitats are not aggregated yet
 
-#final state_node list with abundances
-state_nodes_weighted_ab<-rbind(ab_ext[,1:3],state_node_sem_ext_agg[,1:3],
-                                  state_node_mod_agg[,1:3],state_node_sem_int_agg[,1:3],
-                                  state_node_int_agg[,1:3])
-#add management label
-state_nodes_weighted<-cbind(management = rep(c("E","SE","M","SI","I"),
-                                                     c(nrow(ab_ext),nrow(state_node_sem_ext_agg),
-                                                       nrow(state_node_mod_agg), nrow(state_node_sem_int_agg),
-                                                       nrow(state_node_int_agg))), state_nodes_weighted_ab)
+## -- create state_node_list of each simulated management scenario
+state_node_I_sim<-lapply(int_sim_no_aggr,state_node_list) #call the function to create node list and apply to every element of the list
+state_node_I_sim<-bind_rows(state_node_I_sim)
+#write.csv(state_node_I_sim,"Data/I_sim_state_node_CP.csv", row.names= FALSE)
 
-#write.csv(state_nodes_weighted,"Data/Land_use_rat_state_nodes_CP_intense.csv", row.names= FALSE)
+
+## -- aggregate habitat within simulated management scenario 
+I_sim<-lapply(int_sim_no_aggr,function(data) {
+  data %>%  mutate(management = "I") %>% 
+    select(management,iteration,node_from,node_to) %>% 
+    unique()
+})
+
+I_sim<-bind_rows(I_sim)
+#write.csv(I_sim,"Data/I_sim_CP.csv", row.names= FALSE)
+
+
+
+
+##### -- Final Dataframe
+
+## - Edge list
+
+#upload simulated habitat management and empirical
+SE_sim<-read.csv("Data/SE_sim_CP.csv", sep =,) 
+SE_sim$iteration<-as.character(SE_sim$iteration)
+
+M_sim<-read.csv("Data/M_sim_CP.csv", sep =,) 
+M_sim$iteration<-as.character(M_sim$iteration)
+
+SI_sim<-read.csv("Data/SI_sim_CP.csv", sep =,) 
+SI_sim$iteration<-as.character(SI_sim$iteration)
+
+I_sim<-read.csv("Data/I_sim_CP.csv", sep =,) 
+I_sim$iteration<-as.character(I_sim$iteration)
+
+#Upload empirical
+Emp<-read.csv("Data/Land_use_rat_edgelist_weighted_CP_intense.csv", sep =,) %>% 
+    mutate(iteration = "Emp") %>%  select(management,iteration,node_from,node_to)
+
+## Final Edgelist
+edge_list_sim<-rbind(Emp,SE_sim,M_sim,SI_sim,I_sim)
+#write.csv(edge_list_sim,"Data/edge_list_sim_CP.csv", row.names= FALSE)
+
+
+## - State nodes
+
+#upload simulated habitat management and empirical
+
+SE_sim<-read.csv("Data/SE_sim_state_node_CP.csv", sep =,) %>% 
+        mutate(management = "SE") %>%  select(management, iteration,node_id,taxon,abun)
+SE_sim$iteration<-as.character(SE_sim$iteration) 
+
+M_sim<-read.csv("Data/M_sim_state_node_CP.csv", sep =,) %>% 
+  mutate(management = "M") %>%  select(management, iteration,node_id,taxon,abun)
+M_sim$iteration<-as.character(M_sim$iteration)
+
+SI_sim<-read.csv("Data/SI_sim_state_node_CP.csv", sep =,) %>% 
+  mutate(management = "SI") %>%  select(management, iteration,node_id,taxon,abun)
+SI_sim$iteration<-as.character(SI_sim$iteration)
+
+I_sim<-read.csv("Data/I_sim_state_node_CP.csv", sep =,) %>% 
+  mutate(management = "I") %>%  select(management, iteration,node_id,taxon,abun)
+I_sim$iteration<-as.character(I_sim$iteration)
+
+#Upload empirical
+Emp<-read.csv("Data/Land_use_rat_state_nodes_CP_intense.csv", sep =,) %>% 
+  mutate(iteration = "Emp") %>%  select(management,iteration,node_id,taxon,abun)
+
+## Final state node list
+state_node_sim<-rbind(Emp,SE_sim,M_sim,SI_sim,I_sim)
+#write.csv(state_node_sim,"Data/state_node_sim_CP.csv", row.names= FALSE)
+
+
+
+### HASTA ACA!!!
 
 ################## --- CALCULATE DIRECT E(D)S PROVISION AND INDIRECT EFFECT ON ES
 
