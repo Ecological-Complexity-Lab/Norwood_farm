@@ -44,7 +44,7 @@ habitat_area <- areas %>% mutate(area_ave = case_when(
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#                      NULL MODEL                        
+#                      SIMULATION                        
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 set.seed(123)
@@ -163,25 +163,31 @@ new_habitats_ab_rem<- new_habitats_ab %>% filter(ab_node_from >=1 & ab_node_to >
     ))
 
 
-## -- Remove species at random (1000 times)
+## -- Remove species at random (600 times)
 
 #In each new habitat, we randomly remove the number of species according to the step 1. 
 
 #WD
 WD_edge_list<-new_habitats_ab_rem %>%  filter(pre_hab =="WD")
 shuff_WD<-sim_sp_removal(WD_edge_list,absent_species_count) #function to randomly remove the same number of species according to the original simulation
-WD_clean<-shuff_WD %>% ungroup() %>% mutate(habitat = 11) 
+WD_clean<-shuff_WD[[1]] %>% ungroup() %>% mutate(habitat = 11) 
 
 #RG
 RG_edge_list<-new_habitats_ab_rem %>%  filter(pre_hab =="RG")
 shuff_RG<-sim_sp_removal(RG_edge_list,absent_species_count) #function to randomly remove the same number of species according to the original simulation
-RG_clean<-shuff_RG %>% ungroup() %>% mutate(habitat = 12) 
+RG_clean<-shuff_RG[[1]] %>% ungroup() %>% mutate(habitat = 12) 
 
 #Merge shuff habitats and arrange dataframe to merge with the rest of the habitats
 shuff_habitats<-rbind(WD_clean,RG_clean) %>% select(habitat,node_from,ab_node_from,taxon_node_from,
                                                   node_to,ab_node_to,taxon_node_to,weight, iteration)
-
 #write.csv(shuff_habitats,"Data/shuff_hab_WD_RG_CP.csv", row.names= FALSE) #save to add in the next management scenario
+
+# Store species removed in every iteration
+sps_removed_WD <- shuff_WD[[2]] %>% mutate(habitat_from = "WD", management = "SE")
+sps_removed_RG <- shuff_RG[[2]] %>% mutate(habitat_from = "RG", management = "SE")
+sps_removed<-rbind(sps_removed_WD,sps_removed_RG)
+
+#write.csv(sps_removed,"Data/sps_removed_SE_CP.csv", row.names= FALSE) #save to add in the next management scenario
 
 ## -- Merge each simulation of transformed habitats with the non-transformed habitats to create 1000 simulation of the management scenario (SE)
 sem_ext_sim_no_aggr<- comb_edge_list(sem_ext_edgelist_rem,shuff_habitats) #call function to merge dataframes. In each iteration, habitats are not aggregated yet
@@ -266,27 +272,34 @@ new_habitats_ab_rem<- new_habitats_ab %>% filter(ab_node_from >=1 & ab_node_to >
     ))
   
 
-## -- Remove species at random (1000 times)
+## -- Remove species at random (600 times)
 
 #In each new habitat, we randomly remove the number of species according to the step 1. 
 
 #MH
 MH_edge_list<-new_habitats_ab_rem %>%  filter(pre_hab =="MH")
 shuff_MH<-sim_sp_removal(MH_edge_list,absent_species_count) #function to randomly remove the same number of species according to the original simulation
-MH_clean<-shuff_MH %>% ungroup() %>% mutate(habitat = 13) %>% select(habitat,node_from,ab_node_from,taxon_node_from,
+MH_clean<-shuff_MH[[1]] %>% ungroup() %>% mutate(habitat = 13) %>% select(habitat,node_from,ab_node_from,taxon_node_from,
                                                                      node_to,ab_node_to,taxon_node_to,weight, iteration)
 
 #NH
 NH_edge_list<-new_habitats_ab_rem %>%  filter(pre_hab =="NH")
 shuff_NH<-sim_sp_removal(NH_edge_list,absent_species_count) #function to randomly remove the same number of species according to the original simulation
-NH_clean<-shuff_NH %>% ungroup() %>% mutate(habitat = 14) %>% select(habitat,node_from,ab_node_from,taxon_node_from,
+NH_clean<-shuff_NH[[1]] %>% ungroup() %>% mutate(habitat = 14) %>% select(habitat,node_from,ab_node_from,taxon_node_from,
                                                                      node_to,ab_node_to,taxon_node_to,weight, iteration)
 
-#Merge shuff habitats from this management scenario (M) with the precvious mangaement (SE)
+#Merge shuff habitats from this management scenario (M) with the previous mangaement (SE)
 shuff_pre<-read.csv("Data/shuff_hab_WD_RG_CP.csv", sep =,) # shuff habitats from previous habitat management
 
 shuff_habitats<-rbind(shuff_pre,MH_clean,NH_clean)  
 #write.csv(shuff_habitats,"Data/shuff_hab_M_CP.csv", row.names= FALSE) #save to add in the next management scenario
+
+# Store species removed in every iteration
+sps_removed_MH <- shuff_MH[[2]] %>% mutate(habitat_from = "MH", management = "M")
+sps_removed_NH <- shuff_NH[[2]] %>% mutate(habitat_from = "NH", management = "M")
+sps_removed<-rbind(sps_removed_MH,sps_removed_NH)
+
+#write.csv(sps_removed,"Data/sps_removed_M_CP.csv", row.names= FALSE) #save to add in the next management scenario
 
 ## -- Merge each simulation of transformed habitats with the non-transformed habitats to create 1000 simulation of the management scenario (M)
 mod_sim_no_aggr<- comb_edge_list(mod_edgelist_rem,shuff_habitats) #call function to merge dataframes. In each iteration, habitats are not aggregated yet
@@ -381,26 +394,26 @@ new_habitats_ab_rem<- new_habitats_ab %>% filter(ab_node_from >=1 & ab_node_to >
     ))
 
 
-## -- Remove species at random (1000 times)
+## -- Remove species at random (600 times)
 
 #In each new habitat, we randomly remove the number of species according to the step 1. 
 
 #GM
 GM_edge_list<-new_habitats_ab_rem %>%  filter(pre_hab =="GM")
 shuff_GM<-sim_sp_removal(GM_edge_list,absent_species_count) #function to randomly remove the same number of species according to the original simulation
-GM_clean<-shuff_GM %>% ungroup() %>% mutate(habitat = 15) %>% select(habitat,node_from,ab_node_from,taxon_node_from,
+GM_clean<-shuff_GM[[1]] %>% ungroup() %>% mutate(habitat = 15) %>% select(habitat,node_from,ab_node_from,taxon_node_from,
                                                                      node_to,ab_node_to,taxon_node_to,weight, iteration)
 
 #SF
 SF_edge_list<-new_habitats_ab_rem %>%  filter(pre_hab =="SF")
 shuff_SF<-sim_sp_removal(SF_edge_list,absent_species_count) #function to randomly remove the same number of species according to the original simulation
-SF_clean<-shuff_SF %>% ungroup() %>% mutate(habitat = 16) %>% select(habitat,node_from,ab_node_from,taxon_node_from,
+SF_clean<-shuff_SF[[1]] %>% ungroup() %>% mutate(habitat = 16) %>% select(habitat,node_from,ab_node_from,taxon_node_from,
                                                                      node_to,ab_node_to,taxon_node_to,weight, iteration)
 
 #PP
 PP_edge_list<-new_habitats_ab_rem %>%  filter(pre_hab =="PP")
 shuff_PP<-sim_sp_removal(PP_edge_list,absent_species_count) #function to randomly remove the same number of species according to the original simulation
-PP_clean<-shuff_PP %>% ungroup() %>% mutate(habitat = 17) %>% select(habitat,node_from,ab_node_from,taxon_node_from,
+PP_clean<-shuff_PP[[1]] %>% ungroup() %>% mutate(habitat = 17) %>% select(habitat,node_from,ab_node_from,taxon_node_from,
                                                                      node_to,ab_node_to,taxon_node_to,weight, iteration)
 
 #Merge shuff habitats from this management scenario (SI) with the previous mangaement (M)
@@ -408,6 +421,14 @@ shuff_pre<-read.csv("Data/shuff_hab_M_CP.csv", sep =,) # shuff habitats from pre
 
 shuff_habitats<-rbind(shuff_pre,GM_clean,SF_clean,PP_clean)  
 #write.csv(shuff_habitats,"Data/shuff_hab_SI_CP.csv", row.names= FALSE) #save to add in the next management scenario. Too heavy to upload on github
+
+# Store species removed in every iteration
+sps_removed_GM <- shuff_GM[[2]] %>% mutate(habitat_from = "GM", management = "SI")
+sps_removed_SF <- shuff_SF[[2]] %>% mutate(habitat_from = "SF", management = "SI")
+sps_removed_PP <- shuff_PP[[2]] %>% mutate(habitat_from = "PP", management = "SI")
+sps_removed<-rbind(sps_removed_GM,sps_removed_SF,sps_removed_PP)
+
+#write.csv(sps_removed,"Data/sps_removed_SI_CP.csv", row.names= FALSE) #save to add in the next management scenario
 
 ## -- Merge each simulation of transformed habitats with the non-transformed habitats to create 1000 simulation of the management scenario (SI)
 sem_int_sim_no_aggr<- comb_edge_list(sem_int_edgelist_rem,shuff_habitats) #call function to merge dataframes. In each iteration, habitats are not aggregated yet
@@ -495,20 +516,20 @@ new_habitats_ab_rem<- new_habitats_ab %>% filter(ab_node_from >=1 & ab_node_to >
     ))
 
 
-## -- Remove species at random (1000 times)
+## -- Remove species at random (600 times)
 
 #In each new habitat, we randomly remove the number of species according to the step 1. 
 
 #LP
 LP_edge_list<-new_habitats_ab_rem %>%  filter(pre_hab =="LP")
 shuff_LP<-sim_sp_removal(LP_edge_list,absent_species_count) #function to randomly remove the same number of species according to the original simulation
-LP_clean<-shuff_LP %>% ungroup() %>% mutate(habitat = 18) %>% select(habitat,node_from,ab_node_from,taxon_node_from,
+LP_clean<-shuff_LP[[1]] %>% ungroup() %>% mutate(habitat = 18) %>% select(habitat,node_from,ab_node_from,taxon_node_from,
                                                                      node_to,ab_node_to,taxon_node_to,weight, iteration)
 
 #NL
 NL_edge_list<-new_habitats_ab_rem %>%  filter(pre_hab =="NL")
 shuff_NL<-sim_sp_removal(NL_edge_list,absent_species_count) #function to randomly remove the same number of species according to the original simulation
-NL_clean<-shuff_NL %>% ungroup() %>% mutate(habitat = 19) %>% select(habitat,node_from,ab_node_from,taxon_node_from,
+NL_clean<-shuff_NL[[1]] %>% ungroup() %>% mutate(habitat = 19) %>% select(habitat,node_from,ab_node_from,taxon_node_from,
                                                                      node_to,ab_node_to,taxon_node_to,weight, iteration)
 
 #Merge shuff habitats from this management scenario (I) with the precvious mangaement (SI)
@@ -517,6 +538,13 @@ shuff_pre<-read.csv("Data/shuff_hab_SI_CP.csv", sep =,) # shuff habitats from pr
 shuff_habitats<-rbind(shuff_pre,LP_clean,NL_clean)  
 #write.csv(shuff_habitats,"Data/shuff_hab_I_CP.csv", row.names= FALSE) #save to add in the next management scenario. Too heavy to upload on github
 
+
+# Store species removed in every iteration
+sps_removed_LP <- shuff_LP[[2]] %>% mutate(habitat_from = "LP", management = "I")
+sps_removed_NL <- shuff_NL[[2]] %>% mutate(habitat_from = "NL", management = "I")
+sps_removed<-rbind(sps_removed_LP,sps_removed_NL)
+
+#write.csv(sps_removed,"Data/sps_removed_I_CP.csv", row.names= FALSE) #save to add in the next management scenario
 
 ## -- Merge each simulation of transformed habitats with the non-transformed habitats to create 1000 simulation of the management scenario (I)
 int_sim_no_aggr<- comb_edge_list(int_edgelist_rem,shuff_habitats) #call function to merge dataframes. In each iteration, habitats are not aggregated yet
@@ -596,28 +624,43 @@ state_node_sim<-rbind(Emp,SE_sim,M_sim,SI_sim,I_sim)
 
 
 
-### HASTA ACA!!!
+## - Species removed
+SE_sim<-read.csv("Data/sps_removed_SE_CP.csv", sep =,) 
+SE_sim$iteration<-as.character(SE_sim$iteration)
 
-################## --- CALCULATE DIRECT E(D)S PROVISION AND INDIRECT EFFECT ON ES
+M_sim<-read.csv("Data/sps_removed_M_CP.csv", sep =,) 
+M_sim$iteration<-as.character(M_sim$iteration) 
+
+SI_sim<-read.csv("Data/sps_removed_SI_CP.csv", sep =,) 
+SI_sim$iteration<-as.character(SI_sim$iteration) 
+
+I_sim<-read.csv("Data/sps_removed_I_CP.csv", sep =,) 
+I_sim$iteration<-as.character(I_sim$iteration) 
+
+## Final data of species removed
+sps_removed_sim<-rbind(SE_sim,M_sim,SI_sim,I_sim)
+#write.csv(sps_removed_sim,"Data/sps_removed_sim_CP.csv", row.names= FALSE) 
 
 
-##### --  DIRECT E(D)S PROVISION
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                      DIRECT PROVISION AND INDIRECT EFFECTS ON ES                  
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# For each shuffled network, we calculate the same variables as we did in the empirical network
 
 
-## Add information of ES to the state_node_list (values 0-1)
+############# 1. Calculate direct E(D)S provision 
 
-nodes_ES<- right_join(state_nodes_weighted, Norwood_farm$nodes, by = "node_id")%>% 
-  select(management,node_id,taxon.x,abun, "Crop production",
+state_node_sim<-read.csv("Data/state_node_sim_CP.csv", sep =,) #load state_node_list
+body_mass<-read.csv("Data/biomass.csv",header=T)  #load species' biomass dataframe
+
+## Add information of ES provision to the state_node_list
+nodes_ES<- right_join(state_node_sim, Norwood_farm$nodes, by = "node_id")%>% 
+  select(management,iteration,node_id,taxon.x,abun, "Crop production",
          "Pollination", "Crop damage", "Pest control", "Seed dispersal", "Butterfly watching", "Bird watching") %>% 
-  group_by(management,node_id) %>% rename("taxon" = "taxon.x") %>% 
-  gather("services","value", 5:11) #we conserve species that not directly provide ES because can serve as intermediate hop
+      group_by(management, iteration, node_id) %>% rename("taxon" = "taxon.x") %>% 
+  gather("services","value", 6:12) #we conserve species that not directly provide ES because can serve as intermediate hop 
 
-nodes_ES$management <- factor(nodes_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
-
-## -- Estimate the amount of direct E(D)S provision per species (weight = abundance * body mass
-
-#upload file with body mass
-body_mass<-read.csv("Data/biomass.csv",header=T)
+##  Estimate the amount of direct E(D)S provision per species (weight = abundance * body mass)
 
 #add body mass to the dataframe
 direct_ES <- nodes_ES %>% filter (value ==1) %>% 
@@ -630,39 +673,20 @@ direct_ES <- nodes_ES %>% filter (value ==1) %>%
              TRUE ~ "+")) %>% #weight of direct ES provision
           select(-value) 
 
-#write.csv(direct_ES,"Data/Land_use_dir_weighted_CP_intense.csv", row.names= FALSE)
-
-## -- Direct provision Ratio ES/E(D)S
-
-# ratio > 1 indicates more benefits, ratio = 1 balance between damages and benefits and ratio < 1 more damage
-
-number_ES<-nodes_ES %>% group_by(management) %>% 
-  filter (value ==1 & services != "Crop damage") %>% summarise (ES =sum(value))#count ES provision
-
-number_EDS<-nodes_ES %>% group_by(management) %>% 
-  filter (value ==1 & services == "Crop damage") %>% summarise (EDS =sum(value))#count EDS provision
-
-total<-cbind(number_ES,number_EDS[,-1])
-
-ratio_direct<-total %>% mutate(ratio_direct = ES/EDS)
-
-#write.csv(ratio_direct,"Data/Land_use_rat_dir_weighted_CP_intense.csv", row.names= FALSE)
+#write.csv(direct_ES,"Data/direct_ES_sim_CP.csv", row.names= FALSE)
 
 
 
 
+############# 2. Calculate indirect effecs of species on E(D)S provision  
 
-##### --  INDIRECT EFFECT ON E(D)S 
-
-
-## -- Prepare dataframe
+### --  Prepare dataframe
 
 # Full list nodes with ES in the network (considering those that provide and not provide direct ES)
+list_nodes_ES_provi<-nodes_ES %>% ungroup() %>% select(-management,-iteration,-abun) %>%
+  filter (value ==1) %>% unique ()# list of nodes that provide E(D)S
 
-list_nodes_ES_provi<-nodes_ES %>% ungroup() %>% select(-management,-abun) %>%
-  filter (value ==1) %>% unique # list of nodes that provide ES ( = no plants and ectoparasites)
-
-list_nodes_ES_no_provi<-nodes_ES %>% ungroup() %>% select(-management,-abun,-services) %>% unique() %>% 
+list_nodes_ES_no_provi<-nodes_ES %>% ungroup() %>% select(-management,-iteration,-abun,-services) %>% unique() %>% 
                     group_by(node_id) %>% mutate(tot_serv = sum(value)) %>% select(-value) %>% 
                     filter(tot_serv == 0) %>% mutate(services = "None", value = 1) %>% # filter species that not directly provide any E(D)s and assign them as None
                     select(-tot_serv)
@@ -671,526 +695,823 @@ list_nodes_ES_no_provi<-nodes_ES %>% ungroup() %>% select(-management,-abun,-ser
 list_nodes_ES<-rbind(list_nodes_ES_provi,list_nodes_ES_no_provi) #Total list of nodes with ES (with None)
 
 
-# Add attributes of nodes to the edgelist
+# Add attributes of nodes in the edgelist
+edge_list_sim<-read.csv("Data/edge_list_sim_CP.csv", sep =,) #load edge_list of shuffled networks
 
-edge_list<- left_join(land_change_weighted,list_nodes_ES, by = c("node_from"="node_id")) %>% 
-  rename("taxon_from"="taxon", "services_from"="services",
-         "value_from" = "value") %>% 
+edge_list<- left_join(edge_list_sim,list_nodes_ES, by = c("node_from"="node_id")) %>% 
+  rename("taxon_from"="taxon", "services_from"="services") %>% select(-value) %>% 
   left_join(list_nodes_ES, by = c("node_to"="node_id"))  %>% 
-  rename("taxon_to"="taxon", "services_to"="services",
-         "value_to" = "value") # %>% distinct() #remove distinct because we have more than one time the same interacition (we summed the links between layers to aggreate the data)
+  rename("taxon_to"="taxon", "services_to"="services") %>% select(-value)
 
 
 # Add inverted links (to make the code easier to program when calculate indirect interactions. It will not affect the results)
-
-edge_list_inverted<- tibble(values = edge_list$node_to,edge_list$node_from, edge_list$weight,
-                            edge_list$management, edge_list$taxon_to,edge_list$services_to,
-                            edge_list$value_to,  edge_list$taxon_from,edge_list$services_from,edge_list$value_from)
-colnames(edge_list_inverted) <- c("node_from", "node_to","weight", "management", "taxon_from", "services_from",
-                                  "value_from", "taxon_to", "services_to", "value_to")
+edge_list_inverted<- tibble(values =  edge_list$management,edge_list$iteration,  edge_list$node_to,
+                            edge_list$node_from,edge_list$taxon_to,edge_list$services_to,
+                            edge_list$taxon_from,edge_list$services_from)
+                              
+colnames(edge_list_inverted) <- c("management","iteration","node_from", "node_to", "taxon_from", "services_from",
+                                   "taxon_to", "services_to")
 
 
 # Combine both data frame to create the final edge list
-
-edgelist_final<- bind_rows(edge_list, edge_list_inverted) %>% 
-  select(-value_to,-value_from) # we are not using these anymore
-
-edgelist_final<-edgelist_final[,c(4,1,5,6,2,7,8,3)]
+edgelist_final<- bind_rows(edge_list, edge_list_inverted)
+edgelist_final<-edgelist_final[,c(1,2,3,5,6,4,7,8)]
 
 
 
-#### - Calculate indirect effects considering 1 hop (node - node)
+### --  Calculate first order indirect effects  on E(D)S (considering 1 hop: node-node)
 
+Indirect_1hop_sim<-edgelist_final %>% 
+                  select(management,iteration,services_from,node_from,node_to,taxon_from, services_to) %>% 
+                  mutate(hop = 1, type = "I")  
 
-# Create objects to store
-
-management = c()
-services_from = c()
-node_from= c()
-node_to = c()
-taxon_from = c()
-services_to = c()
-weight = c() #the weight is equal to weight of links (products of relative abundances)
-
-# Reorder the dataframe to check indirect interaction in 1 hop
-for (i in 1:nrow(edgelist_final)){
-  
-  management = c(management, edgelist_final$management[i])
-  services_from = c(services_from,edgelist_final$services_from[i])
-  node_from = c(node_from,edgelist_final$node_from[i])
-  node_to = c(node_to,edgelist_final$node_to[i])
-  taxon_from = c(taxon_from, edgelist_final$taxon_from[i])
-  services_to = c(services_to, edgelist_final$services_to[i])
-  weight = c(weight, edgelist_final$weight[i])
-  
-}
-
-Indirect_1hop_landuse_weighted<-data.frame(management,services_from,node_from,node_to,taxon_from,
-                                           services_to,weight,hop = rep(1, length(services_from)), 
-                                           type = rep("I", length(services_from))) 
-
-
-
-# Rearrange the output
 
 # we remove duplicates rows where node_from = birds or butterflies cause they represent the same interaction. 
 # This happens because each row represents an attribute and these taxons have 2 and 3 attributes per node.
 
-rows_birds_butt<- Indirect_1hop_landuse_weighted %>%
+rows_birds_butt<- Indirect_1hop_sim %>%
   filter(taxon_from == "Butterfly" | taxon_from == "Seed-feeding bird") %>%
   distinct(management, node_from, node_to, .keep_all = TRUE) # new subset after eliminating duplicate rows for node_from = birds and butterflies
 
-int_without<-Indirect_1hop_landuse_weighted %>% filter(!(taxon_from == "Butterfly" | 
+int_without<-Indirect_1hop_sim %>% filter(!(taxon_from == "Butterfly" | 
                                                          taxon_from == "Seed-feeding bird")) #eliminate the interactions containing node_from =birds or butterflies from the original dataframe
 
 
-Indirect_1hop_landuse_weighted_2<-rbind(rows_birds_butt,int_without)#final dataframe containing indirect effects on ES via 1 hop
+Indirect_1hop_sim_2<-rbind(rows_birds_butt,int_without)#final dataframe containing indirect effects on ES via 1 hop
+
+#write.csv(Indirect_1hop_sim_2,"Data/ind_1hop_sim_CP.csv", row.names= FALSE)
 
 
-#write.csv(Indirect_1hop_landuse_weighted_2,"Data/Land_use_ind_1hop_weighted_CP_intense.csv", row.names= FALSE)
+### --  Calculate second order indirect effects  on E(D)S (considering 2 hops: node 1 - node 2 - node 3, effect of node 1 on node 3'E(D)S via node 2)
 
-
-
-#### - Calculate indirect effects considering 2 hops (node 1 - node 2 - node 3, effect of node 1 on node 3'E(D)S via node 2)
-
-Indirect_1hop<-read.csv("Data/Land_use_ind_1hop_weighted_CP_intense.csv",
+Indirect_1hop<-read.csv("Data/ind_1hop_sim_CP.csv",
                         sep =",") #load dataframe of indirect effects using 1 hop
 
-
-## Add relative abundances of node 3 (to calculate the weight of second order interactions)
-
-# Calculate relative abundances in the state_node
-
-state_node_weighted_abundances<- state_nodes_weighted %>% 
-  group_by(management,taxon) %>% mutate(tot_ab_taxon = sum(abun)) %>% #total abundance of each taxon
-  group_by(management, node_id) %>% mutate(rel_ab = abun /tot_ab_taxon) #calculate relative abundances
- 
-# add relative abundances of node 3 to the dataframe
-
-Indirect_1hop_ab_to<-Indirect_1hop %>% 
-  left_join(state_node_weighted_abundances, by = c("management", "node_to" = "node_id")) %>%  #incorporate rel abundances of node_to (node 3)
-  rename("rel_abun_to" = "rel_ab") %>%  #add abundances of node_to (node 3)
-  select(-abun,-taxon,-tot_ab_taxon)
-
-Indirect_1hop<-Indirect_1hop_ab_to
-
-
-# Calculate indirect effect on ES
-
-# Create empty vectors
-management = c()
-node_id= c()
-node_int = c()
-taxon_from = c()
-services = c()
-node_to = c()
-services_to = c()
-weight_to=c() #is equal to the product between relative a abundances of the three species
-
-
-# Iterate to each row
-for (i in 1:nrow(Indirect_1hop)){ #each row represents interaction between species
+## Function to identify potential second order indirect effects for node_from in the row
+ind_row <- function(df, row) { #for the row
+  j <- df$node_to[row] #select node_to 
+  l <- df$management[row] #select management 
+  k<-df$iteration[row] #select iteration 
   
-  j = Indirect_1hop$node_to[i] # check the node_to (intermediate species: node 2 in the title)
-  l = Indirect_1hop$management [i] #check management where the target species for which we are detecting indirect effects on ES
-  w = Indirect_1hop$weight [i] #weight of first indirect order interactions (product of abundances between node 1 and 2)
-  
-  
-  # Filter dataframe (filter node 3's ES affected by node 2)
-  
-  services_int <- Indirect_1hop %>% filter(node_from == j, #filter to show node 2
-                                           node_to != Indirect_1hop$node_from[i], #filter to avoid counting the interaction from node 2 to node 1 because the edgelist is directed 
-                                           management== l) %>% mutate(weight_to = weight *rel_abun_to) %>% #final weight of indirect effect
-                                                select(node_to,services_to, weight_to)#select node 3 and its ES
-  # Storage the results
-  
-  services_to <- c(services_to, unlist(services_int$services_to)) # add node 3 ES
-  weight_to<-c(weight_to, unlist(services_int$weight_to))
-  node_to <- c(node_to, unlist(services_int$node_to))# add identity of node 3
-  node_int <- c(node_int,rep(j, nrow(services_int)))
-  node_id <- c(node_id,rep(Indirect_1hop$node_from[i], nrow(services_int)))# add target (node 1) for which we are detected indirect effects 
-  taxon_from<- c(taxon_from, rep(Indirect_1hop$taxon_from[i], nrow(services_int)))
-  services <- c(services, rep (Indirect_1hop$services_from[i], nrow(services_int)))# direct ES provided by the target node
-  management <- c(management, rep(l, nrow(services_int)))
-
+  df %>% 
+    filter(node_from == j, node_to != df$node_from[row],  #filter to avoid counting the interaction from node 2 to node 1 because the edgelist is directed 
+           iteration == k, management == l, services_to != "None") %>% # Filter dataframe (filter node 3's ES affected by node 2)
+    mutate(node_id = df$node_from[row], #create dataframe to store
+           node_int = j,
+           taxon_from = df$taxon_from[row],
+           services = df$services_from[row],
+           management = l,
+           iteration = k,
+           type = "I",
+           hop = 2)
 }
 
-Indirect_2hop<- data.frame(management,node_id,taxon_from,services,node_int,
-                           node_to, services_to,weight_to,type = rep("I", length(services_to)), hop = rep(2,length(services_to)))
+Indirect_2hop_sim<- bind_rows(lapply(1:nrow(Indirect_1hop), function(row) ind_row(Indirect_1hop, row))) %>% 
+                              select(management,iteration,node_id,taxon_from,services, node_int,node_to,
+                                     services_to,type,hop) #run with the HPC 
 
+#write.csv(Indirect_2hop_sim,"Data/ind_2hop_sim_CP.csv", row.names= FALSE)
 
-#write.csv(Indirect_2hop,"Data/Land_use_ind_2hop_weighted_CP_intense.csv", row.names= FALSE)
+# Upload dataframe of indirect effect of each simulation in each management (run in the HPC, keep 500 iterations)
+E_ind_2<-read.csv("Data/HPC/E_ind_2hop_PP.csv", sep =",") #empirical extensive
+SE_ind_2 <-read.csv("Data/HPC/SE_ind_2hop_sim_CP.csv", sep =",") %>% filter(iteration == "Emp" | iteration <=500)
+M_ind_2 <-read.csv("Data/HPC/M_ind_2hop_sim_CP.csv", sep =",") %>% filter(iteration == "Emp" | iteration <=500)
+SI_ind_2 <-read.csv("Data/HPC/SI_ind_2hop_sim_CP.csv", sep =",") %>% filter(iteration == "Emp" | iteration <=500)
+I_ind_2 <-read.csv("Data/HPC/I_ind_2hop_sim_CP.csv", sep =",") %>% filter(iteration == "Emp" | iteration <=500)
 
-Indirect_2hop<-read.csv("Data/Land_use_ind_2hop_weighted_CP_intense.csv",
-                        sep =",") #load dataframe of indirect effects using 2 hops
+Ind_2hop_sim<-rbind(E_ind_2, SE_ind_2,M_ind_2,SI_ind_2,I_ind_2) 
+
 
 
 # Join both 1 and 2 hops indirect effects dataframes
+Indirect_1hop<-read.csv("Data/ind_1hop_sim_CP.csv", sep =",") %>% 
+  filter((iteration == "Emp" | iteration <=500) & services_to !="None")
 
 # 1 hop
-Indirect_1hop_m<-Indirect_1hop  %>% select(-rel_abun_to) %>%  rename("services" ="services_from",
-                                           "node_id" = "node_from",
-                                           "taxon" = "taxon_from") %>% 
+Indirect_1hop_sim<-Indirect_1hop %>%  rename("services" ="services_from",
+                                             "node_id" = "node_from",
+                                             "taxon" = "taxon_from") %>% 
   mutate(node_int = NA)
 
-Indirect_1hop_m<-Indirect_1hop_m[,c(1,2,3,5,10,4,6,7,8,9)]
+Indirect_1hop_sim<-Indirect_1hop_sim[,c(1,2,4,6,3,10,5,7,9,8)]
 
 # 2 hop
-Indirect_2hop_m<-Indirect_2hop %>% rename("taxon" = "taxon_from",
-                                          "weight" = "weight_to") 
-Indirect_2hop_m<-Indirect_2hop_m[,c(1,4,2,3,5,6,7,8,9,10)]
+Indirect_2hop_sim2<-Ind_2hop_sim %>% rename("taxon" = "taxon_from")
 
 #  Total Indirect effect of ES
+I_ES_sim <- rbind(Indirect_1hop_sim,Indirect_2hop_sim2) 
 
-I_ES<- rbind(Indirect_1hop_m,Indirect_2hop_m)
-
-#write.csv(I_ES,"Data/Land_use_ind_weighted_CP_intense.csv")
-
-
-################## --- ESTIMATE OUTPUT OF INDIRECT EFFECTS 
-
-# For each interaction we assigned the following outputs:
-# + :provide ES, increase ES or decrease crop damage
-# - : provide EDS (crop damage), decrease ES provision or increase crop damage
-
-
-## -- Define vector of trophic groups to state the conditions
-
-plants = 1:93
-crops = 94:99
-flow_vis = 100:336
-aphid = 337:364
-pri_par = 365:375
-sec_par = 376:382
-leaf_par = 383:475
-seed_ins = 476:494
-seed_bird = 495:506
-seed_rod = 507:510
-butt = 511:526
-seed_ins_par = 527:543
-rod_par = 544:551
-
-## --1 HOP 
-
-hop_1 <- read.csv("Data/Land_use_ind_weighted_CP_intense.csv", sep =",", row.names = 1) %>% 
-  filter(hop == 1, services_to !="None") #remove indirect effect that not affect any ES
-
-# We assigned the indirect output according to node_id and node_to
-
-output_ES_1hop<- hop_1 %>%  #Write only the potential negatives and the rest will be assign as positive
-  mutate(output = case_when(
-    (node_id %in% aphid| node_id %in% seed_bird | node_id %in% seed_ins |
-       node_id %in% seed_rod) & services_to == "Crop production"  ~ "-", # if aphids, birds, rodents, seed inds interact with crop, they will reduce crop production
-    (node_id %in% plants |node_id %in% crops)  & (node_to %in% aphid| node_to %in% seed_bird | node_to %in% seed_ins |
-                             node_to %in% seed_rod) & services_to == "Crop damage"  ~ "-", #plants and crops that increase pest hebirovores' abundance (birds, rodents, insects, aphids which feeds on crop, will increase crop damage
-    
-    TRUE ~ "+"
-    
-  ))
-
-# remove from the data set those flower visitors that not provide pollination to crops
-output_ES_1hop_fin<- output_ES_1hop %>% filter(!(services == "None" & taxon == "Flower-visiting"))
-
-
-## -- 2 HOPS  
-
-hop_2 <- read.csv("Data/Land_use_ind_weighted_CP_intense.csv", sep =",",row.names = 1) %>% 
-  filter(hop == 2, services_to !="None") #remove indirect effect that not affect any ES
-
-
-# We assigned the indirect output according from "node_id" to "node_to" via "node_int"
-
-output_ES_2hops<- hop_2 %>%  
-  mutate(output = case_when(  #Write only the potential negatives and the rest will be assign as positive
-    
-    
-    (node_id %in% plants | node_id %in% crops) &  (node_int%in%aphid | node_int%in%seed_bird| 
-                                                     node_int%in%seed_ins | node_int%in%seed_rod) &
-      services_to == "Crop production"  ~ "-",     #plants,crops --> + seed predators --> - crop --> - crop production
-    
-    
-    (node_id%in%flow_vis | node_id%in%butt) & !(services == "None") & (node_int%in%plants| node_int%in%crops) &
-      (services_to == "Crop damage")  ~ "-", # flower visitors and butt --> + plants,crops--> + pop seed predators --> + crop damage 
-    
-    (node_id%in%flow_vis) & (services == "None") & (node_int%in%plants| node_int%in%crops) &
-      !(services_to == "Crop damage")  ~ "-",
-    
-    (node_id%in%flow_vis) & (services == "None") &
-      (services_to == "Crop damage")  ~ "+", # flowe visitors that not provide poll --> - plants,crops -- > - pest abundance --> - crop damage
-    
-    
-    (node_id%in%aphid | node_id%in%seed_bird| node_id%in%seed_ins |node_id%in%seed_rod) &
-      (node_int%in%plants| node_int%in%crops) & (services_to == "Pollination" | 
-                                                   services_to == "Butterfly watching"| services_to == "Bird watching"| services_to == "Pest control"| 
-                                                   services_to == "Seed dispersal") ~ "-",     # seed predators --> - pop crops/plants --> - pop birds, flower vis, parasitodes --> - pest control, watching, pollination
-    
-   
-    (node_id%in%leaf_par) & (node_int%in%plants| node_int%in%crops) & 
-      (services_to == "Crop damage") ~ "-",  # + leaf miner parasitoid -->+ pop plants --> + pest --> + crop damage
-    
-  
-    
-    (node_id%in%pri_par| node_id%in%sec_par |node_id%in%leaf_par |node_id%in%rod_par |
-       node_id%in%seed_ins_par) & (node_int%in%aphid | node_int%in%seed_bird| 
-                                     node_int%in%seed_ins | node_int%in%seed_rod) &
-      services_to == "Pest control" ~ "-", # par --> + pop seed predators --> + pop parasitoide --> - pest control
-    
-    TRUE ~ "+"
-  ))
-
-
-
-### -- Final dataframe output of indirect effects  ---
-
-output_ES<-rbind(output_ES_1hop_fin,output_ES_2hops)
-
-
-#write.csv(output_ES,"Data/Land_use_output_weighted_CP_intense.csv", row.names= FALSE)
-
-##### -- Indirect provision Ratio output +/-
-output_ind_ES <- read.csv("Data/Land_use_output_weighted_CP_intense.csv", sep =",") 
-
-# ratio > 1 indicates more benefits, ratio = 1 balance between damages and benefits and ratio < 1 more damage
-
-number_positive<-output_ind_ES %>% group_by(management) %>% 
-  filter (output == "+") %>% summarise (positive = n())#count + outputs
-
-number_negative<-output_ind_ES %>% group_by(management) %>% 
-  filter (output == "-") %>% summarise (negative = n())#count - outputs
-
-total<-cbind(number_positive,number_negative[,-1])
-
-ratio_indirect<-total %>% mutate(ratio_direct = positive/negative)
-
-ratio_indirect$management <- factor(ratio_indirect$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
-
+#write.csv(I_ES_sim,"Data/Indirect_ES_sim_CP.csv", row.names= FALSE)
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #                      Analyses                            
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#In this new manalysis we will compare the results of the empirical model with results of the null ones. WE create a null distribution and test
+#it by calculating a p value. Also, we do it for every combination of management.
 
-#### Proportion of direct E(D)S retained across land use change --
+
+#### -- Proportion of direct E(D)S retained across land use change --
 
 #upload and prepare dataframe
-direct_ES<- read.csv("Data/Land_use_dir_weighted_CP_intense.csv", sep =",") %>% 
-  mutate(services = case_when(services == "Crop production"~ "Resource provision",
-                              TRUE~services))
+direct_ES<- read.csv("Data/direct_ES_sim_CP.csv", sep =",")
 
 direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
 
-Prop_dir<-direct_ES %>% group_by(management,services) %>% 
+
+#Empirical
+Prop_dir_Emp<-direct_ES %>% filter(iteration == "Emp") %>% group_by(management,services) %>% 
   mutate(tot = n()) %>% ungroup() %>%  
   group_by(services) %>% 
   mutate(prop = tot/max(tot)) %>%  #prop of E(D)S rtained across habitat management
   dplyr::select(management,services,tot,prop) %>%
-  unique()
+  unique() %>% rename("Prop_mean" = "prop") 
+
+# adjust the extreme values according to the beta conditions and remove extensive scenario
+Prop_dir_Emp$Prop_mean <- ifelse(Prop_dir_Emp$Prop_mean == 0, 0.000001, 
+                                 ifelse(Prop_dir_Emp$Prop_mean == 1, 0.9999999, Prop_dir_Emp$Prop_mean))
+# Value of empirical
+values_emp<- Prop_dir_Emp %>% filter (management == "E" ) %>% select(management,tot)
+
+#Simulations
+Prop_dir_null<-direct_ES %>% filter(!(iteration == "Emp" & management !="E"))%>% group_by(management,iteration,services) %>% 
+  mutate(tot = n(),
+         tot_emp = case_when( #Values of denominator
+           services == "Crop production"~ 6,
+           services == "Pollination" ~ 117,
+           services == "Crop damage"~ 15,
+           services == "Pest control"~ 28,
+           services == "Seed dispersal" ~ 5,
+           services == "Butterfly watching"~ 16,
+           services == "Bird watching"~ 7 )) %>% ungroup() %>%  
+  group_by(services) %>% 
+  mutate(prop = tot/tot_emp) %>%  #prop of E(D)S rtained across habitat management per iteration and habitat management
+  dplyr::select(management,iteration,services,prop) %>%
+  unique() %>% rename("Prop_mean" = "prop") 
 
 
-# adjust the extreme values according to the beta conditions
-Prop_dir$prop <- ifelse(Prop_dir$prop == 0, 0.000001, 
-                        ifelse(Prop_dir$prop == 1, 0.9999999, Prop_dir$prop))
+# adjust the extreme values according to the beta conditions and remove extensive scenario
+Prop_dir_null$Prop_mean <- ifelse(Prop_dir_null$Prop_mean == 0, 0.000001, 
+                                  ifelse(Prop_dir_null$Prop_mean == 1, 0.9999999, Prop_dir_null$Prop_mean))
 
-# Model
+###  - Models
 library("glmmTMB")
 library("stats4")
 library("bbmle")
 library(emmeans)
 library(car)
 
-Prop_dire<- glmmTMB (prop ~ management + services, family=beta_family(link="logit"), data = Prop_dir) # model that best fit
-#Prop_dire2<-glmmTMB (prop ~ management + ( 1| services), family=beta_family(link="logit"), data = Prop_dir)
-Anova(Prop_dire)
-summary(Prop_dire)
+#empirical
+Prop_dir_emp<-glmmTMB (Prop_mean ~ management + services, family=beta_family(link="logit"), data = Prop_dir_Emp)
+par_emp<-Anova(Prop_dir_emp)
+post_man_emp <-emmeans(Prop_dir_emp, ~ management) #posthoc management
+man_pairs_emp <- as.data.frame(pairs(post_man_emp))
 
 
-#Homogeneity
-EM<-resid(Prop_dire, type= "response") 
-FM<-fitted(Prop_dire) 
-plot(x=FM, y=EM, xlab = "Ajustados", ylab = "Residuales normalizados")
-abline(0,0, col="red", lwd= 3) 
+#Null
+#we do the same model for each iteration to create the null distribution of the model coefficient
 
-#independence 
-E1_lme<-resid(Prop_dire, type= "response") 
-boxplot(E1_lme ~ management, data = Prop_dir, main = "Management")
+iterations_coefficients<-NULL
+iterations_post_hocs<-NULL
 
-# posthoc ()
-post_dir<- emmeans(Prop_dire, ~ management)
-pairs(post_dir)
 
-post_ser<- emmeans(Prop_dire, ~ services)
-pairs(post_ser)
+for (i in 1:500){ #for each iteration
+  print(i)
+  iteration_coeff<-Prop_dir_null %>% filter(iteration == i | iteration == "Emp")
+  glmm_val_iterations <- glmmTMB (Prop_mean ~ management + services,family=beta_family(link="logit"), data = iteration_coeff)
+  par<-Anova(glmm_val_iterations)
+  post_man <-emmeans(glmm_val_iterations, ~ management) #posthoc management
+  man_pairs <- as.data.frame(pairs(post_man)) 
+  
+  iterations_coefficients <- rbind(iterations_coefficients, 
+                                   tibble(iteration = i,
+                                    chisqr_man = par$Chisq[1],
+                                    chisqr_ser = par$Chisq[2],
+                                    pval_man = par[1,3],
+                                    pval_ser = par[2,3],
+                                    ))
+  
+  iterations_post_hocs <- rbind(iterations_post_hocs, 
+                              tibble(man_pairs[,c("contrast","estimate","p.value")],
+                                iteration = rep(i,10)))
+}
 
-#### Proportion of indirect effect on E(D)S retained across land use change --
+
+iterations_coefficients
+#write.csv(iterations_coefficients, "Data/iterations_coefficients_direct_CP.csv", row.names = FALSE)
+
+iterations_post_hocs
+#write.csv(iterations_post_hocs, "Data/iterations_post_hocs_direct_CP.csv", row.names = FALSE)
+
+# Compare between empirical and simulations
+iterations_coefficients<-read.csv("Data/iterations_coefficients_direct_CP.csv", sep =",")
+
+#General
+greater <- sum(iterations_coefficients$chisqr_man > par_emp[1,1])
+less <- sum(iterations_coefficients$chisqr_man  < par_emp[1,1])
+p_management<- 2 * min(greater, less) / 500 #calculate manually t-test two tailed
+
+
+#Merge simulated and empirical
+iterations_sim_empirical<-rbind(iterations_coefficients,tibble(
+                          iteration = "Empirical",
+                          chisqr_man = par_emp$Chisq[1],
+                          chisqr_ser = par_emp$Chisq[2],
+                          pval_man = par_emp[1,3],
+                          pval_ser = par_emp[2,3],
+)) %>% mutate(iteration = ifelse(iteration == "Empirical", "Empirical","Null")) %>% rename("Type "= "iteration")
+
+
+#Plot general
+iterations_sim_empirical<-iterations_coefficients %>% mutate(type = "Null")
+
+iterations_sim_empirical %>% ggplot(aes(x = chisqr_man, fill= type))+ 
+  geom_density(alpha = 0.6)+ 
+  geom_vline(xintercept = par_emp[1,1], linetype = "dashed", color = "#FB3B1E") + #line represting rsquared empirical
+  labs(x= "Statistic", y="Density")+  
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=15, color='black'),
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11))
+
+
+#ggsave("distri_direct_CP.png")
+
+
+
+
+#Plot combination of treatments level 
+iterations_post_hocs<-read.csv("Data/iterations_post_hocs_direct_CP.csv", sep =",")
+
+#Post hoc (each combination of management )
+p_contrast_man<-NULL
+
+for (i in unique(iterations_post_hocs$contrast)){
+  
+  #filter data
+  post_comb<-iterations_post_hocs %>% filter(contrast == i) #filter per combination of treatmens (simulated data)
+  post_emp<-man_pairs_emp %>% filter(contrast == i) #filter per combination of treatmens (empirical)
+  
+  #test
+  greater <- sum(post_comb$estimate >  post_emp$estimate)
+  less <- sum(post_comb$estimate  <  post_emp$estimate)
+  p_comb<- 2 * min(greater, less) / 500 #calculate manually t-test two tailed
+  
+  #storage
+  p_contrast_man <- rbind(p_contrast_man,
+                          tibble(contrast = i,
+                                 p_value = p_comb))
+  
+}
+p_contrast_man
+
+
+#Prepare dataframe (simulated and empircal)
+
+#smimulated
+man_lev<-c("E","SE","M","SI","I")
+
+post_hoc_sim<- iterations_post_hocs %>% separate(contrast, into = c("man_1", "man_2"), sep = " - ") %>% 
+                  select(-p.value)
+post_hoc_sim$man_1 <- factor(post_hoc_sim$man_1, levels = man_lev)
+post_hoc_sim$man_2 <- factor(post_hoc_sim$man_2, levels = man_lev)
+
+#empirical
+post_hoc_emp_pre<- man_pairs_emp %>% separate(contrast, into = c("man_1", "man_2"), sep = " - ") %>% 
+  select(-p.value) %>% mutate (iteration = "0") %>% select(man_1,man_2,estimate,iteration)#empirical
+
+new_combinations_empirical <- data.frame(
+  man_1 = c("E", "SE", "M", "SI", "I"),
+  man_2 = c("E", "SE", "M", "SI", "I"),
+  estimate = rep(0, 5),
+  iteration = rep(0, 5)
+)
+
+post_hoc_emp_fin<-rbind(post_hoc_emp_pre,new_combinations_empirical)
+post_hoc_emp_fin$man_1 <- factor(post_hoc_emp_fin$man_1, levels = man_lev)
+post_hoc_emp_fin$man_2 <- factor(post_hoc_emp_fin$man_2, levels = man_lev)
+
+
+# plot
+posthoc_distr_CP<- ggplot(data = post_hoc_sim, aes(x=estimate)) +
+  geom_histogram(fill = "steelblue") +
+  labs(y = "Count", x = "Estimate value") +
+  geom_vline(data = post_hoc_emp_fin[1:10,], mapping = aes(xintercept = estimate), 
+             colour="#BB0000", linetype="dashed") +
+  facet_grid(man_2 ~ man_1)
+
+ #ggsave("posthoc_distri_direct_CP.png")
+
+
+
+
+#### -- Proportion of indirect effect on E(D)S retained across land use change --
+
 
 #upload and prepare dataframe
-output_ind_ES <- read.csv("Data/Land_use_output_weighted_CP_intense.csv", sep =",") 
+output_ind_ES<- read.csv("Data/Indirect_ES_sim_CP.csv", sep =",")
 output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
 
-Prop_ind<-output_ind_ES %>% group_by(management,services_to) %>% 
+
+#Empirical
+Prop_indir_Emp<-output_ind_ES %>% filter(iteration == "Emp") %>% 
+  group_by(management,services_to) %>% 
   mutate(tot = n()) %>% ungroup() %>%  
   group_by(services_to) %>% 
-  mutate(prop = tot/max(tot)) %>%  #prop of E(D)S rtained across habitat management
-  dplyr::select(management,services_to,tot,prop) %>% unique()
-
+  mutate(prop = tot/max(tot)) %>%  #prop of indirect effects on E(D)S retained in the empirical
+  dplyr::select(management,services_to,tot,prop) %>%
+  unique() %>% rename("Prop_mean" = "prop") %>% 
+  mutate (type = "Empirical")
 
 # adjust the extreme values according to the beta conditions
-Prop_ind$prop <- ifelse(Prop_ind$prop == 0, 0.000001, 
-                        ifelse(Prop_ind$prop == 1, 0.9999999, Prop_ind$prop))
+Prop_indir_Emp$Prop_mean <- ifelse(Prop_indir_Emp$Prop_mean == 0, 0.000001, 
+                                   ifelse(Prop_indir_Emp$Prop_mean == 1, 0.9999999, Prop_indir_Emp$Prop_mean))
 
-# Model
-library("glmmTMB")
-library("stats4")
-library("bbmle")
+#Simulations
+Prop_ind_null<-output_ind_ES %>% filter(!(iteration == "Emp" & management !="E")) %>% 
+  group_by(management,iteration,services_to) %>% 
+  mutate(tot = n(),
+         tot_emp = case_when( #Values of denominator
+           services_to == "Crop production"~ 280,
+           services_to == "Pollination" ~ 18733,
+           services_to == "Crop damage"~ 9816,
+           services_to == "Pest control"~ 3261,
+           services_to == "Seed dispersal" ~ 4154,
+           services_to == "Butterfly watching"~ 3515,
+           services_to == "Bird watching"~ 5722 )) %>% ungroup() %>%  
+  group_by(services_to) %>% 
+  mutate(Prop_mean = tot/tot_emp) %>%  #prop of E(D)S rtained across habitat management per iteration and habitat management
+  dplyr::select(management,iteration,services_to,Prop_mean) %>%
+  unique() %>% mutate(type = "Null")
 
-Prop_indi<-glmmTMB (prop ~ management + services_to, family=beta_family(link="logit"), data = Prop_ind) #model that best fit
-#Prop_indi_2<-glmmTMB (prop ~ management :services_to, family=beta_family(link="logit"), data = Prop_ind)
-Anova(Prop_indi)
-summary(Prop_indi)
+# adjust the extreme values according to the beta conditions
+Prop_ind_null$Prop_mean <- ifelse(Prop_ind_null$Prop_mean == 0, 0.000001, 
+                                  ifelse(Prop_ind_null$Prop_mean == 1, 0.9999999, Prop_ind_null$Prop_mean))
 
-#Homogeneity
-EM<-resid(Prop_indi, type= "response") 
-FM<-fitted(Prop_indi) 
-plot(x=FM, y=EM, xlab = "Ajustados", ylab = "Residuales normalizados")
-abline(0,0, col="red", lwd= 3) 
-
-#independence 
-E1_lme<-resid(Prop_indi, type= "response") 
-boxplot(E1_lme ~ management, data = Prop_ind, main = "Management")
-
-# posthoc
-post_ind<- emmeans(Prop_indi, ~ management)
-pairs(post_ind)
-post_ser<- emmeans(Prop_indi, ~ services_to)
-pairs(post_ser)
+#write.csv(Prop_ind_null, "Data/Prop_ind_null_CP.csv",  row.names = FALSE)
 
 
+###  - Models
+
+# empirical
+Prop_ind_emp <- glmmTMB (Prop_mean ~ management + services_to, family=beta_family(link="logit"), 
+                         data = Prop_indir_Emp)# the best mode #model used in the empirical
+
+par_emp<-Anova(Prop_ind_emp)
+post_man_emp <-emmeans(Prop_ind_emp, ~ management) #posthoc management
+man_pairs_emp <- as.data.frame(pairs(post_man_emp))
 
 
-#### Change in the amount of direct E(D)S provided change across land use change --
 
-#Amount of ES provided by each species
-extensive_amount <- direct_ES %>% 
+#Null
+#we do the same model for each iteration to create the null distribution of the model coefficient
+Prop_ind_null<- read.csv("Data/Prop_ind_null_CP.csv", sep =",")
+
+iterations_coefficients<-NULL
+iterations_post_hocs<-NULL
+
+iterations_rem<- unique(Prop_ind_null$iteration)
+iterations<- iterations_rem[2:length(iterations_rem)]#separate between iterations and Empirical
+
+
+for (i in iterations){ #for each iteration
+  print(i)
+  iteration_coeff<-Prop_ind_null %>% filter(iteration == i | iteration == "Emp")
+  glmm_val_iterations <- glmmTMB (Prop_mean ~ management + services_to,family=beta_family(link="logit"), data = iteration_coeff)
+  par<-Anova(glmm_val_iterations)
+  post_man <-emmeans(glmm_val_iterations, ~ management) #posthoc management
+  man_pairs <- as.data.frame(pairs(post_man)) 
+  
+  iterations_coefficients <- rbind(iterations_coefficients, 
+                                   tibble(iteration = i,
+                                          chisqr_man = par$Chisq[1],
+                                          chisqr_ser = par$Chisq[2],
+                                          pval_man = par[1,3],
+                                          pval_ser = par[2,3],
+                                   ))
+  
+  iterations_post_hocs <- rbind(iterations_post_hocs, 
+                                tibble(man_pairs[,c("contrast","estimate","p.value")],
+                                       iteration = rep(i,10)))
+}
+
+
+iterations_coefficients
+#write.csv(iterations_coefficients, "Data/iterations_coefficients_indirect_CP.csv", row.names = FALSE)
+
+iterations_post_hocs
+#write.csv(iterations_post_hocs, "Data/iterations_post_hocs_indirect_CP.csv", row.names = FALSE)
+
+
+#General Test
+iterations_coefficients<-read.csv("Data/iterations_coefficients_indirect_CP.csv", sep =",")
+
+greater <- sum(iterations_coefficients$chisqr_man > par_emp[1,1])
+less <- sum(iterations_coefficients$chisqr_man  < par_emp[1,1])
+p_management<- 2 * min(greater, less) / 500 #calculate manually t-test two tailed
+
+
+#Merge simulated and empirical
+iterations_sim_empirical<-rbind(iterations_coefficients,tibble(
+  iteration = "Empirical",
+  chisqr_man = par_emp$Chisq[1],
+  chisqr_ser = par_emp$Chisq[2],
+  pval_man = par_emp[1,3],
+  pval_ser = par_emp[2,3],
+)) %>% mutate(iteration = ifelse(iteration == "Empirical", "Empirical","Null")) %>% rename("Type "= "iteration")
+
+
+#Plot general
+iterations_sim_empirical<-iterations_coefficients %>% mutate(type = "Null")
+
+iterations_sim_empirical %>% ggplot(aes(x = chisqr_man, fill= type))+ 
+  geom_density(alpha = 0.6)+ 
+  geom_vline(xintercept = par_emp[1,1], linetype = "dashed", color = "#FB3B1E") + #line represting rsquared empirical
+  labs(x= "Statistic", y="Density")+  
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=15, color='black'),
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11))
+#ggsave("Graphs/distri_indirect_CP.png")
+
+
+# Plot combination of treatments level 
+iterations_post_hocs<-read.csv("Data/iterations_post_hocs_indirect_CP.csv", sep =",")
+
+#Post hoc (each combination of management )
+p_contrast_man<-NULL
+
+for (i in unique(iterations_post_hocs$contrast)){
+  
+  #filter data
+  post_comb<-iterations_post_hocs %>% filter(contrast == i) #filter per combination of treatmens (simulated data)
+  post_emp<-man_pairs_emp %>% filter(contrast == i) #filter per combination of treatmens (empirical)
+  
+  #test
+  
+  greater <- sum(post_comb$estimate >  post_emp$estimate)
+  less <- sum(post_comb$estimate  <  post_emp$estimate)
+  p_comb<- 2 * min(greater, less) / 500 #calculate manually t-test two tailed
+  
+  #storage
+  p_contrast_man <- rbind(p_contrast_man,
+                          tibble(contrast = i,
+                                 p_value = p_comb))
+  
+}
+
+p_contrast_man
+
+
+#Prepare dataframe (simulated and empircal)
+
+#smimulated
+man_lev<-c("E","SE","M","SI","I")
+
+post_hoc_sim<- iterations_post_hocs %>% separate(contrast, into = c("man_1", "man_2"), sep = " - ") %>% 
+  select(man_1,man_2,estimate,iteration)
+
+post_hoc_sim_inv<- post_hoc_sim %>% select(man_2,man_1,estimate, iteration)
+colnames(post_hoc_sim_inv) <- c("man_1", "man_2","estimate", "iteration")
+
+post_hoc_sim_fin<- rbind(post_hoc_sim,post_hoc_sim_inv)
+
+post_hoc_sim_fin$man_1 <- factor(post_hoc_sim_fin$man_1, levels = man_lev)
+post_hoc_sim_fin$man_2 <- factor(post_hoc_sim_fin$man_2, levels = man_lev)
+
+
+#empirical
+post_hoc_emp_pre<- man_pairs_emp %>% separate(contrast, into = c("man_1", "man_2"), sep = " - ") %>% 
+  select(-p.value) %>% mutate (iteration = 0) %>% select(man_1,man_2,estimate,iteration)#empirical
+
+new_combinations_empirical <- data.frame(
+  man_1 = c("E", "SE", "M", "SI", "I"),
+  man_2 = c("E", "SE", "M", "SI", "I"),
+  estimate = rep(0, 5),
+  iteration = rep(0, 5)
+)
+
+post_hoc_emp_fin<-rbind(post_hoc_emp_pre,new_combinations_empirical)
+post_hoc_emp_fin_inv<- post_hoc_emp_fin %>% select(man_2,man_1,estimate, iteration)
+colnames(post_hoc_emp_fin_inv) <- c("man_1", "man_2","estimate", "iteration")
+
+post_hoc_emp_fin_2<- rbind(post_hoc_emp_fin,post_hoc_emp_fin_inv)
+post_hoc_emp_fin_2$man_1 <- factor(post_hoc_emp_fin_2$man_1, levels = man_lev)
+post_hoc_emp_fin_2$man_2 <- factor(post_hoc_emp_fin_2$man_2, levels = man_lev)
+
+
+# plot
+lower_triangle_data <- post_hoc_sim_fin[as.numeric(post_hoc_sim_fin$man_2) >= as.numeric(post_hoc_sim_fin$man_1), ]
+lower_triangle_emp <- lower_triangle_emp[as.numeric(lower_triangle_emp$man_2) >= as.numeric(lower_triangle_emp$man_1), ]
+
+posthoc_distr_CP<- ggplot(data = lower_triangle_data, aes(x=estimate)) +
+  geom_histogram(fill = "steelblue") +
+  labs(y = "Count", x = "Estimate value") +
+  geom_vline(data = lower_triangle_emp[1:10,], mapping = aes(xintercept = estimate), 
+             colour="#BB0000", linetype="dashed") +
+  facet_grid(man_2 ~ man_1)
+
+#ggsave("Graphs/posthoc_distri_indirect_CP.png")
+
+
+
+
+
+
+#### -- Change in the amount of direct E(D)S provided change across land use change --
+
+## - upload and prepare dataframe
+direct_ES_emp<- read.csv("Data/Land_use_dir_weighted_CP_intense.csv", sep =",")
+
+extensive_amount <- direct_ES_emp %>% 
   filter(management == "E") %>%
   select(node_id, services, weight)
 
-
-# Merging and other managements and calculate ratio of change
-dir_amount <- direct_ES %>% 
+dir_amount_emp <- direct_ES_emp %>% 
   left_join(extensive_amount, by = c("node_id", "services"), suffix = c("", "_extensive")) %>%
   mutate(ratio_change = weight / weight_extensive) #ratio of change: values higher than 1 indicates increasing in the amount of E(D)S
 
-# Model
-library(glmmTMB)
-m_amount<- glmmTMB(ratio_change ~ management:services + (1|node_id),family = Gamma(link = "log"),
-                   data = dir_amount) 
-Anova(m_amount)
-summary(m_amount)
+
+ratio_empirical<-dir_amount_emp %>%
+  select(management, services,node_id, ratio_change) %>% group_by(management,services,node_id) %>% 
+  summarise(ratio_change_ave = mean(ratio_change)) %>% 
+  mutate(type = "Empirical")
+
+# Calculate the ratio change in the amount of ES per species in each simulation
+direct_ES_sim<- read.csv("Data/direct_ES_sim_CP.csv", sep =",")
+
+dir_amount_sim <- direct_ES_sim %>% filter(!(iteration == "Emp" & management !="E"))%>% 
+  left_join(extensive_amount, by = c("node_id", "services"), suffix = c("", "_extensive")) %>%
+  mutate(ratio_change = weight / weight_extensive) #ratio of change: values higher than 1 indicates increasing in the amount of E(D)S
+
+ratio_sim<-dir_amount_sim  %>% 
+  select(management,iteration, services,node_id, ratio_change) %>% group_by(management,iteration,services,node_id) %>% 
+  summarise(ratio_change_ave = mean(ratio_change)) 
 
 
-#Homogeneity
-EM<-resid(m_amount, type= "response") 
-FM<-fitted(m_amount) 
-plot(x=FM, y=EM, xlab = "Ajustados", ylab = "Residuales normalizados")
-abline(0,0, col="red", lwd= 3) 
 
-#independence 
-E1_lme<-resid(m_amount, type= "response") 
-boxplot(E1_lme~dir_amount$management, main="Management")
+###  - Models
 
-# posthoc
-emms <- emmeans(m_amount, pairwise ~ management | services)
-contrast <- contrast(emms, method = "pairwise")  # pairwise comparisons
-summary(contrast)
-contrast
+# empirical
+amount_emp <- glmmTMB(ratio_change_ave ~ management:services + (1|node_id),family = Gamma(link = "log"),
+                                          data = ratio_empirical) 
+
+#amount_emp2 <- glmmTMB(ratio_change_ave ~ management+services + (1|node_id),family = Gamma(link = "log"),
+ #                     data = ratio_empirical) 
+par_emp<-Anova(amount_emp)
+post_man_emp <-emmeans(amount_emp, pairwise ~ management | services) #posthoc management
+post_contrast <- contrast(post_man_emp, method = "pairwise")  # pairwise comparisons
+post_emp_contrast<-as.data.frame(post_contrast[[1]])
+
+
+
+# Null
+#we do the same model for each iteration to create the null distribution of the model coefficient
+
+iterations_coefficients<-NULL
+iterations_post_hocs<-NULL
+
+
+for (i in 1:500){ #for each iteration
+  print(i)
+  iteration_coeff<-ratio_sim %>% filter(iteration == i | iteration == "Emp")
+  glmm_val_iterations <- glmmTMB (ratio_change_ave ~ management:services + (1|node_id),family = Gamma(link = "log"), data = iteration_coeff)
+  par<-Anova(glmm_val_iterations)
+  post_man <-emmeans(glmm_val_iterations, pairwise ~ management | services) #posthoc management
+  post_contrast <- contrast(post_man, method = "pairwise")  # pairwise comparisons
+  man_pairs<-as.data.frame(post_contrast[[1]])
+  
+  iterations_coefficients <- rbind(iterations_coefficients, 
+                                   tibble(iteration = i,
+                                          chisqr_int = par$Chisq[1],
+                                          pval_int = par[1,3]
+                                   ))
+  
+  iterations_post_hocs <- rbind(iterations_post_hocs, 
+                                tibble(man_pairs[,c("contrast","services","estimate","p.value")],
+                                       iteration = rep(i,70)))
+}
+
+
+iterations_coefficients
+#write.csv(iterations_coefficients, "Data/iterations_coefficients_amount_CP.csv", row.names = FALSE)
+
+iterations_post_hocs
+#write.csv(iterations_post_hocs, "Data/iterations_post_hocs_amount_CP.csv", row.names = FALSE)
+
+
+# Compare between empirical and simulations
+iterations_coefficients<-read.csv("Data/iterations_coefficients_amount_CP.csv", sep = ",")
+
+# General Test
+iterations_coefficients2<-iterations_coefficients %>% filter(!(is.na(chisqr_int)))
+greater <- sum(iterations_coefficients2$chisqr_int > par_emp[1,1])
+less <- sum(iterations_coefficients2$chisqr_int  < par_emp[1,1])
+p_management<- 2 * min(greater, less) / 500 #calculate manually t-test two tailed
+
+
+#Merge simulated and empirical
+iterations_sim_empirical<-rbind(iterations_coefficients2,tibble(
+  iteration = "Empirical",
+  chisqr_int = par_emp[1,1],
+  pval_int = par_emp[1,3]
+)) %>% mutate(iteration = ifelse(iteration == "Empirical", "Empirical","Null")) %>% rename("type"= "iteration")
+
+
+#Plot general
+
+iterations_sim_empirical %>% ggplot(aes(x = chisqr_int, fill= type))+ 
+  geom_density(alpha = 0.6)+ 
+  geom_vline(xintercept = par_emp[1,1], linetype = "dashed", color = "#FB3B1E") + #line represting rsquared empirical
+  labs(x= "Statistic", y="Density")+  
+  theme_classic()+
+  theme(panel.grid = element_blank(),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text = element_text(size=15, color='black'),
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11))
+
+
+#ggsave("Graphs/distri_amount_CP.png")
+
+
+#Plot combination of treatments level 
+
+iterations_post_hocs<-read.csv("Data/iterations_post_hocs_amount_CP.csv", sep =",")
+
+#Post hoc (interaction management:services)
+p_contrast_man<-NULL
+
+for (i in unique(iterations_post_hocs$contrast)){
+  
+  for(j in unique(iterations_post_hocs$services)){
+    
+  #filter data
+  post_comb<-iterations_post_hocs %>% filter(contrast == i & services == j) #filter per combination of treatmens (simulated data)
+  post_emp<-post_emp_contrast %>% filter(contrast == i & services == j) #filter per combination of treatmens (empirical)
+  
+  #test
+  greater <- sum(post_comb$estimate >  post_emp$estimate)
+  less <- sum(post_comb$estimate  <  post_emp$estimate)
+  p_comb<- 2 * min(greater, less) / 500 #calculate manually t-test two tailed
+  
+  #storage
+  p_contrast_man <- rbind(p_contrast_man,
+                          tibble(contrast = i, services =j,
+                                 p_value = p_comb))
+  
+  }
+}
+p_contrast_man
+
+POLL_PRUEBA<-p_contrast_man %>% filter(services == "Pollination")
+
+
+
+#Prepare dataframe (simulated and empircal)
+
+#smimulated
+man_lev<-c("E","SE","M","SI","I")
+
+post_hoc_sim<- iterations_post_hocs %>% separate(contrast, into = c("man_1", "man_2"), sep = " - ") %>% 
+  select(-p.value)
+
+post_hoc_sim_inv<- post_hoc_sim %>% select(man_2,man_1,services,estimate, iteration)
+colnames(post_hoc_sim_inv) <- c("man_1", "man_2","services","estimate", "iteration")
+
+post_hoc_sim_fin<- rbind(post_hoc_sim,post_hoc_sim_inv)
+
+post_hoc_sim_fin$man_1 <- factor(post_hoc_sim_fin$man_1, levels = man_lev)
+post_hoc_sim_fin$man_2 <- factor(post_hoc_sim_fin$man_2, levels = man_lev)
+
+#empirical
+post_hoc_emp_pre<- post_emp_contrast %>% separate(contrast, into = c("man_1", "man_2"), sep = " - ") %>% 
+  select(-p.value) %>% mutate (iteration = "0") %>% select(man_1,man_2,services,estimate,iteration)#empirical
+
+new_combinations_empirical <- expand.grid(
+  man_1 = c("E", "SE", "M", "SI", "I"),
+  man_2 = c("E", "SE", "M", "SI", "I"),
+  services = c("Bird watching", "Butterfly watching", "Crop damage", "Crop production", "Pest control", "Pollination", "Seed dispersal"),
+  stringsAsFactors = FALSE
+)
+new_combinations_empirical$estimate <- 0
+new_combinations_empirical$iteration <- 0
+
+post_hoc_emp_fin<-rbind(post_hoc_emp_pre,new_combinations_empirical)
+
+post_hoc_emp_fin_inv<- post_hoc_emp_fin %>% select(man_2,man_1,services,estimate, iteration)
+colnames(post_hoc_emp_fin_inv) <- c("man_1", "man_2","services","estimate", "iteration")
+
+post_hoc_emp_fin_2<- rbind(post_hoc_emp_fin,post_hoc_emp_fin_inv)
+post_hoc_emp_fin_2$man_1 <- factor(post_hoc_emp_fin_2$man_1, levels = man_lev)
+post_hoc_emp_fin_2$man_2 <- factor(post_hoc_emp_fin_2$man_2, levels = man_lev)
+
+
+# plot
+#example pollination
+post_hoc_distr_poll<-post_hoc_sim_fin %>% filter(services == "Pollination")
+post_hoc_distr_poll$man_1 <- factor(post_hoc_distr_poll$man_1, levels = man_lev)
+post_hoc_distr_poll$man_2 <- factor(post_hoc_distr_poll$man_2, levels = man_lev)
+
+post_hoc_emp_poll<-post_hoc_emp_fin %>% filter(services == "Pollination")
+post_hoc_emp_poll$man_1 <- factor(post_hoc_emp_poll$man_1, levels = man_lev)
+post_hoc_emp_poll$man_2 <- factor(post_hoc_emp_poll$man_2, levels = man_lev)
+
+lower_triangle_sim <- post_hoc_distr_poll[as.numeric(post_hoc_distr_poll$man_2) >= as.numeric(post_hoc_distr_poll$man_1), ]
+lower_triangle_emp <- post_hoc_emp_fin_2[as.numeric(post_hoc_emp_fin_2$man_2) >= as.numeric(post_hoc_emp_fin_2$man_1), ] %>%
+                    filter (services == "Pollination")
+
+posthoc_distr_CP<- ggplot(data = lower_triangle_sim, aes(x=estimate)) +
+  geom_histogram(fill = "steelblue") +
+  labs(y = "Count", x = "Estimate value") +
+  geom_vline(data = lower_triangle_emp[c(1:6,22:25),], mapping = aes(xintercept = estimate), 
+             colour="#BB0000", linetype="dashed") +
+  facet_grid(man_2 ~ man_1)
+
+#ggsave("Graphs/posthoc_distri_amount_poll_CP.png")
+
+
+
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #                      Plots                          
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#direct
-direct_ES<- read.csv("Data/Land_use_dir_weighted_CP_intense.csv", sep =",") %>% 
-            mutate(services = case_when(services == "Crop production"~ "Resource provision",
-                                 TRUE~services))
+#upload and prepare dataframe
+direct_ES<- read.csv("Data/direct_ES_sim_CP.csv", sep =",")
 
 direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
 
-
 #indirect
-output_ind_ES <- read.csv("Data/Land_use_output_weighted_CP_intense.csv", sep =",") %>% 
-                  mutate(services_to = case_when(services_to == "Crop production"~ "Resource provision",
-                              TRUE~services_to))
-
+output_ind_ES<- read.csv("Data/Indirect_ES_sim_CP.csv", sep =",")
 output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
 
 
-
-### Plot of number of direct and indirect int
-
-
-#direct
-Number_direct<-direct_ES %>% group_by(management) %>% summarise(Number = n())
-
-
-Number_dir<-Number_direct%>%   
-  ggplot(aes(y=Number, x=management)) + 
-  geom_bar(position="stack", stat="identity")+ ggtitle("Direct")+
-  labs(x='Management', y="Number of direct E(D)S provision") +theme_bw()+
-  theme_classic()+
-  theme(panel.grid = element_blank(),
-        panel.border = element_rect(color = "black",fill = NA,size = 1),
-        panel.spacing = unit(0.5, "cm", data = NULL),
-        axis.text.y = element_text(size=11, color='black'),
-        axis.text = element_text(size=15, color='black'),
-        axis.title = element_text(size=17, color='black'),
-        axis.line = element_blank())
-
-Number_dir
-
-#indirect
-
-Number_indirect<-output_ind_ES %>% group_by(management) %>% 
-  summarise(Number = n())
-
-Number_indir<-Number_indirect%>%   
-  ggplot(aes(y=Number, x=management)) + 
-  geom_bar(position="stack", stat="identity")+ ggtitle("Indirect")+
-  labs(x='Management', y="Number of indirect effects on E(D)S") +theme_bw()+
-  theme_classic()+
-  theme(panel.grid = element_blank(),
-        panel.border = element_rect(color = "black",fill = NA,size = 1),
-        panel.spacing = unit(0.5, "cm", data = NULL),
-        axis.text.y = element_text(size=11, color='black'),
-        axis.text = element_text(size=15, color='black'),
-        axis.title = element_text(size=17, color='black'),
-        axis.line = element_blank())
-
-Number_indir
-
-upper_row<- plot_grid(Number_dir,Number_indir ,
-                      ncol = 2)
-upper_row
-
-#ggsave("land_use_Number_CP_intense.png")
 
 
 ### Plot of proportions of richness direct and indirect E(D)S retained 
 
 
 #direct 
-Prop<-direct_ES %>% group_by(management,services) %>% 
-                    mutate(tot = n()) %>% ungroup() %>%  
-                  group_by(services) %>% 
-                mutate(prop = tot/max(tot)) %>%  #prop of E(D)S rtained across habitat management
-          select(management,services,tot,prop) %>% unique()
 
-prop_EDS_direct<- Prop %>% ggplot(aes(x = management, y = prop)) +
-  geom_boxplot(color = "black") +
-  geom_point(position=position_jitterdodge(jitter.width=2, dodge.width = 0.5), 
-             pch=21, aes(fill=factor(services)), size = 4, show.legend = T) +
-  # scale_fill_manual(values = col) + 
-  scale_fill_brewer(palette="PRGn") +
+#Empirical
+Prop_dir_emp<-direct_ES %>% filter(iteration == "Emp") %>% group_by(management,services) %>% 
+  mutate(tot = n()) %>% ungroup() %>%  
+  group_by(services) %>% 
+  mutate(prop = tot/max(tot)) %>%  #prop of E(D)S rtained across habitat management
+  dplyr::select(management,services,tot,prop) %>%
+  unique() %>% rename("Prop_mean" = "prop") %>% mutate(type = "Emp")
+
+# Value of empirical
+values_emp<- Prop_dir_emp %>% filter (management == "E") %>% select(management,tot)
+
+#Simulations
+Prop_dir_sim<-direct_ES %>% filter(iteration != "Emp") %>% group_by(management,iteration,services) %>% 
+  mutate(tot = n(),
+         tot_emp = case_when( #Values of denominator
+           services == "Crop production"~ 6,
+           services == "Pollination" ~ 117,
+           services == "Crop damage"~ 15,
+           services == "Pest control"~ 28,
+           services == "Seed dispersal" ~ 5,
+           services == "Butterfly watching"~ 16,
+           services == "Bird watching"~ 7 )) %>% ungroup() %>%  
+  group_by(services) %>% 
+  mutate(prop = tot/tot_emp) %>%  #prop of E(D)S rtained across habitat management per iteration and habitat management
+  dplyr::select(management,iteration,services,tot,prop) %>%
+  unique() %>% group_by(management,services) %>% summarise(Prop_mean = mean(prop)) %>% 
+  mutate(type = "Null")
+
+
+#join 
+Prop_direct_sim<-rbind(Prop_dir_emp,Prop_dir_sim)
+
+#Plot 
+prop_EDS_direct <- Prop_direct_sim%>% ggplot(aes(x = management, y = Prop_mean)) +
+  geom_boxplot(aes(colour = type), 
+               outlier.shape = NA) +
+  geom_point(aes(fill = factor(services), color = type), 
+             position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.4),
+             pch = 21, size = 2.5, stroke = 1, show.legend = TRUE) +
+  scale_fill_brewer(palette = "PRGn")+
+  scale_color_manual(values = c("black","#d7301f"))+
   scale_y_continuous(name = "Fraction of E(D)S retained", limits = c(0, 1)) + 
   scale_x_discrete(name = "Management")+
   theme(panel.background = element_rect(fill = "white"),
@@ -1208,21 +1529,42 @@ prop_EDS_direct<- Prop %>% ggplot(aes(x = management, y = prop)) +
 
 prop_EDS_direct
 
-ggsave("Land_use_retained_direct_CP_intense.png")
-#indirect
+#ggsave("Direct_ES_sim_CP.png")
 
-Prop_ind<-output_ind_ES %>% group_by(management,services_to) %>% 
+
+### Plot of proportions of indirect effects on E(D)S retained  
+
+#Empirical
+Prop_indir_Emp<-output_ind_ES %>% filter(iteration == "Emp") %>% group_by(management,services_to) %>% 
   mutate(tot = n()) %>% ungroup() %>%  
   group_by(services_to) %>% 
-  mutate(prop = tot/max(tot)) %>%  #prop of E(D)S rtained across habitat management
-  select(management,services_to,tot,prop) %>% unique()
+  mutate(prop = tot/max(tot)) %>%  #prop of indirect effects on E(D)S retained in the empirical
+  dplyr::select(management,services_to,tot,prop) %>%
+  unique() %>% rename("Prop_mean" = "prop") %>% 
+  mutate (type = "Empirical")
 
-prop_EDS_indirect<- Prop_ind %>% ggplot(aes(x = management, y = prop)) +
-  geom_boxplot(color = "black") +
-  geom_point(position=position_jitterdodge(jitter.width=2, dodge.width = 0.5), 
-             pch=21, aes(fill=factor(services_to)), size = 4, show.legend = T) +
-  # scale_fill_manual(values = col) + 
-  scale_fill_brewer(palette="PRGn") +
+
+
+#Simulations
+Prop_indir_sim<- Prop_ind_null %>% group_by(management,services_to) %>%
+  summarise(Prop_mean = mean(Prop_mean)) %>% 
+  filter(management !="E") %>% mutate(type = "Null")
+  
+
+# Merge empirical and simulations and remove extensive scenario
+Prop_indir_sim2 <- rbind(Prop_indir_Emp, Prop_indir_sim)
+Prop_indir_sim2$management <- factor(Prop_indir_sim2$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+
+
+#Plot 
+prop_EDS_indirect <- Prop_indir_sim2%>% ggplot(aes(x = management, y = Prop_mean)) +
+  geom_boxplot(aes(colour = type), 
+               outlier.shape = NA) +
+  geom_point(aes(fill = factor(services_to), color = type), 
+             position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.4),
+             pch = 21, size = 2.5, stroke = 1, show.legend = TRUE) +
+  scale_fill_brewer(palette = "PRGn")+
+  scale_color_manual(values = c("black","#d7301f"))+
   scale_y_continuous(name = "Fraction of E(D)S retained", limits = c(0, 1)) + 
   scale_x_discrete(name = "Management")+
   theme(panel.background = element_rect(fill = "white"),
@@ -1240,113 +1582,57 @@ prop_EDS_indirect<- Prop_ind %>% ggplot(aes(x = management, y = prop)) +
 
 prop_EDS_indirect
 
-ggsave("Land_use_retained_indirect_CP_intense.png")
-
-
-
-
-### Plot of output according to direct and indirect 
-
-#direct
-
-ratio_direct<-read.csv("Data/Land_use_rat_dir_weighted_CP_intense.csv")
-
-ratio_direct$management <- factor(ratio_direct$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
-
-
-ratio_direct<-ratio_direct%>% gather("type","value", 2:3) %>% group_by(management) %>% 
-  mutate(Total = sum(value)) %>% group_by(management,type) %>% 
-  summarise(prop = value /Total) %>%  
-  ggplot(aes(y=prop, x=management, fill = type)) + 
-  geom_bar(position="stack", stat="identity")+ ggtitle("Direct provision")+
-  labs(x='Management', y="Prop of E(D)S") +theme_bw()+
-  theme_classic()+
-  theme(panel.grid = element_blank(),
-        panel.border = element_rect(color = "black",fill = NA,size = 1),
-        panel.spacing = unit(0.5, "cm", data = NULL),
-        axis.text = element_text(size=15, color='black'),
-        axis.title = element_text(size=17, color='black'),
-        axis.line = element_blank(),
-        legend.text.align = 0,
-        legend.title =  element_text(size = 13, color = "black"),
-        legend.text = element_text(size = 11),
-        legend.position = "bottom")
-
-ratio_direct
-
-
-#indirect
-
-number_positive<-output_ind_ES %>% group_by(management) %>% 
-  filter (output == "+") %>% summarise (positive = n())#count + outputs
-
-number_negative<-output_ind_ES %>% group_by(management) %>% 
-  filter (output == "-") %>% summarise (negative = n())#count - outputs
-
-total<-cbind(number_positive,number_negative[,-1])
-
-ratio_indirect<-total %>% mutate(ratio_direct = positive/negative)
-
-ratio_indirect$management <- factor(ratio_indirect$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
-
-ratio_indirect<-ratio_indirect%>% gather("type","value", 2:3) %>% group_by(management) %>% 
-  mutate(Total = sum(value)) %>% group_by(management,type) %>% 
-  summarise(prop = value /Total) %>%  
-  ggplot(aes(y=prop, x=management, fill = type)) + 
-  geom_bar(position="stack", stat="identity")+ ggtitle("Indirect effects")+
-  labs(x='Management', y="Prop of output (+/-)") +theme_bw()+
-  theme_classic()+
-  theme(panel.grid = element_blank(),
-        panel.border = element_rect(color = "black",fill = NA,size = 1),
-        panel.spacing = unit(0.5, "cm", data = NULL),
-        axis.text = element_text(size=15, color='black'),
-        axis.title = element_text(size=17, color='black'),
-        axis.line = element_blank(),
-        legend.text.align = 0,
-        legend.title =  element_text(size = 13, color = "black"),
-        legend.text = element_text(size = 11),
-        legend.position = "bottom")
-
-ratio_indirect
-
-upper_row<- plot_grid(ratio_direct,ratio_indirect ,
-                      ncol = 2)
-upper_row
-
-#ggsave("Land_use_output_CP_intense.png")
-
+#ggsave("Graphs/Indirect_ES_sim_CP.png")
 
 
 
 
 ### Prop Amount of direct E(D)S
 
-tot_services_emp<-direct_ES %>% filter(management=="E") %>% group_by(management,services) %>% 
-                  summarize(tot_empirical = sum(weight))
+# Calculate ratio of change for empirical
+
+direct_ES_emp<- read.csv("Data/Land_use_dir_weighted_CP_intense.csv", sep =",") #upload empirical
+
+extensive_amount <- direct_ES_emp %>% 
+  filter(management == "E") %>%
+  group_by(management,services) %>% 
+  summarize(tot_exten = sum(weight))
+
+ratio_empirical <- direct_ES_emp  %>% group_by(management,services) %>% 
+  summarize(tot = sum(weight)) %>% 
+  left_join(extensive_amount[,2:3], by = "services", suffix = c("", "_extensive")) %>%
+  mutate(ratio_change_ave = tot / tot_exten) %>%  #ratio of change: values higher than 1 indicates increasing in the amount of E(D)S
+  mutate(type = "Empirical")
 
 
-Prop_weight<-direct_ES %>% group_by(management,services) %>% 
-  summarize(tot = sum(weight)) %>% ungroup() %>%  
-  mutate(Extensive_tot = case_when(
-    services == "Bird watching"~ 330890.9200,
-    services == "Butterfly watching"~ 244.7676,
-    services == "Crop damage"~ 645963.6269,
-    services == "Resource provision"~ 209300.0000,
-    services == "Pest control"~ 7108.3108,
-    services == "Pollination"~ 36736.7426,
-    services == "Seed dispersal"~ 305215.3300),
-    ratio_change = tot / Extensive_tot  #ratio of change: values higher than 1 indicates increasing in the amount of E(D)S
-  )
-  
-  
-  
-prop_weight_direct<- Prop_weight %>% ggplot(aes(x = management, y = ratio_change)) +
-  geom_boxplot(color = "black") +
-  geom_point(position=position_jitterdodge(jitter.width=2, dodge.width = 0.5), 
-             pch=21, aes(fill=factor(services)), size = 4, show.legend = T) +
-  # scale_fill_manual(values = col) + 
-  scale_fill_brewer(palette="PRGn") +
-  scale_y_continuous(name = "Change in the amount of direct E(D)S provided ", limits = c(0, 2.8)) + 
+# Calculate ratio of change for simulations
+direct_ES_sim<- read.csv("Data/direct_ES_sim_CP.csv", sep =",")
+
+ratio_sim<- direct_ES_sim %>% filter (management !="E") %>% 
+  group_by(management,iteration,services) %>% 
+  summarize(tot = sum(weight)) %>% 
+  left_join(extensive_amount[,2:3], by = "services", suffix = c("", "_extensive")) %>%
+  mutate(ratio_change = tot / tot_exten) %>% #ratio of change: values higher than 1 indicates increasing in the amount of E(D)S
+  group_by(management,services) %>% 
+  summarise(ratio_change_ave = mean(ratio_change)) %>% 
+  mutate(type = "Null")
+
+#Join data
+ratio_sim2<-rbind(ratio_empirical,ratio_sim)
+ratio_sim2$management <- factor(ratio_sim2$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+
+
+
+#Plot 
+prop_EDS_ratio <- ratio_sim2%>% ggplot(aes(x = management, y = ratio_change_ave)) +
+  geom_boxplot(aes(colour = type), 
+               outlier.shape = NA) +
+  geom_point(aes(fill = factor(services), color = type), 
+             position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.4),
+             pch = 21, size = 2.5, stroke = 1, show.legend = TRUE) +
+  scale_fill_brewer(palette = "PRGn")+
+  scale_color_manual(values = c("black","#d7301f"))+
+  scale_y_continuous(name = "Change in the amount of direct E(D)S", limits = c(0, 2.8)) + 
   scale_x_discrete(name = "Management")+
   theme(panel.background = element_rect(fill = "white"),
         panel.grid.major=element_line(color = "gray"),
@@ -1354,171 +1640,48 @@ prop_weight_direct<- Prop_weight %>% ggplot(aes(x = management, y = ratio_change
         panel.spacing = unit(0.5, "cm", data = NULL),
         axis.text.y = element_text(size=13, color='black'),
         axis.text = element_text(size=15, color='black'),
-        axis.text.x= element_text(size =15), 
+        axis.text.x= element_text(size =14), 
         axis.title = element_text(size=17, color='black'),
         axis.line = element_blank(),
         legend.text.align = 0,
         legend.title =  element_text(size = 13, color = "black"),
         legend.text = element_text(size = 11))
 
-prop_weight_direct
-
-#ggsave("Land_use_weight_CP_intense.png")
+prop_EDS_ratio
 
 
-### Plot of proportion of each direct E(D)S per management (also indicating if it's a services and disservices)
-
-# Direct
-D_ES<-direct_ES %>% group_by(management) %>% 
-  mutate(Total = n()) %>% group_by(management,services) %>% 
-  summarise(Number = n(), Prop = Number /Total) %>% unique()
+#ggsave("ratio_change_sim_CP.png")
 
 
-Direct_ES_management<- D_ES  %>%  
-  ggplot(aes(y=Prop, x= management, fill = services)) + 
+
+###### Average trophic group of species removed
+
+## Final data of species removed (simulation)
+nodes_ES<- read.csv("Data/Land_use_dir_weighted_CP_intense.csv", sep =",") %>% ungroup() %>% 
+            select(node_id,taxon,services) %>% unique()
+
+#Try to put empirical
+taxon_removed_sim <- read.csv("Data/sps_removed_sim_CP.csv", sep =",") %>% 
+                left_join(Norwood_farm$nodes[,c(1,3)], by = c("species_rem" = "node_id")) %>% 
+                left_join(nodes_ES[,c(1,3)], by =  c("species_rem" = "node_id") )%>% 
+                mutate(services = ifelse(is.na(services), "None", services)) %>% 
+                group_by(management,iteration,taxon) %>% mutate(number_taxon= n()) %>% 
+                group_by(management, taxon) %>% summarise(ave_taxon = mean(number_taxon)) %>% 
+                group_by(management) %>% mutate(tot = sum(ave_taxon),
+                                               Prop_taxon = ave_taxon / tot)
+
+taxon_removed_sim$management <- factor(taxon_removed_sim$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+  
+  prop_taxon<- taxon_removed_sim %>% ggplot(aes(y=Prop_taxon, x= management, fill = taxon)) + 
   geom_bar(position="stack", stat="identity", color = "black")+ 
-  scale_fill_brewer(palette="PRGn") +
-  ggtitle("Direct provision")+
-  labs(x='Management', y="Prop E(D)S per management") +theme_bw()+
-  theme_classic()+
-  theme(panel.background = element_rect(fill = "white"),
-        panel.border = element_rect(color = "black",fill = NA,size = 1),
-        panel.spacing = unit(0.5, "cm", data = NULL),
-        axis.text.y = element_text(size=13, color='black'),
-        axis.text = element_text(size=15, color='black'),
-        axis.text.x= element_text(size =15), 
-        axis.title = element_text(size=17, color='black'),
-        axis.line = element_blank(),
-        legend.text.align = 0,
-        legend.title =  element_text(size = 13, color = "black"),
-        legend.text = element_text(size = 11),
-        legend.position = "bottom") 
-
-Direct_ES_management
-#ggsave("Prop_ES_direct_CP.png")
-
-
-### Plot of proportion of each indirect effects on E(D)S per management
-
-# Direct
-I_ES<-output_ind_ES %>% group_by(management) %>% 
-  mutate(Total = n()) %>% group_by(management,services_to) %>% 
-  summarise(Number = n(), Prop = Number /Total) %>% unique()
-
-
-Indirect_ES_management<- I_ES  %>%  
-  ggplot(aes(y=Prop, x= management, fill = services_to)) + 
-  geom_bar(position="stack", stat="identity", color = "black")+ 
-  scale_fill_brewer(palette="PRGn") +
-  ggtitle("InDirect provision")+
-  labs(x='Management', y="Prop indirect effects on E(D)S per management") +theme_bw()+
-  theme_classic()+
-  theme(panel.background = element_rect(fill = "white"),
-        panel.border = element_rect(color = "black",fill = NA,size = 1),
-        panel.spacing = unit(0.5, "cm", data = NULL),
-        axis.text.y = element_text(size=13, color='black'),
-        axis.text = element_text(size=15, color='black'),
-        axis.text.x= element_text(size =15), 
-        axis.title = element_text(size=17, color='black'),
-        axis.line = element_blank(),
-        legend.text.align = 0,
-        legend.title =  element_text(size = 13, color = "black"),
-        legend.text = element_text(size = 11),
-        legend.position = "bottom") 
-
-Indirect_ES_management
-#ggsave("Prop_ES_indirect_CP.png")
-
-
-
-
-
-## Direct and indirect two hops (- and +)
-
-
-# Direct
-D_taxon_output<-direct_ES %>% group_by(management,output) %>% 
-  mutate(Total = n()) %>% group_by(management,output, taxon) %>% 
-  summarise(Number = n(), Prop = Number /Total) %>% unique()
-
-
-# positive
-D_taxon_positive<- D_taxon_output %>% filter(output == "+")
-Direct_taxon_positive<- D_taxon_positive  %>%  
-  ggplot(aes(y=Prop, x= management, fill = taxon)) + 
-  geom_bar(position="stack", stat="identity", color = "black")+ 
-  scale_fill_manual(label = c("Butterfly", "Crop","Flower-visitor ins",
-                               "Leaf-miner par", 
-                              "Prim aphid par","Rodent ectoparasite","Sec aphid par", "Seed-feeding bird", 
-                              "Seed-feeding ins","Seed-feeding rod"), 
-                    values = c("#E18A00",  "#BE9C00", "#8CAB00", "#00BE70","#00BBDA", "#00ACFC",
-                       "#8B93FF",  "#D575FE","#F962DD", "#FF65AC" ))+
-  ggtitle("Direct provision")+
-  labs(x='Output', y="Prop output provided per taxon") +theme_bw()+
-  theme_classic()+
-  theme(panel.background = element_rect(fill = "white"),
-        panel.border = element_rect(color = "black",fill = NA,size = 1),
-        panel.spacing = unit(0.5, "cm", data = NULL),
-        axis.text.y = element_text(size=13, color='black'),
-        axis.text = element_text(size=15, color='black'),
-        axis.text.x= element_text(size =15), 
-        axis.title = element_text(size=17, color='black'),
-        axis.line = element_blank(),
-        legend.text.align = 0,
-        legend.title =  element_text(size = 13, color = "black"),
-        legend.text = element_text(size = 11),
-        legend.position = "bottom")
-        
-Direct_taxon_positive
-ggsave("output_taxon_direct_positive_CP.png")
-
-# negative
-D_taxon_negative<- D_taxon_output %>% filter(output == "-")
-Direct_taxon_negative<- D_taxon_negative  %>%  
-  ggplot(aes(y=Prop, x= management, fill = taxon)) + 
-  geom_bar(position="stack", stat="identity", color = "black")+ 
-  scale_fill_manual(label = c("Aphid",  "Seed-feeding bird", 
-                              "Seed-feeding rod"), 
-                    values = c("#F8766D", "#D575FE", "#FF65AC" ))+
-  ggtitle("Direct provision")+
-  labs(x='Output', y="Prop output provided per taxon") +theme_bw()+
-  theme_classic()+
-  theme(panel.background = element_rect(fill = "white"),
-        panel.border = element_rect(color = "black",fill = NA,size = 1),
-        panel.spacing = unit(0.5, "cm", data = NULL),
-        axis.text.y = element_text(size=13, color='black'),
-        axis.text = element_text(size=15, color='black'),
-        axis.text.x= element_text(size =15), 
-        axis.title = element_text(size=17, color='black'),
-        axis.line = element_blank(),
-        legend.text.align = 0,
-        legend.title =  element_text(size = 13, color = "black"),
-        legend.text = element_text(size = 11),
-        legend.position = "bottom")
-Direct_taxon_negative
-#ggsave("output_taxon_direct_negative_CP.png")
-
-
-# Indirect
-I_taxon_output<-output_ind_ES %>% group_by(management,output) %>% 
-  mutate(Total = n()) %>% group_by(management,output, taxon) %>% 
-  summarise(Number = n(), Prop = Number /Total) %>% unique()
-
-#Positive
-I_taxon_positive<- I_taxon_output %>% filter(output == "+")
-
-Indirect_taxon_positive<- I_taxon_positive%>% 
-  ggplot(aes(y=Prop, x=management, fill = taxon)) + 
-  geom_bar(position="stack", stat="identity", color = "black")+ 
-  scale_fill_manual(label = c("Aph","Butt", "Crop","Flower-visitor ins","Insect seed-feeder par", 
-                              "Leaf-miner par", "Plants","Prim aphid par", "Rodent ectopar",
-                              "Sec aphid par", "Seed-feeding bird", "Seed-feeding ins",
-                              "Seed-feeding rod"),
-                    values = c("#F8766D", "#E18A00","#BE9C00", "#8CAB00",
-                               "#24B700", "#00BE70","#00C1AB", "#00BBDA", "#00ACFC",
-                               "#8B93FF", "#D575FE","#F962DD", "#FF65AC"))+
-  ggtitle("Indirect provision")+
-  labs(x='Output', y="Prop output provided per taxon") +theme_bw()+
+    scale_fill_manual(label = c("Aph","Butt","Flower-visitor ins","Insect seed-feeder par", 
+                                "Leaf-miner par", "Plants","Prim aphid par", "Rodent ectopar",
+                                "Sec aphid par", "Seed-feeding bird", "Seed-feeding ins",
+                                "Seed-feeding rod"),
+                      values = c("#F8766D", "#E18A00", "#8CAB00",
+                                 "#24B700", "#00BE70","#00C1AB", "#00BBDA", "#00ACFC",
+                                 "#8B93FF", "#D575FE","#F962DD", "#FF65AC"))+
+  labs(x='Management', y="Prop. of taxa sps removed") +theme_bw()+
   theme_classic()+
   theme(panel.background = element_rect(fill = "white"),
         panel.border = element_rect(color = "black",fill = NA,size = 1),
@@ -1533,39 +1696,354 @@ Indirect_taxon_positive<- I_taxon_positive%>%
         legend.text = element_text(size = 11),
         legend.position = "bottom")
 
-Indirect_taxon_positive
-#ggsave("output_taxon_indirect_positive_CP.png")
+  
+  
+  
 
 
-#Negative
-I_taxon_negative<- I_taxon_output %>% filter(output == "-")
+  ###### Average degree of species removed
+  
+  ### Calculate sps removed in each management conversion from extrensive empirical to Intensive empirical
+  
+  CP <- Norwood_farm$state_nodes %>% filter(layer_name =="CP") %>% select(node_id)# species in CP
+  
+  # List of species that were removed in each habitat 
+  sps_removed_emp <- Norwood_farm$state_nodes %>% filter(layer_name !="CP") %>% 
+    filter (!node_id %in% CP$node_id) %>% # Identify species that were removed when convert the land from empirical to intensive %>% 
+    left_join(Norwood_farm$nodes[,c(1,3)], by = "node_id") %>% 
+    left_join(nodes_ES[,c(1,3)], by =  "node_id")%>% 
+    mutate(services = ifelse(is.na(services), "None", services))
+  
+  # Add degree of species removed
+  edge_list_layer_name<- Norwood_farm$extended_ids %>% 
+    left_join(Norwood_farm$layers,by = c("layer_from"="layer_id")) %>% 
+    select(node_from,node_to,layer_name)
+  
+  edge_list_layer_name_inv<- edge_list_layer_name %>%  select(node_to, node_from,layer_name) #created a inverted version
+  colnames(edge_list_layer_name_inv) <- c("node_from", "node_to","layer_name")
+  
+  edge_list_to_filter <- rbind(edge_list_layer_name, edge_list_layer_name_inv)#bind them
+  
+  degree_sp_rem<-NULL
+  
+  for (i in unique(sps_removed_emp$layer_name)){ #for each habitat
+    
+    #filter data
+    list_nodes <- sps_removed_emp%>% filter(layer_name == i) #select species that went extinct
+    
+    #check degree information in the edgelist
+    degree_sp <- edge_list_to_filter %>% 
+      filter(layer_name == i & (node_from %in%list_nodes$node_id)) %>% 
+      group_by(layer_name,node_from) %>% summarise(degree = n())
+    
+    #Storage 
+    degree_sp_rem<- bind_rows(degree_sp_rem, degree_sp)
+  }
+  
+  
+  # Re arrange dataframe  and add taxon information
+  degree_sp_rem_emp<- degree_sp_rem %>% 
+    mutate (layer_name = case_when( #Put name of conversion
+      layer_name == "WD" |  layer_name == "RG"~ "SE",
+      layer_name == "MH" |  layer_name == "NH"~ "M",
+      layer_name == "PP" |  layer_name == "GM"  |  layer_name == "SF"~ "SI",
+      layer_name == "LP" |  layer_name == "NL"  ~ "I")) %>% 
+    rename("node_id"="node_from", "management" = "layer_name") %>% 
+    left_join(Norwood_farm$nodes[,c(1,3)], by = "node_id") %>%    #add taxon information
+    left_join(nodes_ES[,c(1,3)], by =  "node_id")%>% 
+    mutate(services = ifelse(is.na(services), "None", services)) %>% 
+    group_by(management,taxon)%>% summarise(ave_degree = mean(degree)) 
+    
 
-Indirect_taxon_negative<- I_taxon_negative %>% 
-  ggplot(aes(y=Prop, x=management, fill = taxon)) + 
-  geom_bar(position="stack", stat="identity", color = "black")+ 
-  scale_fill_manual(label = c("Aph","Butt", "Crop","Flower-visitor ins","Insect seed-feeder par", 
-                              "Leaf-miner par", "Plants","Prim aphid par", "Rodent ectopar",
-                              "Sec aphid par", "Seed-feeding bird", "Seed-feeding ins",
-                              "Seed-feeding rod"),
-                    values = c("#F8766D", "#E18A00","#BE9C00", "#8CAB00",
-                               "#24B700", "#00BE70","#00C1AB", "#00BBDA", "#00ACFC",
-                               "#8B93FF", "#D575FE","#F962DD", "#FF65AC"))+
-  ggtitle("Indirect provision")+
-  labs(x='Output', y="Prop output provided per taxon") +theme_bw()+
-  theme_classic()+
-  theme(panel.background = element_rect(fill = "white"),
-        panel.border = element_rect(color = "black",fill = NA,size = 1),
-        panel.spacing = unit(0.5, "cm", data = NULL),
-        axis.text.y = element_text(size=13, color='black'),
-        axis.text = element_text(size=15, color='black'),
-        axis.text.x= element_text(size =15), 
-        axis.title = element_text(size=17, color='black'),
-        axis.line = element_blank(),
-        legend.text.align = 0,
-        legend.title =  element_text(size = 13, color = "black"),
-        legend.text = element_text(size = 11),
-        legend.position = "bottom")
+# Simulated network
+  degree_removed_sim <- read.csv("Data/sps_removed_sim_CP.csv", sep =",") %>% 
+    group_by(management) %>% summarise(ave_degree = mean(degree)) 
+  
+ taxon_removed_sim$management <- factor(taxon_removed_sim$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+  
+ degree_removed_sim <- read.csv("Data/sps_removed_sim_CP.csv", sep =",") %>% 
+    left_join(Norwood_farm$nodes[,c(1,3)], by = c("species_rem" = "node_id")) %>% 
+    left_join(nodes_ES[,c(1,3)], by =  c("species_rem" = "node_id") )%>% 
+    mutate(services = ifelse(is.na(services), "None", services)) %>% 
+   group_by(management,taxon)%>% summarise(ave_degree = mean(degree)) 
 
-Indirect_taxon_negative
+bird_plants_emp <- degree_sp_rem_emp %>% filter(taxon =="Seed-feeding bird" |
+                                                  taxon =="Plant"|
+                                                  taxon =="Butterfly")
+bird_plants_sim <-  degree_removed_sim %>% filter(taxon =="Seed-feeding bird" |
+                                                  taxon =="Plant"|
+                                                    taxon =="Butterfly")
+  
+ #Focus on the SE between NULL and empirical
+ SE_emp <-degree_sp_rem_emp %>% filter(management =="SE")
+ SE_sim <- degree_removed_sim %>% filter(management =="SE")
 
-#ggsave("output_taxon_indirect_negative_CP.png")
+
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                      Analyses           DESCARTADO POR AHORA!                  
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#### -- Proportion of direct E(D)S retained across land use change --
+
+#upload and prepare dataframe
+direct_ES<- read.csv("Data/direct_ES_sim_CP.csv", sep =",")
+
+direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+
+
+#Empirical
+Prop_dir_Emp<-direct_ES %>% filter(iteration == "Emp") %>% group_by(management,services) %>% 
+  mutate(tot = n()) %>% ungroup() %>%  
+  group_by(services) %>% 
+  mutate(prop = tot/max(tot)) %>%  #prop of E(D)S rtained across habitat management
+  dplyr::select(management,services,tot,prop) %>%
+  unique() %>% rename("Prop_mean" = "prop") %>% 
+  mutate (type = "Empirical")
+
+# adjust the extreme values according to the beta conditions and remove extensive scenario
+Prop_dir_Emp$Prop_mean <- ifelse(Prop_dir_Emp$Prop_mean == 0, 0.000001, 
+                                 ifelse(Prop_dir_Emp$Prop_mean == 1, 0.9999999, Prop_dir_Emp$Prop_mean))
+# Value of empirical
+values_emp<- Prop_dir_Emp %>% filter (management == "E" ) %>% select(management,tot)
+
+#Simulations #FILTRRAR PARA DEJAR ITERATION 1:1000 AND THE EMPIRICAL
+Prop_dir_sim<-direct_ES %>% filter(iteration != "Emp" & management =="E") %>% group_by(management,iteration,services) %>% 
+  mutate(tot = n(),
+         tot_emp = case_when( #Values of denominator
+           services == "Crop production"~ 6,
+           services == "Pollination" ~ 117,
+           services == "Crop damage"~ 15,
+           services == "Pest control"~ 28,
+           services == "Seed dispersal" ~ 5,
+           services == "Butterfly watching"~ 16,
+           services == "Bird watching"~ 7 )) %>% ungroup() %>%  
+  group_by(services) %>% 
+  mutate(prop = tot/tot_emp) %>%  #prop of E(D)S rtained across habitat management per iteration and habitat management
+  dplyr::select(management,iteration,services,tot,prop) %>%
+  unique() %>% group_by(management,services) %>% summarise(Prop_mean = mean(prop)) %>% 
+  mutate(type = "Null")
+
+
+# Merge empirical and simulations and remove extensive scenario
+Prop_dir_sim2 <- rbind(Prop_dir_Emp, Prop_dir_sim) %>% filter(management != "E")
+
+# adjust the extreme values according to the beta conditions and remove extensive scenario
+Prop_dir_sim2$Prop_mean <- ifelse(Prop_dir_sim2$Prop_mean == 0, 0.000001, 
+                                  ifelse(Prop_dir_sim2$Prop_mean == 1, 0.9999999, Prop_dir_sim2$Prop_mean))
+
+# Model
+library("glmmTMB")
+library("stats4")
+library("bbmle")
+library(emmeans)
+library(car)
+
+# Models
+#shapiro.test(Prop_dir_sim2$Prop_mean)#check for normality #it's not normal so we use beta
+
+Prop_dir_emp<-glmmTMB (Prop_mean ~ management + services, family=beta_family(link="logit"), data = Prop_dir_Emp) #empirical
+
+Prop_dir_null<-glmmTMB (Prop_mean ~ management + services, family=beta_family(link="logit"), data = Prop_dir_sim2) # model that best fit
+#Prop_dire2<-glmmTMB (Prop_mean ~ type + management, family=beta_family(link="logit"), data = Prop_dir_sim2)
+#Prop_dire3<- glmmTMB (Prop_mean ~ type + (1| management/services),family=beta_family(link="logit"),data = Prop_dir_sim2)
+#Prop_dire4<-glmmTMB (Prop_mean ~ type:management, family=beta_family(link="logit"), data = Prop_dir_sim2)
+Anova(Prop_dire)
+summary(Prop_dire)
+
+print(p)
+
+#Homogeneity
+EM<-resid(Prop_dire, type= "response") 
+FM<-fitted(Prop_dire) 
+plot(x=FM, y=EM, xlab = "Ajustados", ylab = "Residuales normalizados")
+abline(0,0, col="red", lwd= 3) 
+
+#independence 
+E1_lme<-resid(Prop_dire, type= "response") 
+boxplot(E1_lme ~ type, data = Prop_dir_sim2, main = "Management")
+
+# posthoc ()
+post_dir<- emmeans(Prop_dire, ~ management)
+pairs(post_dir)
+
+post_ser<- emmeans(Prop_dire, ~ type)
+pairs(post_ser)
+
+
+
+#### Proportion of indirect effect on E(D)S retained across land use change --
+
+#upload and prepare dataframe
+output_ind_ES<- read.csv("Data/Indirect_ES_sim_CP.csv", sep =",")
+output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+
+
+#Empirical
+Prop_indir_Emp<-output_ind_ES %>% filter(iteration == "Emp") %>% group_by(management,services_to) %>% 
+  mutate(tot = n()) %>% ungroup() %>%  
+  group_by(services_to) %>% 
+  mutate(prop = tot/max(tot)) %>%  #prop of indirect effects on E(D)S retained in the empirical
+  dplyr::select(management,services_to,tot,prop) %>%
+  unique() %>% rename("Prop_mean" = "prop") %>% 
+  mutate (type = "Empirical")
+
+
+# Value of empirical
+values_emp<- Prop_indir_Emp %>% filter (management == "E" ) %>% select(management,tot)
+
+
+#Simulations
+Prop_indir_sim<-output_ind_ES %>% filter(iteration != "Emp" & iteration <=100) %>%  #iteration >100 to filter the indiretc 1 hop effect to the number of iteration in the indirect 2 hops
+  group_by(management,iteration,services_to) %>% 
+  mutate(tot = n(),
+         tot_emp = case_when( #Values of denominator
+           services_to == "Crop production"~ 280,
+           services_to == "Pollination" ~ 18733,
+           services_to == "Crop damage"~ 9816,
+           services_to == "Pest control"~ 3261,
+           services_to == "Seed dispersal" ~ 4154,
+           services_to == "Butterfly watching"~ 3515,
+           services_to == "Bird watching"~ 5722 )) %>% ungroup() %>%  
+  group_by(services_to) %>% 
+  mutate(prop = tot/tot_emp) %>%  #prop of E(D)S rtained across habitat management per iteration and habitat management
+  dplyr::select(management,iteration,services_to,tot,prop) %>%
+  unique() %>% group_by(management,services_to) %>% summarise(Prop_mean = mean(prop)) %>% 
+  mutate(type = "Null")
+
+
+# Merge empirical and simulations and remove extensive scenario
+Prop_indir_sim2 <- rbind(Prop_indir_Emp, Prop_indir_sim) %>% filter(management != "E")
+
+
+# Model
+library(lme4)
+
+shapiro.test(Prop_indir_sim2$Prop_mean)#check for normality
+
+Prop_indire_nor1<-lmer (Prop_mean ~ type + management + ( 1| services_to), data = Prop_indir_sim2) #best model
+#Prop_indire_nor2<-lm (Prop_mean ~ type + management, data = Prop_indir_sim2) #best model
+#Prop_indire_nor3<-lmer (Prop_mean ~ type + (1| management/services_to) + ( 1| services_to), data = Prop_indir_sim2) #best model
+#Prop_indire_nor4<-lm (Prop_mean ~ type:management, data = Prop_indir_sim2) #not enough data
+#Prop_indire_nor5<-lmer (Prop_mean ~ type:management + ( 1| services_to), data = Prop_indir_sim2) #not enough data
+
+Anova(Prop_indire_nor1)
+summary(Prop_indire_nor1)
+
+AIC(Prop_indire_nor1, Prop_indire_nor2, Prop_indire_nor3, Prop_indire_nor4)
+
+#Homogeneity
+EM<-resid(Prop_indire_nor4, type= "response") 
+FM<-fitted(Prop_indire_nor4) 
+plot(x=FM, y=EM, xlab = "Ajustados", ylab = "Residuales normalizados")
+abline(0,0, col="red", lwd= 3) 
+
+#independence 
+E1_lme<-resid(Prop_indire_nor4, type= "response") 
+boxplot(E1_lme ~ type, data = Prop_indir_sim2, main = "Management")
+
+# posthoc interaction
+emm_interaction<- emmeans(Prop_indire_nor4, ~ type:management)
+posthoc_interaction <- pairs(emm_interaction)
+pairs(posthoc_interaction)
+
+post_man<- emmeans(Prop_indire_nor1, ~ management)
+pairs(post_man)
+
+
+
+## beta distributon (BORRAR SI DECIDO USAR NORMAL)
+Prop_indire<-glmmTMB (Prop_mean ~ type + management + ( 1| services_to), family=beta_family(link="logit"), data = Prop_indir_sim2) #best model
+Prop_indire2<-glmmTMB (Prop_mean ~ type + management, family=beta_family(link="logit"), data = Prop_indir_sim2)
+Prop_indire3<- glmmTMB (Prop_mean ~ type + (1| management/services_to),family=beta_family(link="logit"),data = Prop_indir_sim2)
+Prop_indire4<-glmmTMB (Prop_mean ~ type:management , family=beta_family(link="logit"), data = Prop_indir_sim2) #not working
+Prop_indire5<-glmmTMB (Prop_mean ~ type:management + ( 1| services_to), family=beta_family(link="logit"), data = Prop_indir_sim2) #not working
+Anova(Prop_indire)
+summary(Prop_indire)
+
+AIC(Prop_indire, Prop_indire2, Prop_indire3, Prop_indire4)
+
+
+#Homogeneity
+EM<-resid(Prop_indire, type= "response") 
+FM<-fitted(Prop_indire) 
+plot(x=FM, y=EM, xlab = "Ajustados", ylab = "Residuales normalizados")
+abline(0,0, col="red", lwd= 3) 
+
+#independence 
+E1_lme<-resid(Prop_indire, type= "response") 
+boxplot(E1_lme ~ type, data = Prop_indir_sim2, main = "Management")
+
+# posthoc ()
+post_indir<- emmeans(Prop_indire, ~ management)
+pairs(post_indir)
+
+post_type<- emmeans(Prop_indire, ~ type)
+pairs(post_type)
+
+
+
+
+#### Change in the amount of direct E(D)S provided change across land use change --
+
+#Amount of ES provided by each species in the empirical (Weight = abundance * biomass)
+direct_ES_emp<- read.csv("Data/Land_use_dir_weighted_CP_intense.csv", sep =",")
+
+extensive_amount <- direct_ES_emp %>% 
+  filter(management == "E") %>%
+  select(node_id, services, weight)
+
+dir_amount_emp <- direct_ES_emp %>% filter(management != "E") %>% 
+  left_join(extensive_amount, by = c("node_id", "services"), suffix = c("", "_extensive")) %>%
+  mutate(ratio_change = weight / weight_extensive) #ratio of change: values higher than 1 indicates increasing in the amount of E(D)S
+
+
+ratio_empirical<-dir_amount_emp %>% filter(management != "E") %>% #subset empirical (except "Extensive" management)
+  select(management, services,node_id, ratio_change) %>% group_by(management,services,node_id) %>% 
+  summarise(ratio_change_ave = mean(ratio_change)) %>% 
+  mutate(type = "Empirical")
+
+# Calculate the ratio change in the amount of ES per species in each simulation
+direct_ES_sim<- read.csv("Data/direct_ES_sim_CP.csv", sep =",")
+
+dir_amount_sim <- direct_ES_sim %>% filter(iteration != "Emp" ) %>% 
+  left_join(extensive_amount, by = c("node_id", "services"), suffix = c("", "_extensive")) %>%
+  mutate(ratio_change = weight / weight_extensive) #ratio of change: values higher than 1 indicates increasing in the amount of E(D)S
+
+ratio_sim<-dir_amount_sim  %>% 
+  select(management,iteration, services,node_id, ratio_change) %>% group_by(management,services,node_id) %>% 
+  summarise(ratio_change_ave = mean(ratio_change)) %>% 
+  mutate(type = "Null")
+
+#Join data
+ratio_sim2<-rbind(ratio_empirical,ratio_sim)
+
+# Model
+#shapiro.test(ratio_sim2$ratio_change_ave) #not normal
+
+m_amount1<- glmmTMB(ratio_change_ave ~ management + type + (1|services) + (1|node_id),family = Gamma(link = "log"), 
+                    data = ratio_sim2) # best model
+#m_amount2<- glmmTMB(ratio_change_ave ~ management:type + (1|services),family = Gamma(link = "log"),
+#                   data = ratio_sim2) #the interaction is not ok according to AIC
+Anova(m_amount1)
+summary(m_amount1)
+
+#AIC(m_amount1,m_amount2)
+
+#Homogeneity
+EM<-resid(m_amount1, type= "response") 
+FM<-fitted(m_amount1) 
+plot(x=FM, y=EM, xlab = "Ajustados", ylab = "Residuales normalizados")
+abline(0,0, col="red", lwd= 3) 
+
+#independence 
+E1_lme<-resid(m_amount1, type= "response") 
+boxplot(E1_lme ~ type, data = ratio_sim2, main = "Management")
+
+# posthoc ()
+post_man<- emmeans(m_amount1, ~ management)
+pairs(post_man)
+
+
+

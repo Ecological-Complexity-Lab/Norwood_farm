@@ -974,7 +974,7 @@ dir_amount <- direct_ES %>%
 
 # Model
 library(glmmTMB)
-m_amount<- glmmTMB(ratio_change ~ management + (1|node_id),family = Gamma(link = "log"),
+m_amount<- glmmTMB(ratio_change ~ management + (1|node_id) + (1|services),family = Gamma(link = "log"),
                    data = dir_amount) #model that best fit
 
 #m_amount_2<- glmmTMB(ratio_change ~ management + services (1|node_id),family = Gamma(link = "log"),

@@ -1048,10 +1048,11 @@ dir_amount <- direct_ES %>%
 library(glmmTMB)
 m_amount<- glmmTMB(ratio_change ~ management:services + (1|node_id),family = Gamma(link = "log"),
                    data = dir_amount) 
+
 Anova(m_amount)
 summary(m_amount)
 
-
+AIC(m_amount,m_amount2)
 #Homogeneity
 EM<-resid(m_amount, type= "response") 
 FM<-fitted(m_amount) 
