@@ -1003,16 +1003,12 @@ pairs(post_amount)
 
 
 #direct
-direct_ES<- read.csv("Data/Land_use_dir_weighted_PP_intense.csv", sep =",") %>% 
-            mutate(services = case_when(services == "Crop production"~ "Resource provision",
-                              TRUE~services))
+direct_ES<- read.csv("Data/Land_use_dir_weighted_PP_intense.csv", sep =",") 
 
 direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
 
 #indirect
-output_ind_ES <- read.csv("Data/Land_use_output_weighted_PP_intense.csv", sep =",") %>% 
-  mutate(services_to = case_when(services_to == "Crop production"~ "Resource provision",
-                                 TRUE~services_to))
+output_ind_ES <- read.csv("Data/Land_use_output_weighted_PP_intense.csv", sep =",") 
 
 
 output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
@@ -1070,6 +1066,9 @@ upper_row
 
 ### Plot of proportions of direct and indirect E(D)S retained 
 
+color_services <-tibble(
+  services = unique(direct_ES$services),
+  color = c('#1b9e77','#d95f02','#7570b3','#e7298a','#66a61e','#e6ab02','#a6761d'))
 
 #direct 
 
@@ -1082,10 +1081,9 @@ Prop<-direct_ES %>% group_by(management,services) %>%
 prop_EDS_direct<- Prop %>% ggplot(aes(x = management, y = prop)) +
   geom_boxplot(color = "black") +
   geom_point(position=position_jitterdodge(jitter.width=2, dodge.width = 0.5), 
-             pch=21, aes(fill=factor(services)), size = 4, show.legend = T) +
-  # scale_fill_manual(values = col) + 
-  scale_fill_brewer(palette="PRGn") +
-  scale_y_continuous(name = "Fraction of E(D)S retained", limits = c(0, 1)) + 
+             pch=21, aes(fill=factor(services)), size = 3.5, show.legend = T) +
+  scale_fill_manual(values = color_services$color) +
+  scale_y_continuous(name = "Prop. of direct E(D)S retained", limits = c(0, 1)) + 
   scale_x_discrete(name = "Management")+
   theme(panel.background = element_rect(fill = "white"),
         panel.grid.major=element_line(color = "gray"),
@@ -1101,8 +1099,7 @@ prop_EDS_direct<- Prop %>% ggplot(aes(x = management, y = prop)) +
         legend.text = element_text(size = 11))
 prop_EDS_direct
 
-#ggsave("Land_use_retained_direct_PP_intense.png")
-
+ggsave("Graphs/Land_use_retained_direct_PP_intense.png")
 #indirect
 
 Prop_ind<-output_ind_ES %>% group_by(management,services_to) %>% 
@@ -1114,10 +1111,9 @@ Prop_ind<-output_ind_ES %>% group_by(management,services_to) %>%
 prop_EDS_indirect<- Prop_ind %>% ggplot(aes(x = management, y = prop)) +
   geom_boxplot(color = "black") +
   geom_point(position=position_jitterdodge(jitter.width=2, dodge.width = 0.5), 
-             pch=21, aes(fill=factor(services_to)), size = 4, show.legend = T) +
-  # scale_fill_manual(values = col) + 
-  scale_fill_brewer(palette="PRGn") +
-  scale_y_continuous(name = "Fraction of E(D)S retained", limits = c(0, 1)) + 
+             pch=21, aes(fill=factor(services_to)), size = 3.5, show.legend = T) +
+  scale_fill_manual(values = color_services$color) +
+  scale_y_continuous(name = "Prop. of indirect effects on E(D)S retained", limits = c(0, 1)) + 
   scale_x_discrete(name = "Management")+
   theme(panel.background = element_rect(fill = "white"),
         panel.grid.major=element_line(color = "gray"),
@@ -1133,7 +1129,7 @@ prop_EDS_indirect<- Prop_ind %>% ggplot(aes(x = management, y = prop)) +
         legend.text = element_text(size = 11))
 prop_EDS_indirect
 
-#ggsave("Land_use_retained_indirect_PP_intense.png")
+#ggsave("Graphs/Land_use_retained_indirect_PP_intense.png")
 
 
 
@@ -1225,7 +1221,7 @@ Prop_weight<-direct_ES %>% group_by(management,services) %>%
     services == "Bird watching"~ 330890.9200,
     services == "Butterfly watching"~ 244.7676,
     services == "Crop damage"~ 645963.6269,
-    services == "Resource provision"~ 209300.0000,
+    services == "Crop production"~ 209300.0000,
     services == "Pest control"~ 7108.3108,
     services == "Pollination"~ 36736.7426,
     services == "Seed dispersal"~ 305215.3300),
@@ -1237,10 +1233,9 @@ Prop_weight<-direct_ES %>% group_by(management,services) %>%
 prop_weight_direct<- Prop_weight %>% ggplot(aes(x = management, y = ratio_change)) +
   geom_boxplot(color = "black") +
   geom_point(position=position_jitterdodge(jitter.width=2, dodge.width = 0.5), 
-             pch=21, aes(fill=factor(services)), size = 4, show.legend = T) +
-  # scale_fill_manual(values = col) + 
-  scale_fill_brewer(palette="PRGn") +
-  scale_y_continuous(name = "Change in the amount of direct E(D)S provided ", limits = c(0, 2.8)) + 
+             pch=21, aes(fill=factor(services)), size = 3.5, show.legend = T) +
+  scale_fill_manual(values = color_services$color) + 
+  scale_y_continuous(name = "Relative change in the amount of direct E(D)S provided", limits = c(0, 3)) + 
   scale_x_discrete(name = "Management")+
   theme(panel.background = element_rect(fill = "white"),
         panel.grid.major=element_line(color = "gray"),
@@ -1257,7 +1252,7 @@ prop_weight_direct<- Prop_weight %>% ggplot(aes(x = management, y = ratio_change
 
 prop_weight_direct
 
-#ggsave("Land_use_weight_PP_intense.png")
+#ggsave("Graphs/Land_use_weight_PP_intense.png")
 
 
 ### Plot of proportion of each direct E(D)S per management (also indicating if it's a services and disservices)
@@ -1271,9 +1266,8 @@ D_ES<-direct_ES %>% group_by(management) %>%
 Direct_ES_management<- D_ES  %>%  
   ggplot(aes(y=Prop, x= management, fill = services)) + 
   geom_bar(position="stack", stat="identity", color = "black")+ 
-  scale_fill_brewer(palette="PRGn") +
-  ggtitle("Direct provision")+
-  labs(x='Management', y="Prop E(D)S per management") +theme_bw()+
+  scale_fill_manual(values = color_services$color) +
+  labs(x='Management', y="Prop. direct E(D)S per management") +theme_bw()+
   theme_classic()+
   theme(panel.background = element_rect(fill = "white"),
         panel.border = element_rect(color = "black",fill = NA,size = 1),
@@ -1289,7 +1283,7 @@ Direct_ES_management<- D_ES  %>%
         legend.position = "bottom") 
 
 Direct_ES_management
-#ggsave("Prop_ES_direct_PP.png")
+ggsave("Graphs/Prop_ES_direct_PP.png")
 
 
 ### Plot of proportion of each indirect effects on E(D)S per management
@@ -1303,9 +1297,8 @@ I_ES<-output_ind_ES %>% group_by(management) %>%
 Indirect_ES_management<- I_ES  %>%  
   ggplot(aes(y=Prop, x= management, fill = services_to)) + 
   geom_bar(position="stack", stat="identity", color = "black")+ 
-  scale_fill_brewer(palette="PRGn") +
-  ggtitle("InDirect provision")+
-  labs(x='Management', y="Prop indirect effects on E(D)S per management") +theme_bw()+
+  scale_fill_manual(values = color_services$color) +
+  labs(x='Management', y="Prop. indirect effects on E(D)S per management") +theme_bw()+
   theme_classic()+
   theme(panel.background = element_rect(fill = "white"),
         panel.border = element_rect(color = "black",fill = NA,size = 1),
@@ -1321,7 +1314,7 @@ Indirect_ES_management<- I_ES  %>%
         legend.position = "bottom") 
 
 Indirect_ES_management
-#ggsave("Prop_ES_indirect_PP.png")
+#ggsave("Graphs/Prop_ES_indirect_PP.png")
 
 ### Plot of proportion of output provided per taxon according to trophic group
 

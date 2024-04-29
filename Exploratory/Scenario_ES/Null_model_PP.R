@@ -1450,13 +1450,16 @@ direct_ES<- read.csv("Data/direct_ES_sim_PP.csv", sep =",")
 direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
 
 #indirect
-output_ind_ES<- read.csv("Data/Indirect_ES_sim_CP.csv", sep =",")
+output_ind_ES<- read.csv("Data/Indirect_ES_sim_PP.csv", sep =",")
 output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
 
 
 
 
 ### Plot of proportions of richness direct and indirect E(D)S retained 
+color_services <-tibble(
+  services = unique(direct_ES$services),
+  color = c('#1b9e77','#d95f02','#7570b3','#e7298a','#66a61e','#e6ab02','#a6761d'))
 
 #Empirical
 Prop_dir_emp<-direct_ES %>% filter(iteration == "Emp") %>% group_by(management,services) %>% 
@@ -1496,10 +1499,10 @@ prop_EDS_direct <- Prop_direct_sim%>% ggplot(aes(x = management, y = Prop_mean))
                outlier.shape = NA) +
   geom_point(aes(fill = factor(services), color = type), 
              position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.4),
-             pch = 21, size = 2.5, stroke = 1, show.legend = TRUE) +
-  scale_fill_brewer(palette = "PRGn")+
-  scale_color_manual(values = c("black","#d7301f"))+
-  scale_y_continuous(name = "Fraction of E(D)S retained", limits = c(0, 1)) + 
+             pch = 21, size = 2, stroke = 1, show.legend = TRUE) +
+  scale_fill_manual(values = color_services$color) + 
+  scale_color_manual(values = c("black","firebrick"))+
+  scale_y_continuous(name = "Prop. of direct E(D)S retained", limits = c(0, 1)) +
   scale_x_discrete(name = "Management")+
   theme(panel.background = element_rect(fill = "white"),
         panel.grid.major=element_line(color = "gray"),
@@ -1517,7 +1520,7 @@ prop_EDS_direct <- Prop_direct_sim%>% ggplot(aes(x = management, y = Prop_mean))
 prop_EDS_direct
 
 
-#ggsave("Direct_ES_sim_PP.png")
+#ggsave("Graphs/Direct_ES_sim_PP.png")
 
 
 ### Plot of proportions of indirect effects on E(D)S retained  
@@ -1551,10 +1554,10 @@ prop_EDS_indirect <- Prop_indir_sim2%>% ggplot(aes(x = management, y = Prop_mean
                outlier.shape = NA) +
   geom_point(aes(fill = factor(services_to), color = type), 
              position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.4),
-             pch = 21, size = 2.5, stroke = 1, show.legend = TRUE) +
-  scale_fill_brewer(palette = "PRGn")+
-  scale_color_manual(values = c("black","#d7301f"))+
-  scale_y_continuous(name = "Fraction of E(D)S retained", limits = c(0, 1)) + 
+             pch = 21, size = 2, stroke = 1, show.legend = TRUE) +
+  scale_fill_manual(values = color_services$color) + 
+  scale_color_manual(values = c("black","firebrick"))+
+  scale_y_continuous(name = "Prop. of indirect effects on E(D)S retained", limits = c(0, 1)) +
   scale_x_discrete(name = "Management")+
   theme(panel.background = element_rect(fill = "white"),
         panel.grid.major=element_line(color = "gray"),
@@ -1616,10 +1619,10 @@ prop_EDS_ratio <- ratio_sim2%>% ggplot(aes(x = management, y = ratio_change_ave)
                outlier.shape = NA) +
   geom_point(aes(fill = factor(services), color = type), 
              position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.4),
-             pch = 21, size = 2.5, stroke = 1, show.legend = TRUE) +
-  scale_fill_brewer(palette = "PRGn")+
-  scale_color_manual(values = c("black","#d7301f"))+
-  scale_y_continuous(name = "Change in the amount of direct E(D)S", limits = c(0, 2.8)) + 
+             pch = 21, size = 2, stroke = 1, show.legend = TRUE) +
+  scale_fill_manual(values = color_services$color) + 
+  scale_color_manual(values = c("black","firebrick"))+
+  scale_y_continuous(name = "Relative change in the amount of direct E(D)S provided", limits = c(0, 3)) + 
   scale_x_discrete(name = "Management")+
   theme(panel.background = element_rect(fill = "white"),
         panel.grid.major=element_line(color = "gray"),
@@ -1636,7 +1639,7 @@ prop_EDS_ratio <- ratio_sim2%>% ggplot(aes(x = management, y = ratio_change_ave)
 
 prop_EDS_ratio
 
-#ggsave("ratio_change_sim_PP.png")
+#ggsave("Graphs/ratio_change_sim_PP.png")
 
 
 
