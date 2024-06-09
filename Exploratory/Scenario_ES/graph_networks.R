@@ -21,6 +21,10 @@ E_edge <- edge_list %>% filter(management == "E") %>% select(node_from,node_to)
 
 E<- graph_from_edgelist(as.matrix(E_edge), directed = FALSE) #create igraph object
 
+S <- vcount(E)#number of species
+L <- ecount(E) #number of links
+C <- ecount(E) / vcount(E)^2 
+
 color_trophic <-tibble(taxon = c("Plant","Crop","Flower-visiting","Aphid","Primary aphid parasitoid","Secondary aphid parasitoid",
                                  "Leaf-miner parasitoid","Seed-feeding insect","Seed-feeding bird",
                                  "Seed-feeding rodent","Butterfly","Insect seed-feeder parasitoid","Rodent ectoparasite"),
@@ -80,6 +84,11 @@ I_CP<- graph_from_edgelist(as.matrix(ICP_edge), directed = FALSE)
 #Identify isolate nodes and remove from the igraph object
 isolated_nodes <- which(degree(I_CP) == 0)
 I_CP2<- delete_vertices(I_CP, isolated_nodes)
+
+
+S <- vcount(I_CP2)#number of species
+L <- ecount(I_CP2) #number of links
+C <- ecount(I_CP2) / vcount(I_CP2)^2  #connectance
 
 ## assign attributes according to the taxon
 nodes_in_network<- nodes %>% filter(node_id%in%ICP_edge$node_from | #create the nodelist according to the nodes present in the network

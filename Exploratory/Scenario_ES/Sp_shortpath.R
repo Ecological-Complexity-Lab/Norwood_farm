@@ -258,6 +258,7 @@ library(emmeans)
 
 pers_1<-glmer (presence ~ management + ( 1| node_id), family = binomial(link="logit"), data = change_top_25_CP_fin,
                control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 1000)))
+
 Anova(pers_1)
 summary(pers_1)
 
@@ -304,7 +305,7 @@ change_top_25_PP_fin<- rbind(top_25_extensive,change_top_25_PP)
 
 # Model
 pers_2<-glmer (presence ~ management + ( 1| node_id), family = binomial(link= "logit"), data = change_top_25_PP_fin,
-               control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 10000)))
+               control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 90000)))
 Anova(pers_2)
 summary(pers_2)
 

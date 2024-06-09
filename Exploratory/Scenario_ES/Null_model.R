@@ -1469,7 +1469,7 @@ output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE
 ### Plot of proportions of richness direct and indirect E(D)S retained 
 color_services <-tibble(
   services = unique(direct_ES$services),
-  color = c('#1b9e77','#d95f02','#7570b3','#e7298a','#66a61e','#e6ab02','#a6761d'))
+  color = c('#1b9e77','#d95f02','#7570b3','#e7298a','#2c7fb8','#e6ab02','#a6761d'))
 
 #direct 
 
@@ -1507,15 +1507,18 @@ Prop_direct_sim<-rbind(Prop_dir_emp,Prop_dir_sim)
 
 #Plot 
 prop_EDS_direct <- Prop_direct_sim%>% ggplot(aes(x = management, y = Prop_mean)) +
-  geom_boxplot(aes(colour = type), 
-               outlier.shape = NA) +
-  geom_point(aes(fill = factor(services), color = type), 
+  geom_boxplot(aes(colour = type), outlier.shape = NA, size = 1.1 ) +
+  geom_point(aes(fill = factor(services), shape = factor(ifelse(type == "Null", 24, 21))), 
              position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.4),
-             pch = 21, size = 2, stroke = 1, show.legend = TRUE) +
-  scale_fill_manual(values = color_services$color) + 
-  scale_color_manual(values = c("black","firebrick"))+
+             size = 2, stroke = 1, show.legend = c(fill = TRUE, shape = FALSE, colour = FALSE)) +
+  scale_fill_manual(values = color_services$color, name = "E(D)S") +
+  scale_shape_manual(values = c(21, 24)) + 
+  scale_color_manual(values = c("black","firebrick"), name = "Type")+
   scale_y_continuous(name = "Prop. of direct E(D)S retained", limits = c(0, 1)) + 
-  scale_x_discrete(name = "Management")+
+  scale_x_discrete(name = "Habitat conversion")+
+  guides(fill = guide_legend(order = 1,override.aes = list(shape=21)), 
+         colour = guide_legend(order = 2), 
+         shape = "none") +
   theme(panel.background = element_rect(fill = "white"),
         panel.grid.major=element_line(color = "gray"),
         panel.border = element_rect(color = "black",fill = NA,size = 1),
@@ -1560,15 +1563,18 @@ Prop_indir_sim2$management <- factor(Prop_indir_sim2$management, levels = c("E",
 
 #Plot 
 prop_EDS_indirect <- Prop_indir_sim2%>% ggplot(aes(x = management, y = Prop_mean)) +
-  geom_boxplot(aes(colour = type), 
-               outlier.shape = NA) +
-  geom_point(aes(fill = factor(services_to), color = type), 
+  geom_boxplot(aes(colour = type), outlier.shape = NA, size = 1.1 ) +
+  geom_point(aes(fill = factor(services_to), shape = factor(ifelse(type == "Null", 24, 21))), 
              position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.4),
-             pch = 21, size = 2, stroke = 1, show.legend = TRUE) +
-  scale_fill_manual(values = color_services$color) + 
+             size = 2, stroke = 1, show.legend = c(fill = TRUE, shape = FALSE, colour = FALSE)) +
+  scale_fill_manual(values = color_services$color, name = "E(D)S") +
+  scale_shape_manual(values = c(21, 24)) + 
   scale_color_manual(values = c("black","firebrick"))+
   scale_y_continuous(name = "Prop. of indirect effects on E(D)S retained", limits = c(0, 1)) + 
-  scale_x_discrete(name = "Management")+
+  scale_x_discrete(name = "Habitat conversion")+
+  guides(fill = guide_legend(order = 1,override.aes = list(shape=21)), 
+         colour = guide_legend(order = 2), 
+         shape = "none") +
   theme(panel.background = element_rect(fill = "white"),
         panel.grid.major=element_line(color = "gray"),
         panel.border = element_rect(color = "black",fill = NA,size = 1),
@@ -1627,15 +1633,18 @@ ratio_sim2$management <- factor(ratio_sim2$management, levels = c("E", "SE", "M"
 
 #Plot 
 prop_EDS_ratio <- ratio_sim2%>% ggplot(aes(x = management, y = ratio_change_ave)) +
-  geom_boxplot(aes(colour = type), 
-               outlier.shape = NA) +
-  geom_point(aes(fill = factor(services), color = type), 
+  geom_boxplot(aes(colour = type), outlier.shape = NA, size = 1.1 ) +
+  geom_point(aes(fill = factor(services), shape = factor(ifelse(type == "Null", 24, 21))), 
              position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.4),
-             pch = 21, size = 2, stroke = 1, show.legend = TRUE) +
-  scale_fill_manual(values = color_services$color) + 
+             size = 2, stroke = 1, show.legend = c(fill = TRUE, shape = FALSE, colour = FALSE)) +
+  scale_fill_manual(values = color_services$color, name = "E(D)S") +
+  scale_shape_manual(values = c(21, 24)) +
   scale_color_manual(values = c("black","firebrick"))+
   scale_y_continuous(name = "Relative change in the amount of direct E(D)S provided", limits = c(0, 3)) + 
-  scale_x_discrete(name = "Management")+
+  scale_x_discrete(name = "Habitat conversion")+
+  guides(fill = guide_legend(order = 1,override.aes = list(shape=21)), 
+         colour = guide_legend(order = 2), 
+         shape = "none") +
   theme(panel.background = element_rect(fill = "white"),
         panel.grid.major=element_line(color = "gray"),
         panel.border = element_rect(color = "black",fill = NA,size = 1),

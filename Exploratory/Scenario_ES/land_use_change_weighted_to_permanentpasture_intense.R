@@ -897,7 +897,7 @@ library("bbmle")
 library(emmeans)
 library(car)
 
-Prop_dire<-glmmTMB (prop ~ management + ( 1| services), family=beta_family(link="logit"), data = Prop_dir)
+Prop_dire<-glmmTMB (prop ~ management + services, family=beta_family(link="logit"), data = Prop_dir)
 Anova(Prop_dire)
 summary(Prop_dire)
 
@@ -1000,6 +1000,39 @@ pairs(post_amount)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #                      Plots                          
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+## -- Exploratory (proportion of species lost according to trophic guild)
+
+state_nodes<-read.csv("Data/Land_use_rat_state_nodes_PP_intense.csv",header=T) 
+
+Perc_sp_lost <- state_nodes %>% filter(management == "E" | management == "I") %>% 
+  group_by(management) %>%  summarise(Num_sp = n()) %>% 
+  mutate(Perc_sp_lost= ((1 - Num_sp/551)*100))
+
+tota_sp_trophic_lost <- state_nodes %>% filter(management == "E" ) %>% 
+  group_by(management,taxon) %>% 
+  summarize(tot_trophic = n())
+
+Perc_sp_trophic <- state_nodes %>% filter(management == "I") %>% 
+  group_by(management, taxon) %>% 
+  summarize(tot = n()) %>% ungroup() %>% 
+  mutate(Extensive_tot = case_when(
+    taxon == "Aphid"~ 44,
+    taxon == "Butterfly"~ 16,
+    taxon == "Crop"~ 6,
+    taxon == "Flower-visiting"~ 237,
+    taxon == "Leaf-miner parasitoid"~ 93,
+    taxon == "Plant"~ 93,
+    taxon == "Insect seed-feeder parasitoid"~ 17,
+    taxon == "Primary aphid parasitoid"~ 11,
+    taxon == "Rodent ectoparasite"~ 8,
+    taxon == "Secondary aphid parasitoid"~ 7,
+    taxon == "Seed-feeding bird"~ 12,
+    taxon == "Seed-feeding insect"~ 19,
+    taxon == "Seed-feeding rodent"~ 4),
+    Perc_sp_lost= ((1 - tot/Extensive_tot)*100)  #ratio of change: values higher than 1 indicates increasing in the amount of E(D)S
+  )
+
 
 
 #direct
