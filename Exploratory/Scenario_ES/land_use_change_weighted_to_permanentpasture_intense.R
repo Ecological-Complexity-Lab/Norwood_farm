@@ -3,7 +3,7 @@
 
 
 # In this code we create the different proposed management scenarios by aggregating the layers
-#to create the final network. 
+#to create the final network. We created the new management scenario: intensive monoculture
 
 # To create the different management scenarios we:
 
@@ -497,10 +497,30 @@ int_edgelist_aggr<-int_edgelist_no_aggr %>% select(node_from,node_to) %>%
   select(-rel_ab.x,-rel_ab.y)
 
 
+##### -- Intensive monoculture (eliminate weeds from the network)
+weeds = 1:93 #weeds nodes 1:93
+
+#Edge list
+int_mon_edgelist_aggr<-int_edgelist_aggr %>% 
+  filter(!(node_from%in%weeds), !(node_to%in%weeds)) %>%  #eliminate weeds and species that only interact with them
+  mutate(management = "IM")
+
+#States nodes
+state_node_int_mod_agg <- state_node_int_agg %>% 
+  filter(node_id%in%int_mon_edgelist_aggr$node_from |
+           node_id%in%int_mon_edgelist_aggr$node_to ) %>% 
+  group_by(taxon) %>% 
+  mutate(tot_ab_taxon = sum(abun)) %>% #total abundance per taxon
+  group_by(node_id) %>% 
+  mutate(rel_ab=abun/tot_ab_taxon)#rel abundance of species per taxon
+
+
+
+
 ##### ---  Final dataframe
 
 land_change_weighted<-rbind(ext_edgelist_aggr,sem_ext_edgelist_aggr,mod_edgelist_aggr,
-                          sem_int_edgelist_aggr,int_edgelist_aggr)
+                          sem_int_edgelist_aggr,int_edgelist_aggr,int_mon_edgelist_aggr)
 
 
 #write.csv(land_change_weighted,"Data/Land_use_rat_edgelist_weighted_PP_intense.csv", row.names= FALSE)
@@ -508,12 +528,13 @@ land_change_weighted<-rbind(ext_edgelist_aggr,sem_ext_edgelist_aggr,mod_edgelist
 #final state_node list with abundances
 state_nodes_weighted_ab<-rbind(ab_ext[,1:3],state_node_sem_ext_agg[,1:3],
                                   state_node_mod_agg[,1:3],state_node_sem_int_agg[,1:3],
-                                  state_node_int_agg[,1:3])
+                                  state_node_int_agg[,1:3],state_node_int_mod_agg[,1:3])
 #add management label
-state_nodes_weighted<-cbind(management = rep(c("E","SE","M","SI","I"),
+state_nodes_weighted<-cbind(management = rep(c("E","SE","M","SI","I","IM"),
                                                      c(nrow(ab_ext),nrow(state_node_sem_ext_agg),
                                                        nrow(state_node_mod_agg), nrow(state_node_sem_int_agg),
-                                                       nrow(state_node_int_agg))), state_nodes_weighted_ab)
+                                                       nrow(state_node_int_agg), nrow(state_node_int_mod_agg))),
+                            state_nodes_weighted_ab)
 
 #write.csv(state_nodes_weighted,"Data/Land_use_rat_state_nodes_PP_intense.csv", row.names= FALSE)
 
@@ -532,7 +553,7 @@ nodes_ES<- right_join(state_nodes_weighted, Norwood_farm$nodes, by = "node_id")%
   group_by(management,node_id) %>% rename("taxon" = "taxon.x") %>% 
   gather("services","value", 5:11) #we conserve species that not directly provide ES because can serve as intermediate hop
 
-nodes_ES$management <- factor(nodes_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+nodes_ES$management <- factor(nodes_ES$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
 
 ## -- Estimate the amount of direct E(D)S provision per species (weight = abundance * body mass
 
@@ -877,7 +898,7 @@ output_ES<-rbind(output_ES_1hop_fin,output_ES_2hops)
 #upload and prepare dataframe
 direct_ES<- read.csv("Data/Land_use_dir_weighted_PP_intense.csv", sep =",") 
 
-direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
 
 Prop_dir<-direct_ES %>% group_by(management,services) %>% 
   mutate(tot = n()) %>% ungroup() %>%  
@@ -920,7 +941,7 @@ pairs(post_dir)
 
 #upload and prepare dataframe
 output_ind_ES <- read.csv("Data/Land_use_output_weighted_PP_intense.csv", sep =",") 
-output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
 
 Prop_ind<-output_ind_ES %>% group_by(management,services_to) %>% 
   mutate(tot = n()) %>% ungroup() %>%  
@@ -977,8 +998,9 @@ library(glmmTMB)
 m_amount<- glmmTMB(ratio_change ~ management + (1|node_id) + (1|services),family = Gamma(link = "log"),
                    data = dir_amount) #model that best fit
 
-#m_amount_2<- glmmTMB(ratio_change ~ management + services (1|node_id),family = Gamma(link = "log"),
-                  #   data = dir_amount) 
+#m_amount_2<- glmmTMB(ratio_change ~ management + services + (1|node_id),family = Gamma(link = "log"),
+ #                   data = dir_amount) 
+
 Anova(m_amount)
 summary(m_amount)
 
@@ -996,6 +1018,7 @@ boxplot(E1_lme~dir_amount$management, main="Management")
 # posthoc
 post_amount<- emmeans(m_amount, ~ management)
 pairs(post_amount)
+
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #                      Plots                          
@@ -1038,13 +1061,13 @@ Perc_sp_trophic <- state_nodes %>% filter(management == "I") %>%
 #direct
 direct_ES<- read.csv("Data/Land_use_dir_weighted_PP_intense.csv", sep =",") 
 
-direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
 
 #indirect
 output_ind_ES <- read.csv("Data/Land_use_output_weighted_PP_intense.csv", sep =",") 
 
 
-output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
 
 
 
@@ -1101,7 +1124,7 @@ upper_row
 
 color_services <-tibble(
   services = unique(direct_ES$services),
-  color = c('#1b9e77','#d95f02','#7570b3','#e7298a','#66a61e','#e6ab02','#a6761d'))
+  color = c('#1b9e77','#d95f02','#7570b3','#e7298a','#2c7fb8','#e6ab02','#a6761d'))
 
 #direct 
 
@@ -1132,9 +1155,10 @@ prop_EDS_direct<- Prop %>% ggplot(aes(x = management, y = prop)) +
         legend.text = element_text(size = 11))
 prop_EDS_direct
 
-ggsave("Graphs/Land_use_retained_direct_PP_intense.png")
-#indirect
+ggsave("Graphs/Land_use_retained_direct_PP_intense_IM.png")
 
+
+#indirect
 Prop_ind<-output_ind_ES %>% group_by(management,services_to) %>% 
   mutate(tot = n()) %>% ungroup() %>%  
   group_by(services_to) %>% 
@@ -1162,7 +1186,7 @@ prop_EDS_indirect<- Prop_ind %>% ggplot(aes(x = management, y = prop)) +
         legend.text = element_text(size = 11))
 prop_EDS_indirect
 
-#ggsave("Graphs/Land_use_retained_indirect_PP_intense.png")
+ggsave("Graphs/Land_use_retained_indirect_PP_intense_IM.png")
 
 
 
@@ -1172,7 +1196,7 @@ prop_EDS_indirect
 
 ratio_direct<-read.csv("Data/Land_use_rat_dir_weighted_PP_intense.csv")
 
-ratio_direct$management <- factor(ratio_direct$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+ratio_direct$management <- factor(ratio_direct$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
 
 
 ratio_direct<-ratio_direct%>% gather("type","value", 2:3) %>% group_by(management) %>% 
@@ -1285,7 +1309,7 @@ prop_weight_direct<- Prop_weight %>% ggplot(aes(x = management, y = ratio_change
 
 prop_weight_direct
 
-#ggsave("Graphs/Land_use_weight_PP_intense.png")
+#ggsave("Graphs/Land_use_weight_PP_intense_IM.png")
 
 
 ### Plot of proportion of each direct E(D)S per management (also indicating if it's a services and disservices)
@@ -1348,6 +1372,8 @@ Indirect_ES_management<- I_ES  %>%
 
 Indirect_ES_management
 #ggsave("Graphs/Prop_ES_indirect_PP.png")
+
+
 
 ### Plot of proportion of output provided per taxon according to trophic group
 

@@ -567,6 +567,100 @@ I_sim<-bind_rows(I_sim)
 
 
 
+##### -- Intensive monoculture
+#We remove the weeds and species that only interact with them for all the intensive simulated networks
+
+### Create edge list
+I_sim_CP<-read.csv("Data/I_sim_CP.csv", sep =,) %>% 
+  mutate(management = "IM")
+
+weeds = 1:93 #weeds nodes 1:93
+
+#Objects to storage
+edge_list_shuff <- data.frame() 
+list_species_removed<- data.frame()
+list_species_survived<- data.frame()
+
+for (i in 1:3){
+  iteration_net <- I_sim_CP %>% filter(iteration==i)
+  
+  # Calculate edge list after eliminating species
+  edge_list_remov<- iteration_net %>%
+    filter(!(node_from%in%weeds), !(node_to%in%weeds))   #eliminate weeds and species that only interact with them
+    
+  # Store new edge list
+  edge_list_shuff <- rbind(edge_list_shuff, edge_list_remov)
+
+  
+  ## Create information of the removed species
+  
+  # Identify species in the network
+  unique_species <- iteration_net %>%
+    select(node_from, node_to) %>%
+    unlist() %>%
+    unique()
+  
+  # Identify species that remains in the network after removing weeds
+  remain_species<- edge_list_remov  %>%
+    distinct(node_from, node_to) %>% 
+    unlist() %>% 
+    unique()
+  remain_sps<- data.frame(iteration = i, remain_species = remain_species) #THE PROBLEM IS HERE!!
+  
+  
+  # Identify species were removed from the network
+  sp_removed<- setdiff(unique_species, remain_species)
+  
+  # Estimate the degree
+  for (j in sp_removed){
+    sp_removed = j
+    degree<- iteration_net %>%ungroup() %>% 
+      filter(node_from== j| node_to ==j) %>% distinct(node_from,node_to) %>%  summarise(degree = n())
+    degree_sp<-cbind(species_rem = j,degree, iteration =i, habitat_from = "-",management = "IM")
+    
+    #Store the information
+    list_species_survived<-rbind(list_species_survived, remain_sps) 
+    list_species_removed<-rbind(list_species_removed, degree_sp) 
+  }
+  
+}
+
+IM_sim = edge_list_shuff #edge list
+#write.csv(IM_sim,"Data/IM_sim_CP.csv", row.names= FALSE) 
+
+sps_removed = list_species_removed #list of species removed
+#write.csv(sps_removed,"Data/sps_removed_IM_CP.csv", row.names= FALSE) #save to add in the next management scenario
+
+sps_survived = list_species_survived #remaining species
+
+#FIX THE PROBLEM WITH SPS_SURVIVED AND THEN FILTER IN THE STATE NODE LIST!
+
+
+
+### Create state node
+I_sim_state_node<-read.csv("Data/I_sim_state_node_CP.csv", sep =,) 
+
+# Function to get unique nodes for each iteration
+get_unique_nodes <- function(df) {
+  unique_nodes <- unique(c(df$node_from, df$node_to))
+  data.frame(node_id = unique_nodes, iteration = unique(df$iteration))
+}
+
+# Apply the function to each group
+unique_nodes_df <- IM_sim %>%
+  group_by(management, iteration) %>%
+  group_modify(~ get_unique_nodes(.x))
+
+
+
+IM_sim_state_node <- I_sim_state_node %>% group_by(management, iteration) %>% 
+                    summarise(node_id = )
+
+IM_sim$iteration<-as.character(I_sim$iteration)
+
+
+
+
 
 ##### -- Final Dataframe
 
@@ -802,6 +896,7 @@ Indirect_2hop_sim2<-Ind_2hop_sim %>% rename("taxon" = "taxon_from")
 I_ES_sim <- rbind(Indirect_1hop_sim,Indirect_2hop_sim2) 
 
 #write.csv(I_ES_sim,"Data/Indirect_ES_sim_CP.csv", row.names= FALSE)
+
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
