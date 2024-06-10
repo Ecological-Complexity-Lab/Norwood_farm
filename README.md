@@ -21,7 +21,7 @@ Here we reclassified the species in a different way:
 3. Assume no competition between crops and weeds for resources.
 
 
-## What's new?
+# Classification of pollinators
 
 * Reclassify the group flower visitors as:
   1) 02FV (Flower visitors): species that were recorded transporting pollen grains (mainly bumblebees, bees, hoverflies, butterflies). We assume they directly provide pollination.
@@ -29,3 +29,5 @@ Here we reclassified the species in a different way:
 
 To reclassify species, we used two databases: DoPI repository (doi: 10.1002/ecy.3801) and database from Orford et al 2015 (https://doi.org/10.1098/rspb.2014.2934). 
 
+## What's new?
+We include a new management scenario: intensive monoculture management. This would help us simulate management approaches used to produce food in monoculture countries such as Argentina and Brazil, which typically cultivate a single crop species over large areas.
