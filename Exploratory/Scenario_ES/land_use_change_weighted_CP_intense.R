@@ -1337,25 +1337,25 @@ prop_weight_direct<- Prop_weight %>% ggplot(aes(x = management, y = ratio_change
   geom_boxplot(color = "black") +
   geom_point(position=position_jitterdodge(jitter.width=2, dodge.width = 0.5), 
              pch=21, aes(fill=factor(services)), size = 3.5, show.legend = T) +
-  scale_fill_manual(values = color_services$color) + 
+  scale_fill_manual(values = color_services$color, name = "E(D)S") + 
   scale_y_continuous(name = "Relative change in the amount of direct E(D)S provided", limits = c(0, 3)) + 
-  scale_x_discrete(name = "Management")+
+  scale_x_discrete(name = "Habitat conversion")+
   theme(panel.background = element_rect(fill = "white"),
         panel.grid.major=element_line(color = "gray"),
         panel.border = element_rect(color = "black",fill = NA,size = 1),
         panel.spacing = unit(0.5, "cm", data = NULL),
         axis.text.y = element_text(size=13, color='black'),
         axis.text = element_text(size=15, color='black'),
-        axis.text.x= element_text(size =15), 
+        axis.text.x= element_text(size =14), 
         axis.title = element_text(size=17, color='black'),
         axis.line = element_blank(),
         legend.text.align = 0,
-        legend.title =  element_text(size = 13, color = "black"),
-        legend.text = element_text(size = 11))
+        legend.title =  element_text(size = 14, color = "black"),
+        legend.text = element_text(size = 12))
 
 prop_weight_direct
 
-#ggsave("Graphs/Land_use_weight_CP_intense_IM.png")
+#ggsave("Graphs/Land_use_ratio_change_CP_intense_IM.png", width = 7, height = 5, dpi = 300)
 
 #check at top 5 pollinator that increase their abundances
 

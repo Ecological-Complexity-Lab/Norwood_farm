@@ -581,7 +581,9 @@ edge_list_shuff <- data.frame()
 list_species_removed<- data.frame()
 list_species_survived<- data.frame()
 
-for (i in 1:3){
+for (i in 1:600){
+  
+    print(i)
   iteration_net <- I_sim_CP %>% filter(iteration==i)
   
   # Calculate edge list after eliminating species
@@ -605,8 +607,11 @@ for (i in 1:3){
     distinct(node_from, node_to) %>% 
     unlist() %>% 
     unique()
-  remain_sps<- data.frame(iteration = i, remain_species = remain_species) #THE PROBLEM IS HERE!!
+  remain_sps<- cbind(iteration = i, remain_species = remain_species) #THE PROBLEM IS HERE!!
   
+  #Store the information
+  list_species_survived<-rbind(list_species_survived, remain_sps)
+
   
   # Identify species were removed from the network
   sp_removed<- setdiff(unique_species, remain_species)
@@ -619,7 +624,6 @@ for (i in 1:3){
     degree_sp<-cbind(species_rem = j,degree, iteration =i, habitat_from = "-",management = "IM")
     
     #Store the information
-    list_species_survived<-rbind(list_species_survived, remain_sps) 
     list_species_removed<-rbind(list_species_removed, degree_sp) 
   }
   
@@ -633,31 +637,16 @@ sps_removed = list_species_removed #list of species removed
 
 sps_survived = list_species_survived #remaining species
 
-#FIX THE PROBLEM WITH SPS_SURVIVED AND THEN FILTER IN THE STATE NODE LIST!
-
 
 
 ### Create state node
 I_sim_state_node<-read.csv("Data/I_sim_state_node_CP.csv", sep =,) 
 
-# Function to get unique nodes for each iteration
-get_unique_nodes <- function(df) {
-  unique_nodes <- unique(c(df$node_from, df$node_to))
-  data.frame(node_id = unique_nodes, iteration = unique(df$iteration))
-}
+# Filter according to the node that remains in each simulation
+state_node_IM_sim <- sps_survived %>%  
+                  left_join(I_sim_state_node, by= c("iteration","remain_species" = "node_id"))
 
-# Apply the function to each group
-unique_nodes_df <- IM_sim %>%
-  group_by(management, iteration) %>%
-  group_modify(~ get_unique_nodes(.x))
-
-
-
-IM_sim_state_node <- I_sim_state_node %>% group_by(management, iteration) %>% 
-                    summarise(node_id = )
-
-IM_sim$iteration<-as.character(I_sim$iteration)
-
+#write.csv(state_node_IM_sim,"Data/IM_sim_state_node_CP.csv", row.names= FALSE)
 
 
 
@@ -679,12 +668,15 @@ SI_sim$iteration<-as.character(SI_sim$iteration)
 I_sim<-read.csv("Data/I_sim_CP.csv", sep =,) 
 I_sim$iteration<-as.character(I_sim$iteration)
 
+IM_sim<-read.csv("Data/IM_sim_CP.csv", sep =,) 
+IM_sim$iteration<-as.character(IM_sim$iteration)
+
 #Upload empirical
 Emp<-read.csv("Data/Land_use_rat_edgelist_weighted_CP_intense.csv", sep =,) %>% 
     mutate(iteration = "Emp") %>%  select(management,iteration,node_from,node_to)
 
 ## Final Edgelist
-edge_list_sim<-rbind(Emp,SE_sim,M_sim,SI_sim,I_sim)
+edge_list_sim<-rbind(Emp,SE_sim,M_sim,SI_sim,I_sim,IM_sim)
 #write.csv(edge_list_sim,"Data/edge_list_sim_CP.csv", row.names= FALSE)
 
 
@@ -708,12 +700,16 @@ I_sim<-read.csv("Data/I_sim_state_node_CP.csv", sep =,) %>%
   mutate(management = "I") %>%  select(management, iteration,node_id,taxon,abun)
 I_sim$iteration<-as.character(I_sim$iteration)
 
+IM_sim<-read.csv("Data/IM_sim_state_node_CP.csv", sep =,) %>% rename (node_id=remain_species) %>% 
+  mutate(management = "IM") %>%  select(management, iteration,node_id,taxon,abun)
+IM_sim$iteration<-as.character(IM_sim$iteration)
+
 #Upload empirical
 Emp<-read.csv("Data/Land_use_rat_state_nodes_CP_intense.csv", sep =,) %>% 
   mutate(iteration = "Emp") %>%  select(management,iteration,node_id,taxon,abun)
 
 ## Final state node list
-state_node_sim<-rbind(Emp,SE_sim,M_sim,SI_sim,I_sim)
+state_node_sim<-rbind(Emp,SE_sim,M_sim,SI_sim,I_sim,IM_sim)
 #write.csv(state_node_sim,"Data/state_node_sim_CP.csv", row.names= FALSE)
 
 
@@ -731,8 +727,11 @@ SI_sim$iteration<-as.character(SI_sim$iteration)
 I_sim<-read.csv("Data/sps_removed_I_CP.csv", sep =,) 
 I_sim$iteration<-as.character(I_sim$iteration) 
 
+IM_sim<-read.csv("Data/sps_removed_IM_CP.csv", sep =,) 
+IM_sim$iteration<-as.character(IM_sim$iteration) 
+
 ## Final data of species removed
-sps_removed_sim<-rbind(SE_sim,M_sim,SI_sim,I_sim)
+sps_removed_sim<-rbind(SE_sim,M_sim,SI_sim,I_sim,IM_sim)
 #write.csv(sps_removed_sim,"Data/sps_removed_sim_CP.csv", row.names= FALSE) 
 
 
@@ -754,8 +753,8 @@ nodes_ES<- right_join(state_node_sim, Norwood_farm$nodes, by = "node_id")%>%
       group_by(management, iteration, node_id) %>% rename("taxon" = "taxon.x") %>% 
   gather("services","value", 6:12) #we conserve species that not directly provide ES because can serve as intermediate hop 
 
-##  Estimate the amount of direct E(D)S provision per species (weight = abundance * body mass)
 
+##  Estimate the amount of direct E(D)S provision per species (weight = abundance * body mass)
 #add body mass to the dataframe
 direct_ES <- nodes_ES %>% filter (value ==1) %>% 
   left_join(body_mass,by = "node_id") %>% select(-node_name,-taxon.y) %>% 
@@ -841,6 +840,8 @@ Indirect_1hop_sim_2<-rbind(rows_birds_butt,int_without)#final dataframe containi
 Indirect_1hop<-read.csv("Data/ind_1hop_sim_CP.csv",
                         sep =",") #load dataframe of indirect effects using 1 hop
 
+#RUN for E-SE-M-SI-I with HPC
+
 ## Function to identify potential second order indirect effects for node_from in the row
 ind_row <- function(df, row) { #for the row
   j <- df$node_to[row] #select node_to 
@@ -866,8 +867,41 @@ Indirect_2hop_sim<- bind_rows(lapply(1:nrow(Indirect_1hop), function(row) ind_ro
 
 #write.csv(Indirect_2hop_sim,"Data/ind_2hop_sim_CP.csv", row.names= FALSE)
 
+
+#RUN IM management here (because it's not heavy)
+
+Indirect_1hop_IM<-read.csv("Data/ind_1hop_sim_CP.csv",
+                        sep =",") %>% filter(management =="IM", iteration == "Emp" | iteration <=500) 
+
+ind_row <- function(df, row) { #for the row
+  if (row %% 1000 == 0) {
+    print(100 * row/nrow(df))
+  }
+  j <- df$node_to[row] #select node_to 
+  l <- df$management[row] #select management 
+  k<-df$iteration[row] #select iteration 
+  
+  df %>% 
+    dplyr::filter(node_from == j, node_to != df$node_from[row],  #filter to avoid counting the interaction from node 2 to node 1 because the edgelist is directed 
+                  iteration == k, management == l) %>% # Filter dataframe (filter node 3's ES affected by node 2)
+    mutate(node_id = df$node_from[row], #create dataframe to store
+           node_int = j,
+           taxon_from = df$taxon_from[row],
+           services = df$services_from[row],
+           management = l,
+           iteration = k,
+           type = "I",
+           hop = 2)
+}
+
+IM_indirect_2hop_sim <- bind_rows(lapply(1:nrow(Indirect_1hop_IM), function(row) ind_row(Indirect_1hop_IM, row))) %>% 
+  select(management,iteration,node_id,taxon_from,services, node_int,node_to,
+         services_to,type,hop)
+
+#write.csv(IM_indirect_2hop_sim,"Data/IM_ind_2hop_sim_CP.csv", row.names= FALSE)
+
 # Upload dataframe of indirect effect of each simulation in each management (run in the HPC, keep 500 iterations)
-E_ind_2<-read.csv("Data/HPC/E_ind_2hop_PP.csv", sep =",") #empirical extensive
+E_ind_2<-read.csv("Data/HPC/E_ind_2hop_CP.csv", sep =",") #empirical extensive
 SE_ind_2 <-read.csv("Data/HPC/SE_ind_2hop_sim_CP.csv", sep =",") %>% filter(iteration == "Emp" | iteration <=500)
 M_ind_2 <-read.csv("Data/HPC/M_ind_2hop_sim_CP.csv", sep =",") %>% filter(iteration == "Emp" | iteration <=500)
 SI_ind_2 <-read.csv("Data/HPC/SI_ind_2hop_sim_CP.csv", sep =",") %>% filter(iteration == "Emp" | iteration <=500)
@@ -892,10 +926,36 @@ Indirect_1hop_sim<-Indirect_1hop_sim[,c(1,2,4,6,3,10,5,7,9,8)]
 # 2 hop
 Indirect_2hop_sim2<-Ind_2hop_sim %>% rename("taxon" = "taxon_from")
 
-#  Total Indirect effect of ES
+#  Indirect effect of ES (E,SE,M,SI,I)
 I_ES_sim <- rbind(Indirect_1hop_sim,Indirect_2hop_sim2) 
 
 #write.csv(I_ES_sim,"Data/Indirect_ES_sim_CP.csv", row.names= FALSE)
+
+
+#  Add to the indirect 1 hop and 2 hop of IM management
+I_ES_sim_old<-read.csv("Data/Indirect_ES_sim_CP.csv", sep =",")
+
+#rearrange dataframe indirect 1 hop 
+Indirect_1hop_IM<-read.csv("Data/ind_1hop_sim_CP.csv",
+                           sep =",") %>% filter(management =="IM", iteration == "Emp" | iteration <=500,
+                                                services_to!= "None") %>% 
+                 rename("services" ="services_from",
+                  "node_id" = "node_from",
+                  "taxon" = "taxon_from") %>% 
+               mutate(node_int = NA)
+
+Indirect_1hop_IM<-Indirect_1hop_IM[,c(1,2,4,6,3,10,5,7,9,8)]
+
+#rearrange dataframe indirect 2 hop 
+IM_indirect_2hop_sim2 <- IM_indirect_2hop_sim %>% rename("taxon" = "taxon_from")
+
+# Final Total indirect effects (E,SE,M,SI,I,IM)
+I_ES_final<-rbind(I_ES_sim_old,Indirect_1hop_IM,IM_indirect_2hop_sim2) 
+
+#write.csv(I_ES_final,"Data/Indirect_ES_sim_CP_final.csv", row.names= FALSE)
+
+
+
 
 
 
@@ -909,9 +969,9 @@ I_ES_sim <- rbind(Indirect_1hop_sim,Indirect_2hop_sim2)
 #### -- Proportion of direct E(D)S retained across land use change --
 
 #upload and prepare dataframe
-direct_ES<- read.csv("Data/direct_ES_sim_CP.csv", sep =",")
+direct_ES<- read.csv("Data/direct_ES_sim_CP.csv", sep =",") %>% filter(iteration == "Emp"|iteration <=500)
 
-direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
 
 
 #Empirical
@@ -969,10 +1029,15 @@ man_pairs_emp <- as.data.frame(pairs(post_man_emp))
 iterations_coefficients<-NULL
 iterations_post_hocs<-NULL
 
-
 for (i in 1:500){ #for each iteration
+
   print(i)
   iteration_coeff<-Prop_dir_null %>% filter(iteration == i | iteration == "Emp")
+  
+  if (length(iteration_coeff$iteration) == 7) {
+    next  #if an iteration is missing, then skip to the next value of iteration
+  }
+  
   glmm_val_iterations <- glmmTMB (Prop_mean ~ management + services,family=beta_family(link="logit"), data = iteration_coeff)
   par<-Anova(glmm_val_iterations)
   post_man <-emmeans(glmm_val_iterations, ~ management) #posthoc management
@@ -988,7 +1053,7 @@ for (i in 1:500){ #for each iteration
   
   iterations_post_hocs <- rbind(iterations_post_hocs, 
                               tibble(man_pairs[,c("contrast","estimate","p.value")],
-                                iteration = rep(i,10)))
+                                iteration = rep(i,15)))
 }
 
 
@@ -1004,7 +1069,7 @@ iterations_coefficients<-read.csv("Data/iterations_coefficients_direct_CP.csv", 
 #General
 greater <- sum(iterations_coefficients$chisqr_man > par_emp[1,1])
 less <- sum(iterations_coefficients$chisqr_man  < par_emp[1,1])
-p_management<- 2 * min(greater, less) / 500 #calculate manually t-test two tailed
+p_management<- 2 * min(greater, less) /nrow(iterations_coefficients) #calculate manually t-test two tailed #CAMBIAR ESTO LENGTH..
 
 
 #Merge simulated and empirical
@@ -1036,7 +1101,7 @@ iterations_sim_empirical %>% ggplot(aes(x = chisqr_man, fill= type))+
         legend.text = element_text(size = 11))
 
 
-#ggsave("distri_direct_CP.png")
+#ggsave("distri_direct_CP_IM.png")
 
 
 
@@ -1056,7 +1121,7 @@ for (i in unique(iterations_post_hocs$contrast)){
   #test
   greater <- sum(post_comb$estimate >  post_emp$estimate)
   less <- sum(post_comb$estimate  <  post_emp$estimate)
-  p_comb<- 2 * min(greater, less) / 500 #calculate manually t-test two tailed
+  p_comb<- 2 * min(greater, less) / nrow(iterations_coefficients)  #calculate manually t-test two tailed
   
   #storage
   p_contrast_man <- rbind(p_contrast_man,
@@ -1070,7 +1135,7 @@ p_contrast_man
 #Prepare dataframe (simulated and empircal)
 
 #smimulated
-man_lev<-c("E","SE","M","SI","I")
+man_lev<-c("E","SE","M","SI","I","IM")
 
 post_hoc_sim<- iterations_post_hocs %>% separate(contrast, into = c("man_1", "man_2"), sep = " - ") %>% 
                   select(-p.value)
@@ -1082,10 +1147,10 @@ post_hoc_emp_pre<- man_pairs_emp %>% separate(contrast, into = c("man_1", "man_2
   select(-p.value) %>% mutate (iteration = "0") %>% select(man_1,man_2,estimate,iteration)#empirical
 
 new_combinations_empirical <- data.frame(
-  man_1 = c("E", "SE", "M", "SI", "I"),
-  man_2 = c("E", "SE", "M", "SI", "I"),
-  estimate = rep(0, 5),
-  iteration = rep(0, 5)
+  man_1 = c("E", "SE", "M", "SI", "I","IM"),
+  man_2 = c("E", "SE", "M", "SI", "I","IM"),
+  estimate = rep(0, 6),
+  iteration = rep(0, 6)
 )
 
 post_hoc_emp_fin<-rbind(post_hoc_emp_pre,new_combinations_empirical)
@@ -1097,11 +1162,11 @@ post_hoc_emp_fin$man_2 <- factor(post_hoc_emp_fin$man_2, levels = man_lev)
 posthoc_distr_CP<- ggplot(data = post_hoc_sim, aes(x=estimate)) +
   geom_histogram(fill = "steelblue") +
   labs(y = "Count", x = "Estimate value") +
-  geom_vline(data = post_hoc_emp_fin[1:10,], mapping = aes(xintercept = estimate), 
+  geom_vline(data = post_hoc_emp_fin[1:15,], mapping = aes(xintercept = estimate), 
              colour="#BB0000", linetype="dashed") +
   facet_grid(man_2 ~ man_1)
 
- #ggsave("posthoc_distri_direct_CP.png")
+ #ggsave("posthoc_distri_direct_CP_IM.png")
 
 
 
@@ -1109,9 +1174,9 @@ posthoc_distr_CP<- ggplot(data = post_hoc_sim, aes(x=estimate)) +
 #### -- Proportion of indirect effect on E(D)S retained across land use change --
 
 
-#upload and prepare dataframe
-output_ind_ES<- read.csv("Data/Indirect_ES_sim_CP.csv", sep =",")
-output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+#upload and prepare dataframe 
+output_ind_ES<- read.csv("Data/Indirect_ES_sim_CP_final.csv", sep =",") %>% filter(services_to !="None")
+output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
 
 
 #Empirical
@@ -1145,9 +1210,11 @@ Prop_ind_null<-output_ind_ES %>% filter(!(iteration == "Emp" & management !="E")
   dplyr::select(management,iteration,services_to,Prop_mean) %>%
   unique() %>% mutate(type = "Null")
 
+
 # adjust the extreme values according to the beta conditions
 Prop_ind_null$Prop_mean <- ifelse(Prop_ind_null$Prop_mean == 0, 0.000001, 
                                   ifelse(Prop_ind_null$Prop_mean == 1, 0.9999999, Prop_ind_null$Prop_mean))
+
 
 #write.csv(Prop_ind_null, "Data/Prop_ind_null_CP.csv",  row.names = FALSE)
 
@@ -1171,13 +1238,17 @@ Prop_ind_null<- read.csv("Data/Prop_ind_null_CP.csv", sep =",")
 iterations_coefficients<-NULL
 iterations_post_hocs<-NULL
 
-iterations_rem<- unique(Prop_ind_null$iteration)
-iterations<- iterations_rem[2:length(iterations_rem)]#separate between iterations and Empirical
+#iterations_rem<- unique(Prop_ind_null$iteration)
+#iterations<- iterations_rem[2:length(iterations_rem)]#separate between iterations and Empirical
 
-
-for (i in iterations){ #for each iteration
+for (i in 1:500){ #for each iteration
   print(i)
   iteration_coeff<-Prop_ind_null %>% filter(iteration == i | iteration == "Emp")
+  
+  if (length(iteration_coeff$iteration) == 7) {
+    next  #if an iteration is missing, then skip to the next value of iteration
+  }
+  
   glmm_val_iterations <- glmmTMB (Prop_mean ~ management + services_to,family=beta_family(link="logit"), data = iteration_coeff)
   par<-Anova(glmm_val_iterations)
   post_man <-emmeans(glmm_val_iterations, ~ management) #posthoc management
@@ -1193,7 +1264,7 @@ for (i in iterations){ #for each iteration
   
   iterations_post_hocs <- rbind(iterations_post_hocs, 
                                 tibble(man_pairs[,c("contrast","estimate","p.value")],
-                                       iteration = rep(i,10)))
+                                       iteration = rep(i,15)))
 }
 
 
@@ -1209,7 +1280,7 @@ iterations_coefficients<-read.csv("Data/iterations_coefficients_indirect_CP.csv"
 
 greater <- sum(iterations_coefficients$chisqr_man > par_emp[1,1])
 less <- sum(iterations_coefficients$chisqr_man  < par_emp[1,1])
-p_management<- 2 * min(greater, less) / 500 #calculate manually t-test two tailed
+p_management<- 2 * min(greater, less) / nrow(iterations_coefficients) #calculate manually t-test two tailed
 
 
 #Merge simulated and empirical
@@ -1239,7 +1310,7 @@ iterations_sim_empirical %>% ggplot(aes(x = chisqr_man, fill= type))+
         legend.text.align = 0,
         legend.title =  element_text(size = 13, color = "black"),
         legend.text = element_text(size = 11))
-#ggsave("Graphs/distri_indirect_CP.png")
+#ggsave("Graphs/distri_indirect_CP_IM.png")
 
 
 # Plot combination of treatments level 
@@ -1258,7 +1329,7 @@ for (i in unique(iterations_post_hocs$contrast)){
   
   greater <- sum(post_comb$estimate >  post_emp$estimate)
   less <- sum(post_comb$estimate  <  post_emp$estimate)
-  p_comb<- 2 * min(greater, less) / 500 #calculate manually t-test two tailed
+  p_comb<- 2 * min(greater, less) /nrow(iterations_coefficients)#calculate manually t-test two tailed
   
   #storage
   p_contrast_man <- rbind(p_contrast_man,
@@ -1273,7 +1344,7 @@ p_contrast_man
 #Prepare dataframe (simulated and empircal)
 
 #smimulated
-man_lev<-c("E","SE","M","SI","I")
+man_lev<-c("E","SE","M","SI","I","IM")
 
 post_hoc_sim<- iterations_post_hocs %>% separate(contrast, into = c("man_1", "man_2"), sep = " - ") %>% 
   select(man_1,man_2,estimate,iteration)
@@ -1292,10 +1363,10 @@ post_hoc_emp_pre<- man_pairs_emp %>% separate(contrast, into = c("man_1", "man_2
   select(-p.value) %>% mutate (iteration = 0) %>% select(man_1,man_2,estimate,iteration)#empirical
 
 new_combinations_empirical <- data.frame(
-  man_1 = c("E", "SE", "M", "SI", "I"),
-  man_2 = c("E", "SE", "M", "SI", "I"),
-  estimate = rep(0, 5),
-  iteration = rep(0, 5)
+  man_1 = c("E", "SE", "M", "SI", "I","IM"),
+  man_2 = c("E", "SE", "M", "SI", "I","IM"),
+  estimate = rep(0, 6),
+  iteration = rep(0, 6)
 )
 
 post_hoc_emp_fin<-rbind(post_hoc_emp_pre,new_combinations_empirical)
@@ -1309,16 +1380,16 @@ post_hoc_emp_fin_2$man_2 <- factor(post_hoc_emp_fin_2$man_2, levels = man_lev)
 
 # plot
 lower_triangle_data <- post_hoc_sim_fin[as.numeric(post_hoc_sim_fin$man_2) >= as.numeric(post_hoc_sim_fin$man_1), ]
-lower_triangle_emp <- lower_triangle_emp[as.numeric(lower_triangle_emp$man_2) >= as.numeric(lower_triangle_emp$man_1), ]
+lower_triangle_emp <- post_hoc_emp_fin_2[as.numeric(post_hoc_emp_fin_2$man_2) >= as.numeric(post_hoc_emp_fin_2$man_1), ]
 
 posthoc_distr_CP<- ggplot(data = lower_triangle_data, aes(x=estimate)) +
   geom_histogram(fill = "steelblue") +
   labs(y = "Count", x = "Estimate value") +
-  geom_vline(data = lower_triangle_emp[1:10,], mapping = aes(xintercept = estimate), 
+  geom_vline(data = lower_triangle_emp[1:15,], mapping = aes(xintercept = estimate), 
              colour="#BB0000", linetype="dashed") +
   facet_grid(man_2 ~ man_1)
 
-#ggsave("Graphs/posthoc_distri_indirect_CP.png")
+#ggsave("Graphs/posthoc_distri_indirect_CP_fin.png")
 
 
 
@@ -1360,16 +1431,14 @@ ratio_sim<-dir_amount_sim  %>%
 ###  - Models
 
 # empirical
-amount_emp <- glmmTMB(ratio_change_ave ~ management:services + (1|node_id),family = Gamma(link = "log"),
+amount_emp <- glmmTMB(ratio_change_ave ~ management + services + (1|node_id),family = Gamma(link = "log"),
                                           data = ratio_empirical) 
 
 #amount_emp2 <- glmmTMB(ratio_change_ave ~ management+services + (1|node_id),family = Gamma(link = "log"),
- #                     data = ratio_empirical) 
+ #                     data = ratio_empirical) #don't converge properly
 par_emp<-Anova(amount_emp)
-post_man_emp <-emmeans(amount_emp, pairwise ~ management | services) #posthoc management
-post_contrast <- contrast(post_man_emp, method = "pairwise")  # pairwise comparisons
-post_emp_contrast<-as.data.frame(post_contrast[[1]])
-
+post_man_emp <-emmeans(amount_emp, ~ management) #posthoc management
+man_pairs_emp <- as.data.frame(pairs(post_man_emp))
 
 
 # Null
@@ -1382,21 +1451,26 @@ iterations_post_hocs<-NULL
 for (i in 1:500){ #for each iteration
   print(i)
   iteration_coeff<-ratio_sim %>% filter(iteration == i | iteration == "Emp")
-  glmm_val_iterations <- glmmTMB (ratio_change_ave ~ management:services + (1|node_id),family = Gamma(link = "log"), data = iteration_coeff)
-  par<-Anova(glmm_val_iterations)
-  post_man <-emmeans(glmm_val_iterations, pairwise ~ management | services) #posthoc management
-  post_contrast <- contrast(post_man, method = "pairwise")  # pairwise comparisons
-  man_pairs<-as.data.frame(post_contrast[[1]])
+  if (length(iteration_coeff$iteration) == 7) {
+    next  #if an iteration is missing, then skip to the next value of iteration
+  }
+  
+  glmm_val_amount <- glmmTMB (ratio_change_ave ~ management + services + (1|node_id),family = Gamma(link = "log"), data = iteration_coeff)
+  par<-Anova(glmm_val_amount)
+  post_man <-emmeans(glmm_val_amount, ~ management) #posthoc management
+  man_pairs <- as.data.frame(pairs(post_man)) 
   
   iterations_coefficients <- rbind(iterations_coefficients, 
                                    tibble(iteration = i,
-                                          chisqr_int = par$Chisq[1],
-                                          pval_int = par[1,3]
+                                          chisqr_man = par$Chisq[1],
+                                          chisqr_ser = par$Chisq[2],
+                                          pval_man = par[1,3],
+                                          pval_ser = par[2,3],
                                    ))
   
   iterations_post_hocs <- rbind(iterations_post_hocs, 
-                                tibble(man_pairs[,c("contrast","services","estimate","p.value")],
-                                       iteration = rep(i,70)))
+                                tibble(man_pairs[,c("contrast","estimate","p.value")],
+                                       iteration = rep(i,15)))
 }
 
 
@@ -1411,23 +1485,25 @@ iterations_post_hocs
 iterations_coefficients<-read.csv("Data/iterations_coefficients_amount_CP.csv", sep = ",")
 
 # General Test
-iterations_coefficients2<-iterations_coefficients %>% filter(!(is.na(chisqr_int)))
-greater <- sum(iterations_coefficients2$chisqr_int > par_emp[1,1])
-less <- sum(iterations_coefficients2$chisqr_int  < par_emp[1,1])
-p_management<- 2 * min(greater, less) / 500 #calculate manually t-test two tailed
+greater <- sum(iterations_coefficients$chisqr_man > par_emp[1,1])
+less <- sum(iterations_coefficients$chisqr_man  < par_emp[1,1])
+p_management<- 2 * min(greater, less) / nrow(iterations_coefficients) #calculate manually t-test two tailed
 
 
 #Merge simulated and empirical
-iterations_sim_empirical<-rbind(iterations_coefficients2,tibble(
+iterations_sim_empirical<-rbind(iterations_coefficients,tibble(
   iteration = "Empirical",
-  chisqr_int = par_emp[1,1],
-  pval_int = par_emp[1,3]
-)) %>% mutate(iteration = ifelse(iteration == "Empirical", "Empirical","Null")) %>% rename("type"= "iteration")
+  chisqr_man = par_emp$Chisq[1],
+  chisqr_ser = par_emp$Chisq[2],
+  pval_man = par_emp[1,3],
+  pval_ser = par_emp[2,3],
+)) %>% mutate(iteration = ifelse(iteration == "Empirical", "Empirical","Null")) %>% rename("Type "= "iteration")
 
 
 #Plot general
+iterations_sim_empirical<-iterations_coefficients %>% mutate(type = "Null")
 
-iterations_sim_empirical %>% ggplot(aes(x = chisqr_int, fill= type))+ 
+iterations_sim_empirical %>% ggplot(aes(x = chisqr_man, fill= type))+ 
   geom_density(alpha = 0.6)+ 
   geom_vline(xintercept = par_emp[1,1], linetype = "dashed", color = "#FB3B1E") + #line represting rsquared empirical
   labs(x= "Statistic", y="Density")+  
@@ -1441,77 +1517,68 @@ iterations_sim_empirical %>% ggplot(aes(x = chisqr_int, fill= type))+
         legend.text.align = 0,
         legend.title =  element_text(size = 13, color = "black"),
         legend.text = element_text(size = 11))
+#ggsave("Graphs/distri_amount_CP_IM.png")
 
 
-#ggsave("Graphs/distri_amount_CP.png")
 
 
 #Plot combination of treatments level 
-
 iterations_post_hocs<-read.csv("Data/iterations_post_hocs_amount_CP.csv", sep =",")
 
-#Post hoc (interaction management:services)
+#Post hoc (each combination of management )
 p_contrast_man<-NULL
 
 for (i in unique(iterations_post_hocs$contrast)){
   
-  for(j in unique(iterations_post_hocs$services)){
-    
   #filter data
-  post_comb<-iterations_post_hocs %>% filter(contrast == i & services == j) #filter per combination of treatmens (simulated data)
-  post_emp<-post_emp_contrast %>% filter(contrast == i & services == j) #filter per combination of treatmens (empirical)
+  post_comb<-iterations_post_hocs %>% filter(contrast == i) #filter per combination of treatmens (simulated data)
+  post_emp<-man_pairs_emp %>% filter(contrast == i) #filter per combination of treatmens (empirical)
   
   #test
   greater <- sum(post_comb$estimate >  post_emp$estimate)
   less <- sum(post_comb$estimate  <  post_emp$estimate)
-  p_comb<- 2 * min(greater, less) / 500 #calculate manually t-test two tailed
+  p_comb<- 2 * min(greater, less) / nrow(iterations_coefficients)  #calculate manually t-test two tailed
   
   #storage
   p_contrast_man <- rbind(p_contrast_man,
-                          tibble(contrast = i, services =j,
+                          tibble(contrast = i,
                                  p_value = p_comb))
   
-  }
 }
 p_contrast_man
-
-POLL_PRUEBA<-p_contrast_man %>% filter(services == "Pollination")
-
 
 
 #Prepare dataframe (simulated and empircal)
 
 #smimulated
-man_lev<-c("E","SE","M","SI","I")
+man_lev<-c("E","SE","M","SI","I","IM")
 
 post_hoc_sim<- iterations_post_hocs %>% separate(contrast, into = c("man_1", "man_2"), sep = " - ") %>% 
-  select(-p.value)
+  select(man_1,man_2,estimate,iteration)
 
-post_hoc_sim_inv<- post_hoc_sim %>% select(man_2,man_1,services,estimate, iteration)
-colnames(post_hoc_sim_inv) <- c("man_1", "man_2","services","estimate", "iteration")
+post_hoc_sim_inv<- post_hoc_sim %>% select(man_2,man_1,estimate, iteration)
+colnames(post_hoc_sim_inv) <- c("man_1", "man_2","estimate", "iteration")
 
 post_hoc_sim_fin<- rbind(post_hoc_sim,post_hoc_sim_inv)
 
 post_hoc_sim_fin$man_1 <- factor(post_hoc_sim_fin$man_1, levels = man_lev)
 post_hoc_sim_fin$man_2 <- factor(post_hoc_sim_fin$man_2, levels = man_lev)
 
-#empirical
-post_hoc_emp_pre<- post_emp_contrast %>% separate(contrast, into = c("man_1", "man_2"), sep = " - ") %>% 
-  select(-p.value) %>% mutate (iteration = "0") %>% select(man_1,man_2,services,estimate,iteration)#empirical
 
-new_combinations_empirical <- expand.grid(
-  man_1 = c("E", "SE", "M", "SI", "I"),
-  man_2 = c("E", "SE", "M", "SI", "I"),
-  services = c("Bird watching", "Butterfly watching", "Crop damage", "Crop production", "Pest control", "Pollination", "Seed dispersal"),
-  stringsAsFactors = FALSE
+#empirical
+post_hoc_emp_pre<- man_pairs_emp %>% separate(contrast, into = c("man_1", "man_2"), sep = " - ") %>% 
+  select(-p.value) %>% mutate (iteration = 0) %>% select(man_1,man_2,estimate,iteration)#empirical
+
+new_combinations_empirical <- data.frame(
+  man_1 = c("E", "SE", "M", "SI", "I","IM"),
+  man_2 = c("E", "SE", "M", "SI", "I","IM"),
+  estimate = rep(0, 6),
+  iteration = rep(0, 6)
 )
-new_combinations_empirical$estimate <- 0
-new_combinations_empirical$iteration <- 0
 
 post_hoc_emp_fin<-rbind(post_hoc_emp_pre,new_combinations_empirical)
-
-post_hoc_emp_fin_inv<- post_hoc_emp_fin %>% select(man_2,man_1,services,estimate, iteration)
-colnames(post_hoc_emp_fin_inv) <- c("man_1", "man_2","services","estimate", "iteration")
+post_hoc_emp_fin_inv<- post_hoc_emp_fin %>% select(man_2,man_1,estimate, iteration)
+colnames(post_hoc_emp_fin_inv) <- c("man_1", "man_2","estimate", "iteration")
 
 post_hoc_emp_fin_2<- rbind(post_hoc_emp_fin,post_hoc_emp_fin_inv)
 post_hoc_emp_fin_2$man_1 <- factor(post_hoc_emp_fin_2$man_1, levels = man_lev)
@@ -1519,27 +1586,16 @@ post_hoc_emp_fin_2$man_2 <- factor(post_hoc_emp_fin_2$man_2, levels = man_lev)
 
 
 # plot
-#example pollination
-post_hoc_distr_poll<-post_hoc_sim_fin %>% filter(services == "Pollination")
-post_hoc_distr_poll$man_1 <- factor(post_hoc_distr_poll$man_1, levels = man_lev)
-post_hoc_distr_poll$man_2 <- factor(post_hoc_distr_poll$man_2, levels = man_lev)
+lower_triangle_data <- post_hoc_sim_fin[as.numeric(post_hoc_sim_fin$man_2) >= as.numeric(post_hoc_sim_fin$man_1), ]
+lower_triangle_emp <- post_hoc_emp_fin_2[as.numeric(post_hoc_emp_fin_2$man_2) >= as.numeric(post_hoc_emp_fin_2$man_1), ]
 
-post_hoc_emp_poll<-post_hoc_emp_fin %>% filter(services == "Pollination")
-post_hoc_emp_poll$man_1 <- factor(post_hoc_emp_poll$man_1, levels = man_lev)
-post_hoc_emp_poll$man_2 <- factor(post_hoc_emp_poll$man_2, levels = man_lev)
-
-lower_triangle_sim <- post_hoc_distr_poll[as.numeric(post_hoc_distr_poll$man_2) >= as.numeric(post_hoc_distr_poll$man_1), ]
-lower_triangle_emp <- post_hoc_emp_fin_2[as.numeric(post_hoc_emp_fin_2$man_2) >= as.numeric(post_hoc_emp_fin_2$man_1), ] %>%
-                    filter (services == "Pollination")
-
-posthoc_distr_CP<- ggplot(data = lower_triangle_sim, aes(x=estimate)) +
+posthoc_distr_CP<- ggplot(data = lower_triangle_data, aes(x=estimate)) +
   geom_histogram(fill = "steelblue") +
   labs(y = "Count", x = "Estimate value") +
-  geom_vline(data = lower_triangle_emp[c(1:6,22:25),], mapping = aes(xintercept = estimate), 
+  geom_vline(data = lower_triangle_emp[c(1:8,15:21),], mapping = aes(xintercept = estimate), 
              colour="#BB0000", linetype="dashed") +
   facet_grid(man_2 ~ man_1)
-
-#ggsave("Graphs/posthoc_distri_amount_poll_CP.png")
+ggsave("Graphs/posthoc_distri_amount_CP_fin.png")
 
 
 
@@ -1552,11 +1608,11 @@ posthoc_distr_CP<- ggplot(data = lower_triangle_sim, aes(x=estimate)) +
 #upload and prepare dataframe
 direct_ES<- read.csv("Data/direct_ES_sim_CP.csv", sep =",")
 
-direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
 
 #indirect
-output_ind_ES<- read.csv("Data/Indirect_ES_sim_CP.csv", sep =",")
-output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+output_ind_ES<- read.csv("Data/Indirect_ES_sim_CP_final.csv", sep =",")
+output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
 
 
 
@@ -1629,11 +1685,13 @@ prop_EDS_direct <- Prop_direct_sim%>% ggplot(aes(x = management, y = Prop_mean))
 
 prop_EDS_direct
 
-#ggsave("Graphs/Direct_ES_sim_CP.png")
+#ggsave("Graphs/Direct_ES_sim_CP_final.png")
 
 
 ### Plot of proportions of indirect effects on E(D)S retained  
 Prop_ind_null<- read.csv("Data/Prop_ind_null_CP.csv", sep =",")
+
+
 #Empirical
 Prop_indir_Emp<-output_ind_ES %>% filter(iteration == "Emp") %>% group_by(management,services_to) %>% 
   mutate(tot = n()) %>% ungroup() %>%  
@@ -1653,10 +1711,16 @@ Prop_indir_sim<- Prop_ind_null %>% group_by(management,services_to) %>%
 
 # Merge empirical and simulations and remove extensive scenario
 Prop_indir_sim2 <- rbind(Prop_indir_Emp, Prop_indir_sim)
-Prop_indir_sim2$management <- factor(Prop_indir_sim2$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+Prop_indir_sim2$management <- factor(Prop_indir_sim2$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
 
 
 #Plot 
+
+color_services <-tibble(
+  services = unique(Prop_indir_sim2$services_to),
+  color = c('#1b9e77','#d95f02','#7570b3','#e7298a','#2c7fb8','#e6ab02','#a6761d'))
+
+
 prop_EDS_indirect <- Prop_indir_sim2%>% ggplot(aes(x = management, y = Prop_mean)) +
   geom_boxplot(aes(colour = type), outlier.shape = NA, size = 1.1 ) +
   geom_point(aes(fill = factor(services_to), shape = factor(ifelse(type == "Null", 24, 21))), 
@@ -1685,7 +1749,7 @@ prop_EDS_indirect <- Prop_indir_sim2%>% ggplot(aes(x = management, y = Prop_mean
 
 prop_EDS_indirect
 
-#ggsave("Graphs/Indirect_ES_sim_CP.png")
+#ggsave("Graphs/Indirect_ES_sim_CP_final.png")
 
 
 
@@ -1722,16 +1786,16 @@ ratio_sim<- direct_ES_sim %>% filter (management !="E") %>%
 
 #Join data
 ratio_sim2<-rbind(ratio_empirical,ratio_sim)
-ratio_sim2$management <- factor(ratio_sim2$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+ratio_sim2$management <- factor(ratio_sim2$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
 
 
 
 #Plot 
 prop_EDS_ratio <- ratio_sim2%>% ggplot(aes(x = management, y = ratio_change_ave)) +
-  geom_boxplot(aes(colour = type), outlier.shape = NA, size = 1.1 ) +
+  geom_boxplot(aes(colour = type), outlier.shape = NA, size = 0.8,  position = position_dodge(width = 1.02)) +
   geom_point(aes(fill = factor(services), shape = factor(ifelse(type == "Null", 24, 21))), 
              position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.4),
-             size = 2, stroke = 1, show.legend = c(fill = TRUE, shape = FALSE, colour = FALSE)) +
+             size = 2.4, stroke = 1, show.legend = c(fill = TRUE, shape = FALSE, colour = FALSE)) +
   scale_fill_manual(values = color_services$color, name = "E(D)S") +
   scale_shape_manual(values = c(21, 24)) +
   scale_color_manual(values = c("black","firebrick"))+
@@ -1750,14 +1814,13 @@ prop_EDS_ratio <- ratio_sim2%>% ggplot(aes(x = management, y = ratio_change_ave)
         axis.title = element_text(size=17, color='black'),
         axis.line = element_blank(),
         legend.text.align = 0,
-        legend.title =  element_text(size = 13, color = "black"),
-        legend.text = element_text(size = 11))
+        legend.title =  element_text(size = 14, color = "black"),
+        legend.text = element_text(size = 12))
 
 prop_EDS_ratio
 
 
-#ggsave("Graphs/ratio_change_sim_CP.png")
-
+ggsave("Graphs/ratio_change_sim_CP_final.png", width = 7, height = 5, dpi = 300)
 
 
 ###### Average trophic group of species removed
@@ -1776,7 +1839,7 @@ taxon_removed_sim <- read.csv("Data/sps_removed_sim_CP.csv", sep =",") %>%
                 group_by(management) %>% mutate(tot = sum(ave_taxon),
                                                Prop_taxon = ave_taxon / tot)
 
-taxon_removed_sim$management <- factor(taxon_removed_sim$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+taxon_removed_sim$management <- factor(taxon_removed_sim$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
   
   prop_taxon<- taxon_removed_sim %>% ggplot(aes(y=Prop_taxon, x= management, fill = taxon)) + 
   geom_bar(position="stack", stat="identity", color = "black")+ 
@@ -1865,7 +1928,7 @@ taxon_removed_sim$management <- factor(taxon_removed_sim$management, levels = c(
   degree_removed_sim <- read.csv("Data/sps_removed_sim_CP.csv", sep =",") %>% 
     group_by(management) %>% summarise(ave_degree = mean(degree)) 
   
- taxon_removed_sim$management <- factor(taxon_removed_sim$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+ taxon_removed_sim$management <- factor(taxon_removed_sim$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
   
  degree_removed_sim <- read.csv("Data/sps_removed_sim_CP.csv", sep =",") %>% 
     left_join(Norwood_farm$nodes[,c(1,3)], by = c("species_rem" = "node_id")) %>% 
@@ -1983,7 +2046,7 @@ pairs(post_ser)
 
 #upload and prepare dataframe
 output_ind_ES<- read.csv("Data/Indirect_ES_sim_CP.csv", sep =",")
-output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I")) #change order of factors
+output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
 
 
 #Empirical
