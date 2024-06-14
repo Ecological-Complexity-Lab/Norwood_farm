@@ -950,7 +950,7 @@ Indirect_1hop_IM<-Indirect_1hop_IM[,c(1,2,4,6,3,10,5,7,9,8)]
 IM_indirect_2hop_sim2 <- IM_indirect_2hop_sim %>% rename("taxon" = "taxon_from")
 
 # Final Total indirect effects (E,SE,M,SI,I,IM)
-I_ES_final<-rbind(I_ES_sim_old,Indirect_1hop_IM,IM_indirect_2hop_sim2) 
+I_ES_final<-rbind(I_ES_sim_old,Indirect_1hop_IM,IM_indirect_2hop_sim2) %>% filter(services_to !="None")
 
 #write.csv(I_ES_final,"Data/Indirect_ES_sim_CP_final.csv", row.names= FALSE)
 
@@ -1101,7 +1101,7 @@ iterations_sim_empirical %>% ggplot(aes(x = chisqr_man, fill= type))+
         legend.text = element_text(size = 11))
 
 
-#ggsave("distri_direct_CP_IM.png")
+#ggsave("Graphs/distri_direct_CP_IM.png",width = 6, height = 5, dpi = 300)
 
 
 
@@ -1166,7 +1166,7 @@ posthoc_distr_CP<- ggplot(data = post_hoc_sim, aes(x=estimate)) +
              colour="#BB0000", linetype="dashed") +
   facet_grid(man_2 ~ man_1)
 
- #ggsave("posthoc_distri_direct_CP_IM.png")
+ #ggsave("Graphs/posthoc_distri_direct_CP_IM.png")
 
 
 
@@ -1310,7 +1310,7 @@ iterations_sim_empirical %>% ggplot(aes(x = chisqr_man, fill= type))+
         legend.text.align = 0,
         legend.title =  element_text(size = 13, color = "black"),
         legend.text = element_text(size = 11))
-#ggsave("Graphs/distri_indirect_CP_IM.png")
+#ggsave("Graphs/distri_indirect_CP_IM.png", width = 6, height = 5, dpi = 300)
 
 
 # Plot combination of treatments level 
@@ -1517,7 +1517,7 @@ iterations_sim_empirical %>% ggplot(aes(x = chisqr_man, fill= type))+
         legend.text.align = 0,
         legend.title =  element_text(size = 13, color = "black"),
         legend.text = element_text(size = 11))
-#ggsave("Graphs/distri_amount_CP_IM.png")
+ggsave("Graphs/distri_amount_CP_IM.png", width = 6, height = 5, dpi = 300)
 
 
 
@@ -1611,7 +1611,7 @@ direct_ES<- read.csv("Data/direct_ES_sim_CP.csv", sep =",")
 direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
 
 #indirect
-output_ind_ES<- read.csv("Data/Indirect_ES_sim_CP_final.csv", sep =",")
+output_ind_ES<- read.csv("Data/Indirect_ES_sim_CP_final.csv", sep =",")%>% filter(services_to !="None")
 output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
 
 
@@ -1658,10 +1658,10 @@ Prop_direct_sim<-rbind(Prop_dir_emp,Prop_dir_sim)
 
 #Plot 
 prop_EDS_direct <- Prop_direct_sim%>% ggplot(aes(x = management, y = Prop_mean)) +
-  geom_boxplot(aes(colour = type), outlier.shape = NA, size = 1.1 ) +
+  geom_boxplot(aes(colour = type), outlier.shape = NA, size = 0.8 ) +
   geom_point(aes(fill = factor(services), shape = factor(ifelse(type == "Null", 24, 21))), 
              position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.4),
-             size = 2, stroke = 1, show.legend = c(fill = TRUE, shape = FALSE, colour = FALSE)) +
+             size = 2.4, stroke = 1, show.legend = c(fill = TRUE, shape = FALSE, colour = FALSE)) +
   scale_fill_manual(values = color_services$color, name = "E(D)S") +
   scale_shape_manual(values = c(21, 24)) + 
   scale_color_manual(values = c("black","firebrick"), name = "Type")+
@@ -1680,12 +1680,12 @@ prop_EDS_direct <- Prop_direct_sim%>% ggplot(aes(x = management, y = Prop_mean))
         axis.title = element_text(size=17, color='black'),
         axis.line = element_blank(),
         legend.text.align = 0,
-        legend.title =  element_text(size = 13, color = "black"),
-        legend.text = element_text(size = 11))
+        legend.title =  element_text(size = 14, color = "black"),
+        legend.text = element_text(size = 12))
 
 prop_EDS_direct
 
-#ggsave("Graphs/Direct_ES_sim_CP_final.png")
+#ggsave("Graphs/Direct_ES_sim_CP_final.png", width = 7, height = 5, dpi = 300)
 
 
 ### Plot of proportions of indirect effects on E(D)S retained  
@@ -1702,12 +1702,11 @@ Prop_indir_Emp<-output_ind_ES %>% filter(iteration == "Emp") %>% group_by(manage
   mutate (type = "Empirical")
 
 
-
 #Simulations
 Prop_indir_sim<- Prop_ind_null %>% group_by(management,services_to) %>%
   summarise(Prop_mean = mean(Prop_mean)) %>% 
   filter(management !="E") %>% mutate(type = "Null")
-  
+
 
 # Merge empirical and simulations and remove extensive scenario
 Prop_indir_sim2 <- rbind(Prop_indir_Emp, Prop_indir_sim)
@@ -1722,10 +1721,10 @@ color_services <-tibble(
 
 
 prop_EDS_indirect <- Prop_indir_sim2%>% ggplot(aes(x = management, y = Prop_mean)) +
-  geom_boxplot(aes(colour = type), outlier.shape = NA, size = 1.1 ) +
+  geom_boxplot(aes(colour = type), outlier.shape = NA, size = 0.8 ) +
   geom_point(aes(fill = factor(services_to), shape = factor(ifelse(type == "Null", 24, 21))), 
              position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.4),
-             size = 2, stroke = 1, show.legend = c(fill = TRUE, shape = FALSE, colour = FALSE)) +
+             size = 2.4, stroke = 1, show.legend = c(fill = TRUE, shape = FALSE, colour = FALSE)) +
   scale_fill_manual(values = color_services$color, name = "E(D)S") +
   scale_shape_manual(values = c(21, 24)) + 
   scale_color_manual(values = c("black","firebrick"))+
@@ -1744,12 +1743,12 @@ prop_EDS_indirect <- Prop_indir_sim2%>% ggplot(aes(x = management, y = Prop_mean
         axis.title = element_text(size=17, color='black'),
         axis.line = element_blank(),
         legend.text.align = 0,
-        legend.title =  element_text(size = 13, color = "black"),
-        legend.text = element_text(size = 11))
+        legend.title =  element_text(size = 14, color = "black"),
+        legend.text = element_text(size = 12))
 
 prop_EDS_indirect
 
-#ggsave("Graphs/Indirect_ES_sim_CP_final.png")
+#ggsave("Graphs/Indirect_ES_sim_CP_final.png", width = 7, height = 5, dpi = 300)
 
 
 

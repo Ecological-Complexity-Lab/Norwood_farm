@@ -1195,13 +1195,13 @@ prop_EDS_direct<- Prop %>% ggplot(aes(x = management, y = prop)) +
         axis.title = element_text(size=17, color='black'),
         axis.line = element_blank(),
         legend.text.align = 0,
-        legend.title =  element_text(size = 13, color = "black"),
-        legend.text = element_text(size = 11))+
+        legend.title =  element_text(size = 14, color = "black"),
+        legend.text = element_text(size = 12))+
   labs(fill = "E(D)S")
 
 prop_EDS_direct
 
-#ggsave("Graphs/Land_use_retained_direct_CP_intense_IM.png")
+#ggsave("Graphs/Land_use_retained_direct_CP_intense_IM.png", width = 7, height = 5, dpi = 300)
 
 #indirect
 
@@ -1228,12 +1228,13 @@ prop_EDS_indirect<- Prop_ind %>% ggplot(aes(x = management, y = prop)) +
         axis.title = element_text(size=17, color='black'),
         axis.line = element_blank(),
         legend.text.align = 0,
-        legend.title =  element_text(size = 13, color = "black"),
-        legend.text = element_text(size = 11))
+        legend.title =  element_text(size = 14, color = "black"),
+        legend.text = element_text(size = 12))+
+  labs(fill = "E(D)S")
 
 prop_EDS_indirect
 
-ggsave("Graphs/Land_use_retained_indirect_CP_intense_IM.png")
+#ggsave("Graphs/Land_use_retained_indirect_CP_intense_IM.png", width = 7, height = 5, dpi = 300)
 
 
 
