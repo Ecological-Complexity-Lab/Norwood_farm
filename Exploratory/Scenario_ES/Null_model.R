@@ -1658,9 +1658,9 @@ Prop_direct_sim<-rbind(Prop_dir_emp,Prop_dir_sim)
 
 #Plot 
 prop_EDS_direct <- Prop_direct_sim%>% ggplot(aes(x = management, y = Prop_mean)) +
-  geom_boxplot(aes(colour = type), outlier.shape = NA, size = 0.8 ) +
+  geom_boxplot(aes(colour = type), outlier.shape = NA, size = 0.8, position = position_dodge(width = 1.02)) +
   geom_point(aes(fill = factor(services), shape = factor(ifelse(type == "Null", 24, 21))), 
-             position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.4),
+             position = position_jitterdodge(jitter.width = 1.2, dodge.width = 0.5),
              size = 2.4, stroke = 1, show.legend = c(fill = TRUE, shape = FALSE, colour = FALSE)) +
   scale_fill_manual(values = color_services$color, name = "E(D)S") +
   scale_shape_manual(values = c(21, 24)) + 
@@ -1721,9 +1721,9 @@ color_services <-tibble(
 
 
 prop_EDS_indirect <- Prop_indir_sim2%>% ggplot(aes(x = management, y = Prop_mean)) +
-  geom_boxplot(aes(colour = type), outlier.shape = NA, size = 0.8 ) +
+  geom_boxplot(aes(colour = type), outlier.shape = NA, size = 0.8, position = position_dodge(width = 1.02))  +
   geom_point(aes(fill = factor(services_to), shape = factor(ifelse(type == "Null", 24, 21))), 
-             position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.4),
+             position = position_jitterdodge(jitter.width = 1.2, dodge.width = 0.5),
              size = 2.4, stroke = 1, show.legend = c(fill = TRUE, shape = FALSE, colour = FALSE)) +
   scale_fill_manual(values = color_services$color, name = "E(D)S") +
   scale_shape_manual(values = c(21, 24)) + 
