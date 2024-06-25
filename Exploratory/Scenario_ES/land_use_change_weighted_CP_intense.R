@@ -541,16 +541,54 @@ int_edgelist_aggr<-int_edgelist_no_aggr %>% select(node_from,node_to) %>%
 
 ##### -- Intensive monoculture (eliminate weeds from the network)
  weeds = 1:93 #weeds nodes 1:93
+ crops = 94:99
+ aphid = 337:364
+ seed_ins = 476:494
+ seed_bird = 495:506
+ seed_rod = 507:510
+ herbivores <- c(aphid, seed_ins, seed_bird, seed_rod)
 
-#Edge list
+ ## Edge list
+ 
+ #Remove weeds
 int_mon_edgelist_aggr<-int_edgelist_aggr %>% 
                       filter(!(node_from%in%weeds), !(node_to%in%weeds)) %>%  #eliminate weeds and species that only interact with them
-                      mutate(management = "IM")
+                       mutate(management = "IM") 
+
+# Remove herbivores that feed on weeds
+# Step 1: Identify herbivores that interact with crops
+interact_with_crops <- int_edgelist_aggr %>%
+  filter((node_from %in% herbivores & node_to %in% crops) | 
+           (node_to %in% herbivores & node_from %in% crops)) %>%
+  select(node_from, node_to) %>%
+  unlist() %>%
+  as.numeric() %>%
+  unique()
+herbivores_crops<-interact_with_crops[interact_with_crops > 99] #list of pest
+
+# Step 2: Filter the dataset to include only interactions between herbivores and weeds, excluding those that interact with crops
+interact_without_crops <- int_edgelist_aggr %>%
+  filter(
+    ((node_from %in% herbivores & node_to %in% weeds) | 
+       (node_to %in% herbivores & node_from %in% weeds)) & 
+      !(node_from %in% herbivores_crops | node_to %in% herbivores_crops)
+  ) %>%  select(node_from, node_to) %>%
+  unlist() %>%
+  as.numeric() %>%
+  unique()
+
+herbivores_only_weeds<- interact_without_crops[interact_without_crops > 99] #list of herbivores that only interact with weeds
+
+# Remove herbivores_only_weeds and their interactions in the dataframe
+int_mon_edgelist_aggr2<-int_mon_edgelist_aggr %>% 
+  filter(
+    !(node_from %in% herbivores_only_weeds) & !(node_to %in% herbivores_only_weeds))  # Exclude all interactions of herbivores only feed on weeds
+
 
 #States nodes
 state_node_int_mod_agg <- state_node_int_agg %>% 
-                          filter(node_id%in%int_mon_edgelist_aggr$node_from |
-                                  node_id%in%int_mon_edgelist_aggr$node_to ) %>% 
+                          filter(node_id%in%int_mon_edgelist_aggr2$node_from |
+                                  node_id%in%int_mon_edgelist_aggr2$node_to ) %>% 
                           group_by(taxon) %>% 
                           mutate(tot_ab_taxon = sum(abun)) %>% #total abundance per taxon
                          group_by(node_id) %>% 
@@ -560,7 +598,7 @@ state_node_int_mod_agg <- state_node_int_agg %>%
 ##### ---  Final dataframe
 
 land_change_weighted<-rbind(ext_edgelist_aggr,sem_ext_edgelist_aggr,mod_edgelist_aggr,
-                          sem_int_edgelist_aggr,int_edgelist_aggr,int_mon_edgelist_aggr)
+                          sem_int_edgelist_aggr,int_edgelist_aggr,int_mon_edgelist_aggr2)
 
 
 #write.csv(land_change_weighted,"Data/Land_use_rat_edgelist_weighted_CP_intense.csv", row.names= FALSE)
@@ -1013,6 +1051,7 @@ summary(Prop_indi)
 EM<-resid(Prop_indi, type= "response") 
 FM<-fitted(Prop_indi) 
 plot(x=FM, y=EM, xlab = "Ajustados", ylab = "Residuales normalizados")
+
 abline(0,0, col="red", lwd= 3) 
 
 #independence 

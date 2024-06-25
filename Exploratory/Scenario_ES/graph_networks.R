@@ -124,7 +124,7 @@ dev.off()
 
 
 
-###### INTENSIVE MONOCULTURE
+###### INTENSIVE NON-ORGANIC
 
 IMCP_edge <- edge_list %>% filter(management == "IM") %>% select(node_from,node_to)
 

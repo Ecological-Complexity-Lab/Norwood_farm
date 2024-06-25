@@ -575,24 +575,64 @@ I_sim_CP<-read.csv("Data/I_sim_CP.csv", sep =,) %>%
   mutate(management = "IM")
 
 weeds = 1:93 #weeds nodes 1:93
+crops = 94:99
+aphid = 337:364
+seed_ins = 476:494
+seed_bird = 495:506
+seed_rod = 507:510
+herbivores <- c(aphid, seed_ins, seed_bird, seed_rod)
 
 #Objects to storage
 edge_list_shuff <- data.frame() 
 list_species_removed<- data.frame()
 list_species_survived<- data.frame()
 
+
 for (i in 1:600){
-  
-    print(i)
+  print(i)
   iteration_net <- I_sim_CP %>% filter(iteration==i)
   
-  # Calculate edge list after eliminating species
-  edge_list_remov<- iteration_net %>%
+  ### Calculate edge list after eliminating species
+  
+  ## Remove weeds
+  edge_list_weed_remov<- iteration_net %>%
     filter(!(node_from%in%weeds), !(node_to%in%weeds))   #eliminate weeds and species that only interact with them
-    
+  
+  ## Remove herbivores that feeds on weeds
+  
+  # Step 1: Identify herbivores that interact with crops
+  interact_with_crops <- iteration_net %>%
+    filter((node_from %in% herbivores & node_to %in% crops) | 
+             (node_to %in% herbivores & node_from %in% crops)) %>%
+    select(node_from, node_to) %>%
+    unlist() %>%
+    as.numeric() %>%
+    unique()
+  
+  herbivores_crops<-interact_with_crops[interact_with_crops > 99] #list of pest
+  
+  # Step 2: Filter the dataset to include only interactions between herbivores and weeds, excluding those that interact with crops
+  interact_without_crops <- iteration_net %>%
+    filter(
+      ((node_from %in% herbivores & node_to %in% weeds) | 
+         (node_to %in% herbivores & node_from %in% weeds)) & 
+        !(node_from %in% herbivores_crops | node_to %in% herbivores_crops)
+    ) %>%  select(node_from, node_to) %>%
+    unlist() %>%
+    as.numeric() %>%
+    unique()
+  
+  herbivores_only_weeds<- interact_without_crops[interact_without_crops > 99] #list of herbivores that only interact with weeds
+  
+  ## Final edge list: remove herbivores_only_weeds and their interactions in the dataframe
+  edge_list_remov<-edge_list_weed_remov %>% 
+    filter(
+      !(node_from %in% herbivores_only_weeds) & !(node_to %in% herbivores_only_weeds))  # Exclude all interactions of herbivores only feed on weeds
+  
+  
   # Store new edge list
   edge_list_shuff <- rbind(edge_list_shuff, edge_list_remov)
-
+  
   
   ## Create information of the removed species
   
@@ -607,11 +647,11 @@ for (i in 1:600){
     distinct(node_from, node_to) %>% 
     unlist() %>% 
     unique()
-  remain_sps<- cbind(iteration = i, remain_species = remain_species) #THE PROBLEM IS HERE!!
+  remain_sps<- cbind(iteration = i, remain_species = remain_species)
   
   #Store the information
   list_species_survived<-rbind(list_species_survived, remain_sps)
-
+  
   
   # Identify species were removed from the network
   sp_removed<- setdiff(unique_species, remain_species)
@@ -636,7 +676,6 @@ sps_removed = list_species_removed #list of species removed
 #write.csv(sps_removed,"Data/sps_removed_IM_CP.csv", row.names= FALSE) #save to add in the next management scenario
 
 sps_survived = list_species_survived #remaining species
-
 
 
 ### Create state node
@@ -901,7 +940,7 @@ IM_indirect_2hop_sim <- bind_rows(lapply(1:nrow(Indirect_1hop_IM), function(row)
 #write.csv(IM_indirect_2hop_sim,"Data/IM_ind_2hop_sim_CP.csv", row.names= FALSE)
 
 # Upload dataframe of indirect effect of each simulation in each management (run in the HPC, keep 500 iterations)
-E_ind_2<-read.csv("Data/HPC/E_ind_2hop_CP.csv", sep =",") #empirical extensive
+E_ind_2<-read.csv("Data/E_ind_2hop_CP.csv", sep =",") #empirical extensive
 SE_ind_2 <-read.csv("Data/HPC/SE_ind_2hop_sim_CP.csv", sep =",") %>% filter(iteration == "Emp" | iteration <=500)
 M_ind_2 <-read.csv("Data/HPC/M_ind_2hop_sim_CP.csv", sep =",") %>% filter(iteration == "Emp" | iteration <=500)
 SI_ind_2 <-read.csv("Data/HPC/SI_ind_2hop_sim_CP.csv", sep =",") %>% filter(iteration == "Emp" | iteration <=500)
@@ -1517,7 +1556,7 @@ iterations_sim_empirical %>% ggplot(aes(x = chisqr_man, fill= type))+
         legend.text.align = 0,
         legend.title =  element_text(size = 13, color = "black"),
         legend.text = element_text(size = 11))
-ggsave("Graphs/distri_amount_CP_IM.png", width = 6, height = 5, dpi = 300)
+#ggsave("Graphs/distri_amount_CP_IM.png", width = 6, height = 5, dpi = 300)
 
 
 
@@ -1595,7 +1634,7 @@ posthoc_distr_CP<- ggplot(data = lower_triangle_data, aes(x=estimate)) +
   geom_vline(data = lower_triangle_emp[c(1:8,15:21),], mapping = aes(xintercept = estimate), 
              colour="#BB0000", linetype="dashed") +
   facet_grid(man_2 ~ man_1)
-ggsave("Graphs/posthoc_distri_amount_CP_fin.png")
+#ggsave("Graphs/posthoc_distri_amount_CP_fin.png")
 
 
 
@@ -1723,7 +1762,7 @@ color_services <-tibble(
 prop_EDS_indirect <- Prop_indir_sim2%>% ggplot(aes(x = management, y = Prop_mean)) +
   geom_boxplot(aes(colour = type), outlier.shape = NA, size = 0.8, position = position_dodge(width = 1.02))  +
   geom_point(aes(fill = factor(services_to), shape = factor(ifelse(type == "Null", 24, 21))), 
-             position = position_jitterdodge(jitter.width = 1.2, dodge.width = 0.5),
+             position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.5),
              size = 2.4, stroke = 1, show.legend = c(fill = TRUE, shape = FALSE, colour = FALSE)) +
   scale_fill_manual(values = color_services$color, name = "E(D)S") +
   scale_shape_manual(values = c(21, 24)) + 
@@ -1819,7 +1858,7 @@ prop_EDS_ratio <- ratio_sim2%>% ggplot(aes(x = management, y = ratio_change_ave)
 prop_EDS_ratio
 
 
-ggsave("Graphs/ratio_change_sim_CP_final.png", width = 7, height = 5, dpi = 300)
+#ggsave("Graphs/ratio_change_sim_CP_final.png", width = 7, height = 5, dpi = 300)
 
 
 ###### Average trophic group of species removed
