@@ -40,7 +40,6 @@ state_nodes_ab<-Norwood_farm$state_nodes %>% left_join(abundances,
                                                    "node_name" = "species_name")) %>% #add abundances
   left_join(Norwood_farm$nodes, by = "node_id") %>% 
   select(layer_id,node_id,abundance, taxon) ##add taxon
-      
 
 
 ## Call dataframe of habitats' area
@@ -54,7 +53,7 @@ areas<-read.csv("Data/habitatarea.csv", sep =",") %>% # LU as CP already merged
 habitat_area <- areas %>% mutate(area_ave = case_when(
                           (Area_2007 >0) & (Area_2008 >0) ~ (Area_2007+Area_2008)/2, #if the same habitat was present in both years do the average
                           (Area_2007 >0) & (Area_2008  ==0)~ Area_2007, #if the habitat was present in one year, keep the area of the year
-                          (Area_2007 ==0) & (Area_2008  >0)~ Area_2008)) 
+                          (Area_2007 ==0) & (Area_2008  >0)~ Area_2008))
                       
 
 
