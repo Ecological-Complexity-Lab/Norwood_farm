@@ -1001,7 +1001,293 @@ I_ES_final<-rbind(I_ES_sim_old,Indirect_1hop_IM,IM_indirect_2hop_sim2) %>% filte
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #                      Analyses                            
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#In this new manalysis we will compare the results of the empirical model with results of the null ones. WE create a null distribution and test
+
+
+################### Z - SCORE
+
+# In this analysis we compare the z-score to check if the response variables (Prop. Direct ES retained,
+#relative change in the amount, and proportion of Indirect ES retained) within each management and ES change between
+#the empirical and simulated networks
+
+
+#### -- Proportion of direct E(D)S retained across land use change --
+#(we do it for every ES and management scenario)
+
+#upload and prepare dataframe
+direct_ES<- read.csv("Data/direct_ES_sim_CP.csv", sep =",") %>% filter(iteration == "Emp"|iteration <=500) 
+direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
+
+# Observed (empirical)
+direct_obs <-direct_ES %>% filter(iteration == "Emp") %>% group_by(management,services) %>% 
+  mutate(tot = n()) %>% ungroup() %>%  
+  group_by(services) %>% 
+  mutate(prop = tot/max(tot)) %>%  #prop of E(D)S rtained across habitat management
+  dplyr::select(management,services,tot,prop) %>%
+  unique() %>% rename("Prop_mean" = "prop") %>%  filter(management != "E")
+
+
+# shuffled 
+direct_shuff<- direct_ES %>% filter(!(iteration == "Emp" & management !="E"))%>% group_by(management,iteration,services) %>% 
+  mutate(tot = n(),
+         tot_emp = case_when( #Values of denominator
+           services == "Crop production"~ 6,
+           services == "Pollination" ~ 117,
+           services == "Crop damage"~ 15,
+           services == "Pest control"~ 28,
+           services == "Seed dispersal" ~ 5,
+           services == "Butterfly watching"~ 16,
+           services == "Bird watching"~ 7 )) %>% ungroup() %>%  
+  group_by(services) %>% 
+  mutate(prop = tot/tot_emp) %>%  #prop of E(D)S rtained across habitat management per iteration and habitat management
+  dplyr::select(management,iteration,services,prop) %>%
+  unique() %>% rename("Prop_mean" = "prop") %>% filter(management !="E")
+
+# calculate Z-score
+dir_ES_z_score <- 
+  inner_join(direct_obs,
+             direct_shuff %>% select(-iteration) %>% 
+               group_by(management,services) %>% 
+               summarise(dir_shuff_mean=mean(Prop_mean), dir_shuff_sd=sd(Prop_mean), n=n())) %>% 
+          drop_na() %>% 
+          mutate(z=(Prop_mean-dir_shuff_mean)/dir_shuff_sd)
+
+dir_ES_z_score %<>%
+  mutate(signif=case_when(z>1.96 ~ 'above', # Obs is more than the shuffled
+                          z< -1.96 ~ 'below', # Obs is lower than the shuffled
+                          z<=1.96 | z>=-1.96 | z == "NaN" ~ 'not signif')) 
+
+#write.csv(dir_ES_z_score,"Data/z_score_dir_ES_CP.csv", row.names= FALSE)
+
+
+## Plot Heat map
+#We plot the z_score indicating if the Prortion of each ESs is significantly higher and lower than when we
+#reandomly remove species 
+
+# Prepare dataframe
+z_score_dir<- dir_ES_z_score %>% select(management,services,z,signif)
+
+#Add row showing the extensice and bird watching and seed dispersal for IM (all birds went extinct so there were no z scores)
+sd_bw<-data.frame(management = c("E","E","E","E","E","E","E","IM","IM"), 
+                  services = c("Bird watching", "Butterfly watching", 
+                               "Crop damage", "Crop production","Pest control",
+                               "Pollination", "Seed dispersal","Bird watching", "Seed dispersal"),
+                  z = c(NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN),
+                  signif = c("Benchmark","Benchmark","Benchmark","Benchmark",
+                             "Benchmark","Benchmark","Benchmark","not signif", "not signif"))
+z_score_tot<- rbind (z_score_dir, sd_bw) %>% rename("Output" = "signif")
+
+z_score_tot$management <- factor(z_score_tot$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
+z_score_tot$services <- factor(z_score_tot$services, levels = c("Seed dispersal", "Pollination","Pest control",
+                                                                "Crop production", "Crop damage",
+                                                                "Butterfly watching","Bird watching"))
+  
+
+
+#Plot
+library(ggtext)
+color_services<-tibble(
+services = unique(direct_ES$services),
+ #color = c('#1b9e77','#d95f02','#7570b3','#e7298a','#2c7fb8','#e6ab02','#a6761d')),
+color = c('#e7298a','#e6ab02','#7570b3','#2c7fb8','#a6761d','#d95f02','#1b9e77'))
+ #arrange(desc(services)) #do it manually
+# Create the custom legend data
+
+pdf("Graphs/z_score_dir_CP.pdf", width = 12, height = 7)
+ggplot(z_score_tot, aes(management, services, fill= Output)) + 
+  geom_tile(color = "black")+
+  scale_fill_manual(values = c("red","ivory1","ivory1"),
+                    labels = c("Lower than random", 
+                               "No difference",
+                               "Benchmark"))+
+  labs(x='Habitat Management', y="Ecosystem (dis)services")+
+  theme_minimal()+
+    theme(panel.background = element_rect(fill = "white"),
+          panel.border = element_rect(color = "black",fill = NA,size = 1),
+          panel.spacing = unit(0.5, "cm", data = NULL),
+          panel.grid.major = element_blank(),  # Remove major grid lines
+          panel.grid.minor = element_blank(),
+          axis.text.y = element_text(size=13,  color = color_services$color[match(levels(z_score_tot$services), color_services$services)]),
+          # axis.text = element_text(size=15, color='black'),
+          axis.text.x= element_text(size =15), 
+          axis.title = element_text(size=17, color='black'),
+          axis.line = element_blank(),
+          legend.text.align = 0,
+          legend.title =  element_text(size = 13, color = "black"),
+          legend.text = element_text(size = 11))   +
+  geom_segment(data = filter(z_score_tot, Output == "Benchmark"),
+               aes(x = as.numeric(management) - 0.5, 
+                   y = as.numeric(services) - 0.5, 
+                   xend = as.numeric(management) + 0.5, 
+                   yend = as.numeric(services) + 0.5), 
+               color = "black", size = 0.5)
+
+dev.off()
+
+
+
+ggtitle("Indirect provision")+
+  labs(x='Output', y="Prop output provided per taxon") +theme_bw()+
+  theme_classic()+
+  theme(panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text.y = element_text(size=13, color='black'),
+        axis.text = element_text(size=15, color='black'),
+        axis.text.x= element_text(size =15), 
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11),
+        legend.position = "bottom")
+
+
+#### -- Change in the amount of direct E(D)S provided change across land use change --
+
+## upload and prepare dataframe
+
+#observed (empirical)
+direct_ES_emp<- read.csv("Data/Land_use_dir_weighted_CP_intense.csv", sep =",")
+
+extensive_amount<-direct_ES_emp %>% filter(management=="E") %>% group_by(management,services) %>% 
+  summarize(tot_empirical = sum(weight))
+
+amount_obs<-direct_ES_emp %>% group_by(management,services) %>% 
+  summarize(tot = sum(weight)) %>% ungroup() %>%  
+  mutate(Extensive_tot = case_when(
+    services == "Bird watching"~ 330890.9200,
+    services == "Butterfly watching"~ 244.7676,
+    services == "Crop damage"~ 645963.6269,
+    services == "Crop production"~ 209300.0000,
+    services == "Pest control"~ 7108.3108,
+    services == "Pollination"~ 36736.7426,
+    services == "Seed dispersal"~ 305215.3300),
+    ratio_change = tot / Extensive_tot  #ratio of change: values higher than 1 indicates increasing in the amount of E(D)S
+  ) %>% filter(management!="E")
+
+
+#shuffled 
+amount_shuff <- direct_ES %>% filter(!(iteration == "Emp" & management =="E"))%>% 
+  group_by(management,iteration,services) %>% 
+  summarize(tot = sum(weight)) %>% 
+  left_join(extensive_amount[,2:3], by = "services", suffix = c("", "_extensive")) %>%
+   group_by(management,iteration,services) %>% 
+    mutate(ratio_change = tot / tot_empirical)
+
+
+# calculate Z-score
+amount_ES_z_score <- 
+  inner_join(amount_obs,
+             amount_shuff %>% select(-iteration) %>% 
+               group_by(management,services) %>% 
+               summarise(amount_shuff_mean=mean(ratio_change), amount_shuff_sd=sd(ratio_change), n=n())) %>% 
+  drop_na() %>% 
+  mutate(z=(ratio_change-amount_shuff_mean)/amount_shuff_sd)
+
+amount_ES_z_score %<>%
+  mutate(signif=case_when(z>1.96 ~ 'above', # Obs is more than the shuffled
+                          z< -1.96 ~ 'below', # Obs is lower than the shuffled
+                          z<=1.96 | z>=-1.96 ~ 'not signif'))
+
+#write.csv(amount_ES_z_score,"Data/z_score_amount_ES_CP.csv", row.names= FALSE)
+
+
+#### -- Proportion of indirect effects on E(D)S retained across land use change --
+
+#upload and prepare dataframe
+output_ind_ES<- read.csv("Data/Indirect_ES_sim_CP_final.csv", sep =",") %>% filter(services_to !="None")
+output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
+
+#Observed (empirical)
+indirect_obs <- output_ind_ES %>% filter(iteration == "Emp") %>% 
+  group_by(management,services_to) %>% 
+  mutate(tot = n()) %>% ungroup() %>%  
+  group_by(services_to) %>% 
+  mutate(Prop_mean = tot/max(tot)) %>% 
+  dplyr::select(management,services_to,tot, Prop_mean) %>%
+  unique() %>% filter(management !="E")
+
+
+# shuffled 
+indirect_shuff<- output_ind_ES %>% filter(!(iteration == "Emp" & management !="E")) %>% 
+  group_by(management,iteration,services_to) %>% 
+  mutate(tot = n(),
+         tot_emp = case_when( #Values of denominator
+           services_to == "Crop production"~ 280,
+           services_to == "Pollination" ~ 18733,
+           services_to == "Crop damage"~ 9816,
+           services_to == "Pest control"~ 3261,
+           services_to == "Seed dispersal" ~ 4154,
+           services_to == "Butterfly watching"~ 3515,
+           services_to == "Bird watching"~ 5722 )) %>% ungroup() %>%  
+  group_by(services_to) %>% 
+  mutate(Prop_mean = tot/tot_emp) %>%  #prop of E(D)S rtained across habitat management per iteration and habitat management
+  dplyr::select(management,iteration,services_to,Prop_mean) %>% 
+  unique() 
+
+
+# calculate Z-score
+indir_ES_z_score <- 
+  inner_join(indirect_obs,
+             indirect_shuff %>% select(-iteration) %>% 
+               group_by(management,services_to) %>% 
+               summarise(ind_shuff_mean=mean(Prop_mean), ind_shuff_sd=sd(Prop_mean), n=n())) %>% 
+  drop_na() %>% 
+  mutate(z=(Prop_mean-ind_shuff_mean)/ind_shuff_sd)
+
+indir_ES_z_score %<>%
+  mutate(signif=case_when(z>1.96 ~ 'above', # Obs is more than the shuffled
+                          z< -1.96 ~ 'below', # Obs is lower than the shuffled
+                          z<=1.96 | z>=-1.96 ~ 'not signif'))
+
+#write.csv(indir_ES_z_score,"Data/z_score_ind_ES_CP.csv", row.names= FALSE)
+
+
+
+
+#### DESPUES HACER HEAT MAP
+
+#Empirical
+Prop_indir_Emp<-output_ind_ES %>% filter(iteration == "Emp") %>% 
+  group_by(management,services_to) %>% 
+  mutate(tot = n()) %>% ungroup() %>%  
+  group_by(services_to) %>% 
+  mutate(prop = tot/max(tot)) %>%  #prop of indirect effects on E(D)S retained in the empirical
+  dplyr::select(management,services_to,tot,prop) %>%
+  unique() %>% rename("Prop_mean" = "prop") %>% 
+  mutate (type = "Empirical")
+
+# adjust the extreme values according to the beta conditions
+Prop_indir_Emp$Prop_mean <- ifelse(Prop_indir_Emp$Prop_mean == 0, 0.000001, 
+                                   ifelse(Prop_indir_Emp$Prop_mean == 1, 0.9999999, Prop_indir_Emp$Prop_mean))
+
+#Simulations
+Prop_ind_null<-output_ind_ES %>% filter(!(iteration == "Emp" & management !="E")) %>% 
+  group_by(management,iteration,services_to) %>% 
+  mutate(tot = n(),
+         tot_emp = case_when( #Values of denominator
+           services_to == "Crop production"~ 280,
+           services_to == "Pollination" ~ 18733,
+           services_to == "Crop damage"~ 9816,
+           services_to == "Pest control"~ 3261,
+           services_to == "Seed dispersal" ~ 4154,
+           services_to == "Butterfly watching"~ 3515,
+           services_to == "Bird watching"~ 5722 )) %>% ungroup() %>%  
+  group_by(services_to) %>% 
+  mutate(Prop_mean = tot/tot_emp) %>%  #prop of E(D)S rtained across habitat management per iteration and habitat management
+  dplyr::select(management,iteration,services_to,Prop_mean) %>%
+  unique() %>% mutate(type = "Null")
+
+
+
+
+### PLOT THEM IN A MATRIX
+
+
+#################### MODELS COMPARISON
+
+
+#In this analysis we will compare the results of the empirical model with results of the null ones. WE create a null distribution and test
 #it by calculating a p value. Also, we do it for every combination of management.
 
 
@@ -1695,6 +1981,7 @@ Prop_dir_sim<-direct_ES %>% filter(iteration != "Emp") %>% group_by(management,i
 #join 
 Prop_direct_sim<-rbind(Prop_dir_emp,Prop_dir_sim)
 
+orueba<- Prop_direct_sim %>% filter()
 #Plot 
 prop_EDS_direct <- Prop_direct_sim%>% ggplot(aes(x = management, y = Prop_mean)) +
   geom_boxplot(aes(colour = type), outlier.shape = NA, size = 0.8, position = position_dodge(width = 1.02)) +

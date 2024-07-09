@@ -1112,7 +1112,7 @@ pairs(post_ser)
 
 state_nodes<-read.csv("Data/Land_use_rat_state_nodes_CP_intense.csv",header=T) 
 
-Perc_sp_lost <- state_nodes %>% filter(management == "E" | management == "I") %>% 
+Perc_sp_lost <- state_nodes %>% filter(management == "E" | management == "IM") %>% 
   group_by(management) %>%  summarise(Num_sp = n()) %>% 
   mutate(Perc_sp_lost= ((1 - Num_sp/551)*100))
 
@@ -1120,7 +1120,7 @@ tota_sp_trophic_lost <- state_nodes %>% filter(management == "E" ) %>%
   group_by(management,taxon) %>% 
   summarize(tot_trophic = n())
 
-Perc_sp_trophic <- state_nodes %>% filter(management == "I") %>% 
+Perc_sp_trophic <- state_nodes %>% filter(management == "IM") %>% 
   group_by(management, taxon) %>% 
   summarize(tot = n()) %>% ungroup() %>% 
   mutate(Extensive_tot = case_when(
@@ -1214,8 +1214,12 @@ Prop<-direct_ES %>% group_by(management,services) %>%
                     mutate(tot = n()) %>% ungroup() %>%  
                   group_by(services) %>% 
                 mutate(prop = tot/max(tot)) %>%  #prop of E(D)S rtained across habitat management
-          select(management,services,tot,prop) %>% unique()
-
+          select(management,services,tot,prop) %>% unique() 
+      
+  
+perc_direct_ES<- Prop %>% group_by(management) %>% 
+               summarise(perc_lost = (1 - mean(prop)) *100)
+  
 prop_EDS_direct<- Prop %>% ggplot(aes(x = management, y = prop)) +
   geom_boxplot(color = "black") +
   geom_point(position=position_jitterdodge(jitter.width=2, dodge.width = 0.5), 
@@ -1248,6 +1252,9 @@ Prop_ind<-output_ind_ES %>% group_by(management,services_to) %>%
   group_by(services_to) %>% 
   mutate(prop = tot/max(tot)) %>%  #prop of E(D)S rtained across habitat management
   select(management,services_to,tot,prop) %>% unique()
+
+perc_indirect_ES<- Prop_ind %>% group_by(management) %>% 
+  summarise(perc_lost = (1 - mean(prop)) *100)
 
 prop_EDS_indirect<- Prop_ind %>% ggplot(aes(x = management, y = prop)) +
   geom_boxplot(color = "black") +
