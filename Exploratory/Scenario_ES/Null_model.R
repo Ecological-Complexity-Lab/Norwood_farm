@@ -1125,22 +1125,6 @@ dev.off()
 
 
 
-ggtitle("Indirect provision")+
-  labs(x='Output', y="Prop output provided per taxon") +theme_bw()+
-  theme_classic()+
-  theme(panel.background = element_rect(fill = "white"),
-        panel.border = element_rect(color = "black",fill = NA,size = 1),
-        panel.spacing = unit(0.5, "cm", data = NULL),
-        axis.text.y = element_text(size=13, color='black'),
-        axis.text = element_text(size=15, color='black'),
-        axis.text.x= element_text(size =15), 
-        axis.title = element_text(size=17, color='black'),
-        axis.line = element_blank(),
-        legend.text.align = 0,
-        legend.title =  element_text(size = 13, color = "black"),
-        legend.text = element_text(size = 11),
-        legend.position = "bottom")
-
 
 #### -- Change in the amount of direct E(D)S provided change across land use change --
 
@@ -1190,6 +1174,76 @@ amount_ES_z_score %<>%
                           z<=1.96 | z>=-1.96 ~ 'not signif'))
 
 #write.csv(amount_ES_z_score,"Data/z_score_amount_ES_CP.csv", row.names= FALSE)
+
+
+
+## Plot Heat map
+#We plot the z_score indicating if the Prortion of each ESs is significantly higher and lower than when we
+#reandomly remove species 
+
+amount_ES_z_score<-read.csv("Data/z_score_amount_ES_CP.csv", sep =",")
+
+# Prepare dataframe
+z_score_amount<- amount_ES_z_score %>% select(management,services,z,signif)
+
+#Add row showing the extensice and bird watching and seed dispersal for IM (all birds went extinct so there were no z scores)
+sd_bw<-data.frame(management = c("E","E","E","E","E","E","E","IM","IM"), 
+                  services = c("Bird watching", "Butterfly watching", 
+                               "Crop damage", "Crop production","Pest control",
+                               "Pollination", "Seed dispersal","Bird watching", "Seed dispersal"),
+                  z = c(NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN),
+                  signif = c("Benchmark","Benchmark","Benchmark","Benchmark",
+                             "Benchmark","Benchmark","Benchmark","not signif", "not signif"))
+z_score_tot<- rbind (z_score_amount, sd_bw) %>% rename("Output" = "signif")
+
+z_score_tot$management <- factor(z_score_tot$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
+z_score_tot$services <- factor(z_score_tot$services, levels = c("Seed dispersal", "Pollination","Pest control",
+                                                                "Crop production", "Crop damage",
+                                                                "Butterfly watching","Bird watching"))
+
+
+
+#Plot
+library(ggtext)
+color_services<-tibble(
+  services = unique(direct_ES$services),
+  #color = c('#1b9e77','#d95f02','#7570b3','#e7298a','#2c7fb8','#e6ab02','#a6761d')),
+  color = c('#e7298a','#e6ab02','#7570b3','#2c7fb8','#a6761d','#d95f02','#1b9e77'))
+#arrange(desc(services)) #do it manually
+# Create the custom legend data
+
+pdf("Graphs/z_score_amount_CP.pdf", width = 12, height = 7)
+ggplot(z_score_tot, aes(management, services, fill= Output)) + 
+  geom_tile(color = "black")+
+  scale_fill_manual(values = c("red","ivory1","ivory1"),
+                    labels = c("Lower than random", 
+                               "No difference",
+                               "Benchmark"))+
+  labs(x='Habitat Management', y="Ecosystem (dis)services")+
+  theme_minimal()+
+  theme(panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        panel.grid.major = element_blank(),  # Remove major grid lines
+        panel.grid.minor = element_blank(),
+        axis.text.y = element_text(size=13,  color = color_services$color[match(levels(z_score_tot$services), color_services$services)]),
+        # axis.text = element_text(size=15, color='black'),
+        axis.text.x= element_text(size =15), 
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11))   +
+  geom_segment(data = filter(z_score_tot, Output == "Benchmark"),
+               aes(x = as.numeric(management) - 0.5, 
+                   y = as.numeric(services) - 0.5, 
+                   xend = as.numeric(management) + 0.5, 
+                   yend = as.numeric(services) + 0.5), 
+               color = "black", size = 0.5)
+
+dev.off()
+
+
 
 
 #### -- Proportion of indirect effects on E(D)S retained across land use change --
@@ -1244,44 +1298,73 @@ indir_ES_z_score %<>%
 
 
 
+## Plot Heat map
+#We plot the z_score indicating if the Prortion of each ESs is significantly higher and lower than when we
+#reandomly remove species 
 
-#### DESPUES HACER HEAT MAP
+z_score_ind<-read.csv("Data/z_score_ind_ES_CP.csv", sep =",") %>% rename ("services" = "services_to")
 
-#Empirical
-Prop_indir_Emp<-output_ind_ES %>% filter(iteration == "Emp") %>% 
-  group_by(management,services_to) %>% 
-  mutate(tot = n()) %>% ungroup() %>%  
-  group_by(services_to) %>% 
-  mutate(prop = tot/max(tot)) %>%  #prop of indirect effects on E(D)S retained in the empirical
-  dplyr::select(management,services_to,tot,prop) %>%
-  unique() %>% rename("Prop_mean" = "prop") %>% 
-  mutate (type = "Empirical")
+# Prepare dataframe
+z_score_ind<- z_score_ind %>% select(management,services,z,signif)
 
-# adjust the extreme values according to the beta conditions
-Prop_indir_Emp$Prop_mean <- ifelse(Prop_indir_Emp$Prop_mean == 0, 0.000001, 
-                                   ifelse(Prop_indir_Emp$Prop_mean == 1, 0.9999999, Prop_indir_Emp$Prop_mean))
+#Add row showing the extensice and bird watching and seed dispersal for IM (all birds went extinct so there were no z scores)
+sd_bw<-data.frame(management = c("E","E","E","E","E","E","E","IM","IM"), 
+                  services = c("Bird watching", "Butterfly watching", 
+                               "Crop damage", "Crop production","Pest control",
+                               "Pollination", "Seed dispersal","Bird watching", "Seed dispersal"),
+                  z = c(NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN),
+                  signif = c("Benchmark","Benchmark","Benchmark","Benchmark",
+                             "Benchmark","Benchmark","Benchmark","not signif", "not signif"))
 
-#Simulations
-Prop_ind_null<-output_ind_ES %>% filter(!(iteration == "Emp" & management !="E")) %>% 
-  group_by(management,iteration,services_to) %>% 
-  mutate(tot = n(),
-         tot_emp = case_when( #Values of denominator
-           services_to == "Crop production"~ 280,
-           services_to == "Pollination" ~ 18733,
-           services_to == "Crop damage"~ 9816,
-           services_to == "Pest control"~ 3261,
-           services_to == "Seed dispersal" ~ 4154,
-           services_to == "Butterfly watching"~ 3515,
-           services_to == "Bird watching"~ 5722 )) %>% ungroup() %>%  
-  group_by(services_to) %>% 
-  mutate(Prop_mean = tot/tot_emp) %>%  #prop of E(D)S rtained across habitat management per iteration and habitat management
-  dplyr::select(management,iteration,services_to,Prop_mean) %>%
-  unique() %>% mutate(type = "Null")
+z_score_tot<- rbind (z_score_ind, sd_bw) %>% rename("Output" = "signif")
+
+z_score_tot$management <- factor(z_score_tot$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
+z_score_tot$services <- factor(z_score_tot$services, levels = c("Seed dispersal", "Pollination","Pest control",
+                                                                "Crop production", "Crop damage",
+                                                                "Butterfly watching","Bird watching"))
 
 
+#Plot
+library(ggtext)
+color_services<-tibble(
+  services = unique(direct_ES$services),
+  #color = c('#1b9e77','#d95f02','#7570b3','#e7298a','#2c7fb8','#e6ab02','#a6761d')),
+  color = c('#e7298a','#e6ab02','#7570b3','#2c7fb8','#a6761d','#d95f02','#1b9e77'))
+#arrange(desc(services)) #do it manually
+# Create the custom legend data
 
+pdf("Graphs/z_score_ind_CP.pdf", width = 12, height = 7)
+ggplot(z_score_tot, aes(management, services, fill= Output)) + 
+  geom_tile(color = "black")+
+  scale_fill_manual(values = c("blue","red","ivory1","ivory1"),
+                    labels = c("Greater than random",
+                               "Lower than random", 
+                               "No difference",
+                               "Benchmark"))+
+  labs(x='Habitat Management', y="Ecosystem (dis)services")+
+  theme_minimal()+
+  theme(panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        panel.grid.major = element_blank(),  # Remove major grid lines
+        panel.grid.minor = element_blank(),
+        axis.text.y = element_text(size=13,  color = color_services$color[match(levels(z_score_tot$services), color_services$services)]),
+        # axis.text = element_text(size=15, color='black'),
+        axis.text.x= element_text(size =15), 
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 11))   +
+  geom_segment(data = filter(z_score_tot, Output == "Benchmark"),
+               aes(x = as.numeric(management) - 0.5, 
+                   y = as.numeric(services) - 0.5, 
+                   xend = as.numeric(management) + 0.5, 
+                   yend = as.numeric(services) + 0.5), 
+               color = "black", size = 0.5)
 
-### PLOT THEM IN A MATRIX
+dev.off()
+
 
 
 #################### MODELS COMPARISON

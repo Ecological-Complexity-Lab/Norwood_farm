@@ -6,7 +6,7 @@ library(readr)
 library(ggplot2)
 library(cowplot)
 
-setwd("D:/Trabajo/Papers/Norwood_Farm/norwood-ecosystem-services-main_Tinio")
+setwd("/Users/agustin/Desktop/Papers/Norwood_farm/Norwood_Tinio")
 
 ######### --- Upload multilayer network
 Norwood_farm<-readRDS("Data/Norwood_farm.RData") #read multilayer object
@@ -56,12 +56,14 @@ ext_edgelist_aggr<- extensive_edgelist %>% left_join(ab_ext, by = c("node_from" 
 
 #### Check for species that provide pest control and crop damage
 crops = 94:99
-aphid = 341:368
-seed_ins = 480:498
-seed_bird = 499:510
-seed_rod = 511:514
-butt = 515:530
-flow_vis = 100:340
+aphid = 337:364
+seed_ins = 476:494
+seed_bird = 495:506
+seed_rod = 507:510
+butt = 511:526
+flow_vis = 100:336
+
+
 
 #crop damage
 
@@ -76,13 +78,13 @@ pests<-rbind(seed_rod_crop,aphid_crop,seed_bird_crop) %>% select(node_to) %>% un
 pest = as.vector(pests$node_to)
 
 #potential species controling pest 
-pri_par = 369:379
-sec_par = 380:386
-seed_ins_par = 531:547
-rod_par = 548:555
-leaf_par = 387:479
+pri_par = 365:375
+sec_par = 376:382
+seed_ins_par = 527:543
+rod_par = 544:551
+leaf_par = 383:475
 
- 
+
 par_1_pest<- ext_edgelist_aggr %>% filter(node_to %in%pri_par & node_from %in%pest)
 par_2_crop<- ext_edgelist_aggr %>% filter(node_to %in%sec_par & node_from %in%pest)
 seed_ins_par<- ext_edgelist_aggr %>% filter(node_to %in%seed_ins_par & node_from %in%pest)
@@ -279,23 +281,23 @@ I_taxon_output<- I_taxon_output %>%
 
 plants = 1:93
 crops = 94:99
-flow_vis = 100:340
-aphid = 341:368
-pri_par = 369:379
-sec_par = 380:386
-leaf_par = 387:479
-seed_ins = 480:498
-seed_bird = 499:510
-seed_rod = 511:514
-butt = 515:530
-seed_ins_par = 531:547
-rod_par = 548:555
+flow_vis = 100:336
+aphid = 337:364
+pri_par = 365:375
+sec_par = 376:382
+leaf_par = 383:475
+seed_ins = 476:494
+seed_bird = 495:506
+seed_rod = 507:510
+butt = 511:526
+seed_ins_par = 527:543
+rod_par = 544:551
 
 
 int_trophic<-Final_ES %>% filter(!is.na(node_int)) %>% 
   mutate(taxon_int =case_when(
-    node_int%in%plants ~ "Plants",
-    node_int%in%crops ~ "Crops",
+    node_int%in%plants ~ "Plant",
+    node_int%in%crops ~ "Crop",
     node_int%in%flow_vis ~ "Flw visitors",
     node_int%in%aphid ~ "Aphids",
     node_int%in%pri_par ~ "Prim par",
@@ -321,20 +323,18 @@ int_trophic$taxon<- factor(int_trophic$taxon,
                                        "Rod ectopar","Sec par","Birds",
                                        "Seed - ins", "Rodents"))
 
-
+color_trophic <-tibble(taxon = c("Plant","Crop","Flw visitors","Aphids","Prim par","Sec par",
+                                 "Leaf par","Seed - ins","Birds",
+                                 "Rodents","Butterflies","Seed - ins Par","Rod ectopar"),
+                       color = c("#33a02c","#b15928","#a6cee3","#1f78b4","#b2df8a","#fb9a99","#e31a1c","#fdbf6f","#ff7f00","#cab2d6",
+                                 "#6a3d9a", "#ffff99", "#e7298a"))
 
 
 int_indirect_effecs<- int_trophic %>% 
   ggplot(aes(y=Prop, x= taxon, fill = taxon)) + 
   geom_bar(position="stack", stat="identity", color = "black")+ 
-  scale_fill_manual(label = c("Aph","Butt", "Crop","Flower-visitor ins","Insect seed-feeder par", 
-                              "Leaf-miner par", "Plants","Prim aphid par", "Rodent ectopar",
-                              "Sec aphid par", "Seed-feeding bird", "Seed-feeding ins", "Rodents"
-                              ),
-                    values = c("#F8766D", "#E18A00","#BE9C00", "#8CAB00",
-                               "#24B700", "#00BE70","#00C1AB", "#00BBDA", "#00ACFC",
-                               "#8B93FF", "#D575FE","#F962DD",  "#FF65AC"))+
-  labs( y="Prop. Ind effect mediated") +theme_bw()+
+  scale_fill_manual(values = setNames(color_trophic$color, color_trophic$taxon))+
+  labs( y="Prop. Ind effect mediated by") +theme_bw()+
   theme_classic()+
   theme(panel.grid = element_blank(),
         panel.border = element_rect(color = "black",fill = NA,size = 1),
@@ -347,7 +347,7 @@ int_indirect_effecs<- int_trophic %>%
         legend.text.align = 0,
         legend.title =  element_blank(),
         legend.text = element_text(size = 8))
-#ggsave("empirical_taxon_mediating.png")
+#ggsave("Graphs/empirical_taxon_mediating.png")
 
 
 

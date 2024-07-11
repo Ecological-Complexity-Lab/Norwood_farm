@@ -998,8 +998,7 @@ library(car)
 Prop_dire<- glmmTMB (prop ~ management + services, family=beta_family(link="logit"), data = Prop_dir) # model that best fit
 #Prop_dire2<-glmmTMB (prop ~ management + ( 1| services), family=beta_family(link="logit"), data = Prop_dir)
 Anova(Prop_dire)
-summary(Prop_dire)
-
+sum_prop_dire<-summary(Prop_dire)
 
 #Homogeneity
 EM<-resid(Prop_dire, type= "response") 
@@ -1414,6 +1413,9 @@ Prop_weight<-direct_ES %>% filter(management=="I", taxon == "Flower-visiting") %
   mutate(ratio = weight/tot_empirical) %>% arrange(desc(ratio)) %>% 
   left_join(Norwood_farm$nodes [,1:2], by = "node_id") ##add names
 
+
+
+
 ### Plot of proportion of each direct E(D)S per management (also indicating if it's a services and disservices)
 
 # Direct
@@ -1438,11 +1440,10 @@ Direct_ES_management<- D_ES  %>%
         axis.line = element_blank(),
         legend.text.align = 0,
         legend.title =  element_text(size = 13, color = "black"),
-        legend.text = element_text(size = 11),
-        legend.position = "bottom") 
+        legend.text = element_text(size = 11)) 
 
 Direct_ES_management
-ggsave("Graphs/Prop_ES_direct_CP.png")
+ggsave("Graphs/Prop_ES_direct_CP.png", width = 10, height = 8)
 
 
 ### Plot of proportion of each indirect effects on E(D)S per management
@@ -1469,11 +1470,10 @@ Indirect_ES_management<- I_ES  %>%
         axis.line = element_blank(),
         legend.text.align = 0,
         legend.title =  element_text(size = 13, color = "black"),
-        legend.text = element_text(size = 11),
-        legend.position = "bottom") 
+        legend.text = element_text(size = 11)) 
 
 Indirect_ES_management
-#ggsave("Graphs/Prop_ES_indirect_CP.png")
+ggsave("Graphs/Prop_ES_indirect_CP.png",  width = 10, height = 8)
 
 
 
