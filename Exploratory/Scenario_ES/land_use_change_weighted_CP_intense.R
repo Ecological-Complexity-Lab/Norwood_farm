@@ -595,7 +595,6 @@ state_node_int_mod_agg <- state_node_int_agg %>%
     
 
 ##### ---  Final dataframe
-
 land_change_weighted<-rbind(ext_edgelist_aggr,sem_ext_edgelist_aggr,mod_edgelist_aggr,
                           sem_int_edgelist_aggr,int_edgelist_aggr,int_mon_edgelist_aggr2)
 
@@ -623,7 +622,6 @@ state_nodes_weighted<-cbind(management = rep(c("E","SE","M","SI","I","IM"),
 
 
 ## Add information of ES to the state_node_list (values 0-1)
-
 nodes_ES<- right_join(state_nodes_weighted, Norwood_farm$nodes, by = "node_id")%>% 
   select(management,node_id,taxon.x,abun, "Crop production",
          "Pollination", "Crop damage", "Pest control", "Seed dispersal", "Butterfly watching", "Bird watching") %>% 
@@ -685,12 +683,10 @@ list_nodes_ES_no_provi<-nodes_ES %>% ungroup() %>% select(-management,-abun,-ser
                     filter(tot_serv == 0) %>% mutate(services = "None", value = 1) %>% # filter species that not directly provide any E(D)s and assign them as None
                     select(-tot_serv)
 
-
 list_nodes_ES<-rbind(list_nodes_ES_provi,list_nodes_ES_no_provi) #Total list of nodes with ES (with None)
 
 
 # Add attributes of nodes to the edgelist
-
 edge_list<- left_join(land_change_weighted,list_nodes_ES, by = c("node_from"="node_id")) %>% 
   rename("taxon_from"="taxon", "services_from"="services",
          "value_from" = "value") %>% 
@@ -700,7 +696,6 @@ edge_list<- left_join(land_change_weighted,list_nodes_ES, by = c("node_from"="no
 
 
 # Add inverted links (to make the code easier to program when calculate indirect interactions. It will not affect the results)
-
 edge_list_inverted<- tibble(values = edge_list$node_to,edge_list$node_from, edge_list$weight,
                             edge_list$management, edge_list$taxon_to,edge_list$services_to,
                             edge_list$value_to,  edge_list$taxon_from,edge_list$services_from,edge_list$value_from)
@@ -709,7 +704,6 @@ colnames(edge_list_inverted) <- c("node_from", "node_to","weight", "management",
 
 
 # Combine both data frame to create the final edge list
-
 edgelist_final<- bind_rows(edge_list, edge_list_inverted) %>% 
   select(-value_to,-value_from) # we are not using these anymore
 
@@ -721,7 +715,6 @@ edgelist_final<-edgelist_final[,c(4,1,5,6,2,7,8,3)]
 
 
 # Create objects to store
-
 management = c()
 services_from = c()
 node_from= c()
@@ -748,9 +741,8 @@ Indirect_1hop_landuse_weighted<-data.frame(management,services_from,node_from,no
                                            type = rep("I", length(services_from))) 
 
 
-
+  
 # Rearrange the output
-
 # we remove duplicates rows where node_from = birds or butterflies cause they represent the same interaction. 
 # This happens because each row represents an attribute and these taxons have 2 and 3 attributes per node.
 
@@ -771,9 +763,8 @@ Indirect_1hop_landuse_weighted_2<-rbind(rows_birds_butt,int_without)#final dataf
 
 #### - Calculate indirect effects considering 2 hops (node 1 - node 2 - node 3, effect of node 1 on node 3'E(D)S via node 2)
 
-Indirect_1hop<-read.csv("Data/Land_use_ind_1hop_weighted_CP_intense.csv",
+Indirect_1hop <-read.csv("Data/Land_use_ind_1hop_weighted_CP_intense.csv",
                         sep =",") #load dataframe of indirect effects using 1 hop
-
 
 ## Add relative abundances of node 3 (to calculate the weight of second order interactions)
 
@@ -956,24 +947,20 @@ output_ES_2hops<- hop_2 %>%
 
 
 ### -- Final dataframe output of indirect effects  ---
-
 output_ES<-rbind(output_ES_1hop_fin,output_ES_2hops)
-
 
 #write.csv(output_ES,"Data/Land_use_output_weighted_CP_intense.csv", row.names= FALSE)
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #                      Analyses                            
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]
+
 
 #### Proportion of direct E(D)S retained across land use change --
 
 #upload and prepare dataframe
-direct_ES<- read.csv("Data/Land_use_dir_weighted_CP_intense.csv", sep =",") %>% 
-  mutate(services = case_when(services == "Crop production"~ "Resource provision",
-                              TRUE~services))
-
+direct_ES<- read.csv("Data/Land_use_dir_weighted_CP_intense.csv", sep =",") 
 direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
 
 Prop_dir<-direct_ES %>% group_by(management,services) %>% 
@@ -988,17 +975,32 @@ Prop_dir<-direct_ES %>% group_by(management,services) %>%
 Prop_dir$prop <- ifelse(Prop_dir$prop == 0, 0.000001, 
                         ifelse(Prop_dir$prop == 1, 0.9999999, Prop_dir$prop))
 
+
 # Model
 library("glmmTMB")
 library("stats4")
 library("bbmle")
 library(emmeans)
+library(effects)
 library(car)
 
 Prop_dire<- glmmTMB (prop ~ management + services, family=beta_family(link="logit"), data = Prop_dir) # model that best fit
 #Prop_dire2<-glmmTMB (prop ~ management + ( 1| services), family=beta_family(link="logit"), data = Prop_dir)
 Anova(Prop_dire)
-sum_prop_dire<-summary(Prop_dire)
+
+# Summarize the model to view coefficients
+summ<-summary(Prop_dire)
+
+# Extract the coefficients (for GLMM It's the average including all the levels)
+coefficients <- summ$coefficients$cond
+
+# Extract coefficients for each factor
+management_coefs <- coefficients[grep("management", rownames(coefficients)), "Estimate"]
+services_coefs <- coefficients[grep("services", rownames(coefficients)), "Estimate"]
+
+# Calculate summary statistics (e.g., mean) for each factor
+management_summary <- mean(management_coefs)
+services_summary <- mean(services_coefs)
 
 #Homogeneity
 EM<-resid(Prop_dire, type= "response") 
@@ -1017,12 +1019,15 @@ pairs(post_dir)
 post_ser<- emmeans(Prop_dire, ~ services)
 pairs(post_ser)
 
+
+
 #### Proportion of indirect effect on E(D)S retained across land use change --
 
 #upload and prepare dataframe
 output_ind_ES <- read.csv("Data/Land_use_output_weighted_CP_intense.csv", sep =",") 
 
 output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
+
 
 Prop_ind<-output_ind_ES %>% group_by(management,services_to) %>% 
   mutate(tot = n()) %>% ungroup() %>%  
@@ -1043,7 +1048,21 @@ library("bbmle")
 Prop_indi<-glmmTMB (prop ~ management + services_to, family=beta_family(link="logit"), data = Prop_ind) #model that best fit
 #Prop_indi_2<-glmmTMB (prop ~ management :services_to, family=beta_family(link="logit"), data = Prop_ind)
 Anova(Prop_indi)
-summary(Prop_indi)
+
+# Summarize the model to view coefficients
+summ<-summary(Prop_indi)
+
+# Extract the coefficients (for GLMM It's the average including all the levels)
+coefficients <- summ$coefficients$cond
+
+# Extract coefficients for each factor
+management_coefs <- coefficients[grep("management", rownames(coefficients)), "Estimate"]
+services_coefs <- coefficients[grep("services_to", rownames(coefficients)), "Estimate"]
+
+# Calculate summary statistics (e.g., mean) for each factor
+management_summary <- mean(management_coefs)
+services_summary <- mean(services_coefs)
+
 
 #Homogeneity
 EM<-resid(Prop_indi, type= "response") 
@@ -1084,7 +1103,20 @@ m_amount<- glmmTMB(ratio_change ~ management+services + (1|node_id),family = Gam
                    data = dir_amount) #the lowest AIC, interaction did not converge
 
 Anova(m_amount)
-summary(m_amount)
+
+# Summarize the model to view coefficients
+summ<-summary(m_amount)
+
+# Extract the coefficients (for GLMM It's the average including all the levels)
+coefficients <- summ$coefficients$cond
+
+# Extract coefficients for each factor
+management_coefs <- coefficients[grep("management", rownames(coefficients)), "Estimate"]
+services_coefs <- coefficients[grep("services", rownames(coefficients)), "Estimate"]
+
+# Calculate summary statistics (e.g., mean) for each factor
+management_summary <- mean(management_coefs)
+services_summary <- mean(services_coefs)
 
 #Homogeneity
 EM<-resid(m_amount, type= "response") 
@@ -1105,6 +1137,37 @@ pairs(post_ser)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #                      Plots                          
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+#### Percentage of remaining species across land use change --
+
+states<-read.csv("Data/Land_use_rat_state_nodes_CP_intense.csv", sep =",") 
+states$management <- factor(states$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
+
+Prop_rem <- states %>% group_by(management) %>% 
+  summarise (tot = n()) %>% 
+  mutate(max = 551,
+         Perc_remained = (tot/max)*100)
+
+ggplot(Prop_rem, aes(x = management, y = Perc_remained)) +
+  geom_point() +                     # Scatter plot
+  geom_line(aes(group = 1)) + 
+  labs( x = "Management",
+       y = "Remaining species (%)") +
+  theme_classic()+
+  theme(panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text.y = element_text(size=13, color='black'),
+        axis.text = element_text(size=15, color='black'),
+        axis.text.x= element_text(size =15), 
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 11, color = "black"),
+        legend.text = element_text(size = 9))
+
+#ggsave("Graphs/Land_use_sps_remained_CP_intense.png", width = 7, height = 5, dpi = 300)
 
 
 ## -- Exploratory (proportion of species lost according to trophic guild)
@@ -1219,6 +1282,7 @@ Prop<-direct_ES %>% group_by(management,services) %>%
 perc_direct_ES<- Prop %>% group_by(management) %>% 
                summarise(perc_lost = (1 - mean(prop)) *100)
   
+
 prop_EDS_direct<- Prop %>% ggplot(aes(x = management, y = prop)) +
   geom_boxplot(color = "black") +
   geom_point(position=position_jitterdodge(jitter.width=2, dodge.width = 0.5), 
@@ -1416,6 +1480,73 @@ Prop_weight<-direct_ES %>% filter(management=="I", taxon == "Flower-visiting") %
 
 
 
+### Plot of proportion of each trophic guild per management (plot a grid with each taxa as a panel)
+states<-read.csv("Data/Land_use_rat_state_nodes_CP_intense.csv", sep =",") 
+states$management <- factor(states$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
+
+
+ taxon_emp <- states %>%  filter (management == "E") %>% group_by(management,taxon) %>% select(-node_id,-abun) %>% 
+  mutate(Total = n()) %>% unique()
+ 
+ 
+  
+taxon_conv <-states %>% group_by(management,taxon) %>% 
+            summarize(tot = n(), .groups = 'drop') %>%
+            complete(management, taxon, fill = list(tot = 0)) %>% 
+            ungroup() %>% 
+            mutate(Extensive_tot = case_when(
+            taxon == "Aphid"~ 28,
+            taxon == "Butterfly"~ 16,
+            taxon == "Crop"~ 6,
+            taxon == "Flower-visiting"~ 237,
+            taxon == "Insect seed-feeder parasitoid"~ 17,
+            taxon == "Leaf-miner parasitoid"~ 93,
+            taxon == "Plant"~ 93,
+            taxon == "Primary aphid parasitoid"~ 11,
+            taxon == "Rodent ectoparasite"~ 8,
+            taxon == "Secondary aphid parasitoid"~ 7,
+            taxon == "Seed-feeding bird"~ 12,
+            taxon == "Seed-feeding insect"~ 19,
+            taxon == "Seed-feeding rodent"~ 4),
+            perc = (tot / Extensive_tot) *100  #ratio of change: values higher than 1 indicates increasing in the amount of E(D)S
+  ) %>% filter(taxon !="Crop")
+  
+color_trophic <-tibble(taxon = c("Plant","Crop","Flower-visiting","Aphid","Primary aphid parasitoid","Secondary aphid parasitoid",
+                                 "Leaf-miner parasitoid","Seed-feeding insect","Seed-feeding bird",
+                                 "Seed-feeding rodent","Butterfly","Insect seed-feeder parasitoid","Rodent ectoparasite"),
+                       color = c("#33a02c","#b15928","#a6cee3","#1f78b4","#b2df8a","#fb9a99","#e31a1c","#fdbf6f","#ff7f00","#cab2d6",
+                                 "#6a3d9a", "#cccc7a", "#e7298a"))
+
+taxon_conv$taxon<-as.factor(taxon_conv$taxon)
+
+#Plot
+
+pdf("Graphs/perc_trophic_landconv.pdf", width = 12, height = 7)
+#ggplot(taxon_conv, aes(x = management, y = perc, group =taxon, color= taxon)) +
+  scale_color_manual(values = color_trophic$color[match(levels(taxon_conv$taxon), color_trophic$taxon)])+
+  geom_point() +
+  geom_line() +
+  geom_text(aes(label = tot), size = 3, vjust = 1.4, hjust = 1.2, position = position_nudge(y =4),
+            fontface = "bold") +
+  labs(x = "Management Scenario",
+       y = "Percentage of species remaining (%)",
+       color = "Trophic Group") +
+  theme(panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        panel.grid.major = element_blank(),  # Remove major grid lines
+        panel.grid.minor = element_blank(),
+        axis.text.y = element_text(size=13, color='black'),
+        # axis.text = element_text(size=15, color='black'),
+        axis.text.x= element_text(size =15), 
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.position = "none") +
+  facet_wrap(~taxon, scales = "fixed")
+#dev.off()
+#ggsave("Graphs/perc_trophic_landconv.png", width = 12, height = 7, dpi = 300)
+
+
 ### Plot of proportion of each direct E(D)S per management (also indicating if it's a services and disservices)
 
 # Direct
@@ -1443,7 +1574,7 @@ Direct_ES_management<- D_ES  %>%
         legend.text = element_text(size = 11)) 
 
 Direct_ES_management
-ggsave("Graphs/Prop_ES_direct_CP.png", width = 10, height = 8)
+#ggsave("Graphs/Prop_ES_direct_CP.png", width = 10, height = 8)
 
 
 ### Plot of proportion of each indirect effects on E(D)S per management

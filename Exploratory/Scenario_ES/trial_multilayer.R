@@ -15,7 +15,8 @@ setwd("/Users/agustin/Desktop/Papers/Norwood_farm/Norwood_Tinio")
 
 ###############  CREATE MULTILAYER NETWORK #######################
 
-edges <- tibble(read.csv("Data/elist_nore.csv")) 
+edges <- read.csv("Data/elist_nore.csv", sep = ",") 
+
 
 ###  1) Create list of link lists to use as input in create_multilayer_network function 
 edges_format<-edges %>% rename("from"="lower") %>% rename("to"="upper") %>% 

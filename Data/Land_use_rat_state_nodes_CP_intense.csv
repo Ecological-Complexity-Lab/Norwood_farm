@@ -185,15 +185,15 @@
 "E",525,"Butterfly",375
 "E",522,"Butterfly",71
 "E",495,"Seed-feeding bird",48
-"E",496,"Seed-feeding bird",299
+"E",496,"Seed-feeding bird",315
 "E",497,"Seed-feeding bird",40
 "E",498,"Seed-feeding bird",1024
-"E",499,"Seed-feeding bird",104
-"E",500,"Seed-feeding bird",264
-"E",501,"Seed-feeding bird",327
-"E",502,"Seed-feeding bird",91
-"E",503,"Seed-feeding bird",120
-"E",504,"Seed-feeding bird",123
+"E",499,"Seed-feeding bird",107
+"E",500,"Seed-feeding bird",286
+"E",501,"Seed-feeding bird",420
+"E",502,"Seed-feeding bird",107
+"E",503,"Seed-feeding bird",122
+"E",504,"Seed-feeding bird",129
 "E",505,"Seed-feeding bird",60
 "E",3,"Plant",90
 "E",54,"Plant",3420
@@ -550,64 +550,64 @@
 "E",383,"Leaf-miner parasitoid",11295
 "E",205,"Flower-visiting",75
 "E",551,"Rodent ectoparasite",6
-"SE",11,"Plant",1798.92994923858
-"SE",77,"Plant",1152.82233502538
-"SE",78,"Plant",1375.58172588832
-"SE",26,"Plant",56960.8426395939
-"SE",20,"Plant",323.208121827411
-"SE",76,"Plant",64.2030456852792
-"SE",61,"Plant",6763.77868020305
-"SE",95,"Crop",306.152284263959
-"SE",99,"Crop",172.757360406091
-"SE",28,"Plant",17873.1035532995
-"SE",98,"Crop",34.9888324873096
+"SE",11,"Plant",1803.16379310345
+"SE",77,"Plant",1154.71551724138
+"SE",78,"Plant",1376.29310344828
+"SE",26,"Plant",57009.6637931034
+"SE",20,"Plant",323.896551724138
+"SE",76,"Plant",64.4612068965517
+"SE",61,"Plant",6782.31465517241
+"SE",95,"Crop",307.758620689655
+"SE",99,"Crop",173.663793103448
+"SE",28,"Plant",17885.2715517241
+"SE",98,"Crop",35.1724137931034
 "SE",66,"Plant",4
-"SE",38,"Plant",1381.64467005076
-"SE",97,"Crop",29.7055837563452
-"SE",44,"Plant",9526.71370558376
-"SE",19,"Plant",975.477157360406
-"SE",33,"Plant",1093.22944162437
-"SE",358,"Aphid",82222066.1015228
-"SE",343,"Aphid",256622043.846701
-"SE",361,"Aphid",2474886.8142132
-"SE",341,"Aphid",14132376.6741117
-"SE",14,"Plant",13814.1116751269
-"SE",86,"Plant",80.0822335025381
-"SE",64,"Plant",1364.92182741117
-"SE",17,"Plant",195.219289340102
+"SE",38,"Plant",1385.43103448276
+"SE",97,"Crop",29.8103448275862
+"SE",44,"Plant",9538.61206896552
+"SE",19,"Plant",976.366379310345
+"SE",33,"Plant",1094.59482758621
+"SE",358,"Aphid",82439723.3103448
+"SE",343,"Aphid",257944062.465517
+"SE",361,"Aphid",2478762.25
+"SE",341,"Aphid",14203856.1896552
+"SE",14,"Plant",13823.5775862069
+"SE",86,"Plant",80.2715517241379
+"SE",64,"Plant",1366.20689655172
+"SE",17,"Plant",195.724137931034
 "SE",94,"Crop",9
 "SE",96,"Crop",12
-"SE",482,"Seed-feeding insect",178898.43248731
-"SE",483,"Seed-feeding insect",276962.850761421
-"SE",486,"Seed-feeding insect",1001326.24771574
-"SE",4,"Plant",69.0822335025381
-"SE",5,"Plant",670.274111675127
-"SE",7,"Plant",4331.80609137056
-"SE",12,"Plant",315.5269035533
+"SE",482,"Seed-feeding insect",179233.456896552
+"SE",483,"Seed-feeding insect",278416.034482759
+"SE",486,"Seed-feeding insect",1005976.43103448
+"SE",4,"Plant",69.2715517241379
+"SE",5,"Plant",670.905172413793
+"SE",7,"Plant",4333.4525862069
+"SE",12,"Plant",316.112068965517
 "SE",30,"Plant",126
-"SE",36,"Plant",126.895431472081
+"SE",36,"Plant",127.073275862069
 "SE",39,"Plant",15
-"SE",47,"Plant",131.583756345178
+"SE",47,"Plant",131.681034482759
 "SE",49,"Plant",538
-"SE",57,"Plant",352.032487309645
-"SE",59,"Plant",116.401015228426
-"SE",67,"Plant",283.927918781726
-"SE",72,"Plant",304.565482233503
-"SE",80,"Plant",606.306598984772
-"SE",82,"Plant",43.2791878172589
+"SE",57,"Plant",352.525862068966
+"SE",59,"Plant",116.487068965517
+"SE",67,"Plant",284.599137931034
+"SE",72,"Plant",305.030172413793
+"SE",80,"Plant",607.431034482759
+"SE",82,"Plant",43.3577586206897
 "SE",62,"Plant",70
 "SE",24,"Plant",14
-"SE",32,"Plant",324.417258883249
-"SE",91,"Plant",131.043654822335
+"SE",32,"Plant",324.75
+"SE",91,"Plant",131.353448275862
 "SE",8,"Plant",24
-"SE",13,"Plant",198
-"SE",16,"Plant",147.845685279188
-"SE",23,"Plant",21.2182741116751
-"SE",41,"Plant",60
-"SE",45,"Plant",91.0964467005076
+"SE",13,"Plant",200.133620689655
+"SE",16,"Plant",148.327586206897
+"SE",23,"Plant",21.2931034482759
+"SE",41,"Plant",62.0689655172414
+"SE",45,"Plant",91.1637931034483
 "SE",46,"Plant",50
-"SE",48,"Plant",85.4619289340101
-"SE",51,"Plant",157.895431472081
+"SE",48,"Plant",85.551724137931
+"SE",51,"Plant",158.073275862069
 "SE",56,"Plant",8
 "SE",81,"Plant",3
 "SE",3,"Plant",36
@@ -617,7 +617,7 @@
 "SE",484,"Seed-feeding insect",1492002
 "SE",25,"Plant",579
 "SE",2,"Plant",270
-"SE",508,"Seed-feeding rodent",1240.26700507614
+"SE",508,"Seed-feeding rodent",1242.55603448276
 "SE",10,"Plant",78
 "SE",27,"Plant",40
 "SE",58,"Plant",30
@@ -661,140 +661,140 @@
 "SE",18,"Plant",10
 "SE",31,"Plant",200
 "SE",478,"Seed-feeding insect",131480
-"SE",105,"Flower-visiting",411.931979695431
-"SE",317,"Flower-visiting",3614.05583756345
-"SE",202,"Flower-visiting",415.931979695431
-"SE",123,"Flower-visiting",8517.71472081218
-"SE",183,"Flower-visiting",467.931979695431
-"SE",126,"Flower-visiting",5104.91370558376
-"SE",318,"Flower-visiting",4425.05076142132
-"SE",276,"Flower-visiting",1628.22538071066
-"SE",144,"Flower-visiting",421.931979695431
-"SE",322,"Flower-visiting",727.931979695431
-"SE",279,"Flower-visiting",452.052791878173
-"SE",278,"Flower-visiting",422.052791878173
-"SE",190,"Flower-visiting",1084.01218274112
-"SE",186,"Flower-visiting",1327.69949238579
-"SE",282,"Flower-visiting",422.052791878173
-"SE",203,"Flower-visiting",422.052791878173
-"SE",232,"Flower-visiting",1962.13908629442
-"SE",295,"Flower-visiting",1337.2385786802
-"SE",112,"Flower-visiting",12393.4852791878
-"SE",349,"Aphid",2197940.50659898
-"SE",363,"Aphid",66561609.4
-"SE",348,"Aphid",2059794.14517766
-"SE",354,"Aphid",148224.721827411
-"SE",357,"Aphid",29707335.6690355
-"SE",351,"Aphid",720189.883248731
-"SE",344,"Aphid",388596.130964467
-"SE",376,"Secondary aphid parasitoid",298364.81319797
-"SE",377,"Secondary aphid parasitoid",400752.870050761
-"SE",368,"Primary aphid parasitoid",81352.3157360406
-"SE",367,"Primary aphid parasitoid",27246.4598984772
-"SE",378,"Secondary aphid parasitoid",89617.2426395939
-"SE",374,"Primary aphid parasitoid",143561.366497462
-"SE",369,"Primary aphid parasitoid",110946.429441624
-"SE",365,"Primary aphid parasitoid",282629.106598985
-"SE",381,"Secondary aphid parasitoid",448761.177664975
-"SE",380,"Secondary aphid parasitoid",47413.4101522843
-"SE",370,"Primary aphid parasitoid",124002.172588832
-"SE",372,"Primary aphid parasitoid",9368.25989847716
-"SE",445,"Leaf-miner parasitoid",1426782.65380711
-"SE",438,"Leaf-miner parasitoid",354068.791878173
-"SE",422,"Leaf-miner parasitoid",58408.5949238579
-"SE",467,"Leaf-miner parasitoid",66013.7461928934
-"SE",470,"Leaf-miner parasitoid",769041.230456853
-"SE",421,"Leaf-miner parasitoid",28517.3116751269
-"SE",439,"Leaf-miner parasitoid",351879.564467005
-"SE",469,"Leaf-miner parasitoid",75251.4670050761
-"SE",412,"Leaf-miner parasitoid",21574.4578680203
-"SE",417,"Leaf-miner parasitoid",20471.7472081218
-"SE",471,"Leaf-miner parasitoid",58308.4578680203
-"SE",437,"Leaf-miner parasitoid",87131.6771573604
-"SE",447,"Leaf-miner parasitoid",89025.7868020305
-"SE",415,"Leaf-miner parasitoid",215470.730964467
-"SE",410,"Leaf-miner parasitoid",22362.2375634518
-"SE",463,"Leaf-miner parasitoid",14389.1573604061
-"SE",435,"Leaf-miner parasitoid",92429.578680203
-"SE",425,"Leaf-miner parasitoid",93888.5025380711
-"SE",455,"Leaf-miner parasitoid",43920.3695431472
-"SE",458,"Leaf-miner parasitoid",4375.79086294416
-"SE",440,"Leaf-miner parasitoid",17503.1634517767
-"SE",419,"Leaf-miner parasitoid",4375.79086294416
+"SE",105,"Flower-visiting",414.077586206897
+"SE",317,"Flower-visiting",3630.09051724138
+"SE",202,"Flower-visiting",418.077586206897
+"SE",123,"Flower-visiting",8528.56896551724
+"SE",183,"Flower-visiting",470.077586206897
+"SE",126,"Flower-visiting",5114.55172413793
+"SE",318,"Flower-visiting",4446.30603448276
+"SE",276,"Flower-visiting",1633.76724137931
+"SE",144,"Flower-visiting",424.077586206897
+"SE",322,"Flower-visiting",730.077586206897
+"SE",279,"Flower-visiting",454.26724137931
+"SE",278,"Flower-visiting",424.26724137931
+"SE",190,"Flower-visiting",1088.43534482759
+"SE",186,"Flower-visiting",1331.61206896552
+"SE",282,"Flower-visiting",424.26724137931
+"SE",203,"Flower-visiting",424.26724137931
+"SE",232,"Flower-visiting",1971.66810344828
+"SE",295,"Flower-visiting",1340.50862068966
+"SE",112,"Flower-visiting",12442.5301724138
+"SE",349,"Aphid",2209472.78017241
+"SE",363,"Aphid",66594374.2284483
+"SE",348,"Aphid",2063594.7887931
+"SE",354,"Aphid",149002.435344828
+"SE",357,"Aphid",29710433.6724138
+"SE",351,"Aphid",722567.353448276
+"SE",344,"Aphid",388834.396551724
+"SE",376,"Secondary aphid parasitoid",299398.909482759
+"SE",377,"Secondary aphid parasitoid",402378.344827586
+"SE",368,"Primary aphid parasitoid",81779.1594827586
+"SE",367,"Primary aphid parasitoid",27389.4181034483
+"SE",378,"Secondary aphid parasitoid",89898.8793103448
+"SE",374,"Primary aphid parasitoid",144314.612068966
+"SE",369,"Primary aphid parasitoid",111488.017241379
+"SE",365,"Primary aphid parasitoid",283333.198275862
+"SE",381,"Secondary aphid parasitoid",451070.487068966
+"SE",380,"Secondary aphid parasitoid",47601.8793103448
+"SE",370,"Primary aphid parasitoid",124570.586206897
+"SE",372,"Primary aphid parasitoid",9417.41379310345
+"SE",445,"Leaf-miner parasitoid",1429642.03017241
+"SE",438,"Leaf-miner parasitoid",354441.060344828
+"SE",422,"Leaf-miner parasitoid",58661.3232758621
+"SE",467,"Leaf-miner parasitoid",66229.5689655172
+"SE",470,"Leaf-miner parasitoid",769533.176724138
+"SE",421,"Leaf-miner parasitoid",28665.7887931034
+"SE",439,"Leaf-miner parasitoid",351920.629310345
+"SE",469,"Leaf-miner parasitoid",75488.8318965517
+"SE",412,"Leaf-miner parasitoid",21662.9956896552
+"SE",417,"Leaf-miner parasitoid",20579.1594827586
+"SE",471,"Leaf-miner parasitoid",58396.9956896552
+"SE",437,"Leaf-miner parasitoid",87328.0862068966
+"SE",447,"Leaf-miner parasitoid",89148.9870689655
+"SE",415,"Leaf-miner parasitoid",216256
+"SE",410,"Leaf-miner parasitoid",22479.5689655172
+"SE",463,"Leaf-miner parasitoid",14464.6551724138
+"SE",435,"Leaf-miner parasitoid",92467.3275862069
+"SE",425,"Leaf-miner parasitoid",93998.9094827586
+"SE",455,"Leaf-miner parasitoid",43981.0775862069
+"SE",458,"Leaf-miner parasitoid",4398.75
+"SE",440,"Leaf-miner parasitoid",17595
+"SE",419,"Leaf-miner parasitoid",4398.75
 "SE",429,"Leaf-miner parasitoid",6131
 "SE",457,"Leaf-miner parasitoid",144001
-"SE",433,"Leaf-miner parasitoid",88475.545177665
-"SE",441,"Leaf-miner parasitoid",14354.2751269036
-"SE",389,"Leaf-miner parasitoid",22691.6436548223
-"SE",397,"Leaf-miner parasitoid",10281.2893401015
-"SE",465,"Leaf-miner parasitoid",18102.5644670051
-"SE",430,"Leaf-miner parasitoid",4484.28934010152
-"SE",401,"Leaf-miner parasitoid",46558.9664974619
-"SE",394,"Leaf-miner parasitoid",7194.57868020305
-"SE",390,"Leaf-miner parasitoid",3597.28934010152
-"SE",426,"Leaf-miner parasitoid",79037.2893401015
-"SE",534,"Insect seed-feeder parasitoid",400135.508629442
-"SE",540,"Insect seed-feeder parasitoid",25425.5086294416
-"SE",326,"Flower-visiting",408.931979695431
-"SE",259,"Flower-visiting",20363.7583756345
-"SE",308,"Flower-visiting",1383.93197969543
-"SE",179,"Flower-visiting",19996.9563451777
-"SE",164,"Flower-visiting",12797.5593908629
-"SE",141,"Flower-visiting",422.931979695431
-"SE",193,"Flower-visiting",435.781725888325
-"SE",166,"Flower-visiting",408.931979695431
-"SE",228,"Flower-visiting",437.931979695431
-"SE",198,"Flower-visiting",561.931979695431
-"SE",128,"Flower-visiting",429.052791878173
-"SE",264,"Flower-visiting",843.012182741117
-"SE",244,"Flower-visiting",2089.80812182741
-"SE",303,"Flower-visiting",14049.061928934
-"SE",247,"Flower-visiting",711.052791878173
-"SE",196,"Flower-visiting",1888.30355329949
-"SE",131,"Flower-visiting",843.743147208122
-"SE",138,"Flower-visiting",3024.64060913706
-"SE",248,"Flower-visiting",1968.74314720812
-"SE",237,"Flower-visiting",5058.94010152284
-"SE",286,"Flower-visiting",323.646700507614
-"SE",209,"Flower-visiting",1432.64670050761
-"SE",285,"Flower-visiting",695.503553299492
+"SE",433,"Leaf-miner parasitoid",88638.1637931034
+"SE",441,"Leaf-miner parasitoid",14376.4655172414
+"SE",389,"Leaf-miner parasitoid",22736.0301724138
+"SE",397,"Leaf-miner parasitoid",10300.1637931034
+"SE",465,"Leaf-miner parasitoid",18143.6293103448
+"SE",430,"Leaf-miner parasitoid",4503.16379310345
+"SE",401,"Leaf-miner parasitoid",46683.8362068966
+"SE",394,"Leaf-miner parasitoid",7232.3275862069
+"SE",390,"Leaf-miner parasitoid",3616.16379310345
+"SE",426,"Leaf-miner parasitoid",79056.1637931034
+"SE",534,"Insect seed-feeder parasitoid",400171.840517241
+"SE",540,"Insect seed-feeder parasitoid",25461.8405172414
+"SE",326,"Flower-visiting",411.077586206897
+"SE",259,"Flower-visiting",20380.5732758621
+"SE",308,"Flower-visiting",1386.0775862069
+"SE",179,"Flower-visiting",20075.7586206897
+"SE",164,"Flower-visiting",12832.5431034483
+"SE",141,"Flower-visiting",425.077586206897
+"SE",193,"Flower-visiting",437.181034482759
+"SE",166,"Flower-visiting",411.077586206897
+"SE",228,"Flower-visiting",440.077586206897
+"SE",198,"Flower-visiting",564.077586206897
+"SE",128,"Flower-visiting",431.26724137931
+"SE",264,"Flower-visiting",847.435344827586
+"SE",244,"Flower-visiting",2100.66810344828
+"SE",303,"Flower-visiting",14053.1810344828
+"SE",247,"Flower-visiting",713.26724137931
+"SE",196,"Flower-visiting",1898.21120689655
+"SE",131,"Flower-visiting",847.965517241379
+"SE",138,"Flower-visiting",3038.25431034483
+"SE",248,"Flower-visiting",1972.96551724138
+"SE",237,"Flower-visiting",5064.03448275862
+"SE",286,"Flower-visiting",325.344827586207
+"SE",209,"Flower-visiting",1434.34482758621
+"SE",285,"Flower-visiting",697.5
 "SE",181,"Flower-visiting",348
-"SE",249,"Flower-visiting",1365.6578680203
-"SE",302,"Flower-visiting",1887.50355329949
-"SE",252,"Flower-visiting",1120.50355329949
-"SE",250,"Flower-visiting",380.503553299492
-"SE",173,"Flower-visiting",1527.73401015228
-"SE",132,"Flower-visiting",1518.73401015228
-"SE",223,"Flower-visiting",393.624365482233
-"SE",255,"Flower-visiting",1571.96649746193
-"SE",142,"Flower-visiting",393.624365482233
-"SE",143,"Flower-visiting",393.624365482233
-"SE",222,"Flower-visiting",695.624365482234
-"SE",158,"Flower-visiting",968.624365482234
-"SE",170,"Flower-visiting",393.624365482233
-"SE",266,"Flower-visiting",393.624365482233
-"SE",140,"Flower-visiting",984.060913705584
-"SE",304,"Flower-visiting",2622.62436548223
-"SE",301,"Flower-visiting",364.102538071066
-"SE",519,"Butterfly",300.367512690355
-"SE",524,"Butterfly",75.6446700507614
-"SE",514,"Butterfly",217.262944162437
-"SE",516,"Butterfly",179.620304568528
-"SE",517,"Butterfly",4728.07715736041
-"SE",523,"Butterfly",116.845685279188
-"SE",513,"Butterfly",556.705583756345
-"SE",525,"Butterfly",344.944162436548
+"SE",249,"Flower-visiting",1372.82327586207
+"SE",302,"Flower-visiting",1889.5
+"SE",252,"Flower-visiting",1122.5
+"SE",250,"Flower-visiting",382.5
+"SE",173,"Flower-visiting",1535.7025862069
+"SE",132,"Flower-visiting",1526.7025862069
+"SE",223,"Flower-visiting",395.689655172414
+"SE",255,"Flower-visiting",1578.16810344828
+"SE",142,"Flower-visiting",395.689655172414
+"SE",143,"Flower-visiting",395.689655172414
+"SE",222,"Flower-visiting",697.689655172414
+"SE",158,"Flower-visiting",970.689655172414
+"SE",170,"Flower-visiting",395.689655172414
+"SE",266,"Flower-visiting",395.689655172414
+"SE",140,"Flower-visiting",989.224137931035
+"SE",304,"Flower-visiting",2624.68965517241
+"SE",301,"Flower-visiting",366.012931034483
+"SE",519,"Butterfly",301.004310344828
+"SE",524,"Butterfly",75.7456896551724
+"SE",514,"Butterfly",218.077586206897
+"SE",516,"Butterfly",180.211206896552
+"SE",517,"Butterfly",4733.48706896552
+"SE",523,"Butterfly",117.327586206897
+"SE",513,"Butterfly",556.810344827586
+"SE",525,"Butterfly",345.862068965517
 "SE",522,"Butterfly",71
 "SE",495,"Seed-feeding bird",48
-"SE",496,"Seed-feeding bird",299.455837563452
+"SE",496,"Seed-feeding bird",317.254310344828
 "SE",497,"Seed-feeding bird",40
-"SE",498,"Seed-feeding bird",1011.67512690355
-"SE",499,"Seed-feeding bird",104
-"SE",500,"Seed-feeding bird",267.082233502538
-"SE",501,"Seed-feeding bird",299.455837563452
-"SE",502,"Seed-feeding bird",72
-"SE",503,"Seed-feeding bird",120
-"SE",504,"Seed-feeding bird",120
+"SE",498,"Seed-feeding bird",1012.39224137931
+"SE",499,"Seed-feeding bird",108.034482758621
+"SE",500,"Seed-feeding bird",291.452586206897
+"SE",501,"Seed-feeding bird",401.887931034483
+"SE",502,"Seed-feeding bird",89.6163793103448
+"SE",503,"Seed-feeding bird",123.099137931034
+"SE",504,"Seed-feeding bird",127.35775862069
 "SE",505,"Seed-feeding bird",8
 "SE",124,"Flower-visiting",4348
 "SE",323,"Flower-visiting",9
@@ -1005,64 +1005,64 @@
 "SE",154,"Flower-visiting",740
 "SE",518,"Butterfly",47
 "SE",402,"Leaf-miner parasitoid",6391
-"M",11,"Plant",1737.36751269036
-"M",77,"Plant",982.294416243655
-"M",78,"Plant",765.904568527919
-"M",26,"Plant",48308.2893401015
-"M",20,"Plant",260.223350253807
-"M",76,"Plant",67.5837563451777
-"M",61,"Plant",6673.75532994924
-"M",95,"Crop",329.46192893401
-"M",99,"Crop",185.910659898477
-"M",28,"Plant",11686.6741116751
-"M",98,"Crop",37.3928934010152
+"M",11,"Plant",1745.375
+"M",77,"Plant",985.875
+"M",78,"Plant",767.25
+"M",26,"Plant",48400.625
+"M",20,"Plant",262.5
+"M",76,"Plant",68.0495689655172
+"M",61,"Plant",6708.8125
+"M",95,"Crop",332.5
+"M",99,"Crop",187.625
+"M",28,"Plant",11709.6875
+"M",98,"Crop",37.7241379310345
 "M",66,"Plant",4
-"M",38,"Plant",1271.58883248731
-"M",97,"Crop",31.8091370558376
-"M",44,"Plant",7625.37157360406
-"M",19,"Plant",802.380710659898
-"M",33,"Plant",875.042639593909
-"M",358,"Aphid",84849500.9746193
-"M",343,"Aphid",275755860.688325
-"M",361,"Aphid",2531123.4964467
-"M",341,"Aphid",15116738.2314721
-"M",14,"Plant",13126.4720812183
-"M",86,"Plant",71.5614213197969
-"M",64,"Plant",935.569543147208
-"M",17,"Plant",190.830456852792
+"M",38,"Plant",1278.75
+"M",97,"Crop",32.0431034482759
+"M",44,"Plant",7647.875
+"M",19,"Plant",804.0625
+"M",33,"Plant",877.625
+"M",358,"Aphid",85261157
+"M",343,"Aphid",278256200.25
+"M",361,"Aphid",2538453.125
+"M",341,"Aphid",15251927.75
+"M",14,"Plant",13144.375
+"M",86,"Plant",71.9030172413793
+"M",64,"Plant",938
+"M",17,"Plant",191.741379310345
 "M",94,"Crop",9
 "M",96,"Crop",12
-"M",482,"Seed-feeding insect",183759.991878173
-"M",483,"Seed-feeding insect",298050.087309645
-"M",486,"Seed-feeding insect",1068805.33807107
-"M",4,"Plant",60.561421319797
-"M",5,"Plant",348.53807106599
-"M",7,"Plant",911.69847715736
-"M",12,"Plant",221.189847715736
-"M",30,"Plant",64.0517766497462
-"M",36,"Plant",67.2243654822335
+"M",482,"Seed-feeding insect",184393.625
+"M",483,"Seed-feeding insect",300798.5
+"M",486,"Seed-feeding insect",1077600.25
+"M",4,"Plant",60.9030172413793
+"M",5,"Plant",349.676724137931
+"M",7,"Plant",914.8125
+"M",12,"Plant",222.245689655172
+"M",30,"Plant",64.1163793103448
+"M",36,"Plant",67.5452586206897
 "M",39,"Plant",10
-"M",47,"Plant",81.5370558375635
+"M",47,"Plant",81.7543103448276
 "M",49,"Plant",114
-"M",57,"Plant",272.493401015228
-"M",59,"Plant",49.1289340101523
-"M",67,"Plant",240.717766497462
-"M",72,"Plant",256.65076142132
-"M",80,"Plant",426.623350253807
-"M",82,"Plant",23.8568527918782
-"M",62,"Plant",57.0517766497462
-"M",24,"Plant",15.0517766497462
-"M",32,"Plant",241.77461928934
-"M",91,"Plant",99.1005076142132
+"M",57,"Plant",273.383620689655
+"M",59,"Plant",49.3211206896552
+"M",67,"Plant",242.9375
+"M",72,"Plant",257.489224137931
+"M",80,"Plant",428.75
+"M",82,"Plant",24.0323275862069
+"M",62,"Plant",57.1163793103448
+"M",24,"Plant",15.1163793103448
+"M",32,"Plant",242.375
+"M",91,"Plant",99.6594827586207
 "M",8,"Plant",12
-"M",13,"Plant",134.479187817259
-"M",16,"Plant",140.156345177665
-"M",23,"Plant",22.7208121827411
-"M",41,"Plant",58.4040609137056
-"M",45,"Plant",38.448730964467
+"M",13,"Plant",136.765086206897
+"M",16,"Plant",141.025862068966
+"M",23,"Plant",22.8879310344828
+"M",41,"Plant",60.6206896551724
+"M",45,"Plant",38.5991379310345
 "M",46,"Plant",40
-"M",48,"Plant",87.2649746192893
-"M",51,"Plant",36.2243654822335
+"M",48,"Plant",87.4655172413793
+"M",51,"Plant",36.5452586206897
 "M",56,"Plant",8
 "M",81,"Plant",3
 "M",3,"Plant",18
@@ -1072,7 +1072,7 @@
 "M",484,"Seed-feeding insect",1492002
 "M",25,"Plant",193
 "M",2,"Plant",216
-"M",508,"Seed-feeding rodent",653.483248730964
+"M",508,"Seed-feeding rodent",657.8125
 "M",10,"Plant",26
 "M",27,"Plant",20
 "M",58,"Plant",20
@@ -1088,140 +1088,140 @@
 "M",31,"Plant",200
 "M",478,"Seed-feeding insect",131480
 "M",15,"Plant",10
-"M",105,"Flower-visiting",440.067005076142
-"M",317,"Flower-visiting",3843.73604060914
-"M",202,"Flower-visiting",440.067005076142
-"M",123,"Flower-visiting",8646.22131979695
-"M",183,"Flower-visiting",440.067005076142
-"M",126,"Flower-visiting",5214.77157360406
-"M",318,"Flower-visiting",4680.48730964467
-"M",276,"Flower-visiting",1515.64365482234
-"M",144,"Flower-visiting",449.067005076142
-"M",322,"Flower-visiting",739.029441624366
-"M",279,"Flower-visiting",451.051776649746
-"M",278,"Flower-visiting",454.186802030457
-"M",190,"Flower-visiting",1145.19695431472
-"M",186,"Flower-visiting",1377.47512690355
-"M",282,"Flower-visiting",454.186802030457
-"M",203,"Flower-visiting",454.186802030457
-"M",232,"Flower-visiting",2093.4152284264
-"M",295,"Flower-visiting",1384.69035532995
-"M",112,"Flower-visiting",12886.178680203
-"M",349,"Aphid",2365286.02335025
-"M",363,"Aphid",66851554.8
-"M",348,"Aphid",2114945.51370558
-"M",354,"Aphid",159510.169543147
-"M",357,"Aphid",29750981.9827411
-"M",351,"Aphid",764208.372588833
-"M",344,"Aphid",376775.617258883
-"M",376,"Secondary aphid parasitoid",311986.646700508
-"M",377,"Secondary aphid parasitoid",423759.23248731
-"M",368,"Primary aphid parasitoid",87546.2710659898
-"M",367,"Primary aphid parasitoid",29320.9350253807
-"M",378,"Secondary aphid parasitoid",92868.0893401015
-"M",374,"Primary aphid parasitoid",154491.758375635
-"M",369,"Primary aphid parasitoid",118224.442639594
-"M",365,"Primary aphid parasitoid",292045.223350254
-"M",381,"Secondary aphid parasitoid",482052.705583756
-"M",380,"Secondary aphid parasitoid",50003.2974619289
-"M",370,"Primary aphid parasitoid",130869.456852792
-"M",372,"Primary aphid parasitoid",10081.5350253807
-"M",445,"Leaf-miner parasitoid",1458844.23654822
-"M",438,"Leaf-miner parasitoid",349490.802030457
-"M",422,"Leaf-miner parasitoid",61082.9512690355
-"M",467,"Leaf-miner parasitoid",69145.5634517766
-"M",470,"Leaf-miner parasitoid",774686.892385787
-"M",421,"Leaf-miner parasitoid",30452.8720812183
-"M",439,"Leaf-miner parasitoid",348762.458883249
-"M",469,"Leaf-miner parasitoid",75908.883248731
-"M",412,"Leaf-miner parasitoid",22786.2355329949
-"M",417,"Leaf-miner parasitoid",22030.4131979695
-"M",471,"Leaf-miner parasitoid",57772.2355329949
-"M",437,"Leaf-miner parasitoid",89981.7807106599
-"M",447,"Leaf-miner parasitoid",90240.5532994924
-"M",415,"Leaf-miner parasitoid",226720.817258883
-"M",410,"Leaf-miner parasitoid",23898.7329949239
-"M",463,"Leaf-miner parasitoid",15484.7106598985
-"M",435,"Leaf-miner parasitoid",88691.3553299492
-"M",425,"Leaf-miner parasitoid",85363.6243654822
-"M",455,"Leaf-miner parasitoid",42786.3076142132
-"M",458,"Leaf-miner parasitoid",4708.95228426396
-"M",440,"Leaf-miner parasitoid",18835.8091370558
-"M",419,"Leaf-miner parasitoid",4708.95228426396
+"M",105,"Flower-visiting",444.125
+"M",317,"Flower-visiting",3874.0625
+"M",202,"Flower-visiting",444.125
+"M",123,"Flower-visiting",8666.75
+"M",183,"Flower-visiting",444.125
+"M",126,"Flower-visiting",5233
+"M",318,"Flower-visiting",4720.6875
+"M",276,"Flower-visiting",1526.125
+"M",144,"Flower-visiting",453.125
+"M",322,"Flower-visiting",742.900862068965
+"M",279,"Flower-visiting",458.375
+"M",278,"Flower-visiting",458.375
+"M",190,"Flower-visiting",1153.5625
+"M",186,"Flower-visiting",1384.875
+"M",282,"Flower-visiting",458.375
+"M",203,"Flower-visiting",458.375
+"M",232,"Flower-visiting",2111.4375
+"M",295,"Flower-visiting",1390.875
+"M",112,"Flower-visiting",12978.9375
+"M",349,"Aphid",2387097.0625
+"M",363,"Aphid",66913523.0625
+"M",348,"Aphid",2122133.6875
+"M",354,"Aphid",160981.0625
+"M",357,"Aphid",29756841.25
+"M",351,"Aphid",769518.056034483
+"M",344,"Aphid",377226.25
+"M",376,"Secondary aphid parasitoid",313942.4375
+"M",377,"Secondary aphid parasitoid",426833.5
+"M",368,"Primary aphid parasitoid",88353.5625
+"M",367,"Primary aphid parasitoid",29591.3125
+"M",378,"Secondary aphid parasitoid",93400.75
+"M",374,"Primary aphid parasitoid",155916.375
+"M",369,"Primary aphid parasitoid",119248.75
+"M",365,"Primary aphid parasitoid",293376.875
+"M",381,"Secondary aphid parasitoid",486420.3125
+"M",380,"Secondary aphid parasitoid",50359.75
+"M",370,"Primary aphid parasitoid",131944.5
+"M",372,"Primary aphid parasitoid",10174.5
+"M",445,"Leaf-miner parasitoid",1464252.1875
+"M",438,"Leaf-miner parasitoid",350194.875
+"M",422,"Leaf-miner parasitoid",61560.9375
+"M",467,"Leaf-miner parasitoid",69553.75
+"M",470,"Leaf-miner parasitoid",775617.3125
+"M",421,"Leaf-miner parasitoid",30733.6875
+"M",439,"Leaf-miner parasitoid",348840.125
+"M",469,"Leaf-miner parasitoid",76357.8125
+"M",412,"Leaf-miner parasitoid",22953.6875
+"M",417,"Leaf-miner parasitoid",22233.5625
+"M",471,"Leaf-miner parasitoid",57939.6875
+"M",437,"Leaf-miner parasitoid",90353.25
+"M",447,"Leaf-miner parasitoid",90473.5625
+"M",415,"Leaf-miner parasitoid",228206
+"M",410,"Leaf-miner parasitoid",24110.4396551724
+"M",463,"Leaf-miner parasitoid",15627.5
+"M",435,"Leaf-miner parasitoid",88762.75
+"M",425,"Leaf-miner parasitoid",85572.4375
+"M",455,"Leaf-miner parasitoid",42901.125
+"M",458,"Leaf-miner parasitoid",4752.375
+"M",440,"Leaf-miner parasitoid",19009.5
+"M",419,"Leaf-miner parasitoid",4752.375
 "M",429,"Leaf-miner parasitoid",4002
 "M",457,"Leaf-miner parasitoid",140652
-"M",433,"Leaf-miner parasitoid",88434.3137055838
-"M",441,"Leaf-miner parasitoid",13796.2812182741
-"M",389,"Leaf-miner parasitoid",22971.7390862944
-"M",397,"Leaf-miner parasitoid",10555.1776649746
-"M",465,"Leaf-miner parasitoid",18698.4588832487
-"M",430,"Leaf-miner parasitoid",3871.17766497462
-"M",401,"Leaf-miner parasitoid",48225.9583756345
-"M",394,"Leaf-miner parasitoid",7742.35532994924
-"M",390,"Leaf-miner parasitoid",3871.17766497462
-"M",426,"Leaf-miner parasitoid",78997.1776649746
-"M",534,"Insect seed-feeder parasitoid",400662.72284264
-"M",540,"Insect seed-feeder parasitoid",25952.7228426396
-"M",326,"Flower-visiting",440.067005076142
-"M",259,"Flower-visiting",20538.7604060914
-"M",308,"Flower-visiting",1415.06700507614
-"M",179,"Flower-visiting",20840.4609137056
-"M",164,"Flower-visiting",13246.2101522843
-"M",141,"Flower-visiting",440.067005076142
-"M",193,"Flower-visiting",433.879187817259
-"M",166,"Flower-visiting",440.067005076142
-"M",228,"Flower-visiting",449.067005076142
-"M",198,"Flower-visiting",563.067005076142
-"M",128,"Flower-visiting",454.186802030457
-"M",264,"Flower-visiting",907.196954314721
-"M",244,"Flower-visiting",2227.39796954315
-"M",303,"Flower-visiting",13831.8345177665
-"M",247,"Flower-visiting",732.186802030457
-"M",196,"Flower-visiting",2032.07411167513
-"M",131,"Flower-visiting",875.01421319797
-"M",138,"Flower-visiting",3162.18984771574
-"M",248,"Flower-visiting",1973.01421319797
-"M",237,"Flower-visiting",5112.86497461929
-"M",286,"Flower-visiting",348.288324873096
-"M",209,"Flower-visiting",1457.2883248731
-"M",285,"Flower-visiting",711.474111675127
-"M",181,"Flower-visiting",374.144162436548
-"M",249,"Flower-visiting",1469.63553299492
-"M",302,"Flower-visiting",1916.47411167513
-"M",252,"Flower-visiting",1149.47411167513
-"M",250,"Flower-visiting",409.474111675127
-"M",173,"Flower-visiting",1643.36649746193
-"M",132,"Flower-visiting",1634.36649746193
-"M",223,"Flower-visiting",420.670050761421
-"M",255,"Flower-visiting",1648.95837563452
-"M",142,"Flower-visiting",423.593908629442
-"M",143,"Flower-visiting",423.593908629442
-"M",222,"Flower-visiting",725.593908629442
-"M",158,"Flower-visiting",978.593908629442
-"M",170,"Flower-visiting",423.593908629442
-"M",266,"Flower-visiting",423.593908629442
-"M",140,"Flower-visiting",1058.9847715736
-"M",304,"Flower-visiting",2642.59390862944
-"M",301,"Flower-visiting",391.824365482234
-"M",519,"Butterfly",261.706598984772
-"M",524,"Butterfly",72.6730964467005
-"M",514,"Butterfly",214.084263959391
-"M",516,"Butterfly",172.358375634518
-"M",517,"Butterfly",4621.5807106599
-"M",523,"Butterfly",123.156345177665
-"M",513,"Butterfly",352.809137055838
-"M",525,"Butterfly",348.263959390863
+"M",433,"Leaf-miner parasitoid",88741.875
+"M",441,"Leaf-miner parasitoid",13838.25
+"M",389,"Leaf-miner parasitoid",23055.6875
+"M",397,"Leaf-miner parasitoid",10590.875
+"M",465,"Leaf-miner parasitoid",18776.125
+"M",430,"Leaf-miner parasitoid",3906.875
+"M",401,"Leaf-miner parasitoid",48462.125
+"M",394,"Leaf-miner parasitoid",7813.75
+"M",390,"Leaf-miner parasitoid",3906.875
+"M",426,"Leaf-miner parasitoid",79032.875
+"M",534,"Insect seed-feeder parasitoid",400731.4375
+"M",540,"Insect seed-feeder parasitoid",26021.4375
+"M",326,"Flower-visiting",444.125
+"M",259,"Flower-visiting",20570.5625
+"M",308,"Flower-visiting",1419.125
+"M",179,"Flower-visiting",20989.5
+"M",164,"Flower-visiting",13312.375
+"M",141,"Flower-visiting",444.125
+"M",193,"Flower-visiting",437.004310344828
+"M",166,"Flower-visiting",444.125
+"M",228,"Flower-visiting",453.125
+"M",198,"Flower-visiting",567.125
+"M",128,"Flower-visiting",458.375
+"M",264,"Flower-visiting",915.5625
+"M",244,"Flower-visiting",2247.9375
+"M",303,"Flower-visiting",13839.625
+"M",247,"Flower-visiting",736.375
+"M",196,"Flower-visiting",2050.8125
+"M",131,"Flower-visiting",883
+"M",138,"Flower-visiting",3187.9375
+"M",248,"Flower-visiting",1981
+"M",237,"Flower-visiting",5122.5
+"M",286,"Flower-visiting",351.5
+"M",209,"Flower-visiting",1460.5
+"M",285,"Flower-visiting",715.25
+"M",181,"Flower-visiting",375.75
+"M",249,"Flower-visiting",1483.1875
+"M",302,"Flower-visiting",1920.25
+"M",252,"Flower-visiting",1153.25
+"M",250,"Flower-visiting",413.25
+"M",173,"Flower-visiting",1658.4375
+"M",132,"Flower-visiting",1649.4375
+"M",223,"Flower-visiting",424.396551724138
+"M",255,"Flower-visiting",1660.6875
+"M",142,"Flower-visiting",427.5
+"M",143,"Flower-visiting",427.5
+"M",222,"Flower-visiting",729.5
+"M",158,"Flower-visiting",982.5
+"M",170,"Flower-visiting",427.5
+"M",266,"Flower-visiting",427.5
+"M",140,"Flower-visiting",1068.75
+"M",304,"Flower-visiting",2646.5
+"M",301,"Flower-visiting",395.4375
+"M",519,"Butterfly",262.855603448276
+"M",524,"Butterfly",72.8987068965517
+"M",514,"Butterfly",215.625
+"M",516,"Butterfly",173.424568965517
+"M",517,"Butterfly",4631.8125
+"M",523,"Butterfly",124.025862068966
+"M",513,"Butterfly",353.043103448276
+"M",525,"Butterfly",350
 "M",522,"Butterfly",71
 "M",495,"Seed-feeding bird",36
-"M",496,"Seed-feeding bird",228.235532994924
+"M",496,"Seed-feeding bird",247.480603448276
 "M",497,"Seed-feeding bird",30
-"M",498,"Seed-feeding bird",772.081218274112
-"M",499,"Seed-feeding bird",78
-"M",500,"Seed-feeding bird",203.561421319797
-"M",501,"Seed-feeding bird",228.235532994924
-"M",502,"Seed-feeding bird",54
-"M",503,"Seed-feeding bird",91.1269035532995
-"M",504,"Seed-feeding bird",91.1269035532995
+"M",498,"Seed-feeding bird",773.4375
+"M",499,"Seed-feeding bird",83.3103448275862
+"M",500,"Seed-feeding bird",229.838362068966
+"M",501,"Seed-feeding bird",339.375
+"M",502,"Seed-feeding bird",73.6099137931034
+"M",503,"Seed-feeding bird",94.4547413793103
+"M",504,"Seed-feeding bird",99.0323275862069
 "M",505,"Seed-feeding bird",6
 "M",124,"Flower-visiting",4284
 "M",323,"Flower-visiting",9
@@ -1325,66 +1325,66 @@
 "M",154,"Flower-visiting",740
 "M",518,"Butterfly",47
 "M",402,"Leaf-miner parasitoid",6391
-"SI",11,"Plant",1698.14923857868
-"SI",77,"Plant",792.335025380711
-"SI",78,"Plant",471.325888324873
-"SI",26,"Plant",27240.6395939086
-"SI",20,"Plant",287.147208121827
-"SI",76,"Plant",80.6802030456853
-"SI",61,"Plant",6896.08020304569
-"SI",95,"Crop",504.284263959391
-"SI",99,"Crop",284.560406091371
-"SI",28,"Plant",7354.95329949239
-"SI",98,"Crop",57.3725888324873
-"SI",66,"Plant",5.80304568527919
-"SI",38,"Plant",1353.67005076142
-"SI",97,"Crop",49.2913705583756
-"SI",44,"Plant",5809.30558375635
-"SI",19,"Plant",434.157360406091
-"SI",33,"Plant",666.641624365482
-"SI",358,"Aphid",68462653.5228426
-"SI",343,"Aphid",419635049.500508
-"SI",361,"Aphid",1227214.61319797
-"SI",341,"Aphid",22439878.9116751
-"SI",14,"Plant",8711.67512690355
-"SI",86,"Plant",81.1654822335025
-"SI",64,"Plant",627.427411167513
-"SI",17,"Plant",179.77461928934
-"SI",94,"Crop",14.0984771573604
-"SI",96,"Crop",18.7979695431472
-"SI",482,"Seed-feeding insect",105175.687309645
-"SI",483,"Seed-feeding insect",456204.36142132
-"SI",486,"Seed-feeding insect",1459852.51573604
-"SI",4,"Plant",59.1654822335025
-"SI",5,"Plant",307.218274111675
-"SI",7,"Plant",516.891370558376
-"SI",12,"Plant",182.875126903553
-"SI",30,"Plant",43.9827411167513
-"SI",36,"Plant",86.5796954314721
-"SI",39,"Plant",15.6649746192893
-"SI",47,"Plant",97.7705583756345
+"SI",11,"Plant",1734.45905172414
+"SI",77,"Plant",808.571120689655
+"SI",78,"Plant",477.426724137931
+"SI",26,"Plant",27659.3340517241
+"SI",20,"Plant",294.025862068966
+"SI",76,"Plant",82.8717672413793
+"SI",61,"Plant",7055.0463362069
+"SI",95,"Crop",518.060344827586
+"SI",99,"Crop",292.334051724138
+"SI",28,"Plant",7459.30711206897
+"SI",98,"Crop",58.9310344827586
+"SI",66,"Plant",5.91379310344828
+"SI",38,"Plant",1386.14224137931
+"SI",97,"Crop",50.5991379310345
+"SI",44,"Plant",5911.34698275862
+"SI",19,"Plant",441.783405172414
+"SI",33,"Plant",678.351293103448
+"SI",358,"Aphid",70329300.6724138
+"SI",343,"Aphid",430972796.133621
+"SI",361,"Aphid",1260450.6875
+"SI",341,"Aphid",23052893.4525862
+"SI",14,"Plant",8792.85560344828
+"SI",86,"Plant",82.7726293103448
+"SI",64,"Plant",638.448275862069
+"SI",17,"Plant",184.060344827586
+"SI",94,"Crop",14.4116379310345
+"SI",96,"Crop",19.2155172413793
+"SI",482,"Seed-feeding insect",108048.885775862
+"SI",483,"Seed-feeding insect",468666.99137931
+"SI",486,"Seed-feeding insect",1499732.89224138
+"SI",4,"Plant",60.7726293103448
+"SI",5,"Plant",312.575431034483
+"SI",7,"Plant",531.011853448276
+"SI",12,"Plant",187.842672413793
+"SI",30,"Plant",44.5344827586207
+"SI",36,"Plant",88.0894396551724
+"SI",39,"Plant",16.0129310344828
+"SI",47,"Plant",98.9849137931034
 "SI",49,"Plant",1
-"SI",57,"Plant",240.18883248731
-"SI",59,"Plant",40.4893401015228
-"SI",67,"Plant",248.768527918782
-"SI",72,"Plant",253.224365482234
-"SI",80,"Plant",352.998984771574
-"SI",82,"Plant",36.9685279187817
-"SI",62,"Plant",36.9827411167513
-"SI",24,"Plant",22.9827411167513
-"SI",32,"Plant",161.987817258883
-"SI",91,"Plant",96.8162436548223
-"SI",8,"Plant",18.7979695431472
-"SI",13,"Plant",54.1736040609137
-"SI",16,"Plant",192.603045685279
-"SI",23,"Plant",35.2081218274112
-"SI",41,"Plant",64.5319796954315
-"SI",45,"Plant",31.6873096446701
-"SI",46,"Plant",25.6649746192893
-"SI",48,"Plant",66.2497461928934
-"SI",51,"Plant",55.5796954314721
-"SI",56,"Plant",11.6060913705584
-"SI",81,"Plant",4.35228426395939
+"SI",57,"Plant",244.377155172414
+"SI",59,"Plant",41.5635775862069
+"SI",67,"Plant",255.475215517241
+"SI",72,"Plant",257.169181034483
+"SI",80,"Plant",362.64224137931
+"SI",82,"Plant",37.9493534482759
+"SI",62,"Plant",37.5344827586207
+"SI",24,"Plant",23.5344827586207
+"SI",32,"Plant",164.8125
+"SI",91,"Plant",99.4461206896552
+"SI",8,"Plant",19.2155172413793
+"SI",13,"Plant",59.6346982758621
+"SI",16,"Plant",196.693965517241
+"SI",23,"Plant",36.1422413793103
+"SI",41,"Plant",69.8275862068966
+"SI",45,"Plant",32.5280172413793
+"SI",46,"Plant",26.0129310344828
+"SI",48,"Plant",67.3706896551724
+"SI",51,"Plant",57.0894396551724
+"SI",56,"Plant",11.8275862068966
+"SI",81,"Plant",4.43534482758621
 "SI",69,"Plant",2
 "SI",337,"Aphid",579054
 "SI",484,"Seed-feeding insect",464002
@@ -1394,141 +1394,141 @@
 "SI",360,"Aphid",120988
 "SI",10,"Plant",13
 "SI",63,"Plant",13
-"SI",105,"Flower-visiting",673.579695431472
-"SI",317,"Flower-visiting",5033.83756345178
-"SI",202,"Flower-visiting",673.579695431472
-"SI",123,"Flower-visiting",9457.52081218274
-"SI",183,"Flower-visiting",673.579695431472
-"SI",126,"Flower-visiting",6263.70558375634
-"SI",318,"Flower-visiting",6974.7614213198
-"SI",276,"Flower-visiting",1739.7807106599
-"SI",144,"Flower-visiting",673.579695431472
-"SI",322,"Flower-visiting",972.542131979695
-"SI",279,"Flower-visiting",692.056852791878
-"SI",278,"Flower-visiting",695.191878172589
-"SI",190,"Flower-visiting",1626.58274111675
-"SI",186,"Flower-visiting",1228.2923857868
-"SI",282,"Flower-visiting",695.191878172589
-"SI",203,"Flower-visiting",695.191878172589
-"SI",232,"Flower-visiting",2991.48629441624
-"SI",295,"Flower-visiting",1026.57868020305
-"SI",112,"Flower-visiting",16888.8791878173
-"SI",349,"Aphid",3620377.39898477
-"SI",363,"Aphid",18753745.8
-"SI",348,"Aphid",2528580.77766497
-"SI",354,"Aphid",244151.027411168
-"SI",357,"Aphid",1438359.83553299
-"SI",351,"Aphid",1160953.92588832
-"SI",344,"Aphid",328748.764467005
-"SI",376,"Secondary aphid parasitoid",424530.397969543
-"SI",377,"Secondary aphid parasitoid",584229.450761421
-"SI",368,"Primary aphid parasitoid",134000.936040609
-"SI",367,"Primary aphid parasitoid",44879.4984771574
-"SI",378,"Secondary aphid parasitoid",115301.439593909
-"SI",374,"Primary aphid parasitoid",236469.697461929
-"SI",369,"Primary aphid parasitoid",176745.041624365
-"SI",365,"Primary aphid parasitoid",335803.598984772
-"SI",381,"Secondary aphid parasitoid",731693.664974619
-"SI",380,"Secondary aphid parasitoid",69248.952284264
-"SI",370,"Primary aphid parasitoid",191887.588832487
-"SI",372,"Primary aphid parasitoid",15431.0984771574
-"SI",445,"Leaf-miner parasitoid",1401812.6071066
-"SI",438,"Leaf-miner parasitoid",232867.878172589
-"SI",422,"Leaf-miner parasitoid",79340.123857868
-"SI",467,"Leaf-miner parasitoid",67754.192893401
-"SI",470,"Leaf-miner parasitoid",698748.856852792
-"SI",421,"Leaf-miner parasitoid",46612.0751269036
-"SI",439,"Leaf-miner parasitoid",209199.667005076
-"SI",469,"Leaf-miner parasitoid",74517.0050761421
-"SI",412,"Leaf-miner parasitoid",27795.0680203046
-"SI",417,"Leaf-miner parasitoid",33720.4081218274
-"SI",471,"Leaf-miner parasitoid",54564.0680203046
-"SI",437,"Leaf-miner parasitoid",79505.5573604061
-"SI",447,"Leaf-miner parasitoid",74368.8020304568
-"SI",415,"Leaf-miner parasitoid",264368.964467005
-"SI",410,"Leaf-miner parasitoid",36668.2558375635
-"SI",463,"Leaf-miner parasitoid",23701.3604060914
-"SI",435,"Leaf-miner parasitoid",38619.6802030457
-"SI",425,"Leaf-miner parasitoid",48045.538071066
-"SI",455,"Leaf-miner parasitoid",32443.3431472081
-"SI",458,"Leaf-miner parasitoid",7207.66294416244
-"SI",440,"Leaf-miner parasitoid",28830.6517766497
-"SI",419,"Leaf-miner parasitoid",7207.66294416244
-"SI",429,"Leaf-miner parasitoid",6269.12284263959
-"SI",457,"Leaf-miner parasitoid",66077.2456852792
-"SI",433,"Leaf-miner parasitoid",104590.577664975
-"SI",441,"Leaf-miner parasitoid",6966.3269035533
-"SI",389,"Leaf-miner parasitoid",13934.454822335
-"SI",397,"Leaf-miner parasitoid",5925.34010152284
-"SI",465,"Leaf-miner parasitoid",12891.6670050761
-"SI",430,"Leaf-miner parasitoid",5925.34010152284
-"SI",401,"Leaf-miner parasitoid",39200.8974619289
-"SI",394,"Leaf-miner parasitoid",11850.6802030457
-"SI",390,"Leaf-miner parasitoid",5925.34010152284
-"SI",426,"Leaf-miner parasitoid",59464.3401015228
-"SI",534,"Insect seed-feeder parasitoid",47097.8294416244
-"SI",540,"Insect seed-feeder parasitoid",11405.8294416244
-"SI",508,"Seed-feeding rodent",718.605076142132
-"SI",326,"Flower-visiting",673.579695431472
-"SI",259,"Flower-visiting",16977.7756345178
-"SI",308,"Flower-visiting",1278.57969543147
-"SI",179,"Flower-visiting",26548.745177665
-"SI",164,"Flower-visiting",12430.5908629442
-"SI",141,"Flower-visiting",673.579695431472
-"SI",193,"Flower-visiting",658.391878172589
-"SI",166,"Flower-visiting",673.579695431472
-"SI",228,"Flower-visiting",673.579695431472
-"SI",198,"Flower-visiting",673.579695431472
-"SI",128,"Flower-visiting",695.191878172589
-"SI",264,"Flower-visiting",1388.58274111675
-"SI",244,"Flower-visiting",3409.32182741117
-"SI",303,"Flower-visiting",8325.12893401015
-"SI",247,"Flower-visiting",695.191878172589
-"SI",196,"Flower-visiting",3110.35329949239
-"SI",131,"Flower-visiting",1325.54720812183
-"SI",138,"Flower-visiting",4273.80913705584
-"SI",248,"Flower-visiting",1627.54720812183
-"SI",237,"Flower-visiting",1599.30152284264
-"SI",286,"Flower-visiting",533.100507614213
-"SI",209,"Flower-visiting",533.100507614213
-"SI",285,"Flower-visiting",928.753299492386
-"SI",181,"Flower-visiting",571.285279187817
-"SI",249,"Flower-visiting",2249.46802030457
-"SI",302,"Flower-visiting",2133.75329949239
-"SI",252,"Flower-visiting",626.753299492386
-"SI",250,"Flower-visiting",626.753299492386
-"SI",173,"Flower-visiting",2501.61015228426
-"SI",132,"Flower-visiting",2501.61015228426
-"SI",223,"Flower-visiting",645.441624365482
-"SI",255,"Flower-visiting",2184.89746192893
-"SI",142,"Flower-visiting",648.365482233503
-"SI",143,"Flower-visiting",648.365482233503
-"SI",222,"Flower-visiting",950.365482233503
-"SI",158,"Flower-visiting",648.365482233503
-"SI",170,"Flower-visiting",648.365482233503
-"SI",266,"Flower-visiting",648.365482233503
-"SI",140,"Flower-visiting",1620.91370558376
-"SI",304,"Flower-visiting",648.365482233503
-"SI",301,"Flower-visiting",599.73807106599
-"SI",519,"Butterfly",234.01116751269
-"SI",524,"Butterfly",47.5309644670051
-"SI",514,"Butterfly",290.744162436548
-"SI",516,"Butterfly",219.668020304569
-"SI",517,"Butterfly",3525.35736040609
-"SI",523,"Butterfly",150.603045685279
-"SI",513,"Butterfly",84.2913705583756
-"SI",525,"Butterfly",393.162436548223
-"SI",522,"Butterfly",52.2314720812183
-"SI",495,"Seed-feeding bird",20.7045685279188
-"SI",496,"Seed-feeding bird",140.337055837563
-"SI",497,"Seed-feeding bird",17.253807106599
-"SI",498,"Seed-feeding bird",475.126903553299
-"SI",499,"Seed-feeding bird",46.3644670050761
-"SI",500,"Seed-feeding bird",125.165482233503
-"SI",501,"Seed-feeding bird",140.337055837563
-"SI",502,"Seed-feeding bird",32.0984771573604
-"SI",503,"Seed-feeding bird",54.6243654822335
-"SI",504,"Seed-feeding bird",54.6243654822335
+"SI",105,"Flower-visiting",691.980603448276
+"SI",317,"Flower-visiting",5171.35237068965
+"SI",202,"Flower-visiting",691.980603448276
+"SI",123,"Flower-visiting",9550.60775862069
+"SI",183,"Flower-visiting",691.980603448276
+"SI",126,"Flower-visiting",6346.36206896552
+"SI",318,"Flower-visiting",7157.04849137931
+"SI",276,"Flower-visiting",1787.30818965517
+"SI",144,"Flower-visiting",691.980603448276
+"SI",322,"Flower-visiting",990.756465517241
+"SI",279,"Flower-visiting",714.183189655172
+"SI",278,"Flower-visiting",714.183189655172
+"SI",190,"Flower-visiting",1664.5161637931
+"SI",186,"Flower-visiting",1261.84698275862
+"SI",282,"Flower-visiting",714.183189655172
+"SI",203,"Flower-visiting",714.183189655172
+"SI",232,"Flower-visiting",3073.20797413793
+"SI",295,"Flower-visiting",1054.62284482759
+"SI",112,"Flower-visiting",17309.4924568966
+"SI",349,"Aphid",3719279.1799569
+"SI",363,"Aphid",19034739.8178879
+"SI",348,"Aphid",2561175.42780172
+"SI",354,"Aphid",250820.766163793
+"SI",357,"Aphid",1464928.58189655
+"SI",351,"Aphid",1190632.67887931
+"SI",344,"Aphid",330792.150862069
+"SI",376,"Secondary aphid parasitoid",433398.89762931
+"SI",377,"Secondary aphid parasitoid",598169.663793103
+"SI",368,"Primary aphid parasitoid",137661.58512931
+"SI",367,"Primary aphid parasitoid",46105.5204741379
+"SI",378,"Secondary aphid parasitoid",117716.780172414
+"SI",374,"Primary aphid parasitoid",242929.596982759
+"SI",369,"Primary aphid parasitoid",181389.745689655
+"SI",365,"Primary aphid parasitoid",341841.950431034
+"SI",381,"Secondary aphid parasitoid",751498.503232759
+"SI",380,"Secondary aphid parasitoid",70865.2801724138
+"SI",370,"Primary aphid parasitoid",196762.353448276
+"SI",372,"Primary aphid parasitoid",15852.6465517241
+"SI",445,"Leaf-miner parasitoid",1426334.8674569
+"SI",438,"Leaf-miner parasitoid",236060.484913793
+"SI",422,"Leaf-miner parasitoid",81507.5441810345
+"SI",467,"Leaf-miner parasitoid",69605.1077586207
+"SI",470,"Leaf-miner parasitoid",702967.830818966
+"SI",421,"Leaf-miner parasitoid",47885.4278017241
+"SI",439,"Leaf-miner parasitoid",209551.842672414
+"SI",469,"Leaf-miner parasitoid",76552.6670258621
+"SI",412,"Leaf-miner parasitoid",28554.3760775862
+"SI",417,"Leaf-miner parasitoid",34641.5851293103
+"SI",471,"Leaf-miner parasitoid",55323.3760775862
+"SI",437,"Leaf-miner parasitoid",81189.9784482759
+"SI",447,"Leaf-miner parasitoid",75425.3782327586
+"SI",415,"Leaf-miner parasitoid",271103.5
+"SI",410,"Leaf-miner parasitoid",37664.2974137931
+"SI",463,"Leaf-miner parasitoid",24348.8362068966
+"SI",435,"Leaf-miner parasitoid",38943.4181034483
+"SI",425,"Leaf-miner parasitoid",48992.3976293103
+"SI",455,"Leaf-miner parasitoid",32963.9806034483
+"SI",458,"Leaf-miner parasitoid",7404.5625
+"SI",440,"Leaf-miner parasitoid",29618.25
+"SI",419,"Leaf-miner parasitoid",7404.5625
+"SI",429,"Leaf-miner parasitoid",6408.375
+"SI",457,"Leaf-miner parasitoid",66355.75
+"SI",433,"Leaf-miner parasitoid",105985.209051724
+"SI",441,"Leaf-miner parasitoid",7156.63362068965
+"SI",389,"Leaf-miner parasitoid",14315.1174568966
+"SI",397,"Leaf-miner parasitoid",6087.20905172414
+"SI",465,"Leaf-miner parasitoid",13243.8426724138
+"SI",430,"Leaf-miner parasitoid",6087.20905172414
+"SI",401,"Leaf-miner parasitoid",40271.7909482759
+"SI",394,"Leaf-miner parasitoid",12174.4181034483
+"SI",390,"Leaf-miner parasitoid",6087.20905172414
+"SI",426,"Leaf-miner parasitoid",59626.2090517241
+"SI",534,"Insect seed-feeder parasitoid",47409.4148706897
+"SI",540,"Insect seed-feeder parasitoid",11717.4148706897
+"SI",508,"Seed-feeding rodent",738.23599137931
+"SI",326,"Flower-visiting",691.980603448276
+"SI",259,"Flower-visiting",17121.9816810345
+"SI",308,"Flower-visiting",1296.98060344828
+"SI",179,"Flower-visiting",27224.5603448276
+"SI",164,"Flower-visiting",12730.6142241379
+"SI",141,"Flower-visiting",691.980603448276
+"SI",193,"Flower-visiting",675.859913793103
+"SI",166,"Flower-visiting",691.980603448276
+"SI",228,"Flower-visiting",691.980603448276
+"SI",198,"Flower-visiting",691.980603448276
+"SI",128,"Flower-visiting",714.183189655172
+"SI",264,"Flower-visiting",1426.5161637931
+"SI",244,"Flower-visiting",3502.45797413793
+"SI",303,"Flower-visiting",8360.45474137931
+"SI",247,"Flower-visiting",714.183189655172
+"SI",196,"Flower-visiting",3195.32219827586
+"SI",131,"Flower-visiting",1361.75862068966
+"SI",138,"Flower-visiting",4390.56142241379
+"SI",248,"Flower-visiting",1663.75862068966
+"SI",237,"Flower-visiting",1642.99137931034
+"SI",286,"Flower-visiting",547.663793103448
+"SI",209,"Flower-visiting",547.663793103448
+"SI",285,"Flower-visiting",945.875
+"SI",181,"Flower-visiting",585
+"SI",249,"Flower-visiting",2310.91918103448
+"SI",302,"Flower-visiting",2150.875
+"SI",252,"Flower-visiting",643.875
+"SI",250,"Flower-visiting",643.875
+"SI",173,"Flower-visiting",2569.94935344828
+"SI",132,"Flower-visiting",2569.94935344828
+"SI",223,"Flower-visiting",662.974137931035
+"SI",255,"Flower-visiting",2238.08297413793
+"SI",142,"Flower-visiting",666.077586206897
+"SI",143,"Flower-visiting",666.077586206897
+"SI",222,"Flower-visiting",968.077586206897
+"SI",158,"Flower-visiting",666.077586206897
+"SI",170,"Flower-visiting",666.077586206897
+"SI",266,"Flower-visiting",666.077586206897
+"SI",140,"Flower-visiting",1665.19396551724
+"SI",304,"Flower-visiting",666.077586206897
+"SI",301,"Flower-visiting",616.121767241379
+"SI",519,"Butterfly",239.417025862069
+"SI",524,"Butterfly",48.792025862069
+"SI",514,"Butterfly",297.730603448276
+"SI",516,"Butterfly",224.684267241379
+"SI",517,"Butterfly",3571.75323275862
+"SI",523,"Butterfly",154.693965517241
+"SI",513,"Butterfly",85.5991379310345
+"SI",525,"Butterfly",401.034482758621
+"SI",522,"Butterfly",52.614224137931
+"SI",495,"Seed-feeding bird",20.8706896551724
+"SI",496,"Seed-feeding bird",171.604525862069
+"SI",497,"Seed-feeding bird",17.3922413793103
+"SI",498,"Seed-feeding bird",481.276939655172
+"SI",499,"Seed-feeding bird",53.9310344827586
+"SI",500,"Seed-feeding bird",167.287715517241
+"SI",501,"Seed-feeding bird",314.528017241379
+"SI",502,"Seed-feeding bird",63.1778017241379
+"SI",503,"Seed-feeding bird",60.7209051724138
+"SI",504,"Seed-feeding bird",67.9493534482759
 "SI",505,"Seed-feeding bird",3
 "SI",124,"Flower-visiting",2767
 "SI",236,"Flower-visiting",238
@@ -1569,234 +1569,245 @@
 "SI",150,"Flower-visiting",302
 "SI",165,"Flower-visiting",302
 "SI",109,"Flower-visiting",302
-"I",11,"Plant",2068.64771573604
-"I",77,"Plant",925.005076142132
-"I",78,"Plant",347.577664974619
-"I",26,"Plant",23853.9187817259
-"I",20,"Plant",335.390862944162
-"I",76,"Plant",125.771573604061
-"I",61,"Plant",9056.64060913706
-"I",95,"Crop",784.852791878173
-"I",99,"Crop",442.881218274112
-"I",28,"Plant",5945.25989847716
-"I",98,"Crop",89.4375634517767
-"I",66,"Plant",9.81116751269036
-"I",38,"Plant",1850.01015228426
-"I",97,"Crop",77.3482233502538
-"I",44,"Plant",5813.51675126904
-"I",19,"Plant",434.472081218274
-"I",33,"Plant",667.124873096447
-"I",358,"Aphid",106346880.568528
-"I",343,"Aphid",645935675.301523
-"I",361,"Aphid",1893530.23959391
-"I",341,"Aphid",34924749.5350254
-"I",14,"Plant",4625.02538071066
-"I",86,"Plant",92.2324873096447
-"I",64,"Plant",627.882233502538
-"I",17,"Plant",245.953299492386
-"I",94,"Crop",23.1167512690355
-"I",96,"Crop",30.8223350253807
-"I",482,"Seed-feeding insect",163692.261928934
-"I",483,"Seed-feeding insect",710022.684263959
-"I",486,"Seed-feeding insect",2272070.34720812
-"I",4,"Plant",92.2324873096447
-"I",5,"Plant",307.441624365482
-"I",7,"Plant",804.474111675127
-"I",12,"Plant",285.082233502538
-"I",30,"Plant",37.0111675126904
-"I",36,"Plant",86.6426395939086
-"I",39,"Plant",25.6852791878173
-"I",47,"Plant",71.8233502538071
+"I",11,"Plant",2150.37931034483
+"I",77,"Plant",961.551724137931
+"I",78,"Plant",361.310344827586
+"I",26,"Plant",24796.3793103448
+"I",20,"Plant",349.655172413793
+"I",76,"Plant",130.73275862069
+"I",61,"Plant",9414.46551724138
+"I",95,"Crop",815.862068965517
+"I",99,"Crop",460.379310344828
+"I",28,"Plant",6180.15517241379
+"I",98,"Crop",92.9655172413793
+"I",66,"Plant",10.1681034482759
+"I",38,"Plant",1923.10344827586
+"I",97,"Crop",80.3793103448276
+"I",44,"Plant",6043.20689655172
+"I",19,"Plant",451.637931034483
+"I",33,"Plant",693.48275862069
+"I",358,"Aphid",110548611.034483
+"I",343,"Aphid",671456382.551724
+"I",361,"Aphid",1968343
+"I",341,"Aphid",36304614.9655172
+"I",14,"Plant",4807.75862068966
+"I",86,"Plant",95.8706896551724
+"I",64,"Plant",652.689655172414
+"I",17,"Plant",255.655172413793
+"I",94,"Crop",23.9838362068966
+"I",96,"Crop",31.9784482758621
+"I",482,"Seed-feeding insect",170159.689655172
+"I",483,"Seed-feeding insect",738075.448275862
+"I",486,"Seed-feeding insect",2361839.10344828
+"I",4,"Plant",95.8706896551724
+"I",5,"Plant",319.568965517241
+"I",7,"Plant",836.258620689655
+"I",12,"Plant",296.327586206897
+"I",30,"Plant",38.4245689655172
+"I",36,"Plant",90.0603448275862
+"I",39,"Plant",26.6487068965517
+"I",47,"Plant",74.6379310344828
 "I",49,"Plant",1
-"I",57,"Plant",240.36345177665
-"I",59,"Plant",63.5360406091371
-"I",67,"Plant",327.006091370558
-"I",72,"Plant",226.38883248731
-"I",80,"Plant",549.396954314721
-"I",82,"Plant",58.0111675126904
-"I",62,"Plant",37.0111675126904
-"I",24,"Plant",37.0111675126904
-"I",32,"Plant",162.105583756345
-"I",91,"Plant",150.925888324873
-"I",8,"Plant",30.8223350253807
-"I",13,"Plant",87.2406091370558
-"I",16,"Plant",234.773604060914
-"I",23,"Plant",55.248730964467
-"I",41,"Plant",84.5969543147208
-"I",45,"Plant",49.7238578680203
-"I",46,"Plant",25.6852791878173
-"I",48,"Plant",66.2984771573604
-"I",51,"Plant",86.6426395939086
-"I",56,"Plant",19.6223350253807
-"I",81,"Plant",7.35837563451777
-"I",105,"Flower-visiting",1048.33908629442
-"I",317,"Flower-visiting",7834.51269035533
-"I",202,"Flower-visiting",1048.33908629442
-"I",123,"Flower-visiting",5303.36243654822
-"I",183,"Flower-visiting",1048.33908629442
-"I",126,"Flower-visiting",4709.11675126904
-"I",318,"Flower-visiting",10385.2842639594
-"I",276,"Flower-visiting",2707.7421319797
-"I",144,"Flower-visiting",1048.33908629442
-"I",322,"Flower-visiting",1045.30152284264
-"I",279,"Flower-visiting",1078.84060913706
-"I",278,"Flower-visiting",1081.97563451777
-"I",190,"Flower-visiting",2161.14822335025
-"I",186,"Flower-visiting",1911.67715736041
-"I",282,"Flower-visiting",1081.97563451777
-"I",203,"Flower-visiting",1081.97563451777
-"I",232,"Flower-visiting",4655.85888324873
-"I",295,"Flower-visiting",1597.73604060914
-"I",112,"Flower-visiting",23963.2375634518
-"I",349,"Aphid",5634645.99695431
-"I",363,"Aphid",16008830.2
-"I",348,"Aphid",1856986.93299492
-"I",354,"Aphid",379989.282233503
-"I",357,"Aphid",1513678.30659898
-"I",351,"Aphid",1755357.15532995
-"I",344,"Aphid",116416.093401015
-"I",376,"Secondary aphid parasitoid",505257.393908629
-"I",377,"Secondary aphid parasitoid",794203.752284264
-"I",368,"Primary aphid parasitoid",208555.008121827
-"I",367,"Primary aphid parasitoid",69849.0954314721
-"I",378,"Secondary aphid parasitoid",137607.118781726
-"I",374,"Primary aphid parasitoid",368034.292385787
-"I",369,"Primary aphid parasitoid",264618.724873096
-"I",365,"Primary aphid parasitoid",344017.796954315
-"I",381,"Secondary aphid parasitoid",1128323.99492386
-"I",380,"Secondary aphid parasitoid",92085.6568527919
-"I",370,"Primary aphid parasitoid",277725.766497462
-"I",372,"Primary aphid parasitoid",24016.4954314721
-"I",445,"Leaf-miner parasitoid",1397085.6213198
-"I",438,"Leaf-miner parasitoid",181889.634517767
-"I",422,"Leaf-miner parasitoid",123482.571573604
-"I",467,"Leaf-miner parasitoid",105450.578680203
-"I",470,"Leaf-miner parasitoid",240363.970558376
-"I",421,"Leaf-miner parasitoid",72545.6253807107
-"I",439,"Leaf-miner parasitoid",20064.2010152284
-"I",469,"Leaf-miner parasitoid",115976.015228426
-"I",412,"Leaf-miner parasitoid",43259.4040609137
-"I",417,"Leaf-miner parasitoid",52481.4243654822
-"I",471,"Leaf-miner parasitoid",43259.4040609137
-"I",437,"Leaf-miner parasitoid",95965.0720812183
-"I",447,"Leaf-miner parasitoid",60195.4060913706
-"I",415,"Leaf-miner parasitoid",383680.893401015
-"I",410,"Leaf-miner parasitoid",57161.7827411168
-"I",463,"Leaf-miner parasitoid",36888.0812182741
-"I",435,"Leaf-miner parasitoid",18444.0406091371
-"I",425,"Leaf-miner parasitoid",53944.614213198
-"I",455,"Leaf-miner parasitoid",29661.8294416244
-"I",458,"Leaf-miner parasitoid",11217.7888324873
-"I",440,"Leaf-miner parasitoid",44871.1553299492
-"I",419,"Leaf-miner parasitoid",11217.7888324873
-"I",429,"Leaf-miner parasitoid",10279.2487309645
-"I",457,"Leaf-miner parasitoid",20558.4974619289
-"I",433,"Leaf-miner parasitoid",79455.1329949239
-"I",441,"Leaf-miner parasitoid",10842.1807106599
-"I",389,"Leaf-miner parasitoid",21687.1644670051
-"I",397,"Leaf-miner parasitoid",9222.02030456853
-"I",465,"Leaf-miner parasitoid",20064.2010152284
-"I",430,"Leaf-miner parasitoid",9222.02030456853
-"I",401,"Leaf-miner parasitoid",61011.0923857868
-"I",394,"Leaf-miner parasitoid",18444.0406091371
-"I",390,"Leaf-miner parasitoid",9222.02030456853
-"I",426,"Leaf-miner parasitoid",9222.02030456853
-"I",534,"Insect seed-feeder parasitoid",17751.6883248731
-"I",540,"Insect seed-feeder parasitoid",17751.6883248731
-"I",508,"Seed-feeding rodent",1118.4152284264
-"I",326,"Flower-visiting",1048.33908629442
-"I",259,"Flower-visiting",8215.7269035533
-"I",308,"Flower-visiting",1048.33908629442
-"I",179,"Flower-visiting",38502.6355329949
-"I",164,"Flower-visiting",17092.9725888325
-"I",141,"Flower-visiting",1048.33908629442
-"I",193,"Flower-visiting",1033.15126903553
-"I",166,"Flower-visiting",1048.33908629442
-"I",228,"Flower-visiting",1048.33908629442
-"I",198,"Flower-visiting",1048.33908629442
-"I",128,"Flower-visiting",1081.97563451777
-"I",264,"Flower-visiting",2161.14822335025
-"I",244,"Flower-visiting",5306.1654822335
-"I",303,"Flower-visiting",2012.58680203046
-"I",247,"Flower-visiting",1081.97563451777
-"I",196,"Flower-visiting",4840.85989847716
-"I",131,"Flower-visiting",2063.04162436548
-"I",138,"Flower-visiting",6651.62741116751
-"I",248,"Flower-visiting",2063.04162436548
-"I",237,"Flower-visiting",2489.10456852792
-"I",286,"Flower-visiting",829.70152284264
-"I",209,"Flower-visiting",829.70152284264
-"I",285,"Flower-visiting",975.459898477157
-"I",181,"Flower-visiting",919.991878172589
-"I",249,"Flower-visiting",3501.00406091371
-"I",302,"Flower-visiting",975.459898477157
-"I",252,"Flower-visiting",975.459898477157
-"I",250,"Flower-visiting",975.459898477157
-"I",173,"Flower-visiting",3893.43045685279
-"I",132,"Flower-visiting",3893.43045685279
-"I",223,"Flower-visiting",1006.17258883249
-"I",255,"Flower-visiting",3030.0923857868
-"I",142,"Flower-visiting",1009.09644670051
-"I",143,"Flower-visiting",1009.09644670051
-"I",222,"Flower-visiting",1009.09644670051
-"I",158,"Flower-visiting",1009.09644670051
-"I",170,"Flower-visiting",1009.09644670051
-"I",266,"Flower-visiting",1009.09644670051
-"I",140,"Flower-visiting",2522.74111675127
-"I",304,"Flower-visiting",1009.09644670051
-"I",301,"Flower-visiting",933.41421319797
-"I",519,"Butterfly",310.23654822335
-"I",524,"Butterfly",74.5857868020305
-"I",514,"Butterfly",398.032487309645
-"I",516,"Butterfly",287.877157360406
-"I",517,"Butterfly",2643.27208121827
-"I",523,"Butterfly",234.773604060914
-"I",513,"Butterfly",77.3482233502538
-"I",525,"Butterfly",448.48730964467
-"I",522,"Butterfly",28.253807106599
-"I",495,"Seed-feeding bird",14.7167512690355
-"I",496,"Seed-feeding bird",103.412182741117
-"I",497,"Seed-feeding bird",12.2639593908629
-"I",498,"Seed-feeding bird",350.380710659898
-"I",499,"Seed-feeding bird",33.3908629441624
-"I",500,"Seed-feeding bird",92.2324873096447
-"I",501,"Seed-feeding bird",103.412182741117
-"I",502,"Seed-feeding bird",23.1167512690355
-"I",503,"Seed-feeding bird",39.6548223350254
-"I",504,"Seed-feeding bird",39.6548223350254
+"I",57,"Plant",249.844827586207
+"I",59,"Plant",66.0258620689655
+"I",67,"Plant",340.913793103448
+"I",72,"Plant",235.318965517241
+"I",80,"Plant",571.103448275862
+"I",82,"Plant",60.2844827586207
+"I",62,"Plant",38.4245689655172
+"I",24,"Plant",38.4245689655172
+"I",32,"Plant",168.5
+"I",91,"Plant",156.879310344828
+"I",8,"Plant",31.9784482758621
+"I",13,"Plant",94.7327586206897
+"I",16,"Plant",244.034482758621
+"I",23,"Plant",57.4137931034483
+"I",41,"Plant",91.8620689655172
+"I",45,"Plant",51.6724137931035
+"I",46,"Plant",26.6487068965517
+"I",48,"Plant",68.8965517241379
+"I",51,"Plant",90.0603448275862
+"I",56,"Plant",20.3362068965517
+"I",81,"Plant",7.6260775862069
+"I",105,"Flower-visiting",1089.75862068966
+"I",317,"Flower-visiting",8144.05172413793
+"I",202,"Flower-visiting",1089.75862068966
+"I",123,"Flower-visiting",5512.89655172414
+"I",183,"Flower-visiting",1089.75862068966
+"I",126,"Flower-visiting",4895.1724137931
+"I",318,"Flower-visiting",10795.6034482759
+"I",276,"Flower-visiting",2814.72413793103
+"I",144,"Flower-visiting",1089.75862068966
+"I",322,"Flower-visiting",1086.53448275862
+"I",279,"Flower-visiting",1124.72413793103
+"I",278,"Flower-visiting",1124.72413793103
+"I",190,"Flower-visiting",2246.53448275862
+"I",186,"Flower-visiting",1987.20689655172
+"I",282,"Flower-visiting",1124.72413793103
+"I",203,"Flower-visiting",1124.72413793103
+"I",232,"Flower-visiting",4839.81034482759
+"I",295,"Flower-visiting",1660.86206896552
+"I",112,"Flower-visiting",24910.0172413793
+"I",349,"Aphid",5857269.01724138
+"I",363,"Aphid",16641333.8448276
+"I",348,"Aphid",1930355.87931034
+"I",354,"Aphid",395002.534482759
+"I",357,"Aphid",1573483.24137931
+"I",351,"Aphid",1824145.29310345
+"I",344,"Aphid",121015.655172414
+"I",376,"Secondary aphid parasitoid",525219.948275862
+"I",377,"Secondary aphid parasitoid",825582.482758621
+"I",368,"Primary aphid parasitoid",216794.948275862
+"I",367,"Primary aphid parasitoid",72608.8103448276
+"I",378,"Secondary aphid parasitoid",143043.931034483
+"I",374,"Primary aphid parasitoid",382575.206896552
+"I",369,"Primary aphid parasitoid",275073.724137931
+"I",365,"Primary aphid parasitoid",357609.827586207
+"I",381,"Secondary aphid parasitoid",1172903.70689655
+"I",380,"Secondary aphid parasitoid",95723.9310344828
+"I",370,"Primary aphid parasitoid",288698.620689655
+"I",372,"Primary aphid parasitoid",24965.3793103448
+"I",445,"Leaf-miner parasitoid",1452284.01724138
+"I",438,"Leaf-miner parasitoid",189076.034482759
+"I",422,"Leaf-miner parasitoid",128361.327586207
+"I",467,"Leaf-miner parasitoid",109616.896551724
+"I",470,"Leaf-miner parasitoid",249860.672413793
+"I",421,"Leaf-miner parasitoid",75411.8793103448
+"I",439,"Leaf-miner parasitoid",20856.9310344828
+"I",469,"Leaf-miner parasitoid",120558.189655172
+"I",412,"Leaf-miner parasitoid",44968.5689655172
+"I",417,"Leaf-miner parasitoid",54554.9482758621
+"I",471,"Leaf-miner parasitoid",44968.5689655172
+"I",437,"Leaf-miner parasitoid",99756.6206896552
+"I",447,"Leaf-miner parasitoid",62573.7068965517
+"I",415,"Leaf-miner parasitoid",398840
+"I",410,"Leaf-miner parasitoid",59416.5862068966
+"I",463,"Leaf-miner parasitoid",38345.5172413793
+"I",435,"Leaf-miner parasitoid",19172.7586206897
+"I",425,"Leaf-miner parasitoid",56075.9482758621
+"I",455,"Leaf-miner parasitoid",30833.7586206897
+"I",458,"Leaf-miner parasitoid",11661
+"I",440,"Leaf-miner parasitoid",46644
+"I",419,"Leaf-miner parasitoid",11661
+"I",429,"Leaf-miner parasitoid",10664.8125
+"I",457,"Leaf-miner parasitoid",21329.625
+"I",433,"Leaf-miner parasitoid",82594.3793103448
+"I",441,"Leaf-miner parasitoid",11270.5517241379
+"I",389,"Leaf-miner parasitoid",22544.0172413793
+"I",397,"Leaf-miner parasitoid",9586.37931034483
+"I",465,"Leaf-miner parasitoid",20856.9310344828
+"I",430,"Leaf-miner parasitoid",9586.37931034483
+"I",401,"Leaf-miner parasitoid",63421.6206896552
+"I",394,"Leaf-miner parasitoid",19172.7586206897
+"I",390,"Leaf-miner parasitoid",9586.37931034483
+"I",426,"Leaf-miner parasitoid",9586.37931034483
+"I",534,"Insect seed-feeder parasitoid",18453.0517241379
+"I",540,"Insect seed-feeder parasitoid",18453.0517241379
+"I",508,"Seed-feeding rodent",1162.60344827586
+"I",326,"Flower-visiting",1089.75862068966
+"I",259,"Flower-visiting",8540.3275862069
+"I",308,"Flower-visiting",1089.75862068966
+"I",179,"Flower-visiting",40023.8620689655
+"I",164,"Flower-visiting",17768.3103448276
+"I",141,"Flower-visiting",1089.75862068966
+"I",193,"Flower-visiting",1073.63793103448
+"I",166,"Flower-visiting",1089.75862068966
+"I",228,"Flower-visiting",1089.75862068966
+"I",198,"Flower-visiting",1089.75862068966
+"I",128,"Flower-visiting",1124.72413793103
+"I",264,"Flower-visiting",2246.53448275862
+"I",244,"Flower-visiting",5515.81034482759
+"I",303,"Flower-visiting",2092.10344827586
+"I",247,"Flower-visiting",1124.72413793103
+"I",196,"Flower-visiting",5032.12068965517
+"I",131,"Flower-visiting",2144.55172413793
+"I",138,"Flower-visiting",6914.43103448276
+"I",248,"Flower-visiting",2144.55172413793
+"I",237,"Flower-visiting",2587.44827586207
+"I",286,"Flower-visiting",862.48275862069
+"I",209,"Flower-visiting",862.48275862069
+"I",285,"Flower-visiting",1014
+"I",181,"Flower-visiting",955.125
+"I",249,"Flower-visiting",3639.3275862069
+"I",302,"Flower-visiting",1014
+"I",252,"Flower-visiting",1014
+"I",250,"Flower-visiting",1014
+"I",173,"Flower-visiting",4047.25862068966
+"I",132,"Flower-visiting",4047.25862068966
+"I",223,"Flower-visiting",1045.86206896552
+"I",255,"Flower-visiting",3149.81034482759
+"I",142,"Flower-visiting",1048.96551724138
+"I",143,"Flower-visiting",1048.96551724138
+"I",222,"Flower-visiting",1048.96551724138
+"I",158,"Flower-visiting",1048.96551724138
+"I",170,"Flower-visiting",1048.96551724138
+"I",266,"Flower-visiting",1048.96551724138
+"I",140,"Flower-visiting",2622.41379310345
+"I",304,"Flower-visiting",1048.96551724138
+"I",301,"Flower-visiting",970.293103448276
+"I",519,"Butterfly",322.474137931034
+"I",524,"Butterfly",77.5086206896552
+"I",514,"Butterfly",413.758620689655
+"I",516,"Butterfly",299.23275862069
+"I",517,"Butterfly",2747.70689655172
+"I",523,"Butterfly",244.034482758621
+"I",513,"Butterfly",80.3793103448276
+"I",525,"Butterfly",466.206896551724
+"I",522,"Butterfly",29.3135775862069
+"I",495,"Seed-feeding bird",15.2521551724138
+"I",496,"Seed-feeding bird",153.974137931034
+"I",497,"Seed-feeding bird",12.7101293103448
+"I",498,"Seed-feeding bird",364.224137931034
+"I",499,"Seed-feeding bird",44.948275862069
+"I",500,"Seed-feeding bird",159.784482758621
+"I",501,"Seed-feeding bird",378.793103448276
+"I",502,"Seed-feeding bird",71.7672413793103
+"I",503,"Seed-feeding bird",48.801724137931
+"I",504,"Seed-feeding bird",60.2844827586207
 "I",505,"Seed-feeding bird",1
-"IM",95,"Crop",784.852791878173
-"IM",99,"Crop",442.881218274112
-"IM",98,"Crop",89.4375634517767
-"IM",97,"Crop",77.3482233502538
-"IM",358,"Aphid",106346880.568528
-"IM",94,"Crop",23.1167512690355
-"IM",96,"Crop",30.8223350253807
-"IM",126,"Flower-visiting",4709.11675126904
-"IM",295,"Flower-visiting",1597.73604060914
-"IM",112,"Flower-visiting",23963.2375634518
-"IM",351,"Aphid",1755357.15532995
-"IM",376,"Secondary aphid parasitoid",505257.393908629
-"IM",377,"Secondary aphid parasitoid",794203.752284264
-"IM",368,"Primary aphid parasitoid",208555.008121827
-"IM",367,"Primary aphid parasitoid",69849.0954314721
-"IM",378,"Secondary aphid parasitoid",137607.118781726
-"IM",374,"Primary aphid parasitoid",368034.292385787
-"IM",369,"Primary aphid parasitoid",264618.724873096
-"IM",365,"Primary aphid parasitoid",344017.796954315
-"IM",381,"Secondary aphid parasitoid",1128323.99492386
-"IM",380,"Secondary aphid parasitoid",92085.6568527919
-"IM",370,"Primary aphid parasitoid",277725.766497462
-"IM",445,"Leaf-miner parasitoid",1397085.6213198
-"IM",438,"Leaf-miner parasitoid",181889.634517767
-"IM",422,"Leaf-miner parasitoid",123482.571573604
-"IM",470,"Leaf-miner parasitoid",240363.970558376
-"IM",469,"Leaf-miner parasitoid",115976.015228426
-"IM",412,"Leaf-miner parasitoid",43259.4040609137
-"IM",429,"Leaf-miner parasitoid",10279.2487309645
-"IM",457,"Leaf-miner parasitoid",20558.4974619289
-"IM",508,"Seed-feeding rodent",1118.4152284264
-"IM",196,"Flower-visiting",4840.85989847716
-"IM",514,"Butterfly",398.032487309645
-"IM",516,"Butterfly",287.877157360406
-"IM",523,"Butterfly",234.773604060914
+"IM",95,"Crop",815.862068965517
+"IM",99,"Crop",460.379310344828
+"IM",98,"Crop",92.9655172413793
+"IM",97,"Crop",80.3793103448276
+"IM",358,"Aphid",110548611.034483
+"IM",94,"Crop",23.9838362068966
+"IM",96,"Crop",31.9784482758621
+"IM",126,"Flower-visiting",4895.1724137931
+"IM",295,"Flower-visiting",1660.86206896552
+"IM",112,"Flower-visiting",24910.0172413793
+"IM",351,"Aphid",1824145.29310345
+"IM",376,"Secondary aphid parasitoid",525219.948275862
+"IM",377,"Secondary aphid parasitoid",825582.482758621
+"IM",368,"Primary aphid parasitoid",216794.948275862
+"IM",367,"Primary aphid parasitoid",72608.8103448276
+"IM",378,"Secondary aphid parasitoid",143043.931034483
+"IM",374,"Primary aphid parasitoid",382575.206896552
+"IM",369,"Primary aphid parasitoid",275073.724137931
+"IM",365,"Primary aphid parasitoid",357609.827586207
+"IM",381,"Secondary aphid parasitoid",1172903.70689655
+"IM",380,"Secondary aphid parasitoid",95723.9310344828
+"IM",370,"Primary aphid parasitoid",288698.620689655
+"IM",445,"Leaf-miner parasitoid",1452284.01724138
+"IM",438,"Leaf-miner parasitoid",189076.034482759
+"IM",422,"Leaf-miner parasitoid",128361.327586207
+"IM",470,"Leaf-miner parasitoid",249860.672413793
+"IM",469,"Leaf-miner parasitoid",120558.189655172
+"IM",412,"Leaf-miner parasitoid",44968.5689655172
+"IM",429,"Leaf-miner parasitoid",10664.8125
+"IM",457,"Leaf-miner parasitoid",21329.625
+"IM",508,"Seed-feeding rodent",1162.60344827586
+"IM",196,"Flower-visiting",5032.12068965517
+"IM",514,"Butterfly",413.758620689655
+"IM",516,"Butterfly",299.23275862069
+"IM",523,"Butterfly",244.034482758621
+"IM",495,"Seed-feeding bird",15.2521551724138
+"IM",496,"Seed-feeding bird",153.974137931034
+"IM",497,"Seed-feeding bird",12.7101293103448
+"IM",498,"Seed-feeding bird",364.224137931034
+"IM",499,"Seed-feeding bird",44.948275862069
+"IM",500,"Seed-feeding bird",159.784482758621
+"IM",501,"Seed-feeding bird",378.793103448276
+"IM",502,"Seed-feeding bird",71.7672413793103
+"IM",503,"Seed-feeding bird",48.801724137931
+"IM",504,"Seed-feeding bird",60.2844827586207
+"IM",505,"Seed-feeding bird",1

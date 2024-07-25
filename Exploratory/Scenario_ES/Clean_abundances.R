@@ -77,7 +77,7 @@ nore_names<- nore_2%>% mutate(habitat = case_when(habitat == "P"~ "PP",#typing e
 
 ## Remove interactions involving crops in non-CP habitats
 
-nore_intcrop_clean<- nore_names %>% filter( (!(habitat == "CP")) & # dataframe of non-CP habitat without crops
+nore_intcrop_clean<- nore_names %>% filter( (!(habitat == "CP" )) & # dataframe of non-CP habitat without crops
                                               !(lower == '01PLANT.zCROP Barley' |
                                                   lower == '01PLANT.zCROP Lucerne' |
                                                   lower == '01PLANT.zCROP Oat spring' |
@@ -162,7 +162,6 @@ nore_flowervis_final2<- nore_flowervis_final %>%
          upper.guild = gsub("15FV", "02FV", upper.guild))
 
 ## Rearrange bird abundances according to the original paper
-
 birds_WD_RG<-nore_flowervis_final2 %>% filter(upper.guild == "08BI", habitat =="RG" |
                                              habitat == "WD")  #abundances birds in WD and RG
 
@@ -178,9 +177,13 @@ birds_NH<-birds_rest %>% mutate(habitat = ifelse(habitat =="all", "NH"))
 birds_NL<-birds_rest %>% mutate(habitat = ifelse(habitat =="all", "NL"))
 birds_PP<-birds_rest %>% mutate(habitat = ifelse(habitat =="all", "PP"))
 
+#Add interaction between crop and birds in the CP habitat (previously eliminated in line 80)
+crop_birds<- nore_names %>% filter(habitat == "all" & str_detect(lower,'zCROP')) %>% 
+  mutate(habitat = "CP")
+
 # Merge to create dataframe of birds abundances
 birds_abundances<-rbind(birds_WD_RG,birds_CP,birds_SF,birds_GM,birds_LP,
-                        birds_MH,birds_NH,birds_NL,birds_PP)
+                        birds_MH,birds_NH,birds_NL,birds_PP,crop_birds)
 
 
 # Add bird abundances
@@ -238,7 +241,6 @@ edgelist_birds_long <- bind_rows(edgelist_birds, .id = "habitat") %>% #convert t
 ## Merge real bird-plant interaction per habitat to the previous dataframe
 edge_list_nore_withoutbird<- edge_list_nore_pre %>% filter(upper.guild != "08BI") 
 edge_list_nore_final<-rbind(edge_list_nore_withoutbird,edgelist_birds_long) %>% select(habitat,lower,upper) 
-
 
 #write.csv(edge_list_nore_final,"Data/elist_nore.csv", row.names= FALSE)
 

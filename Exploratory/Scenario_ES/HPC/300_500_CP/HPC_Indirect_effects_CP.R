@@ -46,7 +46,7 @@ ind_row <- function(df, row) { #for the row
            hop = 2)
 }
 
-Indirect_2hop_sim <- bind_rows(lapply(1:nrow(data), function(row) ind_row(data, row))) %>% 
+Indirect_2hop_sim <- bind_rows(lapply(1:nrow(Indirect_1hop), function(row) ind_row(Indirect_1hop, row))) %>% 
   select(management,iteration,node_id,taxon_from,services, node_int,node_to,
          services_to,type,hop)
 print(100)

@@ -1346,7 +1346,7 @@
 "08BIRD.Alauda arvensis","NL",6
 "08BIRD.Alauda arvensis","PP",6
 "08BIRD.Alauda arvensis","SF",6
-"08BIRD.Alectoris rufa","CP",37
+"08BIRD.Alectoris rufa","CP",53
 "08BIRD.Alectoris rufa","GM",37
 "08BIRD.Alectoris rufa","LP",37
 "08BIRD.Alectoris rufa","MH",37
@@ -1372,7 +1372,7 @@
 "08BIRD.Carduelis carduelis","PP",125
 "08BIRD.Carduelis carduelis","RG",24
 "08BIRD.Carduelis carduelis","SF",125
-"08BIRD.Carduelis chloris","CP",13
+"08BIRD.Carduelis chloris","CP",16
 "08BIRD.Carduelis chloris","GM",13
 "08BIRD.Carduelis chloris","LP",13
 "08BIRD.Carduelis chloris","MH",13
@@ -1380,7 +1380,7 @@
 "08BIRD.Carduelis chloris","NL",13
 "08BIRD.Carduelis chloris","PP",13
 "08BIRD.Carduelis chloris","SF",13
-"08BIRD.Columba palumbus","CP",33
+"08BIRD.Columba palumbus","CP",55
 "08BIRD.Columba palumbus","GM",33
 "08BIRD.Columba palumbus","LP",33
 "08BIRD.Columba palumbus","MH",33
@@ -1389,7 +1389,7 @@
 "08BIRD.Columba palumbus","PP",33
 "08BIRD.Columba palumbus","RG",0
 "08BIRD.Columba palumbus","SF",33
-"08BIRD.Corvus frugilegus","CP",37
+"08BIRD.Corvus frugilegus","CP",130
 "08BIRD.Corvus frugilegus","GM",37
 "08BIRD.Corvus frugilegus","LP",37
 "08BIRD.Corvus frugilegus","MH",37
@@ -1399,7 +1399,7 @@
 "08BIRD.Corvus frugilegus","RG",12
 "08BIRD.Corvus frugilegus","SF",37
 "08BIRD.Corvus frugilegus","WD",19
-"08BIRD.Corvus monedula","CP",9
+"08BIRD.Corvus monedula","CP",25
 "08BIRD.Corvus monedula","GM",9
 "08BIRD.Corvus monedula","LP",9
 "08BIRD.Corvus monedula","MH",9
@@ -1409,7 +1409,7 @@
 "08BIRD.Corvus monedula","RG",7
 "08BIRD.Corvus monedula","SF",9
 "08BIRD.Corvus monedula","WD",12
-"08BIRD.Emberiza citrinella","CP",15
+"08BIRD.Emberiza citrinella","CP",17
 "08BIRD.Emberiza citrinella","GM",15
 "08BIRD.Emberiza citrinella","LP",15
 "08BIRD.Emberiza citrinella","MH",15
@@ -1417,7 +1417,7 @@
 "08BIRD.Emberiza citrinella","NL",15
 "08BIRD.Emberiza citrinella","PP",15
 "08BIRD.Emberiza citrinella","SF",15
-"08BIRD.Fringilla coelebs","CP",15
+"08BIRD.Fringilla coelebs","CP",21
 "08BIRD.Fringilla coelebs","GM",15
 "08BIRD.Fringilla coelebs","LP",15
 "08BIRD.Fringilla coelebs","MH",15
