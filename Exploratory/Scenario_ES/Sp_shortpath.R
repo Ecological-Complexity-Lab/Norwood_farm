@@ -26,8 +26,8 @@ nodes<- Norwood_farm$nodes %>% #list of nodes with attributes
 
 #Select the type of land use change
 
-#Intensive = "CP"
-Intensive = "PP"
+Intensive = "CP"
+#Intensive = "PP"
 
 if (Intensive=="CP"){
   edge_list<- read.csv("Data/Land_use_rat_edgelist_weighted_CP_intense.csv", sep = ",") %>% 
@@ -64,7 +64,6 @@ for (i in unique(edge_list$management)){# for each treatment
 
 
 ## Estimate shortest path between  species in each network 
-
 
 short_man<-NULL
 management<-c()
@@ -138,9 +137,9 @@ species_shortpath_fin<- species_shortpath %>%
 
 #upload and arrange dataframe
 short_path_CP<-read.csv("Data/Land_use_shortpath_weighted_CP_intense.csv", row.names = 1) %>% mutate(land_use = "CP")
-short_path_PP<-read.csv("Data/Land_use_shortpath_weighted_PP_intense.csv", row.names = 1)%>% mutate(land_use = "PP")
-
-short_path_land_change<-rbind(short_path_CP,short_path_PP)
+#short_path_PP<-read.csv("Data/Land_use_shortpath_weighted_PP_intense.csv", row.names = 1)%>% mutate(land_use = "PP")
+short_path_land_change<-short_path_CP
+#short_path_land_change<-rbind(short_path_CP,short_path_PP)
 
 
 ## check exploratory tendency
@@ -163,15 +162,36 @@ short_path_land_change_ave<- short_path_land_change %>% group_by(land_use, manag
 ## From Extensive to intensive CP
 short_path_land_change_CP<- short_path_land_change_ave %>% filter(land_use== "CP") 
 
+prueba_type <- short_path_land_change %>% filter(land_use== "CP") 
 # Model
 library(glmmTMB)
 library(emmeans)
 library(car)
 
-short_CP<- glmmTMB(short_path_ave~management + taxon+ (1|node_id), 
+short_CP<- glmmTMB(short_path_ave~management + taxon, 
                   family = Gamma(link = "log"), data = short_path_land_change_CP) #we already check and this is the best model
+#short_CP_2<- glmmTMB(short_path_ave~management + taxon + 1|node_id , 
+           #        family = Gamma(link = "log"), data = short_path_land_change_CP) #we already check and this is the best model
+#short_CP_3<- glmmTMB(short_path_ave~management + taxon + node_id, 
+            #       family = Gamma(link = "log"), data = short_path_land_change_CP) #we already check and this is the best model
+
+
 Anova(short_CP)
-summary(short_CP)
+model_summary<-summary(short_CP)
+
+#AIC(short_CP,short_CP_2,short_CP_3) #the first one is the best model, we discard id because it's not imporant and the model is too complex to put it as random
+
+
+# Extract the coefficients (for GLMM It's the average including all the levels)
+coefficients <- model_summary$coefficients$cond
+
+# Extract coefficients for each factor
+management_coefs <- coefficients[grep("management", rownames(coefficients)), "Estimate"]
+taxon_coefs <- coefficients[grep("taxon", rownames(coefficients)), "Estimate"]
+
+# Calculate summary statistics (e.g., mean) for each factor
+management_summary <- mean(management_coefs)
+taxon_summary <- mean(taxon_coefs)
 
 #Homogeneity
 EM<-resid(short_CP, type= "response") 
@@ -191,31 +211,411 @@ post_amount_taxon<- emmeans(short_CP, ~ taxon)#management
 pairs(post_amount_taxon)
 
 
-## From Extensive to intensive PP
-short_path_land_change_PP<- short_path_land_change_ave %>% filter(land_use== "PP") 
+##stats
+#average per management
+ave_management<-short_path_land_change_CP %>% group_by(management) %>% 
+                summarise(ave_short = mean(short_path_ave),
+                          se_short = sd(short_path_ave) / sqrt(n()))
+
+#average per taxon
+ave_taxon<-short_path_land_change_CP %>% group_by(taxon) %>% 
+  summarise(ave_short = mean(short_path_ave),
+            se_short = sd(short_path_ave) / sqrt(n()))
+
+#average per management and taxon
+ave_management_taxon<-short_path_land_change_CP %>% group_by(management,taxon) %>% 
+  summarise(ave_short = mean(short_path_ave),
+            se_short = sd(short_path_ave) / sqrt(n()))
+
+
+#Rta: The indirect role of species on affecting ES is, in general, reduced by land conversion. Species tends to be
+#more distant of species that provide directly an ES after land conversion (mainly in IM). Also, the indirect role
+#of species to affect ES provision changed according to the taxon. Birds, rodents, and birds were more closer to
+#species that provides directly an ES.
+
+
+### Plot mean of shortest path of each trophoc group across land conversion
+
+#Preparing dataframe
+#Vector of colors
+color_trophic <-tibble(taxon = c("Plant","Crop","Flower-visiting","Aphid","Primary aphid parasitoid","Secondary aphid parasitoid",
+                                 "Leaf-miner parasitoid","Seed-feeding insect","Seed-feeding bird",
+                                 "Seed-feeding rodent","Butterfly","Insect seed-feeder parasitoid","Rodent ectoparasite"),
+                       color = c("#33a02c","#b15928","#a6cee3","#1f78b4","#b2df8a","#fb9a99","#e31a1c","#fdbf6f","#ff7f00","#cab2d6",
+                                 "#6a3d9a", "#cccc7a", "#e7298a"))
+
+ave_management_taxon$management <- factor(ave_management_taxon$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
+
+ave_management_taxon$taxon<-as.factor(ave_management_taxon$taxon)
+
+#Plot
+
+#
+ggplot(ave_management_taxon, aes(x = management, y = ave_short, group =taxon, color= taxon)) +
+  scale_color_manual(values = color_trophic$color[match(levels(ave_management_taxon$taxon), color_trophic$taxon)])+
+  geom_point() +
+  geom_line(size = 1.4)  +
+  geom_errorbar(aes(ymin = ave_short - se_short, ymax = ave_short + se_short), width = 0.2) +
+  labs(x = "Land conversion",
+       y = "Shorthest path ",
+       color = "Trophic Group") +
+  theme(panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        panel.grid.major = element_blank(),  # Remove major grid lines
+        panel.grid.minor = element_blank(),
+        axis.text.y = element_text(size=13, color='black'),
+        # axis.text = element_text(size=15, color='black'),
+        axis.text.x= element_text(size =15), 
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.position = "bottom") 
+
+#grid
+pdf("Graphs/short_path_taxon_landconv.pdf", width = 12, height = 7)
+ggplot(ave_management_taxon, aes(x = management, y = ave_short, group =taxon, color= taxon)) +
+scale_color_manual(values = color_trophic$color[match(levels(ave_management_taxon$taxon), color_trophic$taxon)])+
+  geom_point() +
+  geom_line()  +
+  geom_ribbon(aes(ymin = ave_short - se_short, ymax = ave_short + se_short, fill = taxon), alpha = 0.2) +
+  labs(x = "Land conversion",
+       y = "Shorthest path ",
+       color = "Trophic Group") +
+  theme(panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        panel.grid.major = element_blank(),  # Remove major grid lines
+        panel.grid.minor = element_blank(),
+        axis.text.y = element_text(size=13, color='black'),
+        # axis.text = element_text(size=15, color='black'),
+        axis.text.x= element_text(size =15), 
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.position = "none") +
+  facet_wrap(~taxon, scales = "fixed")
+#dev.off()
+#ggsave("Graphs/short_path_taxon_landconv.pdf", width = 12, height = 7, dpi = 300)
+
+
+
+
+########## Plot change in the indirect role of the 5 most important species per trophic group (Extensive) across
+#land conversion
+
+#### Check the 5 most important species per trophic group in Extensive
+top_5_taxon_extensive<-short_path_land_change_CP %>%
+  filter(management == "E") %>% group_by(management, taxon) %>% 
+  arrange(short_path_ave) %>% # Arrange by short_path_ave within each group
+  slice_head(n = 5) # Take the first 5 rows within each group
+
+
+#Filter the importance of the top 5 species (from the extensive) across management scenarios
+top_5_average<- short_path_land_change_CP %>%  filter(node_id%in%top_5_taxon_extensive$node_id)
+
 
 # Model
-short_PP<- glmmTMB(short_path_ave~management + taxon+ (1|node_id), 
-                  family = Gamma(link = "log"), data = short_path_land_change_PP) #we already check and this is the best model
-Anova(short_PP)
-summary(short_PP)
+top_5<- glmmTMB(short_path_ave~management+ taxon+(1|node_id), 
+                    family = Gamma(link = "log"), data = top_5_average) #we already check and this is the best model
+Anova(top_5)
+model_summary<-summary(top_5) #this model fits the best (drop taxon no significant difference)
+
+
+# Extract the coefficients (for GLMM It's the average including all the levels)
+coefficients <- model_summary$coefficients$cond
+
+# Extract coefficients for each factor
+management_coefs <- coefficients[grep("management", rownames(coefficients)), "Estimate"]
+taxon_coefs <- coefficients[grep("taxon", rownames(coefficients)), "Estimate"]
+
+# Calculate summary statistics (e.g., mean) for each factor
+management_summary <- mean(management_coefs)
+taxon_summary <- mean(taxon_coefs)
+
 
 #Homogeneity
-EM<-resid(short_PP, type= "response") 
-FM<-fitted(short_PP) 
+EM<-resid(top_5) 
+FM<-fitted(top_5) 
 plot(x=FM, y=EM, xlab = "Ajustados", ylab = "Residuales normalizados")
 abline(0,0, col="red", lwd= 3) 
 
 #independence 
-E1_lme<-resid(short_PP, type= "response") 
-boxplot(E1_lme~short_path_land_change_PP$management, main="Management")
+E1_lme<-resid(top_5) 
+boxplot(E1_lme~top_5_average$management, main="Tratamiento")
 
 # posthoc
-post_amount<- emmeans(short_PP, ~ management)#management
-pairs(post_amount)
+post_short<- emmeans(top_5, ~ management)
+pairs(post_short)
+post_taxon<- emmeans(top_5, ~ taxon)
+pairs(post_taxon)
 
-post_amount_taxon<- emmeans(short_PP, ~ taxon)#management
-pairs(post_amount_taxon)
+
+#Rta: The indirect role of the most important species tend to change across land conversion but it varied also according
+#to trophic guild. For most important species, their indirect provison of ES tend to decreased as in the general pattern. EVen
+#the most important species went extinct (plants, ectoparasites, etc.)
+
+#In the circular plot you can see that core of flowering visitors,plants, ectoparasites,aphid parasitoid went extinct.
+#While the rest of core species reduced thir indirect improtance. For some trophic groups, such as 1 and 2 aphid parasitodis,
+#tend to be resilience to the change.
+
+
+#### Circular plot
+
+
+#TO DO: TRY TO ADD A LAYER WITH COLORS OR DO IT MANUALLY. Separate ring
+
+library(circlize)
+library(viridis)
+library(ComplexHeatmap)
+
+##### set up parameters and structure
+
+# Define color of each layer and sps
+top_5_average$management <- factor(top_5_average$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
+
+top_5_ave <- top_5_average %>% ungroup() %>% 
+              select(node_id,taxon,management,short_path_ave) %>%
+              spread(management,short_path_ave) %>%  #rearrange dataframe
+               ungroup() 
+top_5_ave<-top_5_ave[,c(1,2,3,7,6,8,4,5)]
+  
+
+# layer
+color = colorRamp2(seq(max(top_5_ave[,3:8], na.rm = TRUE), min(top_5_ave[,3:8], na.rm = TRUE),
+                       length =5),viridis(5))#color layer
+
+
+# Arrange short path order and prepare the final version of species list
+
+sp_names <- top_5_ave$node_id #create temporal species name to filter the big database
+sp_names<-as.factor(sp_names) # to plot species name
+
+top_5_ave_values<- as.data.frame(top_5_ave) %>% select(-node_id,-taxon)
+rownames(top_5_ave_values) <- sp_names 
+top_5_ave_values<-top_5_ave_values[,c(1,5,6,3,2,4)]
+
+color_trophic <-tibble(taxon = c("Plant","Crop","Flower-visiting","Aphid","Primary aphid parasitoid","Secondary aphid parasitoid",
+                                 "Leaf-miner parasitoid","Seed-feeding insect","Seed-feeding bird",
+                                 "Seed-feeding rodent","Butterfly","Insect seed-feeder parasitoid","Rodent ectoparasite"),
+                       color = c("#33a02c","#b15928","#a6cee3","#1f78b4","#b2df8a","#fb9a99","#e31a1c","#fdbf6f","#ff7f00","#cab2d6",
+                                 "#6a3d9a", "#cccc7a", "#e7298a")) #color trophic group
+
+species_list_color <- top_5_ave %>% select(node_id,taxon) %>%  #list of species and color according to the taxon
+                      left_join(color_trophic, by = "taxon") 
+
+#species_list_color_ordered<- species_list_color[match(sp_names, species_list_color$node_id), ] #order to match the database
+
+
+
+#TRY TO SPLIT (SEPARATE TE FIRST AND THE LAST ONE A BIT MORE)
+
+
+
+#Plotting
+
+circos.clear()
+
+png(file="Graphs/short_path_top_5.png",
+    width=1600, height=1200)
+
+
+# Extensive
+E<- top_5_ave_values[,1,drop=FALSE]
+
+
+circos.par(start.degree = 10, gap.degree = 1)
+
+circos.heatmap(E, col = color, #rownames.side = "outside", rownames.col= species_list_color$color,
+               rownames.cex = 0.7, track.height = 0.11, cell.border = "black",cluster = FALSE,
+               split = factor(species_list_color$taxon, levels = unique(species_list_color$taxon)))
+
+
+
+#name2<-rownames(E)
+#color_sp
+
+# Semi Extensive
+SE<- top_5_ave_values[,2, drop= FALSE]
+
+
+circos.heatmap(SE, col = color, track.height = 0.11, cell.border = "black")
+
+
+# Moderate
+M<- top_5_ave_values[,3, drop= FALSE]
+
+circos.heatmap(M, col = color,  track.height = 0.11, cell.border = "black")
+
+# Semi-Intensive
+SI<- top_5_ave_values[,4, drop= FALSE]
+
+circos.heatmap(SI, col = color, track.height = 0.11, cell.border = "black")
+
+# Intensive
+I<- top_5_ave_values[,5, drop= FALSE]
+
+circos.heatmap(I, col = color, track.height = 0.11, cell.border = "black")
+
+# Intensive non-organic
+IM<- top_5_ave_values[,6, drop= FALSE]
+
+circos.heatmap(IM, col = color, track.height = 0.11, cell.border = "black")
+
+#Legend
+lgd_mult = Legend(col_fun = color ,
+                  legend_gp = gpar(col = 1), labels_gp = gpar(fontsize = 12),  title_position = "topleft", title = "Short path", direction = "horizontal",
+                  grid_height = unit(2,"cm"),  grid_width = unit(4.5,"cm"),title_gp = gpar(fontsize = 13, fontface = "bold"))
+
+draw(lgd_mult, x = unit(20, "mm"), y = unit(10, "mm"), 
+     just = c("bottom"))
+
+#legend("bottomleft", inset=.02, title="Guild", c (unique(species_list_color$taxon)) , fill= unique(species_list_color$color), horiz=FALSE, cex=1)
+
+dev.off()
+
+
+
+
+##Caption with management scenario information
+
+#create dummy dataframe
+ref <- data.frame(
+  E = 1,
+  SE = 1,
+  M = 1,
+  SI = 1,
+  I = 1,
+  IM = 1
+)
+
+#Plotting
+
+
+circos.clear()
+
+png(file="Graphs/short_path_top_5.png",
+    width=1600, height=1200)
+
+
+# Extensive
+E<- ref[,1,drop=FALSE]
+circos.par(gap.degree = 18)
+
+circos.heatmap(E, col = col_ref, 
+               rownames.cex = 0.7, track.height = 0.11, cell.border = "black",cluster = FALSE)
+#name2<-rownames(E)
+#color_sp
+
+# Semi Extensive
+SE<- ref[,2, drop= FALSE]
+circos.heatmap(SE, col = "azure3", track.height = 0.11, cell.border = "black")
+
+# Moderate
+M<- ref[,3, drop= FALSE]
+circos.heatmap(M, col = "azure3",  track.height = 0.11, cell.border = "black")
+
+# Semi-Intensive
+SI<- ref[,4, drop= FALSE]
+circos.heatmap(SI, col = "azure3", track.height = 0.11, cell.border = "black")
+
+# Intensive
+I<- ref[,5, drop= FALSE]
+circos.heatmap(I, col = "azure3", track.height = 0.11, cell.border = "black")
+
+# Intensive non-organic
+IM<- ref[,6, drop= FALSE]
+circos.heatmap(IM, col = "azure3", track.height = 0.11, cell.border = "black")
+
+#Legend
+lgd_mult = Legend(col_fun = color ,
+                  legend_gp = gpar(col = 1), labels_gp = gpar(fontsize = 12),  title_position = "topleft", title = "Short path", direction = "horizontal",
+                  grid_height = unit(2,"cm"),  grid_width = unit(4.5,"cm"),title_gp = gpar(fontsize = 13, fontface = "bold"))
+
+draw(lgd_mult, x = unit(20, "mm"), y = unit(10, "mm"), 
+     just = c("bottom"))
+
+#legend("bottomleft", inset=.02, title="Guild", c (unique(species_list_color$taxon)) , fill= unique(species_list_color$color), horiz=FALSE, cex=1)
+
+dev.off()
+
+
+
+
+
+
+#PREVIOUS VERSION (NO SEPARATION BETWEEN TROPHIC GROUPS)
+
+#Plotting
+
+circos.clear()
+
+png(file="Graphs/short_path_top_5.png",
+    width=1600, height=1200)
+
+
+# Extensive
+E<- top_5_ave_values[,1,drop=FALSE]
+
+circos.par(gap.degree = 18)
+
+
+circos.heatmap(E, col = color,rownames.side = "outside", rownames.col= species_list_color$color,
+               rownames.cex = 0.7, track.height = 0.11, cell.border = "black", cluster = FALSE)
+
+
+#name2<-rownames(E)
+#color_sp
+
+# Semi Extensive
+SE<- top_5_ave_values[,2, drop= FALSE]
+
+
+circos.heatmap(SE, col = color, track.height = 0.11, cell.border = "black")
+
+
+# Moderate
+M<- top_5_ave_values[,3, drop= FALSE]
+
+circos.heatmap(M, col = color,  track.height = 0.11, cell.border = "black")
+
+# Semi-Intensive
+SI<- top_5_ave_values[,4, drop= FALSE]
+
+circos.heatmap(SI, col = color, track.height = 0.11, cell.border = "black")
+
+# Intensive
+I<- top_5_ave_values[,5, drop= FALSE]
+
+circos.heatmap(I, col = color, track.height = 0.11, cell.border = "black")
+
+# Intensive non-organic
+IM<- top_5_ave_values[,6, drop= FALSE]
+
+circos.heatmap(IM, col = color, track.height = 0.11, cell.border = "black")
+
+#Legend
+lgd_mult = Legend(col_fun = color ,
+                  legend_gp = gpar(col = 1), labels_gp = gpar(fontsize = 8),  title_position = "topleft", title = "Short path", direction = "horizontal",
+                  grid_height = unit(1.4,"cm"),  grid_width = unit(3,"cm"),title_gp = gpar(fontsize = 9, fontface = "bold"))
+
+draw(lgd_mult, x = unit(20, "mm"), y = unit(10, "mm"), 
+     just = c("bottom"))
+
+#legend("bottomleft", inset=.02, title="Guild", c (unique(species_list_color$taxon)) , fill= unique(species_list_color$color), horiz=FALSE, cex=1)
+
+dev.off()
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ########### Test if land use change produce a replacement of the top 25 most important species in each treatment
@@ -272,52 +672,6 @@ abline(0,0, col="red", lwd= 3)
 E1_lme<-resid(pers_1, type= "deviance") 
 boxplot(E1_lme~change_top_25_CP_fin$management, main="Tratamiento")
 
-
-## From Extensive to intensive PP
-
-# Step 1: Get Top 25 species in 'extensive' management
-top_25_extensive <- short_path_land_change_PP %>%
-  filter(management == "E") %>% group_by(management) %>% 
-  slice_min(order_by = short_path_ave, n = 25) %>% 
-  select(land_use,management,node_id,taxon) %>% 
-  mutate(presence = 1)
-
-# Step 2: Get Top 25 species in other managements
-top_25_other_managements <- short_path_land_change_PP %>%
-  filter(management != "E") %>%
-  group_by(management) %>%
-  slice_min(order_by = short_path_ave, n = 25) 
-
-
-# Step 3: Check for persistence
-change_top_25_PP<- unique(top_25_other_managements$management) %>%
-  expand.grid(management = ., node_id = top_25_extensive$node_id) %>%
-  left_join(top_25_other_managements, by = c("management", "node_id" )) %>%
-  mutate(presence = ifelse(is.na(short_path_ave), 0, 1)) %>% #assign 1 when the species is still in the top 25
-  select(management, node_id = node_id, presence) %>% 
-  left_join(top_25_extensive, by = "node_id") %>% #add taxon information
-  select(land_use,management.x,node_id,taxon,presence.x) %>% rename("management" = "management.x",
-                                                                    "presence" = "presence.x")
-
-
-# Merge dataset
-change_top_25_PP_fin<- rbind(top_25_extensive,change_top_25_PP)
-
-# Model
-pers_2<-glmer (presence ~ management + ( 1| node_id), family = binomial(link= "logit"), data = change_top_25_PP_fin,
-               control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 90000)))
-Anova(pers_2)
-summary(pers_2)
-
-#Homogeneity
-EM<-resid(pers_2, type= "deviance") 
-FM<-fitted(pers_2) 
-plot(x=FM, y=EM, xlab = "Ajustados", ylab = "Residuales normalizados")
-abline(0,0, col="red", lwd= 3) 
-
-#independence 
-E1_lme<-resid(pers_2, type= "deviance") 
-boxplot(E1_lme~change_top_25_PP$management, main="Tratamiento")
 
 
 
@@ -1078,5 +1432,84 @@ legend("bottomleft", inset=.02, title="Guild", c ("Aphid", "Butterfly","Crop","F
 dev.off()
 
 
+
+
+
+################ PP ANALYSIS (NOT INCLUDED FOR NOW) ############
+
+## From Extensive to intensive PP
+short_path_land_change_PP<- short_path_land_change_ave %>% filter(land_use== "PP") 
+
+# Model
+short_PP<- glmmTMB(short_path_ave~management + taxon+ (1|node_id), 
+                   family = Gamma(link = "log"), data = short_path_land_change_PP) #we already check and this is the best model
+Anova(short_PP)
+summary(short_PP)
+
+#Homogeneity
+EM<-resid(short_PP, type= "response") 
+FM<-fitted(short_PP) 
+plot(x=FM, y=EM, xlab = "Ajustados", ylab = "Residuales normalizados")
+abline(0,0, col="red", lwd= 3) 
+
+#independence 
+E1_lme<-resid(short_PP, type= "response") 
+boxplot(E1_lme~short_path_land_change_PP$management, main="Management")
+
+# posthoc
+post_amount<- emmeans(short_PP, ~ management)#management
+pairs(post_amount)
+
+post_amount_taxon<- emmeans(short_PP, ~ taxon)#management
+pairs(post_amount_taxon)
+
+
+################# CORE SPECIES
+
+## From Extensive to intensive PP
+
+# Step 1: Get Top 25 species in 'extensive' management
+top_25_extensive <- short_path_land_change_PP %>%
+  filter(management == "E") %>% group_by(management) %>% 
+  slice_min(order_by = short_path_ave, n = 25) %>% 
+  select(land_use,management,node_id,taxon) %>% 
+  mutate(presence = 1)
+
+# Step 2: Get Top 25 species in other managements
+top_25_other_managements <- short_path_land_change_PP %>%
+  filter(management != "E") %>%
+  group_by(management) %>%
+  slice_min(order_by = short_path_ave, n = 25) 
+
+
+# Step 3: Check for persistence
+change_top_25_PP<- unique(top_25_other_managements$management) %>%
+  expand.grid(management = ., node_id = top_25_extensive$node_id) %>%
+  left_join(top_25_other_managements, by = c("management", "node_id" )) %>%
+  mutate(presence = ifelse(is.na(short_path_ave), 0, 1)) %>% #assign 1 when the species is still in the top 25
+  select(management, node_id = node_id, presence) %>% 
+  left_join(top_25_extensive, by = "node_id") %>% #add taxon information
+  select(land_use,management.x,node_id,taxon,presence.x) %>% rename("management" = "management.x",
+                                                                    "presence" = "presence.x")
+
+
+# Merge dataset
+change_top_25_PP_fin<- rbind(top_25_extensive,change_top_25_PP)
+
+# Model
+pers_2<-glmer (presence ~ management + ( 1| node_id), family = binomial(link= "logit"), data = change_top_25_PP_fin,
+               control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 90000)))
+Anova(pers_2)
+summary(pers_2)
+
+#Homogeneity
+EM<-resid(pers_2, type= "deviance") 
+FM<-fitted(pers_2) 
+plot(x=FM, y=EM, xlab = "Ajustados", ylab = "Residuales normalizados")
+abline(0,0, col="red", lwd= 3) 
+
+#independence 
+E1_lme<-resid(pers_2, type= "deviance") 
+boxplot(E1_lme~change_top_25_PP$management, main="Tratamiento")
 
 

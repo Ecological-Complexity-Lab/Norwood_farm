@@ -30,4 +30,8 @@ Here we reclassified the species in a different way:
 To reclassify species, we used two databases: DoPI repository (doi: 10.1002/ecy.3801) and database from Orford et al 2015 (https://doi.org/10.1098/rspb.2014.2934). 
 
 ## What's new?
-We include a new management scenario: intensive monoculture management. This would help us simulate management approaches used to produce food in monoculture countries such as Argentina and Brazil, which typically cultivate a single crop species over large areas.
+We include a new management scenario: intensive non-organic crop management. This would help us simulate management approaches used to produce food in monoculture countries such as Argentina and Brazil, which typically cultivate a single crop species over large areas.
+
+
+# Estimation of the amount of ESs
+We estimate the amount of ESs provided according to the type of ES.  For butterfly and bird watching, we used abundance alone, while for the other categories, we used the product of abundance and biomass.

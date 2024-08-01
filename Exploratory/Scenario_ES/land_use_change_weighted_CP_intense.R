@@ -1086,16 +1086,45 @@ pairs(post_ser)
 
 #### Change in the amount of direct E(D)S provided change across land use change --
 
-#Amount of ES provided by each species
-extensive_amount <- direct_ES %>% 
-  filter(management == "E") %>%
+#the equation to estimate the amount will change according to the type of ES.
+#For bird watching and butterfly watching is just the abundance. For the rest is the product between abundance and biomass
+
+## Amount Bird and butterfly watching
+extensive_amount_watching<-direct_ES %>% filter(management=="E" &  (services == "Bird watching" | services == "Butterfly watching" )) %>% 
+  select(node_id, services, abun)
+
+# Merging with other management scenarios and calculate ratio of change
+dir_amount_watching <- direct_ES %>% filter(services == "Bird watching" | services == "Butterfly watching" ) %>% 
+  left_join(extensive_amount_watching, by = c("node_id", "services"), suffix = c("", "_extensive")) %>%
+  mutate(ratio_change = abun / abun_extensive) %>% #ratio of change: values higher than 1 indicates increasing in the amount of E(D)S
+  select(management,node_id,services,ratio_change)
+
+## Amount if the rest ESs
+extensive_amount_rest<-direct_ES %>% filter(management=="E" &  !(services == "Bird watching" | services == "Butterfly watching" )) %>% 
   select(node_id, services, weight)
+
+# Merging with other management scenarios and calculate ratio of change
+dir_amount_rest <- direct_ES %>% filter(!(services == "Bird watching" | services == "Butterfly watching" )) %>% 
+  left_join(extensive_amount_rest, by = c("node_id", "services"), suffix = c("", "_extensive")) %>%
+  mutate(ratio_change = weight / weight_extensive) %>%  #ratio of change: values higher than 1 indicates increasing in the amount of E(D)S
+  select(management,node_id,services,ratio_change)
+
+## Final amount
+dir_amount<- rbind(dir_amount_watching,dir_amount_rest)
+
+
+##### BORRAR IF SHAI AGREES WITH THE CLASSIFICATION
+
+#Amount of ES provided by each species
+#extensive_amount <- direct_ES %>% 
+#  filter(management == "E") %>%
+#  select(node_id, services, weight)
 
 
 # Merging and other managements and calculate ratio of change
-dir_amount <- direct_ES %>% 
-  left_join(extensive_amount, by = c("node_id", "services"), suffix = c("", "_extensive")) %>%
-  mutate(ratio_change = weight / weight_extensive) #ratio of change: values higher than 1 indicates increasing in the amount of E(D)S
+#dir_amount <- direct_ES %>% 
+#  left_join(extensive_amount, by = c("node_id", "services"), suffix = c("", "_extensive")) %>%
+#  mutate(ratio_change = weight / weight_extensive) #ratio of change: values higher than 1 indicates increasing in the amount of E(D)S
 
 # Model
 library(glmmTMB)
@@ -1430,13 +1459,13 @@ tot_services_emp<-direct_ES %>% filter(management=="E") %>% group_by(management,
 Prop_weight<-direct_ES %>% group_by(management,services) %>% 
   summarize(tot = sum(weight)) %>% ungroup() %>%  
   mutate(Extensive_tot = case_when(
-    services == "Bird watching"~ 330890.9200,
+    services == "Bird watching"~ 381519.3800,
     services == "Butterfly watching"~ 244.7676,
-    services == "Crop damage"~ 645963.6269,
+    services == "Crop damage"~ 711450.9469,
     services == "Crop production"~ 209300.0000,
     services == "Pest control"~ 7108.3108,
     services == "Pollination"~ 36736.7426,
-    services == "Seed dispersal"~ 305215.3300),
+    services == "Seed dispersal"~ 362197.4900),
     ratio_change = tot / Extensive_tot  #ratio of change: values higher than 1 indicates increasing in the amount of E(D)S
   )
   
@@ -1466,6 +1495,72 @@ prop_weight_direct
 
 #ggsave("Graphs/Land_use_ratio_change_CP_intense_IM.png", width = 7, height = 5, dpi = 300)
 
+
+
+
+
+### Prop Amount of direct E(D)S (according to type of ES)
+
+#the equation to estimate the amount will change according to the type of ES.
+#For bird watching and butterfly watching is just the abundance. For the rest is the product between abundance and biomass
+
+#amount Bird and butterfly watching
+tot_services_emp_watching<-direct_ES %>% filter(management=="E" &  (services == "Bird watching" | services == "Butterfly watching" )) %>% 
+                              group_by(management,services) %>% 
+                              summarize(tot_empirical_amount = sum(abun))
+
+Prop_weight_watching<-  direct_ES %>% group_by(management,services) %>% 
+                        filter (services == "Bird watching" | services == "Butterfly watching") %>% 
+                        summarize(tot= sum(abun))%>% ungroup() %>%  
+                        mutate(Extensive_tot = case_when(
+                        services == "Bird watching"~ 2076,
+                        services == "Butterfly watching"~ 6903),
+                        ratio_change = tot / Extensive_tot)  
+
+#amount the rest ESs
+tot_services_emp_rest<-direct_ES %>% filter(management=="E" &  !(services == "Bird watching" | services == "Butterfly watching" )) %>% 
+  group_by(management,services) %>% 
+  summarize(tot_empirical_amount = sum(weight))
+
+Prop_weight_rest<-  direct_ES %>% group_by(management,services) %>% 
+  filter (!(services == "Bird watching" | services == "Butterfly watching")) %>% 
+  summarize(tot= sum(weight))%>% ungroup() %>%  
+  mutate(Extensive_tot = case_when(
+    services == "Crop damage"~ 711450.9469,
+    services == "Crop production"~ 209300.0000,
+    services == "Pest control"~ 7108.3167,
+    services == "Pollination"~ 36736.7426,
+    services == "Seed dispersal"~ 362197.4900),
+    ratio_change = tot / Extensive_tot)  
+
+#merge the data
+Prop_amount<- rbind(Prop_weight_watching,Prop_weight_rest)
+            
+            
+#Plot 
+prop_amount<- Prop_amount %>% ggplot(aes(x = management, y = ratio_change)) +
+  geom_boxplot(color = "black") +
+  geom_point(position=position_jitterdodge(jitter.width=2, dodge.width = 0.5), 
+             pch=21, aes(fill=factor(services)), size = 3.5, show.legend = T) +
+  scale_fill_manual(values = color_services$color, name = "E(D)S") + 
+  scale_y_continuous(name = "Relative change in the amount of direct E(D)S provided", limits = c(0, 3)) + 
+  scale_x_discrete(name = "Habitat conversion")+
+  theme(panel.background = element_rect(fill = "white"),
+        panel.grid.major=element_line(color = "gray"),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text.y = element_text(size=13, color='black'),
+        axis.text = element_text(size=15, color='black'),
+        axis.text.x= element_text(size =14), 
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 14, color = "black"),
+        legend.text = element_text(size = 12))
+
+prop_amount
+
+
 #check at top 5 pollinator that increase their abundances
 
 tot_services_emp<-direct_ES %>% filter(management=="E", taxon == "Flower-visiting") %>% group_by(management,node_id) %>% 
@@ -1476,6 +1571,75 @@ Prop_weight<-direct_ES %>% filter(management=="I", taxon == "Flower-visiting") %
   group_by(management,node_id) %>% left_join(tot_services_emp[,2:3], by = "node_id") %>% 
   mutate(ratio = weight/tot_empirical) %>% arrange(desc(ratio)) %>% 
   left_join(Norwood_farm$nodes [,1:2], by = "node_id") ##add names
+
+
+
+
+
+### ### Prop Amount of direct E(D)S (logarithmic transformation) MAYBE REMOVE
+
+#the equation to estimate the amount will change according to the type of ES.
+#For bird watching and butterfly watching is just the abundance. For the rest is the product between abundance and biomass
+
+#amount Bird and butterfly watching
+tot_services_emp_watching<-direct_ES %>% filter(management=="E" &  (services == "Bird watching" | services == "Butterfly watching" )) %>% 
+  group_by(management,services) %>% 
+  summarize(tot_empirical_amount = sum(log(abun)))
+
+Prop_weight_watching<-  direct_ES %>% group_by(management,services) %>% 
+  filter (services == "Bird watching" | services == "Butterfly watching") %>% 
+  summarize(tot= sum(log(abun)))%>% ungroup() %>%  
+  mutate(Extensive_tot = case_when(
+    services == "Bird watching"~ 35.76123,
+    services == "Butterfly watching"~ 74.63351),
+    ratio_change = tot / Extensive_tot)  
+
+#amount the rest ESs
+tot_services_emp_rest<-direct_ES %>% filter(management=="E" &  !(services == "Bird watching" | services == "Butterfly watching" )) %>% 
+  mutate(tot_empirical = log(abun * body_mass) )%>% 
+  group_by(management,services) %>%
+  summarize(tot_empirical_amount = sum(tot_empirical))
+
+Prop_weight_rest<-  direct_ES %>% group_by(management,services) %>% 
+  filter (!(services == "Bird watching" | services == "Butterfly watching")) %>% 
+  mutate(tot_sim = log(abun * body_mass)) %>% 
+  summarize(tot= sum(tot_sim)) %>% ungroup() %>%  
+  mutate(Extensive_tot = case_when(
+    services == "Crop damage"~ 136.28659,
+    services == "Crop production"~ 56.83402,
+    services == "Pest control"~ 38.31157,
+    services == "Pollination"~ 275.83126,
+    services == "Seed dispersal"~ 50.14356),
+    ratio_change = tot / Extensive_tot)  
+
+#merge the data
+Prop_amount<- rbind(Prop_weight_watching,Prop_weight_rest)
+
+
+#Plot 
+prop_amount2<- Prop_amount %>% ggplot(aes(x = management, y = ratio_change)) +
+  geom_boxplot(color = "black") +
+  geom_point(position=position_jitterdodge(jitter.width=2, dodge.width = 0.5), 
+             pch=21, aes(fill=factor(services)), size = 3.5, show.legend = T) +
+  scale_fill_manual(values = color_services$color, name = "E(D)S") + 
+  scale_y_continuous(name = "Relative change in the amount of direct E(D)S provided") + 
+  scale_x_discrete(name = "Habitat conversion")+
+  theme(panel.background = element_rect(fill = "white"),
+        panel.grid.major=element_line(color = "gray"),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text.y = element_text(size=13, color='black'),
+        axis.text = element_text(size=15, color='black'),
+        axis.text.x= element_text(size =14), 
+        axis.title = element_text(size=17, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 14, color = "black"),
+        legend.text = element_text(size = 12))
+
+prop_amount2
+
+
 
 
 

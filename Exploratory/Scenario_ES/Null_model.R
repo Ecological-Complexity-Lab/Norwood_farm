@@ -1549,44 +1549,88 @@ prop_EDS_indirect
 
 
 
-### Prop Amount of direct E(D)S
+#### Prop Amount of direct E(D)S
 
-# Calculate ratio of change for empirical
-
+### Calculate ratio of change for empirical
 direct_ES_emp<- read.csv("Data/Land_use_dir_weighted_CP_intense.csv", sep =",") #upload empirical
 
-extensive_amount <- direct_ES_emp %>% 
-  filter(management == "E") %>%
+#amount Bird and butterfly watching
+tot_services_emp_watching<-direct_ES_emp %>% filter(management=="E" &  (services == "Bird watching" | services == "Butterfly watching" )) %>% 
   group_by(management,services) %>% 
-  summarize(tot_exten = sum(weight))
+  summarize(tot_empirical_amount = sum(abun))
 
-ratio_empirical <- direct_ES_emp  %>% group_by(management,services) %>% 
-  summarize(tot = sum(weight)) %>% 
-  left_join(extensive_amount[,2:3], by = "services", suffix = c("", "_extensive")) %>%
-  mutate(ratio_change_ave = tot / tot_exten) %>%  #ratio of change: values higher than 1 indicates increasing in the amount of E(D)S
-  mutate(type = "Empirical")
+Prop_weight_watching<-  direct_ES_emp %>% group_by(management,services) %>% 
+  filter (services == "Bird watching" | services == "Butterfly watching") %>% 
+  summarize(tot= sum(abun))%>% ungroup() %>%  
+  mutate(Extensive_tot = case_when(
+    services == "Bird watching"~ 2076,
+    services == "Butterfly watching"~ 6903),
+    ratio_change = tot / Extensive_tot)  
 
+#amount the rest ESs
+tot_services_emp_rest<-direct_ES_emp %>% filter(management=="E" &  !(services == "Bird watching" | services == "Butterfly watching" )) %>% 
+  group_by(management,services) %>% 
+  summarize(tot_empirical_amount = sum(weight))
 
-# Calculate ratio of change for simulations
+Prop_weight_rest<-  direct_ES_emp %>% group_by(management,services) %>% 
+  filter (!(services == "Bird watching" | services == "Butterfly watching")) %>% 
+  summarize(tot= sum(weight))%>% ungroup() %>%  
+  mutate(Extensive_tot = case_when(
+    services == "Crop damage"~ 711450.9469,
+    services == "Crop production"~ 209300.0000,
+    services == "Pest control"~ 7108.3167,
+    services == "Pollination"~ 36736.7426,
+    services == "Seed dispersal"~ 362197.4900),
+    ratio_change = tot / Extensive_tot)  
+
+#merge the data
+Prop_amount<- rbind(Prop_weight_watching,Prop_weight_rest) 
+
+### Calculate ratio of change for simulations
 direct_ES_sim<- read.csv("Data/direct_ES_sim_CP.csv", sep =",")
 
-ratio_sim<- direct_ES_sim %>% filter (management !="E") %>% 
+
+## Amount Bird and butterfly watching
+dir_amount_watching_sim <- direct_ES_sim %>% filter (management !="E") %>% 
+                          filter(services == "Bird watching" | services == "Butterfly watching" ) %>%
+                          group_by(management,iteration,services) %>% 
+                          summarize(tot_sim_amount = sum(abun)) %>% 
+                          left_join(Prop_amount, by = c("management", "services"), suffix = c("", "_extensive")) %>%
+                          select(-ratio_change)  %>% 
+                           mutate(ratio_change = tot_sim_amount / Extensive_tot) %>% #ratio of change: values higher than 1 indicates increasing in the amount of E(D)S
+                           select(management,services,ratio_change) %>% 
+                         group_by(management,services) %>% 
+                        summarise(ratio_change_ave = mean(ratio_change)) %>% 
+                       mutate(type = "Null")
+
+
+## Amount of the rest Es
+dir_amount_rest_sim <- direct_ES_sim %>% filter (management !="E") %>% 
+  filter(!(services == "Bird watching" | services == "Butterfly watching" )) %>%
   group_by(management,iteration,services) %>% 
-  summarize(tot = sum(weight)) %>% 
-  left_join(extensive_amount[,2:3], by = "services", suffix = c("", "_extensive")) %>%
-  mutate(ratio_change = tot / tot_exten) %>% #ratio of change: values higher than 1 indicates increasing in the amount of E(D)S
+  summarize(tot_sim_amount= sum(weight)) %>% 
+  left_join(Prop_amount, by = c("management", "services"), suffix = c("", "_extensive")) %>%
+  select(-ratio_change)  %>% 
+  mutate(ratio_change = tot_sim_amount / Extensive_tot) %>% #ratio of change: values higher than 1 indicates increasing in the amount of E(D)S
+  select(management,services,ratio_change) %>% 
   group_by(management,services) %>% 
   summarise(ratio_change_ave = mean(ratio_change)) %>% 
   mutate(type = "Null")
 
-#Join data
-ratio_sim2<-rbind(ratio_empirical,ratio_sim)
-ratio_sim2$management <- factor(ratio_sim2$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
+#merge the data
+Prop_amount_sim<- rbind(dir_amount_watching_sim,dir_amount_rest_sim)
 
+
+
+### Final dataframe
+Prop_amount_emp<- Prop_amount %>% mutate(type = "Empirical") %>% select(-tot,-Extensive_tot) %>%  rename(ratio_change_ave = ratio_change)
+
+ratio_amount<-rbind(Prop_amount_emp,Prop_amount_sim)
+ratio_amount$management <- factor(ratio_amount$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
 
 
 #Plot 
-prop_EDS_ratio <- ratio_sim2%>% ggplot(aes(x = management, y = ratio_change_ave)) +
+prop_EDS_ratio <- ratio_amount%>% ggplot(aes(x = management, y = ratio_change_ave)) +
   geom_boxplot(aes(colour = type), outlier.shape = NA, size = 0.8,  position = position_dodge(width = 1.02)) +
   geom_point(aes(fill = factor(services), shape = factor(ifelse(type == "Null", 24, 21))), 
              position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.4),
