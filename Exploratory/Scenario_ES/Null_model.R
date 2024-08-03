@@ -9,9 +9,12 @@ library(emln)#multilayer package
 library(readr)
 library(ggplot2)
 library(cowplot)
+library(tidyverse)
 
-setwd("/Users/agustin/Desktop/Papers/Norwood_farm/Norwood_Tinio")
-source("/Users/agustin/Desktop/Papers/Norwood_farm/Norwood_Tinio/Exploratory/Scenario_ES/functions.R")
+setwd("/Users/agustinvitali/Desktop/Work/Papers/Norwood_Farm/GitHub/Norwood_farm")
+#setwd("/Users/agustin/Desktop/Papers/Norwood_farm/Norwood_Tinio")
+source("/Users/agustinvitali/Desktop/Work/Papers/Norwood_Farm/GitHub/Norwood_farm/Exploratory/Scenario_ES/functions.R")
+#source("/Users/agustin/Desktop/Papers/Norwood_farm/Norwood_Tinio/Exploratory/Scenario_ES/functions.R")
 
 ######### --- Call and arrange dataframes 
 Norwood_farm<-readRDS("Data/Norwood_farm.RData") #read multilayer object
@@ -1039,7 +1042,7 @@ dir_ES_z_score <-
           mutate(z=(Prop_mean-dir_shuff_mean)/dir_shuff_sd)
 
 dir_ES_z_score %<>%
-  mutate(signif=case_when(z>1.96 ~ 'above', # Obs is more than the shuffled
+  dplyr::mutate(signif=case_when(z>1.96 ~ 'above', # Obs is more than the shuffled
                           z< -1.96 ~ 'below', # Obs is lower than the shuffled
                           z<=1.96 | z>=-1.96 | z == "NaN" ~ 'not signif')) 
 
@@ -1067,8 +1070,17 @@ z_score_tot$management <- factor(z_score_tot$management, levels = c("E", "SE", "
 z_score_tot$services <- factor(z_score_tot$services, levels = c("Seed dispersal", "Pollination","Pest control",
                                                                 "Crop production", "Crop damage",
                                                                 "Butterfly watching","Bird watching"))
-  
 
+#Summary averages (across management scenario)
+averages_prop <- dir_ES_z_score %>% 
+                  mutate(times_emp = dir_shuff_mean/Prop_mean) %>%  #calculate number of times lower the empirical respect the simulated (already averaged across iterations)
+                  ungroup() %>% group_by(services) %>% 
+                  summarise(average_prop_emp = mean(Prop_mean),
+                            sd_prop_emp = sd(Prop_mean), n=n(),
+                    average_prop_shuff = mean(dir_shuff_mean),#average of prop in simulated across management scenario
+                            sd_prop_shuff = mean(dir_shuff_sd),#sd of prop in simulated across management scenario
+                            ave_times_emp = mean(times_emp) #average times lower in the empirical compared null across management scenario
+                            )
 
 #Plot
 library(ggtext)
