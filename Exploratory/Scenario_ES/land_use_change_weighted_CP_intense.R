@@ -1082,6 +1082,25 @@ post_ser<- emmeans(Prop_indi, ~ services_to)
 pairs(post_ser)
 
 
+# Calculate rate of indirect effects on ES lost per stage of land conversion
+# Define the order of management categories
+management_order <- c("E", "SE", "M", "SI", "I", "IM")
+
+# Convert management to a factor with the specified order
+Prop_ind$management <- factor(Prop_ind$management, levels = management_order)
+
+# Sort the data frame by services_to and management
+Prop_ind <- Prop_ind[order(Prop_ind$services_to, Prop_ind$management), ]
+
+# Calculate the reduction in prop compared to the previous management
+Prop_ind$reduction <- ave(Prop_ind$prop, Prop_ind$services_to, FUN = function(x) c(NA, abs(diff(x))))
+
+rate_prop_lost <- Prop_ind %>% filter(management != "E") %>% 
+                  group_by(services_to) %>% 
+                  summarise(rate_lost = mean (reduction),
+                            sd = sd(reduction),
+                            se = sd(reduction) / sqrt(n()))
+
 
 
 #### Change in the amount of direct E(D)S provided change across land use change --

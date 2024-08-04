@@ -11,10 +11,10 @@ library(ggplot2)
 library(cowplot)
 library(tidyverse)
 
-setwd("/Users/agustinvitali/Desktop/Work/Papers/Norwood_Farm/GitHub/Norwood_farm")
-#setwd("/Users/agustin/Desktop/Papers/Norwood_farm/Norwood_Tinio")
-source("/Users/agustinvitali/Desktop/Work/Papers/Norwood_Farm/GitHub/Norwood_farm/Exploratory/Scenario_ES/functions.R")
-#source("/Users/agustin/Desktop/Papers/Norwood_farm/Norwood_Tinio/Exploratory/Scenario_ES/functions.R")
+#setwd("/Users/agustinvitali/Desktop/Work/Papers/Norwood_Farm/GitHub/Norwood_farm")
+setwd("/Users/agustin/Desktop/Papers/Norwood_farm/Norwood_Tinio")
+#source("/Users/agustinvitali/Desktop/Work/Papers/Norwood_Farm/GitHub/Norwood_farm/Exploratory/Scenario_ES/functions.R")
+source("/Users/agustin/Desktop/Papers/Norwood_farm/Norwood_Tinio/Exploratory/Scenario_ES/functions.R")
 
 ######### --- Call and arrange dataframes 
 Norwood_farm<-readRDS("Data/Norwood_farm.RData") #read multilayer object
@@ -1202,6 +1202,7 @@ z_score_tot$services <- factor(z_score_tot$services, levels = c("Seed dispersal"
 
 
 
+
 #Plot
 library(ggtext)
 color_services<-tibble(
@@ -1300,6 +1301,19 @@ indir_ES_z_score %<>%
 
 #write.csv(indir_ES_z_score,"Data/z_score_ind_ES_CP.csv", row.names= FALSE)
 
+#Summary averages (across management scenario)
+averages_prop <- indir_ES_z_score %>% 
+  mutate( times_emp = case_when(
+      ind_shuff_mean > Prop_mean ~ ind_shuff_mean / Prop_mean,
+      ind_shuff_mean <= Prop_mean ~ Prop_mean / ind_shuff_mean,
+    )) %>%  #calculate number of times lower the empirical respect the simulated (already averaged across iterations)
+  ungroup() %>% group_by(services_to) %>% 
+  summarise(average_prop_emp = mean(Prop_mean),
+            sd_prop_emp = sd(Prop_mean), n=n(),
+            average_prop_shuff = mean(ind_shuff_mean),#average of prop in simulated across management scenario
+            sd_prop_shuff = mean(ind_shuff_sd),#sd of prop in simulated across management scenario
+            ave_times_emp = mean(times_emp) #average times lower in the empirical compared null across management scenario
+  )
 
 
 ## Plot Heat map
