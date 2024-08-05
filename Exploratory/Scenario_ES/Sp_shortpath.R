@@ -220,13 +220,16 @@ ave_management<-short_path_land_change_CP %>% group_by(management) %>%
 #average per taxon
 ave_taxon<-short_path_land_change_CP %>% group_by(taxon) %>% 
   summarise(ave_short = mean(short_path_ave),
-            se_short = sd(short_path_ave) / sqrt(n()))
+            se_short = sd(short_path_ave) / sqrt(n())) %>% 
+            arrange(ave_short)
 
 #average per management and taxon
 ave_management_taxon<-short_path_land_change_CP %>% group_by(management,taxon) %>% 
   summarise(ave_short = mean(short_path_ave),
             se_short = sd(short_path_ave) / sqrt(n()))
 
+ave_management_taxon_I_IM <-ave_management_taxon %>% filter(management =="I" |
+                                                              management =="IM" )
 
 #Rta: The indirect role of species on affecting ES is, in general, reduced by land conversion. Species tends to be
 #more distant of species that provide directly an ES after land conversion (mainly in IM). Also, the indirect role
@@ -348,6 +351,21 @@ pairs(post_short)
 post_taxon<- emmeans(top_5, ~ taxon)
 pairs(post_taxon)
 
+#average per management
+ave_management<-top_5_average %>% group_by(management) %>% 
+  summarise(ave_short = mean(short_path_ave),
+            se_short = sd(short_path_ave) / sqrt(n()))
+
+#average per taxon
+ave_taxon<-top_5_average %>% group_by(taxon) %>% 
+  summarise(ave_short = mean(short_path_ave),
+            se_short = sd(short_path_ave) / sqrt(n())) %>% 
+  arrange(ave_short)
+
+#average per management and taxon
+ave_management_taxon<-top_5_average %>% group_by(management,taxon) %>% 
+  summarise(ave_short = mean(short_path_ave),
+            se_short = sd(short_path_ave) / sqrt(n()))
 
 #Rta: The indirect role of the most important species tend to change across land conversion but it varied also according
 #to trophic guild. For most important species, their indirect provison of ES tend to decreased as in the general pattern. EVen

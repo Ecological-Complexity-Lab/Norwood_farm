@@ -1579,6 +1579,8 @@ prop_amount<- Prop_amount %>% ggplot(aes(x = management, y = ratio_change)) +
 
 prop_amount
 
+#ggsave("Graphs/Land_use_ratio_change_CP_intense_IM.png", width = 7, height = 5, dpi = 300)
+
 
 #check at top 5 pollinator that increase their abundances
 
@@ -1592,43 +1594,37 @@ Prop_weight<-direct_ES %>% filter(management=="I", taxon == "Flower-visiting") %
   left_join(Norwood_farm$nodes [,1:2], by = "node_id") ##add names
 
 
-
-
-
-### ### Prop Amount of direct E(D)S (logarithmic transformation) MAYBE REMOVE
-
-#the equation to estimate the amount will change according to the type of ES.
-#For bird watching and butterfly watching is just the abundance. For the rest is the product between abundance and biomass
-
+-----
+#LOG just biomass  (SUPPLEMENTARY IF THEY ASK)
 #amount Bird and butterfly watching
 tot_services_emp_watching<-direct_ES %>% filter(management=="E" &  (services == "Bird watching" | services == "Butterfly watching" )) %>% 
   group_by(management,services) %>% 
-  summarize(tot_empirical_amount = sum(log(abun)))
+  summarize(tot_empirical_amount = sum(abun))
 
 Prop_weight_watching<-  direct_ES %>% group_by(management,services) %>% 
   filter (services == "Bird watching" | services == "Butterfly watching") %>% 
-  summarize(tot= sum(log(abun)))%>% ungroup() %>%  
+  summarize(tot= sum(abun))%>% ungroup() %>%  
   mutate(Extensive_tot = case_when(
-    services == "Bird watching"~ 35.76123,
-    services == "Butterfly watching"~ 74.63351),
+    services == "Bird watching"~ 2076,
+    services == "Butterfly watching"~ 6903),
     ratio_change = tot / Extensive_tot)  
 
 #amount the rest ESs
 tot_services_emp_rest<-direct_ES %>% filter(management=="E" &  !(services == "Bird watching" | services == "Butterfly watching" )) %>% 
-  mutate(tot_empirical = log(abun * body_mass) )%>% 
+  mutate(tot_empirical = abun * log(body_mass))%>% 
   group_by(management,services) %>%
   summarize(tot_empirical_amount = sum(tot_empirical))
 
 Prop_weight_rest<-  direct_ES %>% group_by(management,services) %>% 
   filter (!(services == "Bird watching" | services == "Butterfly watching")) %>% 
-  mutate(tot_sim = log(abun * body_mass)) %>% 
+  mutate(tot_sim = abun * log(body_mass)) %>% 
   summarize(tot= sum(tot_sim)) %>% ungroup() %>%  
   mutate(Extensive_tot = case_when(
-    services == "Crop damage"~ 136.28659,
-    services == "Crop production"~ 56.83402,
-    services == "Pest control"~ 38.31157,
-    services == "Pollination"~ 275.83126,
-    services == "Seed dispersal"~ 50.14356),
+    services == "Crop damage"~ -2.319425e+08,
+    services == "Crop production"~ 3.087185e+03,
+    services == "Pest control"~ -2.972469e+07,
+    services == "Pollination"~ -4.740863e+05,
+    services == "Seed dispersal"~ 5.686070e+03),
     ratio_change = tot / Extensive_tot)  
 
 #merge the data
@@ -1658,9 +1654,47 @@ prop_amount2<- Prop_amount %>% ggplot(aes(x = management, y = ratio_change)) +
 
 prop_amount2
 
+#ggsave("Graphs/amount_landconv_log_biomass.png", width = 7, height = 5, dpi = 300)
 
 
+#check model 
 
+## Amount Bird and butterfly watching
+extensive_amount_watching<-direct_ES %>% filter(management=="E" &  (services == "Bird watching" | services == "Butterfly watching" )) %>% 
+  select(node_id, services, abun)
+
+# Merging with other management scenarios and calculate ratio of change
+dir_amount_watching <- direct_ES %>% filter(services == "Bird watching" | services == "Butterfly watching" ) %>% 
+  left_join(extensive_amount_watching, by = c("node_id", "services"), suffix = c("", "_extensive")) %>%
+  mutate(ratio_change = abun / abun_extensive) %>% #ratio of change: values higher than 1 indicates increasing in the amount of E(D)S
+  select(management,node_id,services,ratio_change)
+
+## Amount if the rest ESs
+extensive_amount_rest<-direct_ES %>% filter(management=="E" &  !(services == "Bird watching" | services == "Butterfly watching" )) %>% 
+  mutate(Extensive_tot = abun * log(body_mass)) %>% 
+  select(node_id, services, Extensive_tot)
+
+
+dir_amount_rest<-direct_ES %>% filter(!(management=="E" &  (services == "Bird watching" | services == "Butterfly watching" ))) %>% 
+  mutate(tot_empirical = abun * log(body_mass)) %>% 
+  left_join(extensive_amount_rest, by = c("node_id", "services"), suffix = c("", "_extensive")) %>% 
+  mutate(ratio_change = tot_empirical / Extensive_tot) %>%  #ratio of change: values higher than 1 indicates increasing in the amount of E(D)S
+  select(management,node_id,services,ratio_change)
+
+
+dir_amount<- rbind(dir_amount_watching,dir_amount_rest)
+
+#model
+m_amount2<- glmmTMB(ratio_change ~ management+services + (1|node_id),family = Gamma(link = "log"),
+                   data = dir_amount) #the lowest AIC, interaction did not converge
+
+Anova(m_amount2)
+Anova(m_amount)
+
+# Summarize the model to view coefficients
+summ<-summary(m_amount2)
+
+-------
 
 
 ### Plot of proportion of each trophic guild per management (plot a grid with each taxa as a panel)
