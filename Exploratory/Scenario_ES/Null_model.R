@@ -1127,38 +1127,67 @@ dev.off()
 
 #### -- Change in the amount of direct E(D)S provided change across land use change --
 
-## upload and prepare dataframe
+### upload and prepare dataframe
 
-#observed (empirical)
-direct_ES_emp<- read.csv("Data/Land_use_dir_weighted_CP_intense.csv", sep =",")
+## Calculate ratio of change for empirical
+direct_ES_emp<- read.csv("Data/Land_use_dir_weighted_CP_intense.csv", sep =",") #upload empirical
 
-extensive_amount<-direct_ES_emp %>% filter(management=="E") %>% group_by(management,services) %>% 
-  summarize(tot_empirical = sum(weight))
+#amount Bird and butterfly watching
+tot_services_emp_watching<-direct_ES_emp %>% filter(management=="E" &  (services == "Bird watching" | services == "Butterfly watching" )) %>% 
+  group_by(management,services) %>% 
+  summarize(tot_empirical_amount = sum(abun))
 
-amount_obs<-direct_ES_emp %>% group_by(management,services) %>% 
-  summarize(tot = sum(weight)) %>% ungroup() %>%  
+Prop_weight_watching<-  direct_ES_emp %>% group_by(management,services) %>% 
+  filter (services == "Bird watching" | services == "Butterfly watching") %>% 
+  summarize(tot= sum(abun))%>% ungroup() %>%  
   mutate(Extensive_tot = case_when(
-    services == "Bird watching"~ 381519.3800,
-    services == "Butterfly watching"~ 244.7676,
+    services == "Bird watching"~ 2076,
+    services == "Butterfly watching"~ 6903),
+    ratio_change = tot / Extensive_tot)  
+
+#amount the rest ESs
+tot_services_emp_rest<-direct_ES_emp %>% filter(management=="E" &  !(services == "Bird watching" | services == "Butterfly watching" )) %>% 
+  group_by(management,services) %>% 
+  summarize(tot_empirical_amount = sum(weight))
+
+Prop_weight_rest<-  direct_ES_emp %>% group_by(management,services) %>% 
+  filter (!(services == "Bird watching" | services == "Butterfly watching")) %>% 
+  summarize(tot= sum(weight))%>% ungroup() %>%  
+  mutate(Extensive_tot = case_when(
     services == "Crop damage"~ 711450.9469,
     services == "Crop production"~ 209300.0000,
-    services == "Pest control"~ 7108.3108,
+    services == "Pest control"~ 7108.3167,
     services == "Pollination"~ 36736.7426,
     services == "Seed dispersal"~ 362197.4900),
-    ratio_change = tot / Extensive_tot  #ratio of change: values higher than 1 indicates increasing in the amount of E(D)S
-  ) %>% filter(management!="E")
+    ratio_change = tot / Extensive_tot)  
 
+#merge the data
+amount_obs<- rbind(Prop_weight_watching,Prop_weight_rest)
 
-#shuffled 
-amount_shuff <- direct_ES %>% filter(!(iteration == "Emp" & management =="E"))%>% 
+### Calculate ratio of change for shuffled 
+direct_ES_sim<- read.csv("Data/direct_ES_sim_CP.csv", sep =",")
+
+#amount watching
+amount_shuff_watch <- direct_ES_sim %>% filter (management !="E") %>% 
+  filter(services == "Bird watching" | services == "Butterfly watching" ) %>%
   group_by(management,iteration,services) %>% 
-  summarize(tot = sum(weight)) %>% 
-  left_join(extensive_amount[,2:3], by = "services", suffix = c("", "_extensive")) %>%
-   group_by(management,iteration,services) %>% 
-    mutate(ratio_change = tot / tot_empirical)
+  summarize(tot_sim_amount = sum(abun)) %>% 
+  left_join(amount_obs[,c(1,2,4)], by = c("management", "services"), suffix = c("", "_extensive")) %>%
+  mutate(ratio_change = tot_sim_amount / Extensive_tot)
+
+#Amount of the rest Es
+amount_shuff_rest <- direct_ES_sim %>% filter (management !="E") %>% 
+  filter(!(services == "Bird watching" | services == "Butterfly watching" )) %>%
+  group_by(management,iteration,services) %>% 
+  summarize(tot_sim_amount= sum(weight)) %>% 
+  left_join(amount_obs[,c(1,2,4)], by = c("management", "services"), suffix = c("", "_extensive")) %>% 
+  mutate(ratio_change = tot_sim_amount / Extensive_tot) 
+
+#merge the data
+amount_shuff<- rbind(amount_shuff_watch,amount_shuff_rest)
 
 
-# calculate Z-score
+###  calculate Z-score
 amount_ES_z_score <- 
   inner_join(amount_obs,
              amount_shuff %>% select(-iteration) %>% 
@@ -1201,6 +1230,16 @@ z_score_tot$services <- factor(z_score_tot$services, levels = c("Seed dispersal"
                                                                 "Butterfly watching","Bird watching"))
 
 
+#Summary averages (across management scenario)
+averages_ratio <- amount_ES_z_score %>% 
+  mutate(times_emp = amount_shuff_mean/ratio_change) %>%  #calculate number of times lower the empirical respect the simulated (already averaged across iterations)
+  ungroup() %>% group_by(services) %>% 
+  summarise(average_ratio_emp = mean(ratio_change),
+            sd_ratio_emp = sd(ratio_change), n=n(),
+            average_ratio_shuff = mean(amount_shuff_mean),#average of prop in simulated across management scenario
+            sd_ratio_shuff = mean(amount_shuff_sd),#sd of prop in simulated across management scenario
+            ave_times_emp = mean(times_emp) #average times lower in the empirical compared null across management scenario
+  )
 
 
 #Plot

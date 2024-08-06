@@ -162,7 +162,6 @@ short_path_land_change_ave<- short_path_land_change %>% group_by(land_use, manag
 ## From Extensive to intensive CP
 short_path_land_change_CP<- short_path_land_change_ave %>% filter(land_use== "CP") 
 
-prueba_type <- short_path_land_change %>% filter(land_use== "CP") 
 # Model
 library(glmmTMB)
 library(emmeans)
@@ -365,7 +364,30 @@ ave_taxon<-top_5_average %>% group_by(taxon) %>%
 #average per management and taxon
 ave_management_taxon<-top_5_average %>% group_by(management,taxon) %>% 
   summarise(ave_short = mean(short_path_ave),
-            se_short = sd(short_path_ave) / sqrt(n()))
+            se_short = sd(short_path_ave) / sqrt(n())) 
+
+#average per management for surviving species  
+unique_managements <- length(unique(top_5_average$management)) # Get the count of unique managements
+
+ave_man_surv<- top_5_average %>%
+  group_by(node_id) %>%
+  filter(n_distinct(management) == unique_managements) %>% # Filter for node_ids present in all managements
+  ungroup() %>% group_by(management) %>% 
+  summarise(ave_short = mean(short_path_ave),
+            numb = n(),
+            se_short = sd(short_path_ave) / sqrt(n())) %>% 
+  arrange(ave_short)
+
+#rate of change along land conversion for each trophic groups
+rate_change<-top_5_average %>% filter(management == "E" | 
+                                      management == "IM") %>% 
+              group_by(management, taxon) %>% 
+            summarise(ave_short = mean(short_path_ave),
+            se_short = sd(short_path_ave) / sqrt(n())) %>% #filter for E and IM and 1 and 2 parasitoid if I wnat to check the reduction in shortest
+  arrange(ave_short) %>% 
+  group_by(taxon) %>%
+  summarise(rate_of_change = ave_short[management == "IM"] - ave_short[management == "E"]) %>%
+  na.omit()
 
 #Rta: The indirect role of the most important species tend to change across land conversion but it varied also according
 #to trophic guild. For most important species, their indirect provison of ES tend to decreased as in the general pattern. EVen
