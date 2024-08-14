@@ -514,7 +514,6 @@ dev.off()
 
 
 
-
 ##Caption with management scenario information
 
 #create dummy dataframe
@@ -528,8 +527,6 @@ ref <- data.frame(
 )
 
 #Plotting
-
-
 circos.clear()
 
 png(file="Graphs/short_path_top_5.png",
@@ -540,30 +537,30 @@ png(file="Graphs/short_path_top_5.png",
 E<- ref[,1,drop=FALSE]
 circos.par(gap.degree = 18)
 
-circos.heatmap(E, col = col_ref, 
+circos.heatmap(E, col = color, 
                rownames.cex = 0.7, track.height = 0.11, cell.border = "black",cluster = FALSE)
 #name2<-rownames(E)
 #color_sp
 
 # Semi Extensive
 SE<- ref[,2, drop= FALSE]
-circos.heatmap(SE, col = "azure3", track.height = 0.11, cell.border = "black")
+circos.heatmap(SE, col = color, track.height = 0.11, cell.border = "black")
 
 # Moderate
 M<- ref[,3, drop= FALSE]
-circos.heatmap(M, col = "azure3",  track.height = 0.11, cell.border = "black")
+circos.heatmap(M, col = color,  track.height = 0.11, cell.border = "black")
 
 # Semi-Intensive
 SI<- ref[,4, drop= FALSE]
-circos.heatmap(SI, col = "azure3", track.height = 0.11, cell.border = "black")
+circos.heatmap(SI, col = color, track.height = 0.11, cell.border = "black")
 
 # Intensive
 I<- ref[,5, drop= FALSE]
-circos.heatmap(I, col = "azure3", track.height = 0.11, cell.border = "black")
+circos.heatmap(I, col = color, track.height = 0.11, cell.border = "black")
 
 # Intensive non-organic
 IM<- ref[,6, drop= FALSE]
-circos.heatmap(IM, col = "azure3", track.height = 0.11, cell.border = "black")
+circos.heatmap(IM, col = color, track.height = 0.11, cell.border = "black")
 
 #Legend
 lgd_mult = Legend(col_fun = color ,

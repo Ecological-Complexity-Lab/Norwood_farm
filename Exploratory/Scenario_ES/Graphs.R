@@ -4,6 +4,10 @@ library(igraph)
 library(tidyverse)
 library(ggtext)
 library(cowplot)
+library(circlize)
+library(viridis)
+library(ComplexHeatmap)
+
 setwd("/Users/agustin/Desktop/Papers/Norwood_farm/Norwood_Tinio")
 
 
@@ -453,7 +457,157 @@ upper_row
 dev.off()
 
 
-#
 
+
+####### Figure 5: 
+#Panel (A): Indirect effects on ES (general pattern). Panel (B): Top 5. Because of
+#the circular plot. we should do it manually.
+
+
+## Panel A
+
+## upload and arrange dataframe
+short_path_land_change<-read.csv("Data/Land_use_shortpath_weighted_CP_intense.csv", row.names = 1) 
+
+short_path_land_change_ave<- short_path_land_change %>% group_by(management,node_id) %>% 
+  mutate(short_path_ave = mean(short_ave)) %>% select(-services, - short_ave) %>% unique() %>%  #calculate average short path of each species to all ES in each habitat management
+  mutate(taxon = str_replace(taxon, "Flower-visiting", "Flower visitor"))
+
+ave_management_taxon<-short_path_land_change_ave %>% group_by(management,taxon) %>% 
+  summarise(ave_short = mean(short_path_ave),
+            sd_short = sd(short_path_ave)) 
+
+ave_management_taxon$management <- factor(ave_management_taxon$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
+
+ave_management_taxon$taxon<-as.factor(ave_management_taxon$taxon)
+
+
+#Plot
+color_trophic <-tibble(taxon = c("Plant","Crop","Flower visitor","Aphid","Primary aphid parasitoid","Secondary aphid parasitoid",
+                                 "Leaf-miner parasitoid","Seed-feeding insect","Seed-feeding bird",
+                                 "Seed-feeding rodent","Butterfly","Insect seed-feeder parasitoid","Rodent ectoparasite"),
+                       color = c("#33a02c","#b15928","#a6cee3","#1f78b4","#b2df8a","#fb9a99","#e31a1c","#fdbf6f","#ff7f00","#cab2d6",
+                                 "#6a3d9a", "#cccc7a", "#e7298a"))
+
+pdf("Graphs/Figure_5_panel_A.pdf", width = 4.5, height = 5)
+Panel_A<- ggplot(ave_management_taxon, aes(x = management, y = ave_short, group =taxon, color= taxon)) +
+  scale_color_manual(values = color_trophic$color[match(levels(ave_management_taxon$taxon), color_trophic$taxon)])+
+  geom_point() +
+  geom_line(size = 1.4)  +
+  geom_errorbar(aes(ymin = ave_short - sd_short, ymax = ave_short + sd_short), width = 0.2) +
+  labs(x = "Land conversion",
+       y = "Shortest path ",
+       color = "Trophic guild") +
+  theme(panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        panel.grid.major = element_blank(),  # Remove major grid lines
+        panel.grid.minor = element_blank(),
+        axis.text = element_text(size=12, color='black'),
+        axis.title = element_text(size=15, color='black'),
+        axis.line = element_blank(),
+        legend.title =  element_text(size = 11, color = "black"),
+        legend.text = element_text(size = 9),
+        legend.position = "bottom", 
+        legend.box = "vertical",
+        legend.box.margin = margin(t = 5, r = 1, b = 5, l = 5),  # Add margin around the legend box
+        legend.margin = margin(t = 5, r = 1, b = 5, l = 5),
+        legend.key.height = unit(0.6, "cm"),  # Reduce the height of the legend keys
+        legend.key.width = unit(0.6, "cm")) +
+  guides(color = guide_legend(title.position = "top", title.hjust = 0.5, nrow = 3))
+
+Panel_A
+
+dev.off()
+
+
+
+### Panel B
+
+## Prepare and arrange dataframe
+
+# Check the 5 most important species per trophic group in Extensive
+top_5_taxon_extensive<-short_path_land_change_ave %>%
+  filter(management == "E") %>% group_by(management, taxon) %>% 
+  arrange(short_path_ave) %>% # Arrange by short_path_ave within each group
+  slice_head(n = 5) # Take the first 5 rows within each group
+
+#Filter the importance of the top 5 species (from the extensive) across management scenarios
+top_5_average<- short_path_land_change_ave %>%  filter(node_id%in%top_5_taxon_extensive$node_id)
+
+## Plot
+
+# set up parameters and structure
+# Define color of each layer and sps
+top_5_average$management <- factor(top_5_average$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
+
+top_5_ave <- top_5_average %>% ungroup() %>% 
+  select(node_id,taxon,management,short_path_ave) %>%
+  spread(management,short_path_ave) %>%  #rearrange dataframe
+  ungroup() 
+top_5_ave<-top_5_ave[,c(1,2,3,7,6,8,4,5)]
+
+color = colorRamp2(seq(max(top_5_ave[,3:8], na.rm = TRUE), min(top_5_ave[,3:8], na.rm = TRUE),
+                       length =5),viridis(5))#color layer
+
+# Arrange short path order and prepare the final version of species list
+
+sp_names <- top_5_ave$node_id #create temporal species name to filter the big database
+sp_names<-as.factor(sp_names) # to plot species name
+
+top_5_ave_values<- as.data.frame(top_5_ave) %>% select(-node_id,-taxon)
+rownames(top_5_ave_values) <- sp_names 
+top_5_ave_values<-top_5_ave_values[,c(1,5,6,3,2,4)]
+
+color_trophic <-tibble(taxon = c("Plant","Crop","Flower visitor","Aphid","Primary aphid parasitoid","Secondary aphid parasitoid",
+                                 "Leaf-miner parasitoid","Seed-feeding insect","Seed-feeding bird",
+                                 "Seed-feeding rodent","Butterfly","Insect seed-feeder parasitoid","Rodent ectoparasite"),
+                       color = c("#33a02c","#b15928","#a6cee3","#1f78b4","#b2df8a","#fb9a99","#e31a1c","#fdbf6f","#ff7f00","#cab2d6",
+                                 "#6a3d9a", "#cccc7a", "#e7298a")) #color trophic group
+
+species_list_color <- top_5_ave %>% select(node_id,taxon) %>%  #list of species and color according to the taxon
+  left_join(color_trophic, by = "taxon") 
+
+
+#Plotting
+circos.clear()
+
+pdf("Graphs/Figure_5_panel_B.pdf", width = 4.5, height = 5)
+
+# Extensive
+E<- top_5_ave_values[,1,drop=FALSE]
+circos.par(start.degree = 10, gap.degree = 1)
+circos.heatmap(E, col = color, #rownames.side = "outside", rownames.col= species_list_color$color,
+               rownames.cex = 0.7, track.height = 0.11, cell.border = "black",cluster = FALSE,
+               split = factor(species_list_color$taxon, levels = unique(species_list_color$taxon)))
+
+# Semi Extensive
+SE<- top_5_ave_values[,2, drop= FALSE]
+circos.heatmap(SE, col = color, track.height = 0.11, cell.border = "black")
+
+# Moderate
+M<- top_5_ave_values[,3, drop= FALSE]
+circos.heatmap(M, col = color,  track.height = 0.11, cell.border = "black")
+
+# Semi-Intensive
+SI<- top_5_ave_values[,4, drop= FALSE]
+circos.heatmap(SI, col = color, track.height = 0.11, cell.border = "black")
+
+# Intensive
+I<- top_5_ave_values[,5, drop= FALSE]
+circos.heatmap(I, col = color, track.height = 0.11, cell.border = "black")
+
+# Intensive non-organic
+IM<- top_5_ave_values[,6, drop= FALSE]
+circos.heatmap(IM, col = color, track.height = 0.11, cell.border = "black")
+
+
+#Legend
+lgd_mult = Legend(col_fun = color ,
+                  legend_gp = gpar(col = 1), labels_gp = gpar(fontsize = 9),  title_position = "topleft", title = "Shortest path", direction = "horizontal",
+                  grid_height = unit(0.5,"cm"),  grid_width = unit(0.7,"cm"),title_gp = gpar(fontsize = 10))
+draw(lgd_mult, x = unit(15, "mm"), y = unit(10, "mm"), 
+     just = c("bottom"))
+dev.off()
 
 
