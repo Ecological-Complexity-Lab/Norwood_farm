@@ -1187,6 +1187,49 @@ pairs(post_ser)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
+#### Extensive: Percentage of speces of each trophic guild
+sp_list<-read.csv("Data/Land_use_rat_state_nodes_CP_intense.csv", sep =",") %>% 
+  filter(management =="E") %>% mutate(taxon = str_replace(taxon, "Flower-visiting", "Flower visitor"))
+
+Perc_guild<- sp_list %>% group_by(taxon) %>% 
+            summarise(Number = n()) %>% 
+            mutate(perc_taxon = (Number / 551)*100) 
+
+Perc_guild$taxon<-as.factor(Perc_guild$taxon)
+
+color_trophic <-tibble(taxon = c("Plant","Crop","Flower visitor","Aphid","Primary aphid parasitoid","Secondary aphid parasitoid",
+                                 "Leaf-miner parasitoid","Seed-feeding insect","Seed-feeding bird",
+                                 "Seed-feeding rodent","Butterfly","Insect seed-feeder parasitoid","Rodent ectoparasite"),
+                       color = c("#33a02c","#b15928","#a6cee3","#1f78b4","#b2df8a","#fb9a99","#e31a1c","#fdbf6f","#ff7f00","#cab2d6",
+                                 "#6a3d9a", "#cccc7a", "#e7298a"))
+
+#plot
+pdf("Graphs/perc_taxon_extensive.pdf", width = 12, height = 7)
+ggplot(Perc_guild, aes(x = taxon, y = perc_taxon, fill = taxon)) +
+  scale_fill_manual(values = color_trophic$color[match(levels(Perc_guild$taxon), color_trophic$taxon)]) + 
+  geom_bar(position = "stack", stat = "identity", color = "black") + 
+  geom_text(aes(label = Number),  # Replace 'abundance_variable' with the actual column name for abundance
+            position = position_stack(vjust = 1),  # Adjust the position of the labels
+            size = 5, color = "black",
+            vjust = -0.5) +  # Move the label slightly abov)+
+  labs(x = "Trophic guild",
+       y = "Relative percentage of trophic guilds",
+       fill = "Trophic guild")+
+  theme_classic() +
+  theme(panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(color = "black", fill = NA, size = 1),
+        panel.spacing = unit(0.5, "cm"),
+        axis.text = element_text(size = 15, color = 'black'),
+        axis.text.x = element_blank(),  # Remove x-axis labels
+        axis.title = element_text(size = 17, color = 'black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title = element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 12))
+dev.off()
+
+
+
 #### Percentage of remaining species across land use change --
 
 states<-read.csv("Data/Land_use_rat_state_nodes_CP_intense.csv", sep =",") 
@@ -1220,7 +1263,8 @@ ggplot(Prop_rem, aes(x = management, y = Perc_remained)) +
 
 ## -- Exploratory (proportion of species lost according to trophic guild)
 
-state_nodes<-read.csv("Data/Land_use_rat_state_nodes_CP_intense.csv",header=T) 
+state_nodes<-read.csv("Data/Land_use_rat_state_nodes_CP_intense.csv",header=T) %>% 
+  mutate(taxon = str_replace(taxon, "Flower-visiting", "Flower visitor"))
 
 Perc_sp_lost <- state_nodes %>% filter(management == "E" | management == "IM") %>% 
   group_by(management) %>%  summarise(Num_sp = n()) %>% 
@@ -1594,7 +1638,7 @@ Prop_weight<-direct_ES %>% filter(management=="I", taxon == "Flower-visiting") %
   left_join(Norwood_farm$nodes [,1:2], by = "node_id") ##add names
 
 
------
+
 #LOG just biomass  (SUPPLEMENTARY IF THEY ASK)
 #amount Bird and butterfly watching
 tot_services_emp_watching<-direct_ES %>% filter(management=="E" &  (services == "Bird watching" | services == "Butterfly watching" )) %>% 
@@ -1694,11 +1738,24 @@ Anova(m_amount)
 # Summarize the model to view coefficients
 summ<-summary(m_amount2)
 
--------
+# Extract the coefficients (for GLMM It's the average including all the levels)
+coefficients <- summ$coefficients$cond
 
+# Extract coefficients for each factor
+management_coefs <- coefficients[grep("management", rownames(coefficients)), "Estimate"]
+services_coefs <- coefficients[grep("services", rownames(coefficients)), "Estimate"]
+
+# Calculate summary statistics (e.g., mean) for each factor
+management_summary <- mean(management_coefs)
+services_summary <- mean(services_coefs)
+
+
+-----
 
 ### Plot of proportion of each trophic guild per management (plot a grid with each taxa as a panel)
-states<-read.csv("Data/Land_use_rat_state_nodes_CP_intense.csv", sep =",") 
+states<-read.csv("Data/Land_use_rat_state_nodes_CP_intense.csv", sep =",") %>% 
+  mutate(taxon = str_replace(taxon, "Flower-visiting", "Flower visitor"))
+
 states$management <- factor(states$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
 
 
@@ -1728,7 +1785,7 @@ taxon_conv <-states %>% group_by(management,taxon) %>%
             perc = (tot / Extensive_tot) *100  #ratio of change: values higher than 1 indicates increasing in the amount of E(D)S
   ) %>% filter(taxon !="Crop")
   
-color_trophic <-tibble(taxon = c("Plant","Crop","Flower-visiting","Aphid","Primary aphid parasitoid","Secondary aphid parasitoid",
+color_trophic <-tibble(taxon = c("Plant","Crop","Flower visitor","Aphid","Primary aphid parasitoid","Secondary aphid parasitoid",
                                  "Leaf-miner parasitoid","Seed-feeding insect","Seed-feeding bird",
                                  "Seed-feeding rodent","Butterfly","Insect seed-feeder parasitoid","Rodent ectoparasite"),
                        color = c("#33a02c","#b15928","#a6cee3","#1f78b4","#b2df8a","#fb9a99","#e31a1c","#fdbf6f","#ff7f00","#cab2d6",

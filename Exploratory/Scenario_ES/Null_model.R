@@ -1482,15 +1482,17 @@ Prop_direct_sim<-rbind(Prop_dir_emp,Prop_dir_sim)
 
 
 #Plot 
+
+pdf("Graphs/Direct_ES_sim_CP.pdf", width = 7, height = 5)
 prop_EDS_direct <- Prop_direct_sim%>% ggplot(aes(x = management, y = Prop_mean)) +
   geom_boxplot(aes(colour = type), outlier.shape = NA, size = 0.8, position = position_dodge(width = 1.02)) +
   geom_point(aes(fill = factor(services), shape = factor(ifelse(type == "Null", 24, 21))), 
              position = position_jitterdodge(jitter.width = 1.2, dodge.width = 0.5),
              size = 2.4, stroke = 1, show.legend = c(fill = TRUE, shape = FALSE, colour = FALSE)) +
-  scale_fill_manual(values = color_services$color, name = "E(D)S") +
+  scale_fill_manual(values = color_services$color, name = "ES") +
   scale_shape_manual(values = c(21, 24)) + 
   scale_color_manual(values = c("black","firebrick"), name = "Type")+
-  scale_y_continuous(name = "Prop. of direct E(D)S retained", limits = c(0, 1)) + 
+  scale_y_continuous(name = "Prop. of direct ES retained", limits = c(0, 1)) + 
   scale_x_discrete(name = "Habitat conversion")+
   guides(fill = guide_legend(order = 1,override.aes = list(shape=21)), 
          colour = guide_legend(order = 2), 
@@ -1509,6 +1511,7 @@ prop_EDS_direct <- Prop_direct_sim%>% ggplot(aes(x = management, y = Prop_mean))
         legend.text = element_text(size = 12))
 
 prop_EDS_direct
+dev.off()
 
 #ggsave("Graphs/Direct_ES_sim_CP.png", width = 7, height = 5, dpi = 300)
 
@@ -1580,17 +1583,17 @@ color_services <-tibble(
   services = unique(Prop_indir_sim2$services_to),
   color = c('#1b9e77','#d95f02','#7570b3','#e7298a','#2c7fb8','#e6ab02','#a6761d'))
 
-
+pdf("Graphs/Indirect_ES_sim_CP.pdf", width = 7, height = 5)
 prop_EDS_indirect <- Prop_indir_sim2%>% ggplot(aes(x = management, y = Prop_mean)) +
   geom_boxplot(aes(colour = type), outlier.shape = NA, size = 0.8, position = position_dodge(width = 1.02))  +
   geom_point(aes(fill = factor(services_to), shape = factor(ifelse(type == "Null", 24, 21))), 
              position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.5),
              size = 2.4, stroke = 1, show.legend = c(fill = TRUE, shape = FALSE, colour = FALSE)) +
-  scale_fill_manual(values = color_services$color, name = "E(D)S") +
+  scale_fill_manual(values = color_services$color, name = "ES") +
   scale_shape_manual(values = c(21, 24)) + 
-  scale_color_manual(values = c("black","firebrick"))+
-  scale_y_continuous(name = "Prop. of indirect effects on E(D)S retained", limits = c(0, 1)) + 
-  scale_x_discrete(name = "Habitat conversion")+
+  scale_color_manual(values = c("black","firebrick"), name = "Type")+
+  scale_y_continuous(name = "Prop. of indirect effects on ES retained", limits = c(0, 1)) + 
+  scale_x_discrete(name = "Land conversion")+
   guides(fill = guide_legend(order = 1,override.aes = list(shape=21)), 
          colour = guide_legend(order = 2), 
          shape = "none") +
@@ -1608,7 +1611,7 @@ prop_EDS_indirect <- Prop_indir_sim2%>% ggplot(aes(x = management, y = Prop_mean
         legend.text = element_text(size = 12))
 
 prop_EDS_indirect
-
+dev.off()
 #ggsave("Graphs/Indirect_ES_sim_CP.png", width = 7, height = 5, dpi = 300)
 
 
@@ -1694,17 +1697,18 @@ ratio_amount<-rbind(Prop_amount_emp,Prop_amount_sim)
 ratio_amount$management <- factor(ratio_amount$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
 
 
-#Plot 
+#Plot
+pdf("Graphs/amount_change_sim_CP.pdf", width = 7, height = 5)
 prop_EDS_ratio <- ratio_amount%>% ggplot(aes(x = management, y = ratio_change_ave)) +
   geom_boxplot(aes(colour = type), outlier.shape = NA, size = 0.8,  position = position_dodge(width = 1.02)) +
   geom_point(aes(fill = factor(services), shape = factor(ifelse(type == "Null", 24, 21))), 
              position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.4),
              size = 2.4, stroke = 1, show.legend = c(fill = TRUE, shape = FALSE, colour = FALSE)) +
-  scale_fill_manual(values = color_services$color, name = "E(D)S") +
+  scale_fill_manual(values = color_services$color, name = "ES") +
   scale_shape_manual(values = c(21, 24)) +
-  scale_color_manual(values = c("black","firebrick"))+
-  scale_y_continuous(name = "Relative change in the amount of direct E(D)S provided", limits = c(0, 3)) + 
-  scale_x_discrete(name = "Habitat conversion")+
+  scale_color_manual(values = c("black","firebrick"), name = "Type")+
+  scale_y_continuous(name = "Relative change in the amount \n of direct ES provided", limits = c(0, 3)) + 
+  scale_x_discrete(name = "Land conversion")+
   guides(fill = guide_legend(order = 1,override.aes = list(shape=21)), 
          colour = guide_legend(order = 2), 
          shape = "none") +
@@ -1720,8 +1724,10 @@ prop_EDS_ratio <- ratio_amount%>% ggplot(aes(x = management, y = ratio_change_av
         legend.text.align = 0,
         legend.title =  element_text(size = 14, color = "black"),
         legend.text = element_text(size = 12))
-
 prop_EDS_ratio
+
+dev.off()
+
 
 
 #ggsave("Graphs/ratio_change_sim_CP.png", width = 7, height = 5, dpi = 300)
