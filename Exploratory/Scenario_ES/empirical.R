@@ -298,56 +298,58 @@ int_trophic<-Final_ES %>% filter(!is.na(node_int)) %>%
   mutate(taxon_int =case_when(
     node_int%in%plants ~ "Plant",
     node_int%in%crops ~ "Crop",
-    node_int%in%flow_vis ~ "Flw visitors",
-    node_int%in%aphid ~ "Aphids",
-    node_int%in%pri_par ~ "Prim par",
-    node_int%in%sec_par ~ "Sec par",
-    node_int%in%leaf_par ~ "Leaf par",
-    node_int%in%seed_ins ~ "Seed - ins",
-    node_int%in%seed_bird ~ "Birds",
-    node_int%in%seed_rod ~ "Rodents",
-    node_int%in%butt ~ "Butterflies",
-    node_int%in%seed_ins_par ~ "Seed - ins Par",
-    node_int%in%rod_par ~ "Rod ectopar",
+    node_int%in%flow_vis ~ "Flower visitor",
+    node_int%in%aphid ~ "Aphid",
+    node_int%in%pri_par ~ "Primary aphid parasitoid",
+    node_int%in%sec_par ~ "Secondary aphid parasitoid",
+    node_int%in%leaf_par ~ "Leaf-miner parasitoid",
+    node_int%in%seed_ins ~ "Seed-feeding insect",
+    node_int%in%seed_bird ~ "Seed-feeding bird",
+    node_int%in%seed_rod ~ "Seed-feeding rodent",
+    node_int%in%butt ~ "Butterfly",
+    node_int%in%seed_ins_par ~ "Insect seed-feeder parasitoid",
+    node_int%in%rod_par ~ "Rodent ectoparasite",
   )) %>% select(node_int,taxon_int) %>%ungroup() %>%  
   mutate(Total = n()) %>% group_by(taxon_int) %>% 
-  reframe(Number = n(), Prop = Number /Total) %>% unique() %>% 
+  reframe(Number = n(), Perc = (Number /Total)*100) %>% unique() %>% 
   rename("taxon" = "taxon_int") 
 
-
-
-int_trophic$taxon<- factor(int_trophic$taxon, 
-                           levels = c ("Aphids","Butterflies","Crops",
-                                       "Flw visitors", "Seed - ins Par",
-                                       "Leaf par","Plants","Prim par",
-                                       "Rod ectopar","Sec par","Birds",
-                                       "Seed - ins", "Rodents"))
-
-color_trophic <-tibble(taxon = c("Plant","Crop","Flw visitors","Aphids","Prim par","Sec par",
-                                 "Leaf par","Seed - ins","Birds",
-                                 "Rodents","Butterflies","Seed - ins Par","Rod ectopar"),
+color_trophic <-tibble(taxon = c("Plant","Crop","Flower visitor","Aphid","Primary aphid parasitoid","Secondary aphid parasitoid",
+                                 "Leaf-miner parasitoid","Seed-feeding insect","Seed-feeding bird",
+                                 "Seed-feeding rodent","Butterfly","Insect seed-feeder parasitoid","Rodent ectoparasite"),
                        color = c("#33a02c","#b15928","#a6cee3","#1f78b4","#b2df8a","#fb9a99","#e31a1c","#fdbf6f","#ff7f00","#cab2d6",
-                                 "#6a3d9a", "#ffff99", "#e7298a"))
+                                 "#6a3d9a", "#cccc7a", "#e7298a"))
 
 
-int_indirect_effecs<- int_trophic %>% 
-  ggplot(aes(y=Prop, x= taxon, fill = taxon)) + 
-  geom_bar(position="stack", stat="identity", color = "black")+ 
+
+#plot
+pdf("Graphs/ind_effects_mediated.pdf", width = 12, height = 7)
+
+int_trophic %>% 
+  ggplot(aes(y=Perc, x= taxon, fill = taxon)) + 
+  geom_bar(position="stack", stat="identity")+ 
+  geom_text(aes(label = Number),  # Replace 'abundance_variable' with the actual column name for abundance
+            position = position_stack(vjust = 1),  # Adjust the position of the labels
+            size = 5, color = "black",
+            vjust = -0.5) + 
   scale_fill_manual(values = setNames(color_trophic$color, color_trophic$taxon))+
-  labs( y="Prop. Ind effect mediated by") +theme_bw()+
-  theme_classic()+
-  theme(panel.grid = element_blank(),
-        panel.border = element_rect(color = "black",fill = NA,size = 1),
-        panel.spacing = unit(0.5, "cm", data = NULL),
-        axis.text = element_text(size=9, color='black'),
-        axis.text.x= element_text(size =11, angle = 90), 
-        axis.text.y= element_text(size =11),
-        axis.title = element_text(size=15, color='black'),
+  scale_color_manual(values = setNames(color_trophic$color, color_trophic$taxon)) + 
+  scale_y_continuous(breaks = seq(0, 100, by = 15)) + 
+  labs(x = "Trophic guild",
+       y = "Percentage of indirect effects on ES\nmediated by trophic guilds",
+       fill = "Trophic guild")+
+  theme_classic() +
+  theme(panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(color = "black", fill = NA, size = 1),
+        panel.spacing = unit(0.5, "cm"),
+        axis.text = element_text(size = 15, color = 'black'),
+        axis.text.x = element_blank(),  # Remove x-axis labels
+        axis.title = element_text(size = 17, color = 'black'),
         axis.line = element_blank(),
         legend.text.align = 0,
-        legend.title =  element_blank(),
-        legend.text = element_text(size = 8))
-#ggsave("Graphs/empirical_taxon_mediating.png")
+        legend.title = element_text(size = 13, color = "black"),
+        legend.text = element_text(size = 12))
+dev.off()
 
 
 
