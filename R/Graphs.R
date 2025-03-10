@@ -1,4 +1,4 @@
-############################## Script to create figure of ecological networks ################################
+############################## Script to create figures ################################
 
 library(igraph)
 library(tidyverse)
@@ -467,7 +467,7 @@ dev.off()
 ## Panel A
 
 ## upload and arrange dataframe
-short_path_land_change<-read.csv("Data/Land_use_shortpath_weighted_CP_intense.csv", row.names = 1) 
+short_path_land_change<-read.csv("Data/Land_use_shortpath.csv", row.names = 1) 
 
 short_path_land_change_ave<- short_path_land_change %>% group_by(management,node_id) %>% 
   mutate(short_path_ave = mean(short_ave)) %>% select(-services, - short_ave) %>% unique() %>%  #calculate average short path of each species to all ES in each habitat management
@@ -477,7 +477,7 @@ ave_management_taxon<-short_path_land_change_ave %>% group_by(management,taxon) 
   summarise(ave_short = mean(short_path_ave),
             sd_short = sd(short_path_ave)) 
 
-ave_management_taxon$management <- factor(ave_management_taxon$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
+ave_management_taxon$management <- factor(ave_management_taxon$management, levels = c("E", "SE", "M", "SI","I","IN")) #change order of factors
 
 ave_management_taxon$taxon<-as.factor(ave_management_taxon$taxon)
 
@@ -522,7 +522,7 @@ dev.off()
 
 
 
-### Panel B
+### Panel B (circular plot)
 
 ## Prepare and arrange dataframe
 
@@ -539,7 +539,7 @@ top_5_average<- short_path_land_change_ave %>%  filter(node_id%in%top_5_taxon_ex
 
 # set up parameters and structure
 # Define color of each layer and sps
-top_5_average$management <- factor(top_5_average$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
+top_5_average$management <- factor(top_5_average$management, levels = c("E", "SE", "M", "SI","I","IN")) #change order of factors
 
 top_5_ave <- top_5_average %>% ungroup() %>% 
   select(node_id,taxon,management,short_path_ave) %>%
@@ -598,8 +598,8 @@ I<- top_5_ave_values[,5, drop= FALSE]
 circos.heatmap(I, col = color, track.height = 0.11, cell.border = "black")
 
 # Intensive non-organic
-IM<- top_5_ave_values[,6, drop= FALSE]
-circos.heatmap(IM, col = color, track.height = 0.11, cell.border = "black")
+IN<- top_5_ave_values[,6, drop= FALSE]
+circos.heatmap(IN, col = color, track.height = 0.11, cell.border = "black")
 
 
 #Legend
