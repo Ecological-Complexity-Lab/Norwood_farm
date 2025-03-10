@@ -15,8 +15,8 @@ setwd("/Users/agustin/Desktop/Papers/Norwood_farm/Norwood_Tinio")
 ####### Figure 2: 
 #Panel (A): Prop. of direct ES retained (empirical). Panel (B): Heat map null model.
 
-direct_ES<- read.csv("Data/Land_use_dir_weighted_CP_intense.csv", sep =",")
-direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
+direct_ES<- read.csv("Data/Land_use_dir_ES.csv", sep =",")
+direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I","IN")) #change order of factors
 
 color_services_prop <-tibble(
   services = unique(direct_ES$services),
@@ -133,7 +133,7 @@ Panel_B<- ggplot(z_score_tot, aes(management, services, fill= Output)) +
 
 Panel_B
 
-# Figure 2 (all panels together). Put manually the figures of the farms
+# Figure 3 (all panels together). Put manually the figures of the farms
 
 pdf("Graphs/Figure_2_pre_final.pdf", width = 9, height = 5)
 upper_row<- plot_grid(Panel_A + theme(plot.margin = unit(c(0.1,0.1, 0.1,0.1), "cm")),
@@ -151,10 +151,10 @@ dev.off()
 
 
 
-####### Figure 3: 
+####### Figure 4: 
 #Panel (A): Relative change in the amount of ES (empirical). Panel (B): Heat map null model.
-direct_ES<- read.csv("Data/Land_use_dir_weighted_CP_intense.csv", sep =",")
-direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
+direct_ES<- read.csv("Data/Land_use_dir_ES.csv", sep =",")
+direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I","IN")) #change order of factors
 
 color_services <-tibble(
   services = unique(direct_ES$services),
@@ -299,7 +299,7 @@ Panel_B<- ggplot(z_score_tot, aes(management, services, fill= Output)) +
 
 Panel_B
 
-# Figure 3 (all panels together). Put manually the figures of the farms
+# Figure 4 (all panels together). Put manually the figures of the farms
 
 pdf("Graphs/Figure_3_pre_final.pdf", width = 9, height = 5)
 upper_row<- plot_grid(Panel_A + theme(plot.margin = unit(c(0.1,0.1, 0.1,0.1), "cm")),
@@ -317,10 +317,10 @@ dev.off()
 
 
 
-####### Figure 4: 
+####### Figure 5: 
 #Panel (A): Prop. of indirect effects on ES retained (empirical). Panel (B): Heat map null model.
-output_ind_ES <- read.csv("Data/Land_use_output_weighted_CP_intense.csv", sep =",")
-output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I","IM")) #change order of factors
+output_ind_ES <- read.csv("Data/Land_use_ind_ES.csv", sep =",")
+output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I","IN")) #change order of factors
 
 color_services_prop <-tibble(
   services = unique(output_ind_ES$services_to),
@@ -331,7 +331,7 @@ color_services_prop <-tibble(
 Prop_ind<-output_ind_ES %>% group_by(management,services_to) %>% 
   mutate(tot = n()) %>% ungroup() %>%  
   group_by(services_to) %>% 
-  mutate(prop = tot/max(tot)) %>%  #prop of E(D)S rtained across habitat management
+  mutate(prop = tot/max(tot)) %>%  #prop of indirect effects on ES retained
   select(management,services_to,tot,prop) %>% unique()
 
 perc_indirect_ES<- Prop_ind %>% group_by(management) %>% 
@@ -459,7 +459,7 @@ dev.off()
 
 
 
-####### Figure 5: 
+####### Figure 6: 
 #Panel (A): Indirect effects on ES (general pattern). Panel (B): Top 5. Because of
 #the circular plot. we should do it manually.
 

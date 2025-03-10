@@ -1,0 +1,803 @@
+"management","node_id","taxon","abun","services","body_mass","type","weight"
+"E",95,"Crop",280,"Crop production",500,"D",140000
+"E",99,"Crop",158,"Crop production",250,"D",39500
+"E",98,"Crop",32,"Crop production",500,"D",16000
+"E",97,"Crop",28,"Crop production",300,"D",8400
+"E",94,"Crop",9,"Crop production",200,"D",1800
+"E",96,"Crop",12,"Crop production",300,"D",3600
+"SE",95,"Crop",307.758620689655,"Crop production",500,"D",153879.310344828
+"SE",99,"Crop",173.663793103448,"Crop production",250,"D",43415.9482758621
+"SE",98,"Crop",35.1724137931034,"Crop production",500,"D",17586.2068965517
+"SE",97,"Crop",29.8103448275862,"Crop production",300,"D",8943.10344827586
+"SE",94,"Crop",9,"Crop production",200,"D",1800
+"SE",96,"Crop",12,"Crop production",300,"D",3600
+"M",95,"Crop",332.5,"Crop production",500,"D",166250
+"M",99,"Crop",187.625,"Crop production",250,"D",46906.25
+"M",98,"Crop",37.7241379310345,"Crop production",500,"D",18862.0689655172
+"M",97,"Crop",32.0431034482759,"Crop production",300,"D",9612.93103448276
+"M",94,"Crop",9,"Crop production",200,"D",1800
+"M",96,"Crop",12,"Crop production",300,"D",3600
+"SI",95,"Crop",518.060344827586,"Crop production",500,"D",259030.172413793
+"SI",99,"Crop",292.334051724138,"Crop production",250,"D",73083.5129310345
+"SI",98,"Crop",58.9310344827586,"Crop production",500,"D",29465.5172413793
+"SI",97,"Crop",50.5991379310345,"Crop production",300,"D",15179.7413793103
+"SI",94,"Crop",14.4116379310345,"Crop production",200,"D",2882.3275862069
+"SI",96,"Crop",19.2155172413793,"Crop production",300,"D",5764.65517241379
+"I",95,"Crop",815.862068965517,"Crop production",500,"D",407931.034482759
+"I",99,"Crop",460.379310344828,"Crop production",250,"D",115094.827586207
+"I",98,"Crop",92.9655172413793,"Crop production",500,"D",46482.7586206897
+"I",97,"Crop",80.3793103448276,"Crop production",300,"D",24113.7931034483
+"I",94,"Crop",23.9838362068966,"Crop production",200,"D",4796.76724137931
+"I",96,"Crop",31.9784482758621,"Crop production",300,"D",9593.53448275862
+"IN",95,"Crop",815.862068965517,"Crop production",500,"D",407931.034482759
+"IN",99,"Crop",460.379310344828,"Crop production",250,"D",115094.827586207
+"IN",98,"Crop",92.9655172413793,"Crop production",500,"D",46482.7586206897
+"IN",97,"Crop",80.3793103448276,"Crop production",300,"D",24113.7931034483
+"IN",94,"Crop",23.9838362068966,"Crop production",200,"D",4796.76724137931
+"IN",96,"Crop",31.9784482758621,"Crop production",300,"D",9593.53448275862
+"E",105,"Flower-visiting",377,"Pollination",0.343,"D",129.311
+"E",317,"Flower-visiting",3403,"Pollination",0.706444444444444,"D",2404.03044444444
+"E",202,"Flower-visiting",381,"Pollination",1.01766666666667,"D",387.731000000001
+"E",123,"Flower-visiting",8515,"Pollination",0.615121951219512,"D",5237.76341463414
+"E",183,"Flower-visiting",583,"Pollination",0.6738,"D",392.8254
+"E",126,"Flower-visiting",4973,"Pollination",0.738241379310345,"D",3671.27437931035
+"E",318,"Flower-visiting",4104,"Pollination",0.77820202020202,"D",3193.74109090909
+"E",276,"Flower-visiting",1737,"Pollination",0.444111111111111,"D",771.421
+"E",144,"Flower-visiting",387,"Pollination",0.77820202020202,"D",301.164181818182
+"E",322,"Flower-visiting",768,"Pollination",0.861416666666667,"D",661.568
+"E",279,"Flower-visiting",416,"Pollination",0.77820202020202,"D",323.73204040404
+"E",278,"Flower-visiting",386,"Pollination",0.77820202020202,"D",300.38597979798
+"E",190,"Flower-visiting",1012,"Pollination",0.7942,"D",803.7304
+"E",186,"Flower-visiting",1363,"Pollination",0.993111111111111,"D",1353.61044444444
+"E",282,"Flower-visiting",386,"Pollination",0.77820202020202,"D",300.38597979798
+"E",203,"Flower-visiting",386,"Pollination",1.03,"D",397.58
+"E",232,"Flower-visiting",1906,"Pollination",0.740583333333333,"D",1411.55183333333
+"E",295,"Flower-visiting",1433,"Pollination",0.957666666666667,"D",1372.33633333333
+"E",112,"Flower-visiting",12092,"Pollination",0.50625,"D",6121.575
+"E",308,"Flower-visiting",1399,"Pollination",0.00440259571428571,"D",6.15923140428571
+"E",179,"Flower-visiting",19286,"Pollination",0.00440259571428571,"D",84.9084609457142
+"E",164,"Flower-visiting",12899,"Pollination",0.00440259571428571,"D",56.7890821185714
+"E",228,"Flower-visiting",428,"Pollination",0.00440259571428571,"D",1.88431096571428
+"E",198,"Flower-visiting",552,"Pollination",0.00440259571428571,"D",2.43023283428571
+"E",264,"Flower-visiting",771,"Pollination",0.00440259571428571,"D",3.39440129571428
+"E",244,"Flower-visiting",1988,"Pollination",0.00440259571428571,"D",8.75236027999999
+"E",303,"Flower-visiting",14255,"Pollination",0.00440259571428571,"D",62.7590019071428
+"E",247,"Flower-visiting",774,"Pollination",0.00440259571428571,"D",3.40760908285714
+"E",138,"Flower-visiting",2803,"Pollination",0.00440259571428571,"D",12.3404757871428
+"E",248,"Flower-visiting",2049,"Pollination",0.00440259571428571,"D",9.02091861857142
+"E",286,"Flower-visiting",395,"Pollination",0.00440259571428571,"D",1.73902530714286
+"E",285,"Flower-visiting",887,"Pollination",0.00440259571428571,"D",3.90510239857142
+"E",249,"Flower-visiting",1448,"Pollination",0.000251,"D",0.363448
+"E",302,"Flower-visiting",1880,"Pollination",0.00440259571428571,"D",8.27687994285714
+"E",222,"Flower-visiting",687,"Pollination",0.00440259571428571,"D",3.02458325571428
+"E",519,"Butterfly",307,"Pollination",0.078,"D",23.946
+"E",524,"Butterfly",79,"Pollination",0.136,"D",10.744
+"E",514,"Butterfly",213,"Pollination",0.056,"D",11.928
+"E",516,"Butterfly",179,"Pollination",0.128,"D",22.912
+"E",517,"Butterfly",4709,"Pollination",0.0215,"D",101.2435
+"E",523,"Butterfly",109,"Pollination",0.061,"D",6.649
+"E",513,"Butterfly",595,"Pollination",0.04,"D",23.8
+"E",525,"Butterfly",375,"Pollination",0.067,"D",25.125
+"E",522,"Butterfly",71,"Pollination",0.051,"D",3.621
+"E",124,"Flower-visiting",4572,"Pollination",0.673046511627907,"D",3077.16865116279
+"E",323,"Flower-visiting",9,"Pollination",0.50775,"D",4.56975
+"E",212,"Flower-visiting",139,"Pollination",0.515339984215776,"D",71.6322578059929
+"E",101,"Flower-visiting",535,"Pollination",0.00440259571428571,"D",2.35538870714285
+"E",151,"Flower-visiting",374,"Pollination",0.00440259571428571,"D",1.64657079714286
+"E",152,"Flower-visiting",32,"Pollination",0.00440259571428571,"D",0.140883062857143
+"E",283,"Flower-visiting",1175,"Pollination",0.00440259571428571,"D",5.17304996428571
+"E",195,"Flower-visiting",759,"Pollination",0.00440259571428571,"D",3.34157014714285
+"E",335,"Flower-visiting",9,"Pollination",0.00440259571428571,"D",0.0396233614285714
+"E",512,"Butterfly",61,"Pollination",0.0118,"D",0.7198
+"E",521,"Butterfly",18,"Pollination",0.0376,"D",0.6768
+"E",515,"Butterfly",65,"Pollination",0.088,"D",5.72
+"E",526,"Butterfly",27,"Pollination",0.041,"D",1.107
+"E",520,"Butterfly",38,"Pollination",0.0725,"D",2.755
+"E",236,"Flower-visiting",238,"Pollination",0.77820202020202,"D",185.212080808081
+"E",127,"Flower-visiting",476,"Pollination",0.675333333333333,"D",321.458666666666
+"E",231,"Flower-visiting",1205,"Pollination",0.77820202020202,"D",937.733434343434
+"E",305,"Flower-visiting",2434,"Pollination",0.00440259571428571,"D",10.7159179685714
+"E",327,"Flower-visiting",2457,"Pollination",0.00440259571428571,"D",10.81717767
+"E",284,"Flower-visiting",1255,"Pollination",0.00440259571428571,"D",5.52525762142857
+"E",313,"Flower-visiting",2420,"Pollination",0.00440259571428571,"D",10.6542816285714
+"E",281,"Flower-visiting",10,"Pollination",0.77820202020202,"D",7.7820202020202
+"E",219,"Flower-visiting",45,"Pollination",0.515339984215776,"D",23.1902992897099
+"E",280,"Flower-visiting",10,"Pollination",0.77820202020202,"D",7.7820202020202
+"E",274,"Flower-visiting",10,"Pollination",0.972,"D",9.72
+"E",233,"Flower-visiting",89,"Pollination",0.911272727272727,"D",81.1032727272727
+"E",187,"Flower-visiting",124,"Pollination",1.007,"D",124.868
+"E",234,"Flower-visiting",10,"Pollination",0.77820202020202,"D",7.7820202020202
+"E",122,"Flower-visiting",777,"Pollination",0.656666666666667,"D",510.23
+"E",243,"Flower-visiting",101,"Pollination",0.77820202020202,"D",78.598404040404
+"E",134,"Flower-visiting",30,"Pollination",0.00440259571428571,"D",0.132077871428571
+"E",235,"Flower-visiting",42,"Pollination",0.00440259571428571,"D",0.18490902
+"E",189,"Flower-visiting",312,"Pollination",0.00440259571428571,"D",1.37360986285714
+"E",324,"Flower-visiting",10,"Pollination",0.00440259571428571,"D",0.0440259571428571
+"E",103,"Flower-visiting",288,"Pollination",0.00440259571428571,"D",1.26794756571428
+"E",199,"Flower-visiting",60,"Pollination",0.005143,"D",0.30858
+"E",265,"Flower-visiting",312,"Pollination",0.00440259571428571,"D",1.37360986285714
+"E",169,"Flower-visiting",112,"Pollination",0.00440259571428571,"D",0.49309072
+"E",294,"Flower-visiting",238,"Pollination",0.0015275,"D",0.363545
+"E",271,"Flower-visiting",10,"Pollination",0.00440259571428571,"D",0.0440259571428571
+"E",216,"Flower-visiting",10,"Pollination",0.00440259571428571,"D",0.0440259571428571
+"E",137,"Flower-visiting",20,"Pollination",0.00440259571428571,"D",0.0880519142857142
+"E",227,"Flower-visiting",23,"Pollination",0.00440259571428571,"D",0.101259701428571
+"E",104,"Flower-visiting",312,"Pollination",0.00440259571428571,"D",1.37360986285714
+"E",133,"Flower-visiting",20,"Pollination",0.00440259571428571,"D",0.0880519142857142
+"E",511,"Butterfly",10,"Pollination",0.0413,"D",0.413
+"E",316,"Flower-visiting",3,"Pollination",0.77820202020202,"D",2.33460606060606
+"E",188,"Flower-visiting",311,"Pollination",0.876363636363636,"D",272.549090909091
+"E",226,"Flower-visiting",3,"Pollination",0.00440259571428571,"D",0.0132077871428571
+"E",185,"Flower-visiting",28,"Pollination",0.00440259571428571,"D",0.12327268
+"E",311,"Flower-visiting",3,"Pollination",0.00440259571428571,"D",0.0132077871428571
+"E",245,"Flower-visiting",28,"Pollination",0.00440259571428571,"D",0.12327268
+"E",293,"Flower-visiting",744,"Pollination",0.00440259571428571,"D",3.27553121142857
+"E",150,"Flower-visiting",676,"Pollination",0.00440259571428571,"D",2.97615470285714
+"E",277,"Flower-visiting",327,"Pollination",0.5485,"D",179.3595
+"E",211,"Flower-visiting",302,"Pollination",0.229,"D",69.158
+"E",315,"Flower-visiting",302,"Pollination",0.77820202020202,"D",235.01701010101
+"E",300,"Flower-visiting",302,"Pollination",0.00440259571428571,"D",1.32958390571428
+"E",125,"Flower-visiting",395,"Pollination",0.55324,"D",218.5298
+"E",518,"Butterfly",47,"Pollination",0.0725,"D",3.4075
+"E",336,"Flower-visiting",25,"Pollination",0.77820202020202,"D",19.4550505050505
+"E",146,"Flower-visiting",25,"Pollination",0.77820202020202,"D",19.4550505050505
+"E",191,"Flower-visiting",25,"Pollination",0.28775,"D",7.19375
+"E",148,"Flower-visiting",25,"Pollination",0.77820202020202,"D",19.4550505050505
+"E",149,"Flower-visiting",25,"Pollination",0.77820202020202,"D",19.4550505050505
+"E",145,"Flower-visiting",25,"Pollination",0.77820202020202,"D",19.4550505050505
+"E",147,"Flower-visiting",25,"Pollination",0.77820202020202,"D",19.4550505050505
+"E",157,"Flower-visiting",50,"Pollination",0.678,"D",33.9
+"E",106,"Flower-visiting",50,"Pollination",0.1635,"D",8.175
+"E",242,"Flower-visiting",25,"Pollination",0.00440259571428571,"D",0.110064892857143
+"E",204,"Flower-visiting",149,"Pollination",0.00440259571428571,"D",0.655986761428571
+"E",119,"Flower-visiting",50,"Pollination",0.00440259571428571,"D",0.220129785714286
+"E",118,"Flower-visiting",37,"Pollination",0.77820202020202,"D",28.7934747474747
+"SE",105,"Flower-visiting",414.077586206897,"Pollination",0.343,"D",142.028612068966
+"SE",317,"Flower-visiting",3630.09051724138,"Pollination",0.706444444444444,"D",2564.45727873563
+"SE",202,"Flower-visiting",418.077586206897,"Pollination",1.01766666666667,"D",425.46362356322
+"SE",123,"Flower-visiting",8528.56896551724,"Pollination",0.615121951219512,"D",5246.10998317914
+"SE",183,"Flower-visiting",470.077586206897,"Pollination",0.6738,"D",316.738277586207
+"SE",126,"Flower-visiting",5114.55172413793,"Pollination",0.738241379310345,"D",3775.77371938169
+"SE",318,"Flower-visiting",4446.30603448276,"Pollination",0.77820202020202,"D",3460.12433847092
+"SE",276,"Flower-visiting",1633.76724137931,"Pollination",0.444111111111111,"D",725.5741848659
+"SE",144,"Flower-visiting",424.077586206897,"Pollination",0.77820202020202,"D",330.018034308603
+"SE",322,"Flower-visiting",730.077586206897,"Pollination",0.861416666666667,"D",628.901000718391
+"SE",279,"Flower-visiting",454.26724137931,"Pollination",0.77820202020202,"D",353.511684952978
+"SE",278,"Flower-visiting",424.26724137931,"Pollination",0.77820202020202,"D",330.165624346917
+"SE",190,"Flower-visiting",1088.43534482759,"Pollination",0.7942,"D",864.435350862069
+"SE",186,"Flower-visiting",1331.61206896552,"Pollination",0.993111111111111,"D",1322.43874137931
+"SE",282,"Flower-visiting",424.26724137931,"Pollination",0.77820202020202,"D",330.165624346917
+"SE",203,"Flower-visiting",424.26724137931,"Pollination",1.03,"D",436.99525862069
+"SE",232,"Flower-visiting",1971.66810344828,"Pollination",0.740583333333333,"D",1460.18453627874
+"SE",295,"Flower-visiting",1340.50862068966,"Pollination",0.957666666666667,"D",1283.76042241379
+"SE",112,"Flower-visiting",12442.5301724138,"Pollination",0.50625,"D",6299.03089978448
+"SE",308,"Flower-visiting",1386.0775862069,"Pollination",0.00440259571428571,"D",6.10233924070196
+"SE",179,"Flower-visiting",20075.7586206897,"Pollination",0.00440259571428571,"D",88.3854488644827
+"SE",164,"Flower-visiting",12832.5431034483,"Pollination",0.00440259571428571,"D",56.496499270628
+"SE",228,"Flower-visiting",440.077586206897,"Pollination",0.00440259571428571,"D",1.93748369498768
+"SE",198,"Flower-visiting",564.077586206897,"Pollination",0.00440259571428571,"D",2.48340556355911
+"SE",264,"Flower-visiting",847.435344827586,"Pollination",0.00440259571428571,"D",3.73091521727216
+"SE",244,"Flower-visiting",2100.66810344828,"Pollination",0.00440259571428571,"D",9.24839238937807
+"SE",303,"Flower-visiting",14053.1810344828,"Pollination",0.00440259571428571,"D",61.870474594495
+"SE",247,"Flower-visiting",713.26724137931,"Pollination",0.00440259571428571,"D",3.14022730003694
+"SE",138,"Flower-visiting",3038.25431034483,"Pollination",0.00440259571428571,"D",13.3762054056342
+"SE",248,"Flower-visiting",1972.96551724138,"Pollination",0.00440259571428571,"D",8.68616953064039
+"SE",286,"Flower-visiting",325.344827586207,"Pollination",0.00440259571428571,"D",1.43236174359606
+"SE",285,"Flower-visiting",697.5,"Pollination",0.00440259571428571,"D",3.07081051071428
+"SE",249,"Flower-visiting",1372.82327586207,"Pollination",0.000251,"D",0.344578642241379
+"SE",302,"Flower-visiting",1889.5,"Pollination",0.00440259571428571,"D",8.31870460214285
+"SE",222,"Flower-visiting",697.689655172414,"Pollination",0.00440259571428571,"D",3.07164548576354
+"SE",519,"Butterfly",301.004310344828,"Pollination",0.078,"D",23.4783362068966
+"SE",524,"Butterfly",75.7456896551724,"Pollination",0.136,"D",10.3014137931034
+"SE",514,"Butterfly",218.077586206897,"Pollination",0.056,"D",12.2123448275862
+"SE",516,"Butterfly",180.211206896552,"Pollination",0.128,"D",23.0670344827586
+"SE",517,"Butterfly",4733.48706896552,"Pollination",0.0215,"D",101.769971982759
+"SE",523,"Butterfly",117.327586206897,"Pollination",0.061,"D",7.15698275862069
+"SE",513,"Butterfly",556.810344827586,"Pollination",0.04,"D",22.2724137931034
+"SE",525,"Butterfly",345.862068965517,"Pollination",0.067,"D",23.1727586206897
+"SE",522,"Butterfly",71,"Pollination",0.051,"D",3.621
+"SE",124,"Flower-visiting",4348,"Pollination",0.673046511627907,"D",2926.40623255814
+"SE",323,"Flower-visiting",9,"Pollination",0.50775,"D",4.56975
+"SE",212,"Flower-visiting",139,"Pollination",0.515339984215776,"D",71.6322578059929
+"SE",101,"Flower-visiting",485,"Pollination",0.00440259571428571,"D",2.13525892142857
+"SE",151,"Flower-visiting",275,"Pollination",0.00440259571428571,"D",1.21071382142857
+"SE",152,"Flower-visiting",32,"Pollination",0.00440259571428571,"D",0.140883062857143
+"SE",283,"Flower-visiting",1125,"Pollination",0.00440259571428571,"D",4.95292017857142
+"SE",195,"Flower-visiting",759,"Pollination",0.00440259571428571,"D",3.34157014714285
+"SE",335,"Flower-visiting",9,"Pollination",0.00440259571428571,"D",0.0396233614285714
+"SE",512,"Butterfly",61,"Pollination",0.0118,"D",0.7198
+"SE",521,"Butterfly",18,"Pollination",0.0376,"D",0.6768
+"SE",515,"Butterfly",60,"Pollination",0.088,"D",5.28
+"SE",526,"Butterfly",13,"Pollination",0.041,"D",0.533
+"SE",520,"Butterfly",33,"Pollination",0.0725,"D",2.3925
+"SE",236,"Flower-visiting",238,"Pollination",0.77820202020202,"D",185.212080808081
+"SE",127,"Flower-visiting",476,"Pollination",0.675333333333333,"D",321.458666666666
+"SE",231,"Flower-visiting",1205,"Pollination",0.77820202020202,"D",937.733434343434
+"SE",305,"Flower-visiting",297,"Pollination",0.00440259571428571,"D",1.30757092714286
+"SE",327,"Flower-visiting",2457,"Pollination",0.00440259571428571,"D",10.81717767
+"SE",284,"Flower-visiting",1205,"Pollination",0.00440259571428571,"D",5.30512783571428
+"SE",313,"Flower-visiting",2171,"Pollination",0.00440259571428571,"D",9.55803529571428
+"SE",281,"Flower-visiting",10,"Pollination",0.77820202020202,"D",7.7820202020202
+"SE",219,"Flower-visiting",20,"Pollination",0.515339984215776,"D",10.3067996843155
+"SE",280,"Flower-visiting",10,"Pollination",0.77820202020202,"D",7.7820202020202
+"SE",274,"Flower-visiting",10,"Pollination",0.972,"D",9.72
+"SE",233,"Flower-visiting",89,"Pollination",0.911272727272727,"D",81.1032727272727
+"SE",187,"Flower-visiting",37,"Pollination",1.007,"D",37.259
+"SE",234,"Flower-visiting",10,"Pollination",0.77820202020202,"D",7.7820202020202
+"SE",122,"Flower-visiting",628,"Pollination",0.656666666666667,"D",412.386666666667
+"SE",243,"Flower-visiting",26,"Pollination",0.77820202020202,"D",20.2332525252525
+"SE",134,"Flower-visiting",30,"Pollination",0.00440259571428571,"D",0.132077871428571
+"SE",235,"Flower-visiting",17,"Pollination",0.00440259571428571,"D",0.0748441271428571
+"SE",189,"Flower-visiting",312,"Pollination",0.00440259571428571,"D",1.37360986285714
+"SE",324,"Flower-visiting",10,"Pollination",0.00440259571428571,"D",0.0440259571428571
+"SE",103,"Flower-visiting",39,"Pollination",0.00440259571428571,"D",0.171701232857143
+"SE",199,"Flower-visiting",10,"Pollination",0.005143,"D",0.05143
+"SE",265,"Flower-visiting",312,"Pollination",0.00440259571428571,"D",1.37360986285714
+"SE",169,"Flower-visiting",62,"Pollination",0.00440259571428571,"D",0.272960934285714
+"SE",294,"Flower-visiting",14,"Pollination",0.0015275,"D",0.021385
+"SE",271,"Flower-visiting",10,"Pollination",0.00440259571428571,"D",0.0440259571428571
+"SE",216,"Flower-visiting",10,"Pollination",0.00440259571428571,"D",0.0440259571428571
+"SE",137,"Flower-visiting",20,"Pollination",0.00440259571428571,"D",0.0880519142857142
+"SE",227,"Flower-visiting",23,"Pollination",0.00440259571428571,"D",0.101259701428571
+"SE",104,"Flower-visiting",138,"Pollination",0.00440259571428571,"D",0.607558208571428
+"SE",133,"Flower-visiting",20,"Pollination",0.00440259571428571,"D",0.0880519142857142
+"SE",511,"Butterfly",10,"Pollination",0.0413,"D",0.413
+"SE",316,"Flower-visiting",3,"Pollination",0.77820202020202,"D",2.33460606060606
+"SE",188,"Flower-visiting",311,"Pollination",0.876363636363636,"D",272.549090909091
+"SE",226,"Flower-visiting",3,"Pollination",0.00440259571428571,"D",0.0132077871428571
+"SE",185,"Flower-visiting",3,"Pollination",0.00440259571428571,"D",0.0132077871428571
+"SE",311,"Flower-visiting",3,"Pollination",0.00440259571428571,"D",0.0132077871428571
+"SE",245,"Flower-visiting",3,"Pollination",0.00440259571428571,"D",0.0132077871428571
+"SE",293,"Flower-visiting",744,"Pollination",0.00440259571428571,"D",3.27553121142857
+"SE",150,"Flower-visiting",676,"Pollination",0.00440259571428571,"D",2.97615470285714
+"SE",277,"Flower-visiting",302,"Pollination",0.5485,"D",165.647
+"SE",211,"Flower-visiting",302,"Pollination",0.229,"D",69.158
+"SE",315,"Flower-visiting",302,"Pollination",0.77820202020202,"D",235.01701010101
+"SE",300,"Flower-visiting",302,"Pollination",0.00440259571428571,"D",1.32958390571428
+"SE",125,"Flower-visiting",370,"Pollination",0.55324,"D",204.6988
+"SE",518,"Butterfly",47,"Pollination",0.0725,"D",3.4075
+"M",105,"Flower-visiting",444.125,"Pollination",0.343,"D",152.334875
+"M",317,"Flower-visiting",3874.0625,"Pollination",0.706444444444444,"D",2736.80993055555
+"M",202,"Flower-visiting",444.125,"Pollination",1.01766666666667,"D",451.971208333335
+"M",123,"Flower-visiting",8666.75,"Pollination",0.615121951219512,"D",5331.10817073171
+"M",183,"Flower-visiting",444.125,"Pollination",0.6738,"D",299.251425
+"M",126,"Flower-visiting",5233,"Pollination",0.738241379310345,"D",3863.21713793104
+"M",318,"Flower-visiting",4720.6875,"Pollination",0.77820202020202,"D",3673.64854924242
+"M",276,"Flower-visiting",1526.125,"Pollination",0.444111111111111,"D",677.769069444444
+"M",144,"Flower-visiting",453.125,"Pollination",0.77820202020202,"D",352.62279040404
+"M",322,"Flower-visiting",742.900862068965,"Pollination",0.861416666666667,"D",639.947184267242
+"M",279,"Flower-visiting",458.375,"Pollination",0.77820202020202,"D",356.708351010101
+"M",278,"Flower-visiting",458.375,"Pollination",0.77820202020202,"D",356.708351010101
+"M",190,"Flower-visiting",1153.5625,"Pollination",0.7942,"D",916.1593375
+"M",186,"Flower-visiting",1384.875,"Pollination",0.993111111111111,"D",1375.33475
+"M",282,"Flower-visiting",458.375,"Pollination",0.77820202020202,"D",356.708351010101
+"M",203,"Flower-visiting",458.375,"Pollination",1.03,"D",472.12625
+"M",232,"Flower-visiting",2111.4375,"Pollination",0.740583333333333,"D",1563.695421875
+"M",295,"Flower-visiting",1390.875,"Pollination",0.957666666666667,"D",1331.994625
+"M",112,"Flower-visiting",12978.9375,"Pollination",0.50625,"D",6570.587109375
+"M",308,"Flower-visiting",1419.125,"Pollination",0.00440259571428571,"D",6.24783364303571
+"M",179,"Flower-visiting",20989.5,"Pollination",0.00440259571428571,"D",92.4082827449999
+"M",164,"Flower-visiting",13312.375,"Pollination",0.00440259571428571,"D",58.6090051219642
+"M",228,"Flower-visiting",453.125,"Pollination",0.00440259571428571,"D",1.99492618303571
+"M",198,"Flower-visiting",567.125,"Pollination",0.00440259571428571,"D",2.49682209446428
+"M",264,"Flower-visiting",915.5625,"Pollination",0.00440259571428571,"D",4.03085153866071
+"M",244,"Flower-visiting",2247.9375,"Pollination",0.00440259571428571,"D",9.89676000348213
+"M",303,"Flower-visiting",13839.625,"Pollination",0.00440259571428571,"D",60.9302737123214
+"M",247,"Flower-visiting",736.375,"Pollination",0.00440259571428571,"D",3.24196141910714
+"M",138,"Flower-visiting",3187.9375,"Pollination",0.00440259571428571,"D",14.0351999749107
+"M",248,"Flower-visiting",1981,"Pollination",0.00440259571428571,"D",8.72154210999999
+"M",286,"Flower-visiting",351.5,"Pollination",0.00440259571428571,"D",1.54751239357143
+"M",285,"Flower-visiting",715.25,"Pollination",0.00440259571428571,"D",3.14895658464285
+"M",249,"Flower-visiting",1483.1875,"Pollination",0.000251,"D",0.3722800625
+"M",302,"Flower-visiting",1920.25,"Pollination",0.00440259571428571,"D",8.45408442035713
+"M",222,"Flower-visiting",729.5,"Pollination",0.00440259571428571,"D",3.21169357357143
+"M",519,"Butterfly",262.855603448276,"Pollination",0.078,"D",20.5027370689655
+"M",524,"Butterfly",72.8987068965517,"Pollination",0.136,"D",9.91422413793104
+"M",514,"Butterfly",215.625,"Pollination",0.056,"D",12.075
+"M",516,"Butterfly",173.424568965517,"Pollination",0.128,"D",22.1983448275862
+"M",517,"Butterfly",4631.8125,"Pollination",0.0215,"D",99.58396875
+"M",523,"Butterfly",124.025862068966,"Pollination",0.061,"D",7.5655775862069
+"M",513,"Butterfly",353.043103448276,"Pollination",0.04,"D",14.121724137931
+"M",525,"Butterfly",350,"Pollination",0.067,"D",23.45
+"M",522,"Butterfly",71,"Pollination",0.051,"D",3.621
+"M",124,"Flower-visiting",4284,"Pollination",0.673046511627907,"D",2883.33125581395
+"M",323,"Flower-visiting",9,"Pollination",0.50775,"D",4.56975
+"M",212,"Flower-visiting",139,"Pollination",0.515339984215776,"D",71.6322578059929
+"M",101,"Flower-visiting",485,"Pollination",0.00440259571428571,"D",2.13525892142857
+"M",151,"Flower-visiting",9,"Pollination",0.00440259571428571,"D",0.0396233614285714
+"M",152,"Flower-visiting",9,"Pollination",0.00440259571428571,"D",0.0396233614285714
+"M",283,"Flower-visiting",1118,"Pollination",0.00440259571428571,"D",4.92210200857142
+"M",195,"Flower-visiting",759,"Pollination",0.00440259571428571,"D",3.34157014714285
+"M",335,"Flower-visiting",9,"Pollination",0.00440259571428571,"D",0.0396233614285714
+"M",512,"Butterfly",61,"Pollination",0.0118,"D",0.7198
+"M",521,"Butterfly",17,"Pollination",0.0376,"D",0.6392
+"M",515,"Butterfly",60,"Pollination",0.088,"D",5.28
+"M",526,"Butterfly",8,"Pollination",0.041,"D",0.328
+"M",520,"Butterfly",8,"Pollination",0.0725,"D",0.58
+"M",236,"Flower-visiting",238,"Pollination",0.77820202020202,"D",185.212080808081
+"M",127,"Flower-visiting",476,"Pollination",0.675333333333333,"D",321.458666666666
+"M",231,"Flower-visiting",1205,"Pollination",0.77820202020202,"D",937.733434343434
+"M",305,"Flower-visiting",238,"Pollination",0.00440259571428571,"D",1.04781778
+"M",327,"Flower-visiting",2457,"Pollination",0.00440259571428571,"D",10.81717767
+"M",284,"Flower-visiting",1205,"Pollination",0.00440259571428571,"D",5.30512783571428
+"M",313,"Flower-visiting",2161,"Pollination",0.00440259571428571,"D",9.51400933857142
+"M",122,"Flower-visiting",605,"Pollination",0.656666666666667,"D",397.283333333334
+"M",277,"Flower-visiting",302,"Pollination",0.5485,"D",165.647
+"M",188,"Flower-visiting",302,"Pollination",0.876363636363636,"D",264.661818181818
+"M",211,"Flower-visiting",302,"Pollination",0.229,"D",69.158
+"M",315,"Flower-visiting",302,"Pollination",0.77820202020202,"D",235.01701010101
+"M",189,"Flower-visiting",302,"Pollination",0.00440259571428571,"D",1.32958390571428
+"M",265,"Flower-visiting",302,"Pollination",0.00440259571428571,"D",1.32958390571428
+"M",300,"Flower-visiting",302,"Pollination",0.00440259571428571,"D",1.32958390571428
+"M",150,"Flower-visiting",672,"Pollination",0.00440259571428571,"D",2.95854432
+"M",125,"Flower-visiting",370,"Pollination",0.55324,"D",204.6988
+"M",293,"Flower-visiting",740,"Pollination",0.00440259571428571,"D",3.25792082857143
+"M",518,"Butterfly",47,"Pollination",0.0725,"D",3.4075
+"SI",105,"Flower-visiting",691.980603448276,"Pollination",0.343,"D",237.349346982759
+"SI",317,"Flower-visiting",5171.35237068965,"Pollination",0.706444444444444,"D",3653.27315253831
+"SI",202,"Flower-visiting",691.980603448276,"Pollination",1.01766666666667,"D",704.205594109198
+"SI",123,"Flower-visiting",9550.60775862069,"Pollination",0.615121951219512,"D",5874.78847981497
+"SI",183,"Flower-visiting",691.980603448276,"Pollination",0.6738,"D",466.256530603448
+"SI",126,"Flower-visiting",6346.36206896552,"Pollination",0.738241379310345,"D",4685.14708739596
+"SI",318,"Flower-visiting",7157.04849137931,"Pollination",0.77820202020202,"D",5569.6295946752
+"SI",276,"Flower-visiting",1787.30818965517,"Pollination",0.444111111111111,"D",793.763426005747
+"SI",144,"Flower-visiting",691.980603448276,"Pollination",0.77820202020202,"D",538.500703544061
+"SI",322,"Flower-visiting",990.756465517241,"Pollination",0.861416666666667,"D",853.454132004311
+"SI",279,"Flower-visiting",714.183189655172,"Pollination",0.77820202020202,"D",555.778800983978
+"SI",278,"Flower-visiting",714.183189655172,"Pollination",0.77820202020202,"D",555.778800983978
+"SI",190,"Flower-visiting",1664.5161637931,"Pollination",0.7942,"D",1321.95873728448
+"SI",186,"Flower-visiting",1261.84698275862,"Pollination",0.993111111111111,"D",1253.15425909962
+"SI",282,"Flower-visiting",714.183189655172,"Pollination",0.77820202020202,"D",555.778800983978
+"SI",203,"Flower-visiting",714.183189655172,"Pollination",1.03,"D",735.608685344828
+"SI",232,"Flower-visiting",3073.20797413793,"Pollination",0.740583333333333,"D",2275.96660551365
+"SI",295,"Flower-visiting",1054.62284482759,"Pollination",0.957666666666667,"D",1009.97714439655
+"SI",112,"Flower-visiting",17309.4924568966,"Pollination",0.50625,"D",8762.93055630388
+"SI",308,"Flower-visiting",1296.98060344828,"Pollination",0.00440259571428571,"D",5.71008124625307
+"SI",179,"Flower-visiting",27224.5603448276,"Pollination",0.00440259571428571,"D",119.858732697451
+"SI",164,"Flower-visiting",12730.6142241379,"Pollination",0.00440259571428571,"D",56.0477476234144
+"SI",228,"Flower-visiting",691.980603448276,"Pollination",0.00440259571428571,"D",3.04651083911022
+"SI",198,"Flower-visiting",691.980603448276,"Pollination",0.00440259571428571,"D",3.04651083911022
+"SI",264,"Flower-visiting",1426.5161637931,"Pollination",0.00440259571428571,"D",6.28037394907481
+"SI",244,"Flower-visiting",3502.45797413793,"Pollination",0.00440259571428571,"D",15.4199064664055
+"SI",303,"Flower-visiting",8360.45474137931,"Pollination",0.00440259571428571,"D",36.8077022138762
+"SI",247,"Flower-visiting",714.183189655172,"Pollination",0.00440259571428571,"D",3.14425984999076
+"SI",138,"Flower-visiting",4390.56142241379,"Pollination",0.00440259571428571,"D",19.3298669016271
+"SI",248,"Flower-visiting",1663.75862068966,"Pollination",0.00440259571428571,"D",7.32485657305418
+"SI",286,"Flower-visiting",547.663793103448,"Pollination",0.00440259571428571,"D",2.4111422683867
+"SI",285,"Flower-visiting",945.875,"Pollination",0.00440259571428571,"D",4.16430522125
+"SI",249,"Flower-visiting",2310.91918103448,"Pollination",0.000251,"D",0.580040714439655
+"SI",302,"Flower-visiting",2150.875,"Pollination",0.00440259571428571,"D",9.46943305696428
+"SI",222,"Flower-visiting",968.077586206897,"Pollination",0.00440259571428571,"D",4.26205423213054
+"SI",519,"Butterfly",239.417025862069,"Pollination",0.078,"D",18.6745280172414
+"SI",524,"Butterfly",48.792025862069,"Pollination",0.136,"D",6.63571551724138
+"SI",514,"Butterfly",297.730603448276,"Pollination",0.056,"D",16.6729137931035
+"SI",516,"Butterfly",224.684267241379,"Pollination",0.128,"D",28.7595862068966
+"SI",517,"Butterfly",3571.75323275862,"Pollination",0.0215,"D",76.7926945043103
+"SI",523,"Butterfly",154.693965517241,"Pollination",0.061,"D",9.43633189655172
+"SI",513,"Butterfly",85.5991379310345,"Pollination",0.04,"D",3.42396551724138
+"SI",525,"Butterfly",401.034482758621,"Pollination",0.067,"D",26.8693103448276
+"SI",522,"Butterfly",52.614224137931,"Pollination",0.051,"D",2.68332543103448
+"SI",124,"Flower-visiting",2767,"Pollination",0.673046511627907,"D",1862.31969767442
+"SI",236,"Flower-visiting",238,"Pollination",0.77820202020202,"D",185.212080808081
+"SI",127,"Flower-visiting",476,"Pollination",0.675333333333333,"D",321.458666666666
+"SI",231,"Flower-visiting",1205,"Pollination",0.77820202020202,"D",937.733434343434
+"SI",305,"Flower-visiting",238,"Pollination",0.00440259571428571,"D",1.04781778
+"SI",101,"Flower-visiting",476,"Pollination",0.00440259571428571,"D",2.09563556
+"SI",327,"Flower-visiting",238,"Pollination",0.00440259571428571,"D",1.04781778
+"SI",284,"Flower-visiting",1205,"Pollination",0.00440259571428571,"D",5.30512783571428
+"SI",313,"Flower-visiting",1606,"Pollination",0.00440259571428571,"D",7.07056871714285
+"SI",515,"Butterfly",35,"Pollination",0.088,"D",3.08
+"SI",122,"Flower-visiting",605,"Pollination",0.656666666666667,"D",397.283333333334
+"SI",277,"Flower-visiting",302,"Pollination",0.5485,"D",165.647
+"SI",188,"Flower-visiting",302,"Pollination",0.876363636363636,"D",264.661818181818
+"SI",211,"Flower-visiting",302,"Pollination",0.229,"D",69.158
+"SI",315,"Flower-visiting",302,"Pollination",0.77820202020202,"D",235.01701010101
+"SI",189,"Flower-visiting",302,"Pollination",0.00440259571428571,"D",1.32958390571428
+"SI",265,"Flower-visiting",302,"Pollination",0.00440259571428571,"D",1.32958390571428
+"SI",300,"Flower-visiting",302,"Pollination",0.00440259571428571,"D",1.32958390571428
+"SI",150,"Flower-visiting",302,"Pollination",0.00440259571428571,"D",1.32958390571428
+"I",105,"Flower-visiting",1089.75862068966,"Pollination",0.343,"D",373.787206896552
+"I",317,"Flower-visiting",8144.05172413793,"Pollination",0.706444444444444,"D",5753.32009578544
+"I",202,"Flower-visiting",1089.75862068966,"Pollination",1.01766666666667,"D",1109.01102298851
+"I",123,"Flower-visiting",5512.89655172414,"Pollination",0.615121951219512,"D",3391.10368376787
+"I",183,"Flower-visiting",1089.75862068966,"Pollination",0.6738,"D",734.27935862069
+"I",126,"Flower-visiting",4895.1724137931,"Pollination",0.738241379310345,"D",3613.81883472057
+"I",318,"Flower-visiting",10795.6034482759,"Pollination",0.77820202020202,"D",8401.16041274817
+"I",276,"Flower-visiting",2814.72413793103,"Pollination",0.444111111111111,"D",1250.05026436782
+"I",144,"Flower-visiting",1089.75862068966,"Pollination",0.77820202020202,"D",848.052360153256
+"I",322,"Flower-visiting",1086.53448275862,"Pollination",0.861416666666667,"D",935.958912356322
+"I",279,"Flower-visiting",1124.72413793103,"Pollination",0.77820202020202,"D",875.262596307906
+"I",278,"Flower-visiting",1124.72413793103,"Pollination",0.77820202020202,"D",875.262596307906
+"I",190,"Flower-visiting",2246.53448275862,"Pollination",0.7942,"D",1784.1976862069
+"I",186,"Flower-visiting",1987.20689655172,"Pollination",0.993111111111111,"D",1973.51724904215
+"I",282,"Flower-visiting",1124.72413793103,"Pollination",0.77820202020202,"D",875.262596307906
+"I",203,"Flower-visiting",1124.72413793103,"Pollination",1.03,"D",1158.46586206897
+"I",232,"Flower-visiting",4839.81034482759,"Pollination",0.740583333333333,"D",3584.28287787356
+"I",295,"Flower-visiting",1660.86206896552,"Pollination",0.957666666666667,"D",1590.55224137931
+"I",112,"Flower-visiting",24910.0172413793,"Pollination",0.50625,"D",12610.6962284483
+"I",308,"Flower-visiting",1089.75862068966,"Pollination",0.00440259571428571,"D",4.79776663305418
+"I",179,"Flower-visiting",40023.8620689655,"Pollination",0.00440259571428571,"D",176.20888361399
+"I",164,"Flower-visiting",17768.3103448276,"Pollination",0.00440259571428571,"D",78.2266869742364
+"I",228,"Flower-visiting",1089.75862068966,"Pollination",0.00440259571428571,"D",4.79776663305418
+"I",198,"Flower-visiting",1089.75862068966,"Pollination",0.00440259571428571,"D",4.79776663305418
+"I",264,"Flower-visiting",2246.53448275862,"Pollination",0.00440259571428571,"D",9.89058308578817
+"I",244,"Flower-visiting",5515.81034482759,"Pollination",0.00440259571428571,"D",24.2838829849507
+"I",303,"Flower-visiting",2092.10344827586,"Pollination",0.00440259571428571,"D",9.21068567522167
+"I",247,"Flower-visiting",1124.72413793103,"Pollination",0.00440259571428571,"D",4.95170566940886
+"I",138,"Flower-visiting",6914.43103448276,"Pollination",0.00440259571428571,"D",30.4414444391379
+"I",248,"Flower-visiting",2144.55172413793,"Pollination",0.00440259571428571,"D",9.44159422975369
+"I",286,"Flower-visiting",862.48275862069,"Pollination",0.00440259571428571,"D",3.79716289674876
+"I",285,"Flower-visiting",1014,"Pollination",0.00440259571428571,"D",4.46423205428571
+"I",249,"Flower-visiting",3639.3275862069,"Pollination",0.000251,"D",0.913471224137931
+"I",302,"Flower-visiting",1014,"Pollination",0.00440259571428571,"D",4.46423205428571
+"I",222,"Flower-visiting",1048.96551724138,"Pollination",0.00440259571428571,"D",4.61817109064039
+"I",519,"Butterfly",322.474137931034,"Pollination",0.078,"D",25.1529827586207
+"I",524,"Butterfly",77.5086206896552,"Pollination",0.136,"D",10.5411724137931
+"I",514,"Butterfly",413.758620689655,"Pollination",0.056,"D",23.1704827586207
+"I",516,"Butterfly",299.23275862069,"Pollination",0.128,"D",38.3017931034483
+"I",517,"Butterfly",2747.70689655172,"Pollination",0.0215,"D",59.0756982758621
+"I",523,"Butterfly",244.034482758621,"Pollination",0.061,"D",14.8861034482759
+"I",513,"Butterfly",80.3793103448276,"Pollination",0.04,"D",3.2151724137931
+"I",525,"Butterfly",466.206896551724,"Pollination",0.067,"D",31.2358620689655
+"I",522,"Butterfly",29.3135775862069,"Pollination",0.051,"D",1.49499245689655
+"IN",126,"Flower-visiting",4895.1724137931,"Pollination",0.738241379310345,"D",3613.81883472057
+"IN",295,"Flower-visiting",1660.86206896552,"Pollination",0.957666666666667,"D",1590.55224137931
+"IN",112,"Flower-visiting",24910.0172413793,"Pollination",0.50625,"D",12610.6962284483
+"IN",514,"Butterfly",413.758620689655,"Pollination",0.056,"D",23.1704827586207
+"IN",516,"Butterfly",299.23275862069,"Pollination",0.128,"D",38.3017931034483
+"IN",523,"Butterfly",244.034482758621,"Pollination",0.061,"D",14.8861034482759
+"E",358,"Aphid",39513751,"Crop damage",0.0031632,"D",124989.8971632
+"E",351,"Aphid",687006,"Crop damage",0.0014099,"D",968.6097594
+"E",508,"Seed-feeding rodent",1069,"Crop damage",30.45,"D",32551.05
+"E",495,"Seed-feeding bird",48,"Crop damage",37.31,"D",1790.88
+"E",496,"Seed-feeding bird",315,"Crop damage",527.86,"D",166275.9
+"E",497,"Seed-feeding bird",40,"Crop damage",19.53,"D",781.2
+"E",498,"Seed-feeding bird",1024,"Crop damage",16,"D",16384
+"E",499,"Seed-feeding bird",107,"Crop damage",26,"D",2782
+"E",500,"Seed-feeding bird",286,"Crop damage",490,"D",140140
+"E",501,"Seed-feeding bird",420,"Crop damage",452.1,"D",189882
+"E",502,"Seed-feeding bird",107,"Crop damage",246,"D",26322
+"E",503,"Seed-feeding bird",122,"Crop damage",29.7,"D",3623.4
+"E",504,"Seed-feeding bird",129,"Crop damage",23.81,"D",3071.49
+"E",505,"Seed-feeding bird",60,"Crop damage",26.51,"D",1590.6
+"E",506,"Seed-feeding bird",2,"Crop damage",148.96,"D",297.92
+"SE",358,"Aphid",82439723.3103448,"Crop damage",0.0031632,"D",260773.332775283
+"SE",508,"Seed-feeding rodent",1242.55603448276,"Crop damage",30.45,"D",37835.83125
+"SE",351,"Aphid",722567.353448276,"Crop damage",0.0014099,"D",1018.74771162672
+"SE",495,"Seed-feeding bird",48,"Crop damage",37.31,"D",1790.88
+"SE",496,"Seed-feeding bird",317.254310344828,"Crop damage",527.86,"D",167465.860258621
+"SE",497,"Seed-feeding bird",40,"Crop damage",19.53,"D",781.2
+"SE",498,"Seed-feeding bird",1012.39224137931,"Crop damage",16,"D",16198.275862069
+"SE",499,"Seed-feeding bird",108.034482758621,"Crop damage",26,"D",2808.89655172414
+"SE",500,"Seed-feeding bird",291.452586206897,"Crop damage",490,"D",142811.767241379
+"SE",501,"Seed-feeding bird",401.887931034483,"Crop damage",452.1,"D",181693.53362069
+"SE",502,"Seed-feeding bird",89.6163793103448,"Crop damage",246,"D",22045.6293103448
+"SE",503,"Seed-feeding bird",123.099137931034,"Crop damage",29.7,"D",3656.04439655172
+"SE",504,"Seed-feeding bird",127.35775862069,"Crop damage",23.81,"D",3032.38823275862
+"SE",505,"Seed-feeding bird",8,"Crop damage",26.51,"D",212.08
+"M",358,"Aphid",85261157,"Crop damage",0.0031632,"D",269698.0918224
+"M",508,"Seed-feeding rodent",657.8125,"Crop damage",30.45,"D",20030.390625
+"M",351,"Aphid",769518.056034483,"Crop damage",0.0014099,"D",1084.94350720302
+"M",495,"Seed-feeding bird",36,"Crop damage",37.31,"D",1343.16
+"M",496,"Seed-feeding bird",247.480603448276,"Crop damage",527.86,"D",130635.111336207
+"M",497,"Seed-feeding bird",30,"Crop damage",19.53,"D",585.9
+"M",498,"Seed-feeding bird",773.4375,"Crop damage",16,"D",12375
+"M",499,"Seed-feeding bird",83.3103448275862,"Crop damage",26,"D",2166.06896551724
+"M",500,"Seed-feeding bird",229.838362068966,"Crop damage",490,"D",112620.797413793
+"M",501,"Seed-feeding bird",339.375,"Crop damage",452.1,"D",153431.4375
+"M",502,"Seed-feeding bird",73.6099137931034,"Crop damage",246,"D",18108.0387931034
+"M",503,"Seed-feeding bird",94.4547413793103,"Crop damage",29.7,"D",2805.30581896552
+"M",504,"Seed-feeding bird",99.0323275862069,"Crop damage",23.81,"D",2357.95971982759
+"M",505,"Seed-feeding bird",6,"Crop damage",26.51,"D",159.06
+"SI",358,"Aphid",70329300.6724138,"Crop damage",0.0031632,"D",222465.643886979
+"SI",351,"Aphid",1190632.67887931,"Crop damage",0.0014099,"D",1678.67301395194
+"SI",508,"Seed-feeding rodent",738.23599137931,"Crop damage",30.45,"D",22479.2859375
+"SI",495,"Seed-feeding bird",20.8706896551724,"Crop damage",37.31,"D",778.685431034483
+"SI",496,"Seed-feeding bird",171.604525862069,"Crop damage",527.86,"D",90583.1650215517
+"SI",497,"Seed-feeding bird",17.3922413793103,"Crop damage",19.53,"D",339.670474137931
+"SI",498,"Seed-feeding bird",481.276939655172,"Crop damage",16,"D",7700.43103448276
+"SI",499,"Seed-feeding bird",53.9310344827586,"Crop damage",26,"D",1402.20689655172
+"SI",500,"Seed-feeding bird",167.287715517241,"Crop damage",490,"D",81970.9806034483
+"SI",501,"Seed-feeding bird",314.528017241379,"Crop damage",452.1,"D",142198.116594828
+"SI",502,"Seed-feeding bird",63.1778017241379,"Crop damage",246,"D",15541.7392241379
+"SI",503,"Seed-feeding bird",60.7209051724138,"Crop damage",29.7,"D",1803.41088362069
+"SI",504,"Seed-feeding bird",67.9493534482759,"Crop damage",23.81,"D",1617.87410560345
+"SI",505,"Seed-feeding bird",3,"Crop damage",26.51,"D",79.53
+"I",358,"Aphid",110548611.034483,"Crop damage",0.0031632,"D",349687.366424276
+"I",351,"Aphid",1824145.29310345,"Crop damage",0.0014099,"D",2571.86244874655
+"I",508,"Seed-feeding rodent",1162.60344827586,"Crop damage",30.45,"D",35401.275
+"I",495,"Seed-feeding bird",15.2521551724138,"Crop damage",37.31,"D",569.057909482759
+"I",496,"Seed-feeding bird",153.974137931034,"Crop damage",527.86,"D",81276.7884482759
+"I",497,"Seed-feeding bird",12.7101293103448,"Crop damage",19.53,"D",248.228825431034
+"I",498,"Seed-feeding bird",364.224137931034,"Crop damage",16,"D",5827.58620689655
+"I",499,"Seed-feeding bird",44.948275862069,"Crop damage",26,"D",1168.65517241379
+"I",500,"Seed-feeding bird",159.784482758621,"Crop damage",490,"D",78294.3965517241
+"I",501,"Seed-feeding bird",378.793103448276,"Crop damage",452.1,"D",171252.362068966
+"I",502,"Seed-feeding bird",71.7672413793103,"Crop damage",246,"D",17654.7413793103
+"I",503,"Seed-feeding bird",48.801724137931,"Crop damage",29.7,"D",1449.41120689655
+"I",504,"Seed-feeding bird",60.2844827586207,"Crop damage",23.81,"D",1435.37353448276
+"I",505,"Seed-feeding bird",1,"Crop damage",26.51,"D",26.51
+"IN",358,"Aphid",110548611.034483,"Crop damage",0.0031632,"D",349687.366424276
+"IN",351,"Aphid",1824145.29310345,"Crop damage",0.0014099,"D",2571.86244874655
+"IN",508,"Seed-feeding rodent",1162.60344827586,"Crop damage",30.45,"D",35401.275
+"IN",495,"Seed-feeding bird",15.2521551724138,"Crop damage",37.31,"D",569.057909482759
+"IN",496,"Seed-feeding bird",153.974137931034,"Crop damage",527.86,"D",81276.7884482759
+"IN",497,"Seed-feeding bird",12.7101293103448,"Crop damage",19.53,"D",248.228825431034
+"IN",498,"Seed-feeding bird",364.224137931034,"Crop damage",16,"D",5827.58620689655
+"IN",499,"Seed-feeding bird",44.948275862069,"Crop damage",26,"D",1168.65517241379
+"IN",500,"Seed-feeding bird",159.784482758621,"Crop damage",490,"D",78294.3965517241
+"IN",501,"Seed-feeding bird",378.793103448276,"Crop damage",452.1,"D",171252.362068966
+"IN",502,"Seed-feeding bird",71.7672413793103,"Crop damage",246,"D",17654.7413793103
+"IN",503,"Seed-feeding bird",48.801724137931,"Crop damage",29.7,"D",1449.41120689655
+"IN",504,"Seed-feeding bird",60.2844827586207,"Crop damage",23.81,"D",1435.37353448276
+"IN",505,"Seed-feeding bird",1,"Crop damage",26.51,"D",26.51
+"E",376,"Secondary aphid parasitoid",282081,"Pest control",5.86e-05,"D",16.5299466
+"E",377,"Secondary aphid parasitoid",406322,"Pest control",7.44e-05,"D",30.2303568
+"E",368,"Primary aphid parasitoid",74955,"Pest control",0.000385666666666667,"D",28.907645
+"E",367,"Primary aphid parasitoid",25471,"Pest control",0.00088,"D",22.41448
+"E",378,"Secondary aphid parasitoid",85584,"Pest control",7.44e-05,"D",6.3674496
+"E",374,"Primary aphid parasitoid",131298,"Pest control",0.000385666666666667,"D",50.637262
+"E",369,"Primary aphid parasitoid",105719,"Pest control",0.000161,"D",17.020759
+"E",365,"Primary aphid parasitoid",271994,"Pest control",0.000116,"D",31.551304
+"E",381,"Secondary aphid parasitoid",412269,"Pest control",9.02e-05,"D",37.1866638
+"E",380,"Secondary aphid parasitoid",50697,"Pest control",7.44e-05,"D",3.7718568
+"E",370,"Primary aphid parasitoid",116405,"Pest control",0.000385666666666667,"D",44.8935283333334
+"E",445,"Leaf-miner parasitoid",1407294,"Pest control",0.003286967,"D",4625.728937298
+"E",438,"Leaf-miner parasitoid",363870,"Pest control",0.003286967,"D",1196.02868229
+"E",422,"Leaf-miner parasitoid",54846,"Pest control",0.003286967,"D",180.276992082
+"E",469,"Leaf-miner parasitoid",73873,"Pest control",0.003286967,"D",242.818113191
+"E",412,"Leaf-miner parasitoid",20133,"Pest control",0.003286967,"D",66.176506611
+"E",429,"Leaf-miner parasitoid",6131,"Pest control",0.003286967,"D",20.152394677
+"E",457,"Leaf-miner parasitoid",148144,"Pest control",0.003286967,"D",486.944439248
+"E",545,"Rodent ectoparasite",164,"Pest control",0.000765,"D",0.12546
+"E",548,"Rodent ectoparasite",52,"Pest control",0.000765,"D",0.03978
+"E",549,"Rodent ectoparasite",3,"Pest control",0.000765,"D",0.002295
+"E",546,"Rodent ectoparasite",34,"Pest control",0.000765,"D",0.02601
+"E",547,"Rodent ectoparasite",39,"Pest control",0.000765,"D",0.029835
+"E",550,"Rodent ectoparasite",13,"Pest control",0.000765,"D",0.009945
+"E",544,"Rodent ectoparasite",244,"Pest control",0.000765,"D",0.18666
+"E",379,"Secondary aphid parasitoid",73,"Pest control",7.44e-05,"D",0.0054312
+"E",366,"Primary aphid parasitoid",552,"Pest control",0.000385666666666667,"D",0.212888
+"E",382,"Secondary aphid parasitoid",552,"Pest control",7.44e-05,"D",0.0410688
+"SE",376,"Secondary aphid parasitoid",299398.909482759,"Pest control",5.86e-05,"D",17.5447760956897
+"SE",377,"Secondary aphid parasitoid",402378.344827586,"Pest control",7.44e-05,"D",29.9369488551724
+"SE",368,"Primary aphid parasitoid",81779.1594827586,"Pest control",0.000385666666666667,"D",31.5394958405173
+"SE",367,"Primary aphid parasitoid",27389.4181034483,"Pest control",0.00088,"D",24.1026879310345
+"SE",378,"Secondary aphid parasitoid",89898.8793103448,"Pest control",7.44e-05,"D",6.68847662068966
+"SE",374,"Primary aphid parasitoid",144314.612068966,"Pest control",0.000385666666666667,"D",55.6573353879311
+"SE",369,"Primary aphid parasitoid",111488.017241379,"Pest control",0.000161,"D",17.9495707758621
+"SE",365,"Primary aphid parasitoid",283333.198275862,"Pest control",0.000116,"D",32.866651
+"SE",381,"Secondary aphid parasitoid",451070.487068966,"Pest control",9.02e-05,"D",40.6865579336207
+"SE",380,"Secondary aphid parasitoid",47601.8793103448,"Pest control",7.44e-05,"D",3.54157982068966
+"SE",370,"Primary aphid parasitoid",124570.586206897,"Pest control",0.000385666666666667,"D",48.0427227471265
+"SE",445,"Leaf-miner parasitoid",1429642.03017241,"Pest control",0.003286967,"D",4699.18617498973
+"SE",438,"Leaf-miner parasitoid",354441.060344828,"Pest control",0.003286967,"D",1165.03606879846
+"SE",422,"Leaf-miner parasitoid",58661.3232758621,"Pest control",0.003286967,"D",192.817833784091
+"SE",469,"Leaf-miner parasitoid",75488.8318965517,"Pest control",0.003286967,"D",248.129299312513
+"SE",412,"Leaf-miner parasitoid",21662.9956896552,"Pest control",0.003286967,"D",71.2055519530388
+"SE",429,"Leaf-miner parasitoid",6131,"Pest control",0.003286967,"D",20.152394677
+"SE",457,"Leaf-miner parasitoid",144001,"Pest control",0.003286967,"D",473.326534967
+"SE",545,"Rodent ectoparasite",89,"Pest control",0.000765,"D",0.068085
+"SE",548,"Rodent ectoparasite",26,"Pest control",0.000765,"D",0.01989
+"SE",549,"Rodent ectoparasite",3,"Pest control",0.000765,"D",0.002295
+"SE",546,"Rodent ectoparasite",28,"Pest control",0.000765,"D",0.02142
+"SE",547,"Rodent ectoparasite",27,"Pest control",0.000765,"D",0.020655
+"SE",550,"Rodent ectoparasite",13,"Pest control",0.000765,"D",0.009945
+"SE",544,"Rodent ectoparasite",144,"Pest control",0.000765,"D",0.11016
+"SE",379,"Secondary aphid parasitoid",73,"Pest control",7.44e-05,"D",0.0054312
+"M",376,"Secondary aphid parasitoid",313942.4375,"Pest control",5.86e-05,"D",18.3970268375
+"M",377,"Secondary aphid parasitoid",426833.5,"Pest control",7.44e-05,"D",31.7564124
+"M",368,"Primary aphid parasitoid",88353.5625,"Pest control",0.000385666666666667,"D",34.0750239375
+"M",367,"Primary aphid parasitoid",29591.3125,"Pest control",0.00088,"D",26.040355
+"M",378,"Secondary aphid parasitoid",93400.75,"Pest control",7.44e-05,"D",6.9490158
+"M",374,"Primary aphid parasitoid",155916.375,"Pest control",0.000385666666666667,"D",60.1317486250001
+"M",369,"Primary aphid parasitoid",119248.75,"Pest control",0.000161,"D",19.19904875
+"M",365,"Primary aphid parasitoid",293376.875,"Pest control",0.000116,"D",34.0317175
+"M",381,"Secondary aphid parasitoid",486420.3125,"Pest control",9.02e-05,"D",43.8751121875
+"M",380,"Secondary aphid parasitoid",50359.75,"Pest control",7.44e-05,"D",3.7467654
+"M",370,"Primary aphid parasitoid",131944.5,"Pest control",0.000385666666666667,"D",50.8865955
+"M",445,"Leaf-miner parasitoid",1464252.1875,"Pest control",0.003286967,"D",4812.94861999031
+"M",438,"Leaf-miner parasitoid",350194.875,"Pest control",0.003286967,"D",1151.07899769413
+"M",422,"Leaf-miner parasitoid",61560.9375,"Pest control",0.003286967,"D",202.348770051562
+"M",469,"Leaf-miner parasitoid",76357.8125,"Pest control",0.003286967,"D",250.985609879688
+"M",412,"Leaf-miner parasitoid",22953.6875,"Pest control",0.003286967,"D",75.4480133408125
+"M",429,"Leaf-miner parasitoid",4002,"Pest control",0.003286967,"D",13.154441934
+"M",457,"Leaf-miner parasitoid",140652,"Pest control",0.003286967,"D",462.318482484
+"M",545,"Rodent ectoparasite",3,"Pest control",0.000765,"D",0.002295
+"M",548,"Rodent ectoparasite",3,"Pest control",0.000765,"D",0.002295
+"M",549,"Rodent ectoparasite",3,"Pest control",0.000765,"D",0.002295
+"SI",376,"Secondary aphid parasitoid",433398.89762931,"Pest control",5.86e-05,"D",25.3971754010776
+"SI",377,"Secondary aphid parasitoid",598169.663793103,"Pest control",7.44e-05,"D",44.5038229862069
+"SI",368,"Primary aphid parasitoid",137661.58512931,"Pest control",0.000385666666666667,"D",53.0914846648707
+"SI",367,"Primary aphid parasitoid",46105.5204741379,"Pest control",0.00088,"D",40.5728580172414
+"SI",378,"Secondary aphid parasitoid",117716.780172414,"Pest control",7.44e-05,"D",8.75812844482759
+"SI",374,"Primary aphid parasitoid",242929.596982759,"Pest control",0.000385666666666667,"D",93.6898479030173
+"SI",369,"Primary aphid parasitoid",181389.745689655,"Pest control",0.000161,"D",29.2037490560345
+"SI",365,"Primary aphid parasitoid",341841.950431034,"Pest control",0.000116,"D",39.65366625
+"SI",381,"Secondary aphid parasitoid",751498.503232759,"Pest control",9.02e-05,"D",67.7851649915948
+"SI",380,"Secondary aphid parasitoid",70865.2801724138,"Pest control",7.44e-05,"D",5.27237684482759
+"SI",370,"Primary aphid parasitoid",196762.353448276,"Pest control",0.000385666666666667,"D",75.8846809798851
+"SI",445,"Leaf-miner parasitoid",1426334.8674569,"Pest control",0.003286967,"D",4688.31564028019
+"SI",438,"Leaf-miner parasitoid",236060.484913793,"Pest control",0.003286967,"D",775.923023915636
+"SI",422,"Leaf-miner parasitoid",81507.5441810345,"Pest control",0.003286967,"D",267.912607974102
+"SI",469,"Leaf-miner parasitoid",76552.6670258621,"Pest control",0.003286967,"D",251.626090275997
+"SI",412,"Leaf-miner parasitoid",28554.3760775862,"Pest control",0.003286967,"D",93.8572918726153
+"SI",429,"Leaf-miner parasitoid",6408.375,"Pest control",0.003286967,"D",21.064117148625
+"SI",457,"Leaf-miner parasitoid",66355.75,"Pest control",0.003286967,"D",218.10916051025
+"I",376,"Secondary aphid parasitoid",525219.948275862,"Pest control",5.86e-05,"D",30.7778889689655
+"I",377,"Secondary aphid parasitoid",825582.482758621,"Pest control",7.44e-05,"D",61.4233367172414
+"I",368,"Primary aphid parasitoid",216794.948275862,"Pest control",0.000385666666666667,"D",83.6105850517242
+"I",367,"Primary aphid parasitoid",72608.8103448276,"Pest control",0.00088,"D",63.8957531034483
+"I",378,"Secondary aphid parasitoid",143043.931034483,"Pest control",7.44e-05,"D",10.6424684689655
+"I",374,"Primary aphid parasitoid",382575.206896552,"Pest control",0.000385666666666667,"D",147.546504793104
+"I",369,"Primary aphid parasitoid",275073.724137931,"Pest control",0.000161,"D",44.2868695862069
+"I",365,"Primary aphid parasitoid",357609.827586207,"Pest control",0.000116,"D",41.48274
+"I",381,"Secondary aphid parasitoid",1172903.70689655,"Pest control",9.02e-05,"D",105.795914362069
+"I",380,"Secondary aphid parasitoid",95723.9310344828,"Pest control",7.44e-05,"D",7.12186046896552
+"I",370,"Primary aphid parasitoid",288698.620689655,"Pest control",0.000385666666666667,"D",111.341434712644
+"I",445,"Leaf-miner parasitoid",1452284.01724138,"Pest control",0.003286967,"D",4773.60963929984
+"I",438,"Leaf-miner parasitoid",189076.034482759,"Pest control",0.003286967,"D",621.48668583569
+"I",422,"Leaf-miner parasitoid",128361.327586207,"Pest control",0.003286967,"D",421.919447852052
+"I",469,"Leaf-miner parasitoid",120558.189655172,"Pest control",0.003286967,"D",396.270790976293
+"I",412,"Leaf-miner parasitoid",44968.5689655172,"Pest control",0.003286967,"D",147.810202226879
+"I",429,"Leaf-miner parasitoid",10664.8125,"Pest control",0.003286967,"D",35.0548867486875
+"I",457,"Leaf-miner parasitoid",21329.625,"Pest control",0.003286967,"D",70.109773497375
+"IN",376,"Secondary aphid parasitoid",525219.948275862,"Pest control",5.86e-05,"D",30.7778889689655
+"IN",377,"Secondary aphid parasitoid",825582.482758621,"Pest control",7.44e-05,"D",61.4233367172414
+"IN",368,"Primary aphid parasitoid",216794.948275862,"Pest control",0.000385666666666667,"D",83.6105850517242
+"IN",367,"Primary aphid parasitoid",72608.8103448276,"Pest control",0.00088,"D",63.8957531034483
+"IN",378,"Secondary aphid parasitoid",143043.931034483,"Pest control",7.44e-05,"D",10.6424684689655
+"IN",374,"Primary aphid parasitoid",382575.206896552,"Pest control",0.000385666666666667,"D",147.546504793104
+"IN",369,"Primary aphid parasitoid",275073.724137931,"Pest control",0.000161,"D",44.2868695862069
+"IN",365,"Primary aphid parasitoid",357609.827586207,"Pest control",0.000116,"D",41.48274
+"IN",381,"Secondary aphid parasitoid",1172903.70689655,"Pest control",9.02e-05,"D",105.795914362069
+"IN",380,"Secondary aphid parasitoid",95723.9310344828,"Pest control",7.44e-05,"D",7.12186046896552
+"IN",370,"Primary aphid parasitoid",288698.620689655,"Pest control",0.000385666666666667,"D",111.341434712644
+"IN",445,"Leaf-miner parasitoid",1452284.01724138,"Pest control",0.003286967,"D",4773.60963929984
+"IN",438,"Leaf-miner parasitoid",189076.034482759,"Pest control",0.003286967,"D",621.48668583569
+"IN",422,"Leaf-miner parasitoid",128361.327586207,"Pest control",0.003286967,"D",421.919447852052
+"IN",469,"Leaf-miner parasitoid",120558.189655172,"Pest control",0.003286967,"D",396.270790976293
+"IN",412,"Leaf-miner parasitoid",44968.5689655172,"Pest control",0.003286967,"D",147.810202226879
+"IN",429,"Leaf-miner parasitoid",10664.8125,"Pest control",0.003286967,"D",35.0548867486875
+"IN",457,"Leaf-miner parasitoid",21329.625,"Pest control",0.003286967,"D",70.109773497375
+"E",499,"Seed-feeding bird",107,"Seed dispersal",26,"D",2782
+"E",500,"Seed-feeding bird",286,"Seed dispersal",490,"D",140140
+"E",501,"Seed-feeding bird",420,"Seed dispersal",452.1,"D",189882
+"E",502,"Seed-feeding bird",107,"Seed dispersal",246,"D",26322
+"E",504,"Seed-feeding bird",129,"Seed dispersal",23.81,"D",3071.49
+"SE",499,"Seed-feeding bird",108.034482758621,"Seed dispersal",26,"D",2808.89655172414
+"SE",500,"Seed-feeding bird",291.452586206897,"Seed dispersal",490,"D",142811.767241379
+"SE",501,"Seed-feeding bird",401.887931034483,"Seed dispersal",452.1,"D",181693.53362069
+"SE",502,"Seed-feeding bird",89.6163793103448,"Seed dispersal",246,"D",22045.6293103448
+"SE",504,"Seed-feeding bird",127.35775862069,"Seed dispersal",23.81,"D",3032.38823275862
+"M",499,"Seed-feeding bird",83.3103448275862,"Seed dispersal",26,"D",2166.06896551724
+"M",500,"Seed-feeding bird",229.838362068966,"Seed dispersal",490,"D",112620.797413793
+"M",501,"Seed-feeding bird",339.375,"Seed dispersal",452.1,"D",153431.4375
+"M",502,"Seed-feeding bird",73.6099137931034,"Seed dispersal",246,"D",18108.0387931034
+"M",504,"Seed-feeding bird",99.0323275862069,"Seed dispersal",23.81,"D",2357.95971982759
+"SI",499,"Seed-feeding bird",53.9310344827586,"Seed dispersal",26,"D",1402.20689655172
+"SI",500,"Seed-feeding bird",167.287715517241,"Seed dispersal",490,"D",81970.9806034483
+"SI",501,"Seed-feeding bird",314.528017241379,"Seed dispersal",452.1,"D",142198.116594828
+"SI",502,"Seed-feeding bird",63.1778017241379,"Seed dispersal",246,"D",15541.7392241379
+"SI",504,"Seed-feeding bird",67.9493534482759,"Seed dispersal",23.81,"D",1617.87410560345
+"I",499,"Seed-feeding bird",44.948275862069,"Seed dispersal",26,"D",1168.65517241379
+"I",500,"Seed-feeding bird",159.784482758621,"Seed dispersal",490,"D",78294.3965517241
+"I",501,"Seed-feeding bird",378.793103448276,"Seed dispersal",452.1,"D",171252.362068966
+"I",502,"Seed-feeding bird",71.7672413793103,"Seed dispersal",246,"D",17654.7413793103
+"I",504,"Seed-feeding bird",60.2844827586207,"Seed dispersal",23.81,"D",1435.37353448276
+"IN",499,"Seed-feeding bird",44.948275862069,"Seed dispersal",26,"D",1168.65517241379
+"IN",500,"Seed-feeding bird",159.784482758621,"Seed dispersal",490,"D",78294.3965517241
+"IN",501,"Seed-feeding bird",378.793103448276,"Seed dispersal",452.1,"D",171252.362068966
+"IN",502,"Seed-feeding bird",71.7672413793103,"Seed dispersal",246,"D",17654.7413793103
+"IN",504,"Seed-feeding bird",60.2844827586207,"Seed dispersal",23.81,"D",1435.37353448276
+"E",519,"Butterfly",307,"Butterfly watching",0.078,"D",23.946
+"E",524,"Butterfly",79,"Butterfly watching",0.136,"D",10.744
+"E",514,"Butterfly",213,"Butterfly watching",0.056,"D",11.928
+"E",516,"Butterfly",179,"Butterfly watching",0.128,"D",22.912
+"E",517,"Butterfly",4709,"Butterfly watching",0.0215,"D",101.2435
+"E",523,"Butterfly",109,"Butterfly watching",0.061,"D",6.649
+"E",513,"Butterfly",595,"Butterfly watching",0.04,"D",23.8
+"E",525,"Butterfly",375,"Butterfly watching",0.067,"D",25.125
+"E",522,"Butterfly",71,"Butterfly watching",0.051,"D",3.621
+"E",512,"Butterfly",61,"Butterfly watching",0.0118,"D",0.7198
+"E",521,"Butterfly",18,"Butterfly watching",0.0376,"D",0.6768
+"E",515,"Butterfly",65,"Butterfly watching",0.088,"D",5.72
+"E",526,"Butterfly",27,"Butterfly watching",0.041,"D",1.107
+"E",520,"Butterfly",38,"Butterfly watching",0.0725,"D",2.755
+"E",511,"Butterfly",10,"Butterfly watching",0.0413,"D",0.413
+"E",518,"Butterfly",47,"Butterfly watching",0.0725,"D",3.4075
+"SE",519,"Butterfly",301.004310344828,"Butterfly watching",0.078,"D",23.4783362068966
+"SE",524,"Butterfly",75.7456896551724,"Butterfly watching",0.136,"D",10.3014137931034
+"SE",514,"Butterfly",218.077586206897,"Butterfly watching",0.056,"D",12.2123448275862
+"SE",516,"Butterfly",180.211206896552,"Butterfly watching",0.128,"D",23.0670344827586
+"SE",517,"Butterfly",4733.48706896552,"Butterfly watching",0.0215,"D",101.769971982759
+"SE",523,"Butterfly",117.327586206897,"Butterfly watching",0.061,"D",7.15698275862069
+"SE",513,"Butterfly",556.810344827586,"Butterfly watching",0.04,"D",22.2724137931034
+"SE",525,"Butterfly",345.862068965517,"Butterfly watching",0.067,"D",23.1727586206897
+"SE",522,"Butterfly",71,"Butterfly watching",0.051,"D",3.621
+"SE",512,"Butterfly",61,"Butterfly watching",0.0118,"D",0.7198
+"SE",521,"Butterfly",18,"Butterfly watching",0.0376,"D",0.6768
+"SE",515,"Butterfly",60,"Butterfly watching",0.088,"D",5.28
+"SE",526,"Butterfly",13,"Butterfly watching",0.041,"D",0.533
+"SE",520,"Butterfly",33,"Butterfly watching",0.0725,"D",2.3925
+"SE",511,"Butterfly",10,"Butterfly watching",0.0413,"D",0.413
+"SE",518,"Butterfly",47,"Butterfly watching",0.0725,"D",3.4075
+"M",519,"Butterfly",262.855603448276,"Butterfly watching",0.078,"D",20.5027370689655
+"M",524,"Butterfly",72.8987068965517,"Butterfly watching",0.136,"D",9.91422413793104
+"M",514,"Butterfly",215.625,"Butterfly watching",0.056,"D",12.075
+"M",516,"Butterfly",173.424568965517,"Butterfly watching",0.128,"D",22.1983448275862
+"M",517,"Butterfly",4631.8125,"Butterfly watching",0.0215,"D",99.58396875
+"M",523,"Butterfly",124.025862068966,"Butterfly watching",0.061,"D",7.5655775862069
+"M",513,"Butterfly",353.043103448276,"Butterfly watching",0.04,"D",14.121724137931
+"M",525,"Butterfly",350,"Butterfly watching",0.067,"D",23.45
+"M",522,"Butterfly",71,"Butterfly watching",0.051,"D",3.621
+"M",512,"Butterfly",61,"Butterfly watching",0.0118,"D",0.7198
+"M",521,"Butterfly",17,"Butterfly watching",0.0376,"D",0.6392
+"M",515,"Butterfly",60,"Butterfly watching",0.088,"D",5.28
+"M",526,"Butterfly",8,"Butterfly watching",0.041,"D",0.328
+"M",520,"Butterfly",8,"Butterfly watching",0.0725,"D",0.58
+"M",518,"Butterfly",47,"Butterfly watching",0.0725,"D",3.4075
+"SI",519,"Butterfly",239.417025862069,"Butterfly watching",0.078,"D",18.6745280172414
+"SI",524,"Butterfly",48.792025862069,"Butterfly watching",0.136,"D",6.63571551724138
+"SI",514,"Butterfly",297.730603448276,"Butterfly watching",0.056,"D",16.6729137931035
+"SI",516,"Butterfly",224.684267241379,"Butterfly watching",0.128,"D",28.7595862068966
+"SI",517,"Butterfly",3571.75323275862,"Butterfly watching",0.0215,"D",76.7926945043103
+"SI",523,"Butterfly",154.693965517241,"Butterfly watching",0.061,"D",9.43633189655172
+"SI",513,"Butterfly",85.5991379310345,"Butterfly watching",0.04,"D",3.42396551724138
+"SI",525,"Butterfly",401.034482758621,"Butterfly watching",0.067,"D",26.8693103448276
+"SI",522,"Butterfly",52.614224137931,"Butterfly watching",0.051,"D",2.68332543103448
+"SI",515,"Butterfly",35,"Butterfly watching",0.088,"D",3.08
+"I",519,"Butterfly",322.474137931034,"Butterfly watching",0.078,"D",25.1529827586207
+"I",524,"Butterfly",77.5086206896552,"Butterfly watching",0.136,"D",10.5411724137931
+"I",514,"Butterfly",413.758620689655,"Butterfly watching",0.056,"D",23.1704827586207
+"I",516,"Butterfly",299.23275862069,"Butterfly watching",0.128,"D",38.3017931034483
+"I",517,"Butterfly",2747.70689655172,"Butterfly watching",0.0215,"D",59.0756982758621
+"I",523,"Butterfly",244.034482758621,"Butterfly watching",0.061,"D",14.8861034482759
+"I",513,"Butterfly",80.3793103448276,"Butterfly watching",0.04,"D",3.2151724137931
+"I",525,"Butterfly",466.206896551724,"Butterfly watching",0.067,"D",31.2358620689655
+"I",522,"Butterfly",29.3135775862069,"Butterfly watching",0.051,"D",1.49499245689655
+"IN",514,"Butterfly",413.758620689655,"Butterfly watching",0.056,"D",23.1704827586207
+"IN",516,"Butterfly",299.23275862069,"Butterfly watching",0.128,"D",38.3017931034483
+"IN",523,"Butterfly",244.034482758621,"Butterfly watching",0.061,"D",14.8861034482759
+"E",495,"Seed-feeding bird",48,"Bird watching",37.31,"D",1790.88
+"E",496,"Seed-feeding bird",315,"Bird watching",527.86,"D",166275.9
+"E",497,"Seed-feeding bird",40,"Bird watching",19.53,"D",781.2
+"E",498,"Seed-feeding bird",1024,"Bird watching",16,"D",16384
+"E",499,"Seed-feeding bird",107,"Bird watching",26,"D",2782
+"E",501,"Seed-feeding bird",420,"Bird watching",452.1,"D",189882
+"E",503,"Seed-feeding bird",122,"Bird watching",29.7,"D",3623.4
+"SE",495,"Seed-feeding bird",48,"Bird watching",37.31,"D",1790.88
+"SE",496,"Seed-feeding bird",317.254310344828,"Bird watching",527.86,"D",167465.860258621
+"SE",497,"Seed-feeding bird",40,"Bird watching",19.53,"D",781.2
+"SE",498,"Seed-feeding bird",1012.39224137931,"Bird watching",16,"D",16198.275862069
+"SE",499,"Seed-feeding bird",108.034482758621,"Bird watching",26,"D",2808.89655172414
+"SE",501,"Seed-feeding bird",401.887931034483,"Bird watching",452.1,"D",181693.53362069
+"SE",503,"Seed-feeding bird",123.099137931034,"Bird watching",29.7,"D",3656.04439655172
+"M",495,"Seed-feeding bird",36,"Bird watching",37.31,"D",1343.16
+"M",496,"Seed-feeding bird",247.480603448276,"Bird watching",527.86,"D",130635.111336207
+"M",497,"Seed-feeding bird",30,"Bird watching",19.53,"D",585.9
+"M",498,"Seed-feeding bird",773.4375,"Bird watching",16,"D",12375
+"M",499,"Seed-feeding bird",83.3103448275862,"Bird watching",26,"D",2166.06896551724
+"M",501,"Seed-feeding bird",339.375,"Bird watching",452.1,"D",153431.4375
+"M",503,"Seed-feeding bird",94.4547413793103,"Bird watching",29.7,"D",2805.30581896552
+"SI",495,"Seed-feeding bird",20.8706896551724,"Bird watching",37.31,"D",778.685431034483
+"SI",496,"Seed-feeding bird",171.604525862069,"Bird watching",527.86,"D",90583.1650215517
+"SI",497,"Seed-feeding bird",17.3922413793103,"Bird watching",19.53,"D",339.670474137931
+"SI",498,"Seed-feeding bird",481.276939655172,"Bird watching",16,"D",7700.43103448276
+"SI",499,"Seed-feeding bird",53.9310344827586,"Bird watching",26,"D",1402.20689655172
+"SI",501,"Seed-feeding bird",314.528017241379,"Bird watching",452.1,"D",142198.116594828
+"SI",503,"Seed-feeding bird",60.7209051724138,"Bird watching",29.7,"D",1803.41088362069
+"I",495,"Seed-feeding bird",15.2521551724138,"Bird watching",37.31,"D",569.057909482759
+"I",496,"Seed-feeding bird",153.974137931034,"Bird watching",527.86,"D",81276.7884482759
+"I",497,"Seed-feeding bird",12.7101293103448,"Bird watching",19.53,"D",248.228825431034
+"I",498,"Seed-feeding bird",364.224137931034,"Bird watching",16,"D",5827.58620689655
+"I",499,"Seed-feeding bird",44.948275862069,"Bird watching",26,"D",1168.65517241379
+"I",501,"Seed-feeding bird",378.793103448276,"Bird watching",452.1,"D",171252.362068966
+"I",503,"Seed-feeding bird",48.801724137931,"Bird watching",29.7,"D",1449.41120689655
+"IN",495,"Seed-feeding bird",15.2521551724138,"Bird watching",37.31,"D",569.057909482759
+"IN",496,"Seed-feeding bird",153.974137931034,"Bird watching",527.86,"D",81276.7884482759
+"IN",497,"Seed-feeding bird",12.7101293103448,"Bird watching",19.53,"D",248.228825431034
+"IN",498,"Seed-feeding bird",364.224137931034,"Bird watching",16,"D",5827.58620689655
+"IN",499,"Seed-feeding bird",44.948275862069,"Bird watching",26,"D",1168.65517241379
+"IN",501,"Seed-feeding bird",378.793103448276,"Bird watching",452.1,"D",171252.362068966
+"IN",503,"Seed-feeding bird",48.801724137931,"Bird watching",29.7,"D",1449.41120689655
