@@ -80,7 +80,7 @@ Norwood_farm<-create_multilayer_network(list_of_layers = list_of_layers, biparti
 #view(Norwood_farm$extended_ids)
 #view(Norwood_farm$state_nodes)
 
-#saveRDS(Norwood_farm, file="Data/Norwood_farm.RData")
+saveRDS(Norwood_farm, file="Data/Norwood_farm.RData")
 
 
 

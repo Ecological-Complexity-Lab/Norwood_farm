@@ -2,7 +2,7 @@
 
 # To create the different management scenarios we:
 
-# 1) Assign abundances as state nodes attributes of the extensive Norwood farm (nodes’ abundances per each habitat)
+# 1) Assign species abundances as state nodes attributes of the extensive Norwood farm (nodes’ abundances per each habitat)
 
 # 2) Change the habitats to “CP” but modifying the abundance of each species 
 #according to the area (removing population below 1 individual)
@@ -12,7 +12,7 @@
 
 # We then estimate the direct and indirect ecosystem service (ES) provision for each land management scenario and calculate
 # the proportion of direct ES provision retained, the proportion of indirect effects on ES provision, and the relative change in 
-# direct ES provision after converting an extensive farm into each scenario. Finally, we conduct statistical analyses to 
+# direct ES provided after converting an extensive farm into each scenario. Finally, we conduct statistical analyses to 
 # assess these changes.
 
 ## -- Load libraries --------------------------------------------------------------------------------------------------------
@@ -557,7 +557,7 @@ nodes_ES<- right_join(state_nodes_weighted, Norwood_farm$nodes, by = "node_id")%
 nodes_ES$management <- factor(nodes_ES$management, levels = c("E", "SE", "M", "SI","I","IN")) #change order of factors
 
 
-####### -- Estimate the amount of direct ES provision per species (weight = abundance * body mass
+####### -- Estimate the amount of direct ES provision per species
 
 #The equation to estimate the amount will change according to the type of ES.
 #For bird watching and butterfly watching is just the abundance. For the rest is the product between abundance and biomass
