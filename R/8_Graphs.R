@@ -1,6 +1,7 @@
-# In this code, we created the preliminary version of the figures 3-6 used in the manuscript. 
+# In this code, we created the preliminary version of the figures 3-5 used in the manuscript. 
 # Some of them were later edited to include pictures of the farm.
 
+#In the files, the term “ES” refers to “NCP” and “1 hop” and “2 hop” indicate first-order and second-order pathways, respectively.
 
 ## -- Load libraries --------------------------------------------------------------------------------------------------------
 library(igraph)
@@ -17,7 +18,8 @@ setwd("/Users/agustin/Desktop/Papers/Norwood_farm/Norwood_Tinio")
 
 
 ##############  --  Figure 3 
-#Panel (A): Prop. of direct ES retained (empirical). Panel (B): Heat map null model.
+
+### Panel (A): Prop. of direct ES retained (empirical). Panel (B): Heat map null model.
 
 direct_ES<- read.csv("Data/Land_use_dir_ES.csv", sep =",")
 direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I","IN")) #change order of factors
@@ -31,7 +33,7 @@ color_services_prop <-tibble(
 Prop<-direct_ES %>% group_by(management,services) %>% 
   mutate(tot = n()) %>% ungroup() %>%  
   group_by(services) %>% 
-  mutate(prop = tot/max(tot)) %>%  #Prop of ES retained across habitat management
+  mutate(prop = tot/max(tot)) %>%  #Prop of NCP providers retained across habitat management
   select(management,services,tot,prop) %>% unique() 
 
 perc_direct_ES<- Prop %>% group_by(management) %>% 
@@ -42,7 +44,7 @@ Panel_A<- Prop %>% ggplot(aes(x = management, y = prop)) +
   geom_point(position=position_jitterdodge(jitter.width=2, dodge.width = 0.5), 
              pch=21, aes(fill=factor(services)), size = 3.5, show.legend = T) +
   scale_fill_manual(values = color_services_prop$color) + 
-  scale_y_continuous(name = "Prop. of direct ES retained", limits = c(0, 1)) + 
+  scale_y_continuous(name = "Prop. of NCP providers retained", limits = c(0, 1)) + 
   scale_x_discrete(name = "Management")+
   theme(panel.background = element_rect(fill = "white"),
         panel.grid.major=element_line(color = "gray"),
@@ -61,7 +63,7 @@ Panel_A<- Prop %>% ggplot(aes(x = management, y = prop)) +
         legend.box.margin = margin(t = 5, r = 5, b = 5, l = 14),  # Add margin around the legend box
         legend.margin = margin(t = 5, r = 5, b = 5, l = 14)) +  # Adjust margin within the legend box)
         guides(fill = guide_legend(title.position = "top", title.hjust = 0.5))+
-         labs(fill = "ES")
+         labs(fill = "NCP")
 
 Panel_A
 
@@ -103,7 +105,7 @@ Panel_B<- ggplot(z_score_tot, aes(management, services, fill= Output)) +
                     labels = c("Lower than random", 
                                "No difference",
                                "Benchmark"))+
-  labs(x='Management', y="Ecosystem services (ES)")+
+  labs(x='Management', y="Nature's contribution to people (NCP)")+
   theme_minimal()+
   theme(panel.background = element_rect(fill = "white"),
         panel.border = element_rect(color = "black",fill = NA,size = 1),
@@ -137,7 +139,7 @@ Panel_B<- ggplot(z_score_tot, aes(management, services, fill= Output)) +
 
 Panel_B
 
-# Figure 3 (all panels together). Put manually the figures of the farms
+# Figure 3_AB (panels AB_together). Put manually the figures of the farms
 
 pdf("Graphs/Figure_3_pre_final.pdf", width = 9, height = 5)
 upper_row<- plot_grid(Panel_A + theme(plot.margin = unit(c(0.1,0.1, 0.1,0.1), "cm")),
@@ -153,10 +155,155 @@ upper_row
 dev.off()
 
 
+### Panel (C): Prop. of indirect effects on NCP provision (empirical). Panel (D): Heat map null model.
+
+output_ind_ES <- read.csv("Data/Land_use_ind_ES.csv", sep =",")
+output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I","IN")) #change order of factors
+
+color_services_prop <-tibble(
+  services = unique(output_ind_ES$services_to),
+  color = c('#1b9e77','#d95f02','#7570b3','#e7298a','#2c7fb8','#e6ab02','#a6761d'))
+
+
+#Panel C
+Prop_ind<-output_ind_ES %>% group_by(management,services_to) %>% 
+  mutate(tot = n()) %>% ungroup() %>%  
+  group_by(services_to) %>% 
+  mutate(prop = tot/max(tot)) %>%  #prop of indirect effects on NCP provision retained
+  select(management,services_to,tot,prop) %>% unique()
+
+perc_indirect_ES<- Prop_ind %>% group_by(management) %>% 
+  summarise(perc_lost = (1 - mean(prop)) *100)
+
+Panel_C<- Prop_ind %>% ggplot(aes(x = management, y = prop)) +
+  geom_boxplot(color = "black") +
+  geom_point(position=position_jitterdodge(jitter.width=2, dodge.width = 0.5), 
+             pch=21, aes(fill=factor(services_to)), size = 3.5, show.legend = T) +
+  scale_fill_manual(values = color_services_prop$color) + 
+  scale_y_continuous(name = "Prop. of indirect effects on NCP provision retained", limits = c(0, 1)) + 
+  scale_x_discrete(name = "Management")+
+  theme(panel.background = element_rect(fill = "white"),
+        panel.grid.major=element_line(color = "gray"),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        axis.text.y = element_text(size=11, color='black'),
+        axis.text = element_text(size=14, color='black'),
+        axis.text.x= element_text(size =12), 
+        axis.title = element_text(size=13, color='black'),
+        axis.title.y = element_text(size=13, color='black'),
+        axis.line = element_blank(),
+        legend.text.align = 0,
+        legend.title =  element_text(size = 11, color = "black"),
+        legend.text = element_text(size = 9),
+        legend.position = "bottom", 
+        legend.box = "vertical",
+        legend.box.margin = margin(t = 5, r = 20, b = 5, l = 1),  # Add margin around the legend box
+        legend.margin = margin(t = 5, r = 20, b = 5, l = 1))+
+  coord_cartesian(clip = "off")+
+  guides(fill = guide_legend(title.position = "top", title.hjust = 0.5))+
+  labs(fill = "NCP")
+
+Panel_C
+
+
+
+#Panel D
+indir_ES_z_score<-read.csv("Data/z_score_ind_ES_CP.csv", sep =",") %>% rename ("services" = "services_to") %>%
+  mutate(management = ifelse(management == "IM", "IN", management))
+
+# Prepare dataframe
+z_score_ind<- indir_ES_z_score %>% select(management,services,z,signif)
+
+#Add row showing the extensice and bird watching and seed dispersal for IN (all birds went extinct so there were no z scores)
+sd_bw<-data.frame(management = c("E","E","E","E","E","E","E"), 
+                  services = c("Bird watching", "Butterfly watching", 
+                               "Crop damage", "Crop production","Pest control",
+                               "Pollination", "Seed dispersal"),
+                  z = c(NaN,NaN,NaN,NaN,NaN,NaN,NaN),
+                  signif = c("Benchmark","Benchmark","Benchmark","Benchmark",
+                             "Benchmark","Benchmark","Benchmark"))
+
+z_score_tot<- rbind (z_score_ind, sd_bw) %>% rename("Output" = "signif")
+
+z_score_tot$management <- factor(z_score_tot$management, levels = c("E", "SE", "M", "SI","I","IN")) #change order of factors
+z_score_tot$services <- factor(z_score_tot$services, levels = c("Seed dispersal", "Pollination","Pest control",
+                                                                "Crop production", "Crop damage",
+                                                                "Butterfly watching","Bird watching"))
+
+#Plot
+indir_ES_z_score<- indir_ES_z_score %>% rename("Output" = "signif")
+
+color_services <-tibble(
+  services = rev(levels(z_score_tot$services)),
+  color = c('#1b9e77','#d95f02','#7570b3','#e7298a','#2c7fb8','#e6ab02','#a6761d'))
+
+
+Panel_D<- ggplot(z_score_tot, aes(management, services, fill= Output)) + 
+  geom_tile(color = "black")+
+  scale_fill_manual(values = c("dodgerblue3","red","ivory1","ivory1"),
+                    labels = c("Greater than random",
+                               "Lower than random", 
+                               "No difference",
+                               "Benchmark"))+
+  labs(x='Management', y="Nature's contribution to people (NCP)")+
+  theme(panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(color = "black",fill = NA,size = 1),
+        panel.spacing = unit(0.5, "cm", data = NULL),
+        panel.grid.major = element_blank(),  # Remove major grid lines
+        panel.grid.minor = element_blank(),
+        axis.text.y = element_text(size=10,  
+                                   color = color_services$color[match(levels(z_score_tot$services), color_services$services)], face = "bold"),
+        axis.text = element_text(size=12, color='black'),
+        axis.title = element_text(size=15, color='black'),
+        axis.line = element_blank(),
+        legend.title =  element_text(size = 11, color = "black"),
+        legend.text = element_text(size = 9),
+        legend.position = "bottom", 
+        legend.box = "vertical",
+        legend.box.margin = margin(t = 5, r = 1, b = 5, l = 5),  # Add margin around the legend box
+        legend.margin = margin(t = 5, r = 1, b = 5, l = 5),
+        legend.key.height = unit(0.6, "cm"),  # Reduce the height of the legend keys
+        legend.key.width = unit(0.6, "cm"))+    # Optionally reduce the width of the legend keys) 
+  guides(fill = guide_legend(title.position = "top", title.hjust = 0.5, nrow = 2))+
+  geom_segment(data = filter(z_score_tot, Output == "Benchmark"),
+               aes(x = as.numeric(management) - 0.5, 
+                   y = as.numeric(services) - 0.5, 
+                   xend = as.numeric(management) + 0.5, 
+                   yend = as.numeric(services) + 0.5), 
+               color = "black", size = 0.5)  +
+  geom_text(data = filter(indir_ES_z_score, Output %in% c("below","above")),
+            aes(label = round(ind_shuff_mean,3)),  # Display the mean value at the top
+            size = 3.5, color = "black", vjust = -0.5) +  # Adjust vjust to move the text higher
+  geom_text(data = filter(indir_ES_z_score,Output %in% c("below","above")),
+            aes(label = paste0("(", round(ind_shuff_sd,3),")")),  # Display the sd value at the bottom
+            size = 3, color = "black", vjust = 1.5)
+
+Panel_D
+
+
+# Figure 3 (panels C and D together). Put manually the figures of the farms
+pdf("Graphs/Figure_5_pre_final.pdf", width = 9, height = 5)
+upper_row<- plot_grid(Panel_C + theme(plot.margin = unit(c(0.8,0.1, 0.1,0.1), "cm")),
+                      Panel_D + theme(plot.margin = unit(c(0.8,0.1,0.1,0.5), "cm")), 
+                      ncol = 2, labels = c('(A)', "(B)"),
+                      label_x = c(-0.02, 0),# Adjust the position of the labels (A, B)
+                      rel_widths = c(0.9, 1.1), # Panel A is 90% of its size and Panel B is 110%
+                      align = "h",  # Aligns panels vertically
+                      axis = "b"# Aligns both top and bottom axes
+)
+upper_row
+
+dev.off()
+
+
+
+
+
+
 
 
 ##############  --  Figure 4
-#Panel (A): Relative change in the amount of ES (empirical). Panel (B): Heat map null model.
+#Panel (A): Relative change in the amount of NCP provision (empirical). Panel (B): Heat map null model.
 direct_ES<- read.csv("Data/Land_use_dir_ES.csv", sep =",")
 direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I","IN")) #change order of factors
 
@@ -180,7 +327,7 @@ Prop_weight_watching<-  direct_ES %>% group_by(management,services) %>%
     services == "Butterfly watching"~ 6903),
     ratio_change = tot / Extensive_tot)  
 
-#amount the rest ESs
+#amount the rest NCPs
 tot_services_emp_rest<-direct_ES %>% filter(management=="E" &  !(services == "Bird watching" | services == "Butterfly watching" )) %>% 
   group_by(management,services) %>% 
   summarize(tot_empirical_amount = sum(weight))
@@ -206,7 +353,7 @@ Panel_A<- Prop_amount %>% ggplot(aes(x = management, y = ratio_change)) +
   geom_point(position=position_jitterdodge(jitter.width=2, dodge.width = 0.5), 
              pch=21, aes(fill=factor(services)), size = 3.5, show.legend = T) +
   scale_fill_manual(values = color_services$color, name = "ES") + 
-  scale_y_continuous(name = "Relative change in the amount \n of direct ES provided", limits = c(0, 3)) + 
+  scale_y_continuous(name = "Relative change in the amount \n of NCP provision", limits = c(0, 3)) + 
   scale_x_discrete(name = "Management")+
   theme(panel.background = element_rect(fill = "white"),
         panel.grid.major=element_line(color = "gray"),
@@ -226,7 +373,7 @@ Panel_A<- Prop_amount %>% ggplot(aes(x = management, y = ratio_change)) +
         legend.box.margin = margin(t = 5, r = 5, b = 5, l = 20),  # Add margin around the legend box
         legend.margin = margin(t = 5, r = 5, b = 5, l = 20)) +  # Adjust margin within the legend box)
   guides(fill = guide_legend(title.position = "top", title.hjust = 0.5))+
-  labs(fill = "ES")
+  labs(fill = "NCP")
 
 
 Panel_A
@@ -269,7 +416,7 @@ Panel_B<- ggplot(z_score_tot, aes(management, services, fill= Output)) +
                     labels = c("Lower than random", 
                                "No difference",
                                "Benchmark"))+
-  labs(x='Management', y="Ecosystem services (ES)")+
+  labs(x='Management', y="Nature's contribution to people (NCP)")+
   theme_minimal()+
   theme(panel.background = element_rect(fill = "white"),
         panel.border = element_rect(color = "black",fill = NA,size = 1),
@@ -321,151 +468,10 @@ dev.off()
 
 
 
+
+
 ##############  --  Figure 5
-#Panel (A): Prop. of indirect effects on ES retained (empirical). Panel (B): Heat map null model.
-output_ind_ES <- read.csv("Data/Land_use_ind_ES.csv", sep =",")
-output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I","IN")) #change order of factors
-
-color_services_prop <-tibble(
-  services = unique(output_ind_ES$services_to),
-  color = c('#1b9e77','#d95f02','#7570b3','#e7298a','#2c7fb8','#e6ab02','#a6761d'))
-
-
-#Panel A
-Prop_ind<-output_ind_ES %>% group_by(management,services_to) %>% 
-  mutate(tot = n()) %>% ungroup() %>%  
-  group_by(services_to) %>% 
-  mutate(prop = tot/max(tot)) %>%  #prop of indirect effects on ES retained
-  select(management,services_to,tot,prop) %>% unique()
-
-perc_indirect_ES<- Prop_ind %>% group_by(management) %>% 
-  summarise(perc_lost = (1 - mean(prop)) *100)
-
-Panel_A<- Prop_ind %>% ggplot(aes(x = management, y = prop)) +
-  geom_boxplot(color = "black") +
-  geom_point(position=position_jitterdodge(jitter.width=2, dodge.width = 0.5), 
-             pch=21, aes(fill=factor(services_to)), size = 3.5, show.legend = T) +
-  scale_fill_manual(values = color_services_prop$color) + 
-  scale_y_continuous(name = "Prop. of indirect effects on ES retained", limits = c(0, 1)) + 
-  scale_x_discrete(name = "Management")+
-  theme(panel.background = element_rect(fill = "white"),
-        panel.grid.major=element_line(color = "gray"),
-        panel.border = element_rect(color = "black",fill = NA,size = 1),
-        panel.spacing = unit(0.5, "cm", data = NULL),
-        axis.text.y = element_text(size=11, color='black'),
-        axis.text = element_text(size=14, color='black'),
-        axis.text.x= element_text(size =12), 
-        axis.title = element_text(size=13, color='black'),
-        axis.title.y = element_text(size=13, color='black'),
-        axis.line = element_blank(),
-        legend.text.align = 0,
-        legend.title =  element_text(size = 11, color = "black"),
-        legend.text = element_text(size = 9),
-        legend.position = "bottom", 
-        legend.box = "vertical",
-        legend.box.margin = margin(t = 5, r = 20, b = 5, l = 1),  # Add margin around the legend box
-        legend.margin = margin(t = 5, r = 20, b = 5, l = 1))+
-  coord_cartesian(clip = "off")+
-  guides(fill = guide_legend(title.position = "top", title.hjust = 0.5))+
-  labs(fill = "ES")
-
-Panel_A
-
-
-
-#Panel B
-indir_ES_z_score<-read.csv("Data/z_score_ind_ES_CP.csv", sep =",") %>% rename ("services" = "services_to") %>%
-  mutate(management = ifelse(management == "IM", "IN", management))
-
-# Prepare dataframe
-z_score_ind<- indir_ES_z_score %>% select(management,services,z,signif)
-
-#Add row showing the extensice and bird watching and seed dispersal for IN (all birds went extinct so there were no z scores)
-sd_bw<-data.frame(management = c("E","E","E","E","E","E","E"), 
-                  services = c("Bird watching", "Butterfly watching", 
-                               "Crop damage", "Crop production","Pest control",
-                               "Pollination", "Seed dispersal"),
-                  z = c(NaN,NaN,NaN,NaN,NaN,NaN,NaN),
-                  signif = c("Benchmark","Benchmark","Benchmark","Benchmark",
-                             "Benchmark","Benchmark","Benchmark"))
-
-z_score_tot<- rbind (z_score_ind, sd_bw) %>% rename("Output" = "signif")
-
-z_score_tot$management <- factor(z_score_tot$management, levels = c("E", "SE", "M", "SI","I","IN")) #change order of factors
-z_score_tot$services <- factor(z_score_tot$services, levels = c("Seed dispersal", "Pollination","Pest control",
-                                                                "Crop production", "Crop damage",
-                                                                "Butterfly watching","Bird watching"))
-
-#Plot
-indir_ES_z_score<- indir_ES_z_score %>% rename("Output" = "signif")
-
-color_services <-tibble(
-  services = rev(levels(z_score_tot$services)),
-  color = c('#1b9e77','#d95f02','#7570b3','#e7298a','#2c7fb8','#e6ab02','#a6761d'))
-
-
-Panel_B<- ggplot(z_score_tot, aes(management, services, fill= Output)) + 
-  geom_tile(color = "black")+
-  scale_fill_manual(values = c("dodgerblue3","red","ivory1","ivory1"),
-                    labels = c("Greater than random",
-                               "Lower than random", 
-                               "No difference",
-                               "Benchmark"))+
-  labs(x='Management', y="Ecosystem services (ES)")+
-  theme(panel.background = element_rect(fill = "white"),
-        panel.border = element_rect(color = "black",fill = NA,size = 1),
-        panel.spacing = unit(0.5, "cm", data = NULL),
-        panel.grid.major = element_blank(),  # Remove major grid lines
-        panel.grid.minor = element_blank(),
-        axis.text.y = element_text(size=10,  
-                                   color = color_services$color[match(levels(z_score_tot$services), color_services$services)], face = "bold"),
-        axis.text = element_text(size=12, color='black'),
-        axis.title = element_text(size=15, color='black'),
-        axis.line = element_blank(),
-        legend.title =  element_text(size = 11, color = "black"),
-        legend.text = element_text(size = 9),
-        legend.position = "bottom", 
-        legend.box = "vertical",
-        legend.box.margin = margin(t = 5, r = 1, b = 5, l = 5),  # Add margin around the legend box
-        legend.margin = margin(t = 5, r = 1, b = 5, l = 5),
-        legend.key.height = unit(0.6, "cm"),  # Reduce the height of the legend keys
-        legend.key.width = unit(0.6, "cm"))+    # Optionally reduce the width of the legend keys) 
-  guides(fill = guide_legend(title.position = "top", title.hjust = 0.5, nrow = 2))+
-  geom_segment(data = filter(z_score_tot, Output == "Benchmark"),
-               aes(x = as.numeric(management) - 0.5, 
-                   y = as.numeric(services) - 0.5, 
-                   xend = as.numeric(management) + 0.5, 
-                   yend = as.numeric(services) + 0.5), 
-               color = "black", size = 0.5)  +
-  geom_text(data = filter(indir_ES_z_score, Output %in% c("below","above")),
-            aes(label = round(ind_shuff_mean,3)),  # Display the mean value at the top
-            size = 3.5, color = "black", vjust = -0.5) +  # Adjust vjust to move the text higher
-  geom_text(data = filter(indir_ES_z_score,Output %in% c("below","above")),
-            aes(label = paste0("(", round(ind_shuff_sd,3),")")),  # Display the sd value at the bottom
-            size = 3, color = "black", vjust = 1.5)
-
-Panel_B
-
-
-# Figure 5 (all panels together). Put manually the figures of the farms
-pdf("Graphs/Figure_5_pre_final.pdf", width = 9, height = 5)
-upper_row<- plot_grid(Panel_A + theme(plot.margin = unit(c(0.8,0.1, 0.1,0.1), "cm")),
-                      Panel_B + theme(plot.margin = unit(c(0.8,0.1,0.1,0.5), "cm")), 
-                      ncol = 2, labels = c('(A)', "(B)"),
-                      label_x = c(-0.02, 0),# Adjust the position of the labels (A, B)
-                      rel_widths = c(0.9, 1.1), # Panel A is 90% of its size and Panel B is 110%
-                      align = "h",  # Aligns panels vertically
-                      axis = "b"# Aligns both top and bottom axes
-)
-upper_row
-
-dev.off()
-
-
-
-
-##############  --  Figure 6
-#Panel (A): Indirect effects on ES (general pattern). Panel (B): Top 5. Because of
+#Panel (A): Indirect effects on NCP (general pattern). Panel (B): Top 5. Because of
 #the circular plot. We should do it manually.
 
 
@@ -475,7 +481,7 @@ dev.off()
 short_path_land_change<-read.csv("Data/Land_use_shortpath.csv", row.names = 1) 
 
 short_path_land_change_ave<- short_path_land_change %>% group_by(management,node_id) %>% 
-  mutate(short_path_ave = mean(short_ave)) %>% select(-services, - short_ave) %>% unique() %>%  #calculate average short path of each species to all ES in each habitat management
+  mutate(short_path_ave = mean(short_ave)) %>% select(-services, - short_ave) %>% unique() %>%  #calculate average short path of each species to all NCP in each habitat management
   mutate(taxon = str_replace(taxon, "Flower-visiting", "Flower visitor"))
 
 ave_management_taxon<-short_path_land_change_ave %>% group_by(management,taxon) %>% 
@@ -531,7 +537,7 @@ dev.off()
 
 ## Prepare and arrange dataframe
 
-# Check the 5 most important species per trophic group in Extensive
+# Check the 5 most important species per trophic group in Extensive (functional modulators)
 top_5_taxon_extensive<-short_path_land_change_ave %>%
   filter(management == "E") %>% group_by(management, taxon) %>% 
   arrange(short_path_ave) %>% # Arrange by short_path_ave within each group

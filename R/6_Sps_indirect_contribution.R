@@ -1,6 +1,8 @@
-#In this code, we estimate the indirect contribution of species to ecosystem service (ES) provision in each land management
-#type using the shortest path. Additionally, we test how land conversion affects the indirect contribution of core 
-#species to ES.
+#In this code, we estimate the indirect contribution of species to NCP provision in each land management
+#type using the shortest path. Additionally, we test how land conversion affects the indirect contribution of functional modulators 
+#species to NCP
+
+#In the files, the term “ES” refers to “NCP”
 
 
 ## -- Load libraries --------------------------------------------------------------------------------------------------------
@@ -121,7 +123,7 @@ short_path_land_change<-read.csv("Data/Land_use_shortpath.csv", row.names = 1)
 
 ##### 1. Test if land use change affect the average indirect important of species
 
-## Calculate average short path of each species to all ES in each habitat management
+## Calculate average short path of each species to all NCP in each habitat management
 short_path_land_change_ave<- short_path_land_change %>% group_by(management,node_id) %>% 
                             mutate(short_path_ave = mean(short_ave)) %>% select(-services, - short_ave) %>% unique()
 
@@ -161,9 +163,9 @@ boxplot(E1_lme~short_path_land_change_ave$management, main="Management")
 
 
 
-##### 2. Test if the indirect role of core species per trophic group (extensive) change across land conversion
+##### 2. Test if the indirect role of functional modulators per trophic group (extensive) change across land conversion
 
-## Identify the 5 most important species per trophic group in the extensive scenario
+## Identify the 5 most important species per trophic group in the extensive scenario (functional modulators)
 top_5_taxon_extensive<-short_path_land_change_ave %>%
   filter(management == "E") %>% group_by(management, taxon) %>% 
   arrange(short_path_ave) %>% # Arrange by short_path_ave within each group

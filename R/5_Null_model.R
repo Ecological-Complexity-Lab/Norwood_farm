@@ -1,6 +1,8 @@
 # In this code, we develop a null model where the same number of species are removed during land conversion as in
-# the original simulation, but randomly. This helps disentangle whether the observed ecosystem service (ES) loss
+# the original simulation, but randomly. This helps disentangle whether the observed NCP loss
 # patterns are driven by the number of species that go extinct or by their specific identities.
+
+#In the files, the term “ES” refers to “NCP” and “1 hop” and “2 hop” indicate first-order and second-order pathways, respectively.
 
 
 ## -- Load libraries --------------------------------------------------------------------------------------------------------
@@ -764,12 +766,12 @@ sps_removed_sim<-rbind(SE_sim,M_sim,SI_sim,I_sim,IM_sim)
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#             ESTIMATION OF DIRECT ES PROVISION AND INDIRECT EFFECT ON ES                
+#             ESTIMATION OF NCP PROVISION AND INDIRECT EFFECT ON NCP                
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # For each shuffled network, we calculate the same variables as we did in the empirical network
 
 
-############# 1. Calculate direct ES provision 
+############# 1. Calculate NCP provision 
 
 state_node_sim<-read.csv("Data/state_node_sim_CP.csv", sep =,) #load state_node_list
 body_mass<-read.csv("Data/biomass.csv",header=T)  #load species' biomass dataframe
@@ -780,20 +782,20 @@ nodes_ES<- right_join(state_node_sim, Norwood_farm$nodes, by = "node_id")%>%
   select(management,iteration,node_id,taxon.x,abun, "Crop production",
          "Pollination", "Crop damage", "Pest control", "Seed dispersal", "Butterfly watching", "Bird watching") %>% 
       group_by(management, iteration, node_id) %>% rename("taxon" = "taxon.x") %>% 
-  gather("services","value", 6:12) #we conserve species that not directly provide ES because can serve as intermediate hop 
+  gather("services","value", 6:12) #we conserve species that not directly provide NCP because can serve as intermediate hop 
 
 
 
-############# 2.  Estimate the amount of direct ES provision per species
+############# 2.  Estimate the amount of NCP provision per species
 
-#The equation to estimate the amount will change according to the type of ES.
+#The equation to estimate the amount will change according to the type of NCP.
 #For bird watching and butterfly watching is just the abundance. For the rest is the product between abundance and biomass
 
 direct_ES <- nodes_ES %>% filter (value ==1) %>% 
   left_join(body_mass,by = "node_id") %>% select(-node_name,-taxon.y) %>% 
   rename("taxon"="taxon.x", "body_mass" = "biomass.g") %>% 
   mutate (type = "D",
-          weight = abun * body_mass) %>% #amount of direct ES provision for 
+          weight = abun * body_mass) %>% #amount of NCP provision 
   select(-value) 
 
 
@@ -802,21 +804,21 @@ direct_ES <- nodes_ES %>% filter (value ==1) %>%
 
 
 
-############# 3. Estimate indirect effects of species on ES provision  
+############# 3. Estimate indirect effects of species on NCP provision  
 
 ### --  Prepare dataframe
 
-# Full list nodes with ES in the network (considering those that provide and not provide direct ES)
+# Full list nodes with NCP in the network (considering those that provide and not provide NCP)
 list_nodes_ES_provi<-nodes_ES %>% ungroup() %>% select(-management,-iteration,-abun) %>%
   filter (value ==1) %>% unique ()# list of nodes that provide E(D)S
 
 list_nodes_ES_no_provi<-nodes_ES %>% ungroup() %>% select(-management,-iteration,-abun,-services) %>% unique() %>% 
                     group_by(node_id) %>% mutate(tot_serv = sum(value)) %>% select(-value) %>% 
-                    filter(tot_serv == 0) %>% mutate(services = "None", value = 1) %>% # filter species that not directly provide any E(D)s and assign them as None
+                    filter(tot_serv == 0) %>% mutate(services = "None", value = 1) %>% # filter species that not directly provide any NCP and assign them as None
                     select(-tot_serv)
 
 
-list_nodes_ES<-rbind(list_nodes_ES_provi,list_nodes_ES_no_provi) #Total list of nodes with ES (with None)
+list_nodes_ES<-rbind(list_nodes_ES_provi,list_nodes_ES_no_provi) #Total list of nodes with NCP (with None)
 
 
 # Add attributes of nodes in the edgelist
@@ -843,7 +845,7 @@ edgelist_final<-edgelist_final[,c(1,2,3,5,6,4,7,8)]
 
 
 
-### --  Calculate first order indirect effects  on ES (considering 1 hop: node-node)
+### --  Calculate 1st order pathway of indirect effects on NCP (considering 1 hop: node-node)
 
 Indirect_1hop_sim<-edgelist_final %>% 
                   select(management,iteration,services_from,node_from,node_to,taxon_from, services_to) %>% 
@@ -861,12 +863,12 @@ int_without<-Indirect_1hop_sim %>% filter(!(taxon_from == "Butterfly" |
                                                          taxon_from == "Seed-feeding bird")) #eliminate the interactions containing node_from =birds or butterflies from the original dataframe
 
 
-Indirect_1hop_sim_2<-rbind(rows_birds_butt,int_without)#final dataframe containing indirect effects on ES via 1 hop
+Indirect_1hop_sim_2<-rbind(rows_birds_butt,int_without)#final dataframe containing indirect effects on NCP via 1 hop
 
 #write.csv(Indirect_1hop_sim_2,"Data/ind_1hop_sim_CP.csv", row.names= FALSE) #3 (Intermediate file)
 
 
-### --  Calculate second order indirect effects  on E(D)S (considering 2 hops: node 1 - node 2 - node 3, effect of node 1 on node 3'E(D)S via node 2)
+### --  Calculate 2nd order pathways of indirect effects on NCP (considering 2 hops: node 1 - node 2 - node 3, effect of node 1 on node 3'NCP via node 2)
 
 Indirect_1hop<-read.csv("Data/ind_1hop_sim_CP.csv",
                         sep =",") #load dataframe of indirect effects using 1 hop
@@ -881,7 +883,7 @@ ind_row <- function(df, row) { #for the row
   
   df %>% 
     filter(node_from == j, node_to != df$node_from[row],  #filter to avoid counting the interaction from node 2 to node 1 because the edgelist is directed 
-           iteration == k, management == l, services_to != "None") %>% # Filter dataframe (filter node 3's ES affected by node 2)
+           iteration == k, management == l, services_to != "None") %>% # Filter dataframe (filter node 3's NCP affected by node 2)
     mutate(node_id = df$node_from[row], #create dataframe to store
            node_int = j,
            taxon_from = df$taxon_from[row],
@@ -916,7 +918,7 @@ ind_row <- function(df, row) { #for the row
   
   df %>% 
     dplyr::filter(node_from == j, node_to != df$node_from[row],  #filter to avoid counting the interaction from node 2 to node 1 because the edgelist is directed 
-                  iteration == k, management == l) %>% # Filter dataframe (filter node 3's ES affected by node 2)
+                  iteration == k, management == l) %>% # Filter dataframe (filter node 3's NCP affected by node 2)
     mutate(node_id = df$node_from[row], #create dataframe to store
            node_int = j,
            taxon_from = df$taxon_from[row],
@@ -950,13 +952,13 @@ Ind_2hop_sim<-rbind(E_ind_2, SE_ind_2_300,SE_ind_2_500,M_ind_2_300,M_ind_2_500,
                     SI_ind_2_300,SI_ind_2_500,I_ind_2_300,I_ind_2_500,IM_ind_2_500 ) 
 
 
-# Join both 1 and 2 hops indirect effects dataframes
+# Join both 1st and 2nd order indirect effects dataframes
 ite =1:500
 Indirect_1hop<-read.csv("Data/ind_1hop_sim_CP.csv", sep =",") %>% 
   filter((iteration == "Emp" | iteration%in%ite) & services_to != "None")
 
 
-# 1 hop
+# 1st
 Indirect_1hop_sim<-Indirect_1hop %>%  rename("services" ="services_from",
                                              "node_id" = "node_from",
                                              "taxon" = "taxon_from") %>% 
@@ -965,10 +967,10 @@ Indirect_1hop_sim<-Indirect_1hop %>%  rename("services" ="services_from",
 Indirect_1hop_sim<-Indirect_1hop_sim[,c(1,2,4,6,3,10,5,7,9,8)]
 
 
-# 2 hop
+# 2nd
 Indirect_2hop_sim2<-Ind_2hop_sim %>% rename("taxon" = "taxon_from")
 
-#  Indirect effect of ES (E,SE,M,SI,I,IN)
+#  Indirect effect on NCP (E,SE,M,SI,I,IN)
 I_ES_sim <- rbind(Indirect_1hop_sim,Indirect_2hop_sim2) %>% filter(services_to !="None")
 
 #write.csv(I_ES_sim,"Data/Indirect_ES_sim_CP.csv", row.names= FALSE) (Intermediate file)
@@ -983,12 +985,12 @@ I_ES_sim <- rbind(Indirect_1hop_sim,Indirect_2hop_sim2) %>% filter(services_to !
 
 ################### Z - SCORE
 
-# In this analysis, we compare the z-score to check if the response variables (Prop. Direct ES retained,
-#relative change in the amount, and proportion of Indirect ES retained) within each management and ES change between
+# In this analysis, we compare the z-score to check if the response variables (Prop. of NCP providers retained,
+#relative change in the amount of NCP, and proportion of indirect effects on NCP provision retained) within each management and NCP change between
 #the converted and randomized networks
 
 
-#### 1. Proportion of direct ES retained across land use change --
+#### 1. Proportion of NCP providers retained across land use change --
 
 #upload and prepare dataframe
 ite = 1:500
@@ -1039,7 +1041,7 @@ dir_ES_z_score %<>%
 
 
 
-#### 2. Change in the amount of direct ES provided change across land use change --
+#### 2. Change in the amount of NCP across land use change --
 
 ### upload and prepare dataframe
 
@@ -1059,7 +1061,7 @@ Prop_weight_watching<-  direct_ES_emp %>% group_by(management,services) %>%
     services == "Butterfly watching"~ 6903),
     ratio_change = tot / Extensive_tot)  
 
-#amount the rest ESs
+#amount the rest NCPs
 tot_services_emp_rest<-direct_ES_emp %>% filter(management=="E" &  !(services == "Bird watching" | services == "Butterfly watching" )) %>% 
   group_by(management,services) %>% 
   summarize(tot_empirical_amount = sum(weight))
@@ -1089,7 +1091,7 @@ amount_shuff_watch <- direct_ES_sim %>% filter (management !="E") %>%
   left_join(amount_obs[,c(1,2,4)], by = c("management", "services"), suffix = c("", "_extensive")) %>%
   mutate(ratio_change = tot_sim_amount / Extensive_tot)
 
-#Amount of the rest Es
+#Amount of the rest of NCPs
 amount_shuff_rest <- direct_ES_sim %>% filter (management !="E") %>% 
   filter(!(services == "Bird watching" | services == "Butterfly watching" )) %>%
   group_by(management,iteration,services) %>% 
@@ -1119,7 +1121,7 @@ amount_ES_z_score %<>%
 
 
 
-#### 3. Proportion of indirect effects on ES retained across land use change --
+#### 3. Proportion of indirect effects on NCP provision retained across land use change --
 
 #upload and prepare dataframe
 output_ind_ES<- read.csv("Data/Indirect_ES_sim_CP.csv", sep =",")
@@ -1134,7 +1136,7 @@ indirect_obs<-output_ind_ES_emp  %>%
   group_by(management,services_to) %>% 
   mutate(tot = n()) %>% ungroup() %>%  
   group_by(services_to) %>% 
-  mutate(prop = tot/max(tot)) %>%  #prop of indirect effects on ES retained in the empirical
+  mutate(prop = tot/max(tot)) %>%  #prop of indirect effects on NCP provision retained in the empirical
   dplyr::select(management,services_to,tot,prop) %>%
   unique() %>% rename("Prop_mean" = "prop") %>% filter(management !="E")
 
@@ -1152,7 +1154,7 @@ indirect_shuff<- output_ind_ES %>% filter(!(iteration == "Emp" & management =="E
            services_to == "Butterfly watching"~ 3515,
            services_to == "Bird watching"~ 5820 )) %>% ungroup() %>%  
   group_by(services_to) %>% 
-  mutate(Prop_mean = tot/tot_emp) %>%  #prop of indirect effects of species on ES retained across habitat management per iteration and habitat management
+  mutate(Prop_mean = tot/tot_emp) %>%  #prop of indirect effects of species on NCP provision retained across habitat management per iteration and habitat management
   dplyr::select(management,iteration,services_to,Prop_mean) %>% 
   unique() 
 
