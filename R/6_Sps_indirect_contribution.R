@@ -12,8 +12,8 @@ library(tidyverse)
 library(emln)
 
 ## -- get_data--------------------------------------------------------------------------------------------------------
-setwd("/Users/agustin/Desktop/Papers/Norwood_farm/Norwood_Tinio") #set directory
-
+#setwd("/Users/agustin/Desktop/Papers/Norwood_farm/Norwood_Tinio") #set directory
+setwd("/Users/agustinvitali/Desktop/Work/Papers/In_prep/Norwood_Farm/GitHub/Norwood_farm")
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #                   SHORT-PATH ESTIMATION                  
@@ -28,7 +28,7 @@ nodes<- Norwood_farm$nodes %>% #list of nodes with attributes
         filter(value>0)
 
 # Upload edge list of each management scenario
-edge_list<- read.csv("Data/Land_use_edgelist.csv", sep = ",")
+edge_list<- read.csv("Data/Land_use_edgelist_M1.csv", sep = ",")
 
 
 ####### 2. Estimate the shortest path
@@ -109,7 +109,7 @@ species_shortpath_fin<- species_shortpath %>%
                     left_join(Norwood_farm$nodes, by = "node_id", relationship = "many-to-many") %>%  #add name of species and taxon of species
                     select(management,node_id,node_name,taxon,services,short_ave)
 
-#write.csv(species_shortpath_fin, "Data/Land_use_shortpath.csv")
+#write.csv(species_shortpath_fin, "Data/Land_use_shortpath_M1.csv")
 
 
 
@@ -118,7 +118,7 @@ species_shortpath_fin<- species_shortpath %>%
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ### upload dataframe
-short_path_land_change<-read.csv("Data/Land_use_shortpath.csv", row.names = 1) 
+short_path_land_change<-read.csv("Data/Land_use_shortpath_M1.csv", row.names = 1) 
 
 
 ##### 1. Test if land use change affect the average indirect important of species
@@ -133,7 +133,7 @@ library(glmmTMB)
 library(emmeans)
 library(car)
 
-short<- glmmTMB(short_path_ave~management + taxon, 
+short<- glmmTMB(short_path_ave~management+taxon, 
                   family = Gamma(link = "log"), data = short_path_land_change_ave) # model that best fit
 
 Anova(short)
@@ -177,7 +177,7 @@ top_5_average<- short_path_land_change_ave %>%filter(node_id%in%top_5_taxon_exte
 
 
 ## Model
-top_5<- glmmTMB(short_path_ave~management+ taxon+(1|node_id), 
+top_5<- glmmTMB(short_path_ave~management+taxon+(1|node_id), 
                     family = Gamma(link = "log"), data = top_5_average) #best model
 
 Anova(top_5)
