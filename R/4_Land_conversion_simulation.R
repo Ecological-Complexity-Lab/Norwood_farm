@@ -1,40 +1,46 @@
 # In this code, we simulate land conversion, creating different land management scenarios (see list in the main manuscript)
 
+# The file has three sections: 1) Land conversion, 2) Estimation of NCP contributions, 3) Statistical analysis
+
+# 1) LAND CONVERSION
 # To create the different management scenarios we:
 
-# 1) Assign species abundances as state nodes attributes of the extensive Norwood farm (nodes’ abundances per each habitat)
+# a) Assign species abundances as state nodes attributes of the extensive Norwood farm (nodes’ abundances per each habitat)
 
-# 2) Change the habitats to “CP” but modifying the abundance of each species 
-#according to the area (removing population below 1 individual)
+# b) Change the habitats to “CP” but modifying the abundance of each species  according to the area (removing population below 1 individual). Species from a replaced habitat can persist in the new CP habitat through 
+#two mechanisms: Mechanism 1 (rewiring), where a species keeps a reduced abundance in CP if at least one of its resources is still viable there; and  Mechanism 2 (rescue), where individuals not retained by rewiring 
+#disperse into the remaining habitats, increasing the abundance of species already present there.
 
-# 3) Aggregate the habitats to create the Norwood farm network. During this step, 
-# we pooled the abundances of the same species across habitats. 
+# c) Aggregate the habitats to create the Norwood farm network. During this step we pooled the abundances of the same species across habitats. 
 
-# We then estimate the provision of Nature's Contributions to People (NCP) and 1st and 2nd order of indirect effects on NCP provision for each land management scenario and calculate
-# the proportion of NCP providers retained, the proportion of indirect effects on ES provision, and the relative change in 
-# the amount of NCP provision after converting an extensive farm into each scenario. Finally, we conduct statistical analyses to 
-# assess these changes.
+# 2) ESTIMATION OF NCP CONTRIBUTIONS
+# We estimate the amount of NCP provided by each species, and the 1st/2nd order indirect effects on NCP, for each land management scenario.
+
+# 3) STATISTICAL ANALYSIS
+# From these, we calculate: the proportion of NCP providers retained, the proportion of indirect effects on NCP retained, and the relative change in the amount of NCP provided, all relative to the extensive farm. 
+# We then run statistical analyses on each of these three metrics. 
 
 #In the files, the term “ES” refers to “NCP” and “1 hop” and “2 hop” indicate first-order and second-order pathways, respectively.
 
+
 ## -- Load libraries --------------------------------------------------------------------------------------------------------
-library(emln) # multilayer package
+library(emln) 
 library(readr)
 library(ggplot2)
 library(tidyverse)
 
 ## -- get_data--------------------------------------------------------------------------------------------------------
-setwd("/Users/agustin/Desktop/Papers/Norwood_farm/Norwood_Tinio")
-
+#setwd("/Users/agustin/Desktop/Papers/Norwood_farm/Norwood_Tinio")
+setwd("/Users/agustinvitali/Desktop/Work/Papers/In_prep/Norwood_Farm/GitHub/Norwood_farm")
+source("R/functions.R") #call functions file
 
 ######### --- Upload multilayer network
 Norwood_farm<-readRDS("Data/Norwood_farm.RData") #read multilayer object
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#                   LAND-USE CHANGE SIMULATION                    
+#                   1. LAND-USE CHANGE SIMULATION                    
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 
 ########## -- Rearrange dataframe to include species abundance and habitats' area
 
@@ -47,6 +53,20 @@ state_nodes_ab<-Norwood_farm$state_nodes %>% left_join(abundances,
   left_join(Norwood_farm$nodes, by = "node_id") %>% 
   select(layer_id,node_id,abundance, taxon) ##add taxon
 
+abundances_CP<-state_nodes_ab %>% filter(layer_id ==1) #abundances of species in CP
+
+
+########## -- Mechanism 1 — Rewiring (baseline computation)
+metaweb <- Norwood_farm$extended_ids %>% select(node_from, node_to) %>% unique()
+
+# Fixed denominator (never changes)
+total_resources_baseline <- Norwood_farm$extended_ids %>%
+  group_by(node_to) %>%
+  summarise(total_interactions = n()) %>%
+  rename("node_id" = "node_to")
+
+# Species present in CP (grows with each conversion scenario)
+species_in_CP <- abundances_CP %>% pull(node_id) %>% unique()
 
 ## Call dataframe of habitats' area
 areas<-read.csv("Data/Raw_data/habitatarea.csv", sep =",") %>% # LU as CP already merged
@@ -67,7 +87,6 @@ habitat_area <- areas %>% mutate(area_ave = case_when(
 Norwood_farm$extended_ids<- select(Norwood_farm$extended_ids,-weight) #remove weight (dummy variable) used in previous version
 
 ##### -- Extensive
-
 extensive_edgelist<- Norwood_farm$extended_ids %>% 
   select(-layer_to) %>% rename("habitat" = "layer_from") %>% 
   mutate(management = "E") %>% select(-habitat) %>% unique() #aggregate network
@@ -98,10 +117,10 @@ sem_ext_edgelist_rem<-sem_ext_edgelist_rem[,c(1,2,5,4,3,7,6)]
 
 # create habitats CP to replace WD and RG
 WD_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1) %>% select(-layer_to,-layer_from) %>% 
-   mutate (new_hab = 11, prev_hab = "WD", hab_cp = "CP")#links from "CP" to add as new habitat (12)
+   mutate (new_hab = 11, prev_hab = "WD", hab_cp = "CP")#links from "CP" to add as new habitat (11)
 
 RG_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1) %>% select(-layer_to,-layer_from) %>% 
-  mutate (new_hab = 12, prev_hab = "RG", hab_cp = "CP")#links from "CP" to add as new habitat (13)
+  mutate (new_hab = 12, prev_hab = "RG", hab_cp = "CP")#links from "CP" to add as new habitat (12)
 
 # calculate changes in the area between CP and the habitat to replace 
 converted_area<-rbind(WD_CP, RG_CP) %>% left_join(habitat_area, 
@@ -112,10 +131,7 @@ converted_area<-rbind(WD_CP, RG_CP) %>% left_join(habitat_area,
   mutate(mult_ab = (area_prev_hab/area_CP)) %>% #multiplied abundances of CP for this value (to estimate according to the new habitat)
   select(-prev_hab,-hab_cp,-area_prev_hab,-area_CP)#clean dataframe
 
-
 # add abundances and modify it according to the new area
-abundances_CP<-state_nodes_ab %>% filter(layer_id ==1)#filter species abundances to show just layer CP
-
 new_habitats_ab<-converted_area %>%  
   left_join(abundances_CP, by = c("node_from" = "node_id")) %>%  #incorporate abundances and taxa of node_from
   left_join(abundances_CP, by = c("node_to" = "node_id")) %>%  #incorporate abundances and taxa of nodes_to
@@ -126,11 +142,62 @@ new_habitats_ab<-converted_area %>%
   select(new_hab,node_from,ab_node_from,taxon_node_from,node_to,ab_node_to,
          taxon_node_to) %>% rename ("habitat" = "new_hab") #clean to match the rest of farm edgelist
 
-# remove interaction where a partner have less than 1 indidivual (threshold)
-new_habitats_ab_rem<- new_habitats_ab %>% filter(ab_node_from >=1 & ab_node_to >=1)
+
+## -- Apply Mechanism 1 (rewiring) for WD (layer 8 → hab 11) and RG (layer 10 → hab 12)
+new_habitats_ab <- apply_rewiring(new_habitats_ab,
+                                  replaced_layer_ids = c(8, 10),
+                                  hab_id_map = c("8" = 11, "10" = 12),
+                                  state_nodes_ab, total_resources_baseline, 
+                                  species_in_CP, abundances_CP, metaweb)
+
+# Remove interactions where a partner has less than 1 individual
+new_habitats_ab_rem <- new_habitats_ab %>% filter(ab_node_from >= 1 & ab_node_to >= 1)
+
+# Update species_in_CP with species rewired into new CP habitats
+species_rewired_into_CP <- new_habitats_ab_rem %>%
+  filter(habitat %in% c(11, 12)) %>%
+  filter(!node_to %in% (abundances_CP %>% pull(node_id))) %>%
+  pull(node_to) %>% unique()
+
+species_in_CP <- union(species_in_CP, species_rewired_into_CP)
+
+## -- Apply Mechanism 2 (rescue) — dispersal from WD/RG to remaining habitats
+rescue_SE <- apply_rescue(
+  replaced_layer_ids   = c(8, 10),
+  hab_id_map           = c("8" = 11, "10" = 12),
+  new_habitats_ab_rem  = new_habitats_ab_rem,
+  state_nodes_ab       = state_nodes_ab,
+  destination_edgelist = sem_ext_edgelist_rem,
+  metaweb              = metaweb
+)
+
+# Add newly established species (new to destination) to remaining habitats edge list
+if (!is.null(rescue_SE$rescue_edges)) {
+  sem_ext_edgelist_rem <- rbind(sem_ext_edgelist_rem, rescue_SE$rescue_edges)
+}
+
+# Update abundances of species already present in destination that receive rescue individuals
+# Aggregate first to avoid double-counting species present in multiple replaced habitats
+if (!is.null(rescue_SE$ab_increments)) {
+  incr_to <- rescue_SE$ab_increments %>%
+    group_by(habitat, node_id) %>%
+    summarise(ab_increment = sum(ab_increment), .groups = "drop") %>%
+    rename(node_to = node_id, ab_incr = ab_increment)
+  
+  incr_from <- rescue_SE$ab_increments %>%
+    group_by(habitat, node_id) %>%
+    summarise(ab_increment = sum(ab_increment), .groups = "drop") %>%
+    rename(node_from = node_id, ab_incr = ab_increment)
+  
+  sem_ext_edgelist_rem <- sem_ext_edgelist_rem %>%
+    left_join(incr_to,   by = c("habitat", "node_to"),   relationship = "many-to-many") %>%
+    mutate(ab_node_to   = ab_node_to   + replace_na(ab_incr, 0)) %>% select(-ab_incr) %>%
+    left_join(incr_from, by = c("habitat", "node_from"),  relationship = "many-to-many") %>%
+    mutate(ab_node_from = ab_node_from + replace_na(ab_incr, 0)) %>% select(-ab_incr)
+}
+
 
 ## -- create dataframe indicating node id of species in the new habitat
-
 # species in the new habitat
 sp_WD_RG <- new_habitats_ab_rem %>%select(habitat,node_from,node_to) %>% group_by(habitat) %>% 
             gather("type","node_id",2:3) %>% select(habitat, node_id) %>% unique() %>% 
@@ -154,7 +221,8 @@ state_node_sem_ext_to<- sem_ext_edgelist_no_aggr %>% select(habitat,node_to,ab_n
                                                         taxon_node_to) %>% 
   rename("node_id" ="node_to", "abundances" = "ab_node_to",
          "taxon" = "taxon_node_to") %>% 
-  group_by(habitat,node_id) %>% unique() #eliminate duplicate species within each habitat
+  group_by(habitat, node_id) %>%
+  unique()
 
 
 # final state nodes (calculate abundance of species)
@@ -170,11 +238,11 @@ sem_ext_edgelist_aggr<-sem_ext_edgelist_no_aggr %>% select(node_from,node_to) %>
 
 
 
+
 ##### -- Moderate (replace "WD","RG","MH"and "NH" for "CP")
 
 
 ##-- Remove habitats from norwood (the ones to replace) and incorporate abundances and taxon 
-
 mod_edgelist_rem<- Norwood_farm$extended_ids %>% 
   filter(layer_from != 8 & layer_from != 10 & layer_from != 4 & layer_from != 5) %>% #links from "WD", "RG", "MH", and "NH" removed
   select(-layer_to) %>% rename("habitat" = "layer_from") %>%   
@@ -192,10 +260,10 @@ mod_edgelist_rem<-mod_edgelist_rem[,c(1,2,5,4,3,7,6)]
 
 # create habitats CP to replace WD,RG, MH and NH (WD and RG were created before)
 MH_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1) %>% select(-layer_to,-layer_from) %>% 
-  mutate (new_hab = 13, prev_hab = "MH", hab_cp = "CP")#links from "CP" to add as new habitat (14)
+  mutate (new_hab = 13, prev_hab = "MH", hab_cp = "CP")#links from "CP" to add as new habitat (13)
 
 NH_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1) %>% select(-layer_to,-layer_from) %>% 
-  mutate (new_hab = 14, prev_hab = "NH", hab_cp = "CP")#links from "CP" to add as new habitat (15)
+  mutate (new_hab = 14, prev_hab = "NH", hab_cp = "CP")#links from "CP" to add as new habitat (14)
 
 # calculate changes in the area between CP and the habitat to replace 
 converted_area<-rbind(WD_CP, RG_CP, MH_CP, NH_CP) %>% left_join(habitat_area, 
@@ -208,8 +276,6 @@ converted_area<-rbind(WD_CP, RG_CP, MH_CP, NH_CP) %>% left_join(habitat_area,
 
 
 # add abundances and modify them according to the new area
-abundances_CP<-state_nodes_ab %>% filter(layer_id ==1)#filter species abundances to show just layer CP
-
 new_habitats_ab<-converted_area %>%  
   left_join(abundances_CP, by = c("node_from" = "node_id")) %>%  #incorporate abundances and taxa of node_from
   left_join(abundances_CP, by = c("node_to" = "node_id")) %>%  #incorporate abundances and taxa of nodes_to
@@ -220,9 +286,52 @@ new_habitats_ab<-converted_area %>%
   select(new_hab,node_from,ab_node_from,taxon_node_from,node_to,ab_node_to,
          taxon_node_to) %>% rename ("habitat" = "new_hab") #clean to match the rest of farm edgelist
 
-# remove interactio where one partner have less than 1 indidivual (threshold)
-new_habitats_ab_rem<- new_habitats_ab %>% filter(ab_node_from >=1 & ab_node_to >=1)
 
+## -- Apply Mechanism 1 (rewiring) for WD (layer 8 → hab 11), RG (layer 10 → hab 12), MH (layer 4 → hab 13), NH (layer 5 → hab 14)
+new_habitats_ab <- apply_rewiring(new_habitats_ab,
+                                  replaced_layer_ids = c(8, 10, 4, 5),
+                                  hab_id_map = c("8" = 11, "10" = 12, "4" = 13, "5" = 14),
+                                  state_nodes_ab, total_resources_baseline,
+                                  species_in_CP, abundances_CP, metaweb)
+
+new_habitats_ab_rem <- new_habitats_ab %>% filter(ab_node_from >= 1 & ab_node_to >= 1)
+
+species_rewired_into_CP <- new_habitats_ab_rem %>%
+  filter(habitat %in% c(11, 12, 13, 14)) %>%
+  filter(!node_to %in% (abundances_CP %>% pull(node_id))) %>%
+  pull(node_to) %>% unique()
+
+species_in_CP <- union(species_in_CP, species_rewired_into_CP)
+
+## -- Apply Mechanism 2 (rescue) — dispersal from WD/RG/MH/NH to remaining habitats
+rescue_M <- apply_rescue(
+  replaced_layer_ids   = c(8, 10, 4, 5),
+  hab_id_map           = c("8" = 11, "10" = 12, "4" = 13, "5" = 14),
+  new_habitats_ab_rem  = new_habitats_ab_rem,
+  state_nodes_ab       = state_nodes_ab,
+  destination_edgelist = mod_edgelist_rem,
+  metaweb              = metaweb
+)
+
+# Update abundances of species already present in destination that receive rescue individuals
+# Aggregate first to avoid double-counting species present in multiple replaced habitats
+if (!is.null(rescue_M$ab_increments)) {
+  incr_to <- rescue_M$ab_increments %>%
+    group_by(habitat, node_id) %>%
+    summarise(ab_increment = sum(ab_increment), .groups = "drop") %>%
+    rename(node_to = node_id, ab_incr = ab_increment)
+  
+  incr_from <- rescue_M$ab_increments %>%
+    group_by(habitat, node_id) %>%
+    summarise(ab_increment = sum(ab_increment), .groups = "drop") %>%
+    rename(node_from = node_id, ab_incr = ab_increment)
+  
+  mod_edgelist_rem <- mod_edgelist_rem %>%
+    left_join(incr_to,   by = c("habitat", "node_to"),   relationship = "many-to-many") %>%
+    mutate(ab_node_to   = ab_node_to   + replace_na(ab_incr, 0)) %>% select(-ab_incr) %>%
+    left_join(incr_from, by = c("habitat", "node_from"),  relationship = "many-to-many") %>%
+    mutate(ab_node_from = ab_node_from + replace_na(ab_incr, 0)) %>% select(-ab_incr)
+}
 
 ## -- create dataframe indicating node id of species in the new habitat
 
@@ -290,13 +399,13 @@ sem_int_edgelist_rem<-sem_int_edgelist_rem[,c(1,2,5,4,3,7,6)]
 
 # create habitats CP to replace WD,RG, MH,NH and GM (WD,RG,MH and NH were created before)
 GM_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1) %>% select(-layer_to,-layer_from) %>% 
-  mutate (new_hab = 15, prev_hab = "GM", hab_cp = "CP")#links from "CP" to add as new habitat (16)
+  mutate (new_hab = 15, prev_hab = "GM", hab_cp = "CP")#links from "CP" to add as new habitat (15)
 
 SF_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1) %>% select(-layer_to,-layer_from) %>% 
-  mutate (new_hab = 16, prev_hab = "SF", hab_cp = "CP")#links from "CP" to add as new habitat (17)
+  mutate (new_hab = 16, prev_hab = "SF", hab_cp = "CP")#links from "CP" to add as new habitat (16)
 
 PP_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1) %>% select(-layer_to,-layer_from) %>% 
-  mutate (new_hab = 17, prev_hab = "PP", hab_cp = "CP")#links from "CP" to add as new habitat (18)
+  mutate (new_hab = 17, prev_hab = "PP", hab_cp = "CP")#links from "CP" to add as new habitat (17)
 
 
 # calculate changes in the area between CP and the habitat to replace 
@@ -310,8 +419,6 @@ converted_area<-rbind(WD_CP, RG_CP, MH_CP, NH_CP, GM_CP,SF_CP,PP_CP) %>%
 
 
 # add abundances and modify them according to the new area
-abundances_CP<-state_nodes_ab %>% filter(layer_id ==1)#filter species abundances to show just layer CP
-
 new_habitats_ab<-converted_area %>%  
   left_join(abundances_CP, by = c("node_from" = "node_id")) %>%  #incorporate abundances and taxa of node_from
   left_join(abundances_CP, by = c("node_to" = "node_id")) %>%  #incorporate abundances and taxa of nodes_to
@@ -322,9 +429,54 @@ new_habitats_ab<-converted_area %>%
   select(new_hab,node_from,ab_node_from,taxon_node_from,node_to,ab_node_to,
          taxon_node_to) %>% rename ("habitat" = "new_hab") #clean to match the rest of farm edgelist
 
-# remove interaction where one partner have less than 1 indidivual (threshold)
-new_habitats_ab_rem<- new_habitats_ab %>% filter(ab_node_from >=1 & ab_node_to >=1)
+## -- Apply Mechanism 1 (rewiring) for WD (8→11), RG (10→12), MH (4→13), NH (5→14), GM (2→15), SF (9→16), PP (7→17)
+new_habitats_ab <- apply_rewiring(new_habitats_ab,
+                                  replaced_layer_ids = c(8, 10, 4, 5, 2, 9, 7),
+                                  hab_id_map = c("8" = 11, "10" = 12, "4" = 13, "5" = 14,
+                                                 "2" = 15, "9" = 16, "7" = 17),
+                                  state_nodes_ab, total_resources_baseline,
+                                  species_in_CP, abundances_CP, metaweb)
 
+new_habitats_ab_rem <- new_habitats_ab %>% filter(ab_node_from >= 1 & ab_node_to >= 1)
+
+species_rewired_into_CP <- new_habitats_ab_rem %>%
+  filter(habitat %in% c(11, 12, 13, 14, 15, 16, 17)) %>%
+  filter(!node_to %in% (abundances_CP %>% pull(node_id))) %>%
+  pull(node_to) %>% unique()
+
+species_in_CP <- union(species_in_CP, species_rewired_into_CP)
+
+
+# -- Apply Mechanism 2 (rescue) — dispersal from WD/RG/MH/NH/GM/SF/PP to remaining habitats
+rescue_SI <- apply_rescue(
+  replaced_layer_ids   = c(8, 10, 4, 5, 2, 9, 7),
+  hab_id_map           = c("8" = 11, "10" = 12, "4" = 13, "5" = 14, "2" = 15, "9" = 16, "7" = 17),
+  new_habitats_ab_rem  = new_habitats_ab_rem,
+  state_nodes_ab       = state_nodes_ab,
+  destination_edgelist = sem_int_edgelist_rem,
+  metaweb              = metaweb
+)
+
+# Update abundances of species already present in destination that receive rescue individuals
+# Aggregate first to avoid double-counting species present in multiple replaced habitats
+
+if (!is.null(rescue_SI$ab_increments)) {
+  incr_to <- rescue_SI$ab_increments %>%
+    group_by(habitat, node_id) %>%
+    summarise(ab_increment = sum(ab_increment), .groups = "drop") %>%
+    rename(node_to = node_id, ab_incr = ab_increment)
+  
+  incr_from <- rescue_SI$ab_increments %>%
+    group_by(habitat, node_id) %>%
+    summarise(ab_increment = sum(ab_increment), .groups = "drop") %>%
+    rename(node_from = node_id, ab_incr = ab_increment)
+  
+  sem_int_edgelist_rem <- sem_int_edgelist_rem %>%
+    left_join(incr_to,   by = c("habitat", "node_to"),   relationship = "many-to-many") %>%
+    mutate(ab_node_to   = ab_node_to   + replace_na(ab_incr, 0)) %>% select(-ab_incr) %>%
+    left_join(incr_from, by = c("habitat", "node_from"),  relationship = "many-to-many") %>%
+    mutate(ab_node_from = ab_node_from + replace_na(ab_incr, 0)) %>% select(-ab_incr)
+}
 
 ## -- create dataframe indicating node id of species in the new habitat
 
@@ -358,7 +510,6 @@ state_node_sem_int_to<- sem_int_edgelist_no_aggr %>% select(habitat,node_to,ab_n
 
 
 # final state nodes (calculate abundance of species)
-
 state_node_sem_int_agg<-rbind(state_node_sem_int_from, state_node_sem_int_to) %>% ungroup() %>% 
   select(-habitat) %>% group_by(node_id) %>% 
   mutate(abun = sum(abundances)) %>% distinct(abun,taxon)
@@ -396,10 +547,10 @@ int_edgelist_rem<-int_edgelist_rem[,c(1,2,5,4,3,7,6)]
 
 # create habitats CP to replace LP,LU and NL (the rest were created before)
 LP_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1) %>% select(-layer_to,-layer_from) %>% 
-  mutate (new_hab = 18, prev_hab = "LP", hab_cp = "CP")#links from "CP" to add as new habitat (19)
+  mutate (new_hab = 18, prev_hab = "LP", hab_cp = "CP")#links from "CP" to add as new habitat (18)
 
 NL_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1) %>% select(-layer_to,-layer_from) %>% 
-  mutate (new_hab = 19, prev_hab = "NL", hab_cp = "CP")#links from "CP" to add as new habitat (21)
+  mutate (new_hab = 19, prev_hab = "NL", hab_cp = "CP")#links from "CP" to add as new habitat (19)
 
 # calculate changes in the area between CP and the habitat to replace 
 converted_area<-rbind(WD_CP, RG_CP, MH_CP, NH_CP, GM_CP,SF_CP,PP_CP, LP_CP,NL_CP) %>%
@@ -412,8 +563,6 @@ converted_area<-rbind(WD_CP, RG_CP, MH_CP, NH_CP, GM_CP,SF_CP,PP_CP, LP_CP,NL_CP
 
 
 # add abundances and modify them according to the new area
-abundances_CP<-state_nodes_ab %>% filter(layer_id ==1)#filter species abundances to show just layer CP
-
 new_habitats_ab<-converted_area %>%  
   left_join(abundances_CP, by = c("node_from" = "node_id")) %>%  #incorporate abundances and taxa of node_from
   left_join(abundances_CP, by = c("node_to" = "node_id")) %>%  #incorporate abundances and taxa of nodes_to
@@ -424,12 +573,55 @@ new_habitats_ab<-converted_area %>%
   select(new_hab,node_from,ab_node_from,taxon_node_from,node_to,ab_node_to,
          taxon_node_to) %>% rename ("habitat" = "new_hab") #clean to match the rest of farm edgelist
 
-# remove interaction where one partner have less than 1 indidivual (threshold)
-new_habitats_ab_rem<- new_habitats_ab %>% filter(ab_node_from >=1 & ab_node_to >=1)
+## -- Apply Mechanism 1 (rewiring) for WD (8→11), RG (10→12), MH (4→13), NH (5→14), GM (2→15), SF (9→16), PP (7→17), LP (3→18), NL (6→19)
+new_habitats_ab <- apply_rewiring(new_habitats_ab,
+                                  replaced_layer_ids = c(8, 10, 4, 5, 2, 9, 7, 3, 6),
+                                  hab_id_map = c("8" = 11, "10" = 12, "4" = 13, "5" = 14,
+                                                 "2" = 15, "9" = 16, "7" = 17,
+                                                 "3" = 18, "6" = 19),
+                                  state_nodes_ab, total_resources_baseline,
+                                  species_in_CP, abundances_CP, metaweb)
 
+new_habitats_ab_rem <- new_habitats_ab %>% filter(ab_node_from >= 1 & ab_node_to >= 1)
 
-## -- create vector indicating species lost  of each trophic group when transforming to CP
+species_rewired_into_CP <- new_habitats_ab_rem %>%
+  filter(habitat %in% c(11, 12, 13, 14, 15, 16, 17, 18, 19)) %>%
+  filter(!node_to %in% (abundances_CP %>% pull(node_id))) %>%
+  pull(node_to) %>% unique()
 
+species_in_CP <- union(species_in_CP, species_rewired_into_CP)
+
+## -- Apply Mechanism 2 (rescue) — dispersal from WD/RG/MH/NH/GM/SF/PP/LP/NL to remaining habitats
+rescue_I <- apply_rescue(
+  replaced_layer_ids   = c(8, 10, 4, 5, 2, 9, 7, 3, 6),
+  hab_id_map           = c("8" = 11, "10" = 12, "4" = 13, "5" = 14, "2" = 15, "9" = 16, "7" = 17, "3" = 18, "6" = 19),
+  new_habitats_ab_rem  = new_habitats_ab_rem,
+  state_nodes_ab       = state_nodes_ab,
+  destination_edgelist = int_edgelist_rem,
+  metaweb              = metaweb
+)
+
+# Update abundances of species already present in destination that receive rescue individuals
+# Aggregate first to avoid double-counting species present in multiple replaced habitats
+if (!is.null(rescue_I$ab_increments)) {
+  incr_to <- rescue_I$ab_increments %>%
+    group_by(habitat, node_id) %>%
+    summarise(ab_increment = sum(ab_increment), .groups = "drop") %>%
+    rename(node_to = node_id, ab_incr = ab_increment)
+  
+  incr_from <- rescue_I$ab_increments %>%
+    group_by(habitat, node_id) %>%
+    summarise(ab_increment = sum(ab_increment), .groups = "drop") %>%
+    rename(node_from = node_id, ab_incr = ab_increment)
+  
+  int_edgelist_rem <- int_edgelist_rem %>%
+    left_join(incr_to,   by = c("habitat", "node_to"),   relationship = "many-to-many") %>%
+    mutate(ab_node_to   = ab_node_to   + replace_na(ab_incr, 0)) %>% select(-ab_incr) %>%
+    left_join(incr_from, by = c("habitat", "node_from"),  relationship = "many-to-many") %>%
+    mutate(ab_node_from = ab_node_from + replace_na(ab_incr, 0)) %>% select(-ab_incr)
+}
+
+## -- create dataframe indicating node id of species in the new habitat
 #species in the new habitat
 sp_LP_NL <- new_habitats_ab_rem %>%select(habitat,node_from,node_to) %>% group_by(habitat) %>% 
   gather("type","node_id",2:3) %>% select(habitat, node_id) %>% unique() %>% 
@@ -523,12 +715,13 @@ state_node_int_mod_agg <- state_node_int_agg %>%
                                   node_id%in%int_mon_edgelist_aggr2$node_to) 
     
 
+
 ##### ---  Final dataframe
 land_change_weighted<-rbind(extensive_edgelist,sem_ext_edgelist_aggr,mod_edgelist_aggr,
                           sem_int_edgelist_aggr,int_edgelist_aggr,int_mon_edgelist_aggr2)
 
 
-#write.csv(land_change_weighted,"Data/Land_use_edgelist.csv", row.names= FALSE)
+write.csv(land_change_weighted,"Data/Land_use_edgelist_M1_M2.csv", row.names= FALSE)
 
 # final state_node list with abundances
 state_nodes_weighted_ab<-rbind(ab_ext,state_node_sem_ext_agg,
@@ -541,10 +734,13 @@ state_nodes_weighted<-cbind(management = rep(c("E","SE","M","SI","I","IN"),
                                                        nrow(state_node_int_agg), nrow(state_node_int_mod_agg))),
                                                     state_nodes_weighted_ab)
 
-#write.csv(state_nodes_weighted,"Data/Land_use_state_nodes.csv", row.names= FALSE)
+write.csv(state_nodes_weighted,"Data/Land_use_state_nodes_M1_M2.csv", row.names= FALSE)
 
 
-################## --- ESTIMATION OF NCP PROVISION AND INDIRECT EFFECT ON NCP --
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                   2. ESTIMATION OF NCP PROVISIONS AND INDIFECT EFFECTS ON NCP                    
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 ######## --  NCP provision
@@ -562,7 +758,7 @@ nodes_ES$management <- factor(nodes_ES$management, levels = c("E", "SE", "M", "S
 ####### -- Estimate the amount of NCP provision per species
 
 #The equation to estimate the amount will change according to the type of NCP.
-#For bird watching and butterfly watching is just the abundance. For the rest is the product between abundance and biomass
+#For bird and butterfly watching is just the abundance. For the rest is the product between abundance and biomass
 
 #upload file with body mass
 body_mass<-read.csv("Data/biomass.csv",header=T)
@@ -576,14 +772,13 @@ direct_ES <- nodes_ES %>% filter (value ==1) %>%
            weight = abun * body_mass) %>% #amount of NCP provision
           select(-value) 
 
-#write.csv(direct_ES,"Data/Land_use_dir_ES.csv", row.names= FALSE)
+write.csv(direct_ES,"Data/Land_use_dir_ES_M1_M2.csv", row.names= FALSE)
 
 
 ######## -- Indirect effects on NCP provision
 
 ## -- Prepare dataframe
 # Full list nodes with NCP in the network (considering those that provide and not provide NCP)
-
 list_nodes_ES_provi<-nodes_ES %>% ungroup() %>% select(-management,-abun) %>%
   filter (value ==1) %>% unique # list of nodes that provide NCP ( = no plants and ectoparasites)
 
@@ -645,7 +840,6 @@ Indirect_1hop_landuse_weighted<-data.frame(management,services_from,node_from,no
                                            type = rep("I", length(services_from))) 
 
 
-  
 # Rearrange the output
 # we remove duplicates rows where node_from = birds or butterflies cause they represent the same interaction. 
 # This happens because each row represents an attribute and these taxons have 2 and 3 attributes per node.
@@ -661,13 +855,12 @@ int_without<-Indirect_1hop_landuse_weighted %>% filter(!(taxon_from == "Butterfl
 Indirect_1hop_landuse_weighted_2<-rbind(rows_birds_butt,int_without) #final dataframe containing indirect effects on ES via 1 hop
 
 
-#write.csv(Indirect_1hop_landuse_weighted_2,"Data/Land_use_ind_1hop.csv", row.names= FALSE) (intermediate file)
+write.csv(Indirect_1hop_landuse_weighted_2,"Data/Land_use_ind_1hop_M1_M2.csv", row.names= FALSE) #(intermediate file)
 
 
 
 #### - Calculate indirect effects considering 2nd order pathways (node 1 - node 2 - node 3, effect of node 1 on node 3'NCP via node 2)
-
-Indirect_1hop <-read.csv("Data/Land_use_ind_1hop.csv",
+Indirect_1hop <-read.csv("Data/Land_use_ind_1hop_M1_M2.csv",
                         sep =",") #load dataframe of indirect effects using 1 hop
 
  
@@ -686,17 +879,18 @@ services_to = c()
 # Iterate to each row
 for (i in 1:nrow(Indirect_1hop)){ #each row represents interaction between species
   
+  # Print progress every 1000 iterations
+  if (i %% 1000 == 0) cat("Progress:", round(i / nrow(Indirect_1hop) * 100, 1), "%\n")
+  
   j = Indirect_1hop$node_to[i] # check the node_to from the 1 hop indirect effect (intermediate species: node 2 in the title)
   l = Indirect_1hop$management [i] #check management where the target species for which we are detecting indirect effects on NCP
   
   # Filter dataframe (filter node 3's NCP affected by node 2)
-  
   services_int <- Indirect_1hop %>% filter(node_from == j, #filter to show node 2
                                            node_to != Indirect_1hop$node_from[i], #filter to avoid counting the interaction from node 2 to node 1 because the edgelist is directed 
                                            management== l) %>% 
                                                 select(node_to,services_to)
   # Storage the results
-  
   services_to <- c(services_to, unlist(services_int$services_to)) # add node 3 NCP
   node_to <- c(node_to, unlist(services_int$node_to))# add identity of node 3
   node_int <- c(node_int,rep(j, nrow(services_int)))
@@ -711,10 +905,9 @@ Indirect_2hop<- data.frame(management,node_id,taxon_from,services,node_int,
                            node_to, services_to,type = rep("I", length(services_to)), hop = rep(2,length(services_to)))
 
 
-#write.csv(Indirect_2hop,"Data/Land_use_ind_2hop.csv", row.names= FALSE) (intermediate file)
+write.csv(Indirect_2hop,"Data/Land_use_ind_2hop_M1_M2.csv", row.names= FALSE) #(intermediate file)
 
-Indirect_2hop<-read.csv("Data/Land_use_ind_2hop.csv",
-                        sep =",") #load dataframe of indirect effects using 2nd order
+Indirect_2hop<-read.csv("Data/Land_use_ind_2hop_M1_M2.csv", sep =",") #load dataframe of indirect effects using 2nd order
 
 
 # Join both 1st and 2nd order indirect effects dataframes
@@ -734,19 +927,21 @@ Indirect_2hop_m<-Indirect_2hop_m[,c(1,4,2,3,5,6,7,8,9)]
 #  Total Indirect effect on NCP
 I_ES<- rbind(Indirect_1hop_m,Indirect_2hop_m)
 I_ES2<- I_ES %>%  filter(services_to != 'None')
-#write.csv(I_ES2,"Data/Land_use_ind_ES.csv")
+write.csv(I_ES2,"Data/Land_use_ind_ES_M1_M2.csv")
+
+
 
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#                         STATISTICAL ANALYSIS                     
+#                         3. STATISTICAL ANALYSIS                     
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 #### -- Proportion of NCP providers retained across land use change --
 
 #upload and prepare dataframe
-direct_ES<- read.csv("Data/Land_use_dir_ES.csv", sep =",") 
+direct_ES<- read.csv("Data/Land_use_dir_ES_M1_M2.csv", sep =",") 
 direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I","IN")) #change order of factors
 
 Prop_dir<-direct_ES %>% group_by(management,services) %>% 
@@ -770,7 +965,7 @@ library(emmeans)
 library(effects)
 library(car)
 
-Prop_dire<- glmmTMB (prop ~ management + services, family=beta_family(link="logit"), data = Prop_dir) # model that best fit
+Prop_dire<- glmmTMB (prop ~ management+services, family=beta_family(link="logit"), data = Prop_dir) # model that best fit
 Anova(Prop_dire)
 
 # Summarize the model to view coefficients
@@ -802,7 +997,7 @@ boxplot(E1_lme ~ management, data = Prop_dir, main = "Management")
 #### -- Proportion of indirect effect on NCP retained across land use change (considering 1st and 2dn order pathwyas together) --
 
 #upload and prepare dataframe
-output_ind_ES <- read.csv("Data/Land_use_ind_ES.csv", sep =",") 
+output_ind_ES <- read.csv("Data/Land_use_ind_ES_M1_M2.csv", sep =",") 
 
 output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I","IN")) #change order of factors
 
@@ -823,7 +1018,7 @@ library("glmmTMB")
 library("stats4")
 library("bbmle")
 
-Prop_indi<-glmmTMB (prop ~ management + services_to, family=beta_family(link="logit"), data = Prop_ind) #model that best fit
+Prop_indi<-glmmTMB (prop ~ management+services_to, family=beta_family(link="logit"), data = Prop_ind) #model that best fit
 Anova(Prop_indi)
 
 # Summarize the model to view coefficients
@@ -858,7 +1053,7 @@ boxplot(E1_lme ~ management, data = Prop_ind, main = "Management")
 #### -- Relative change in the amount of NCP provision after land-use change 
 
 #the equation to estimate the amount will change according to the type of NCP
-#For bird watching and butterfly watching is just the abundance. For the rest is the product between abundance and biomass (more details in the manuscript)
+#For bird and butterfly watching is just the abundance. For the rest is the product between abundance and biomass (more details in the manuscript)
 
 ## Amount Bird and butterfly watching
 extensive_amount_watching<-direct_ES %>% filter(management=="E" &  (services == "Bird watching" | services == "Butterfly watching" )) %>% 
@@ -887,7 +1082,7 @@ dir_amount<- rbind(dir_amount_watching,dir_amount_rest)
 # Model
 library(glmmTMB)
 m_amount<- glmmTMB(ratio_change ~ management+services + (1|node_id),family = Gamma(link = "log"),
-                   data = dir_amount) #the lowest AIC, interaction did not converge
+                   data = dir_amount) #model with the interaction between factors is better
 Anova(m_amount)
 
 summary(dir_amount$ratio_change)
@@ -915,6 +1110,14 @@ abline(0,0, col="red", lwd= 3)
 #independence 
 E1_lme<-resid(m_amount, type= "response") 
 boxplot(E1_lme~dir_amount$management, main="Management")
+
+
+# Posteriori test for amount:
+library(emmeans)
+
+# Management effect within each service
+emm_int <- emmeans(m_amount, ~ management | services, type = "response")
+pairs(emm_int, adjust = "tukey")
 
 
 

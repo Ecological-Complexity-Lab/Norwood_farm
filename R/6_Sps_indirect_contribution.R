@@ -1,6 +1,7 @@
-#In this code, we estimate the indirect contribution of species to NCP provision in each land management
-#type using the shortest path. Additionally, we test how land conversion affects the indirect contribution of functional modulators 
-#species to NCP
+#In this code, we estimate the indirect contribution of species to NCP provision in each land management type using the shortest path. Additionally, we test how land conversion affects the indirect contribution of 
+#functional modulators species to NCP
+
+# The file has two sections: 1) Shortest-path estimation, 2) Statistical analysis
 
 #In the files, the term “ES” refers to “NCP”
 
@@ -16,7 +17,7 @@ library(emln)
 setwd("/Users/agustinvitali/Desktop/Work/Papers/In_prep/Norwood_Farm/GitHub/Norwood_farm")
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#                   SHORT-PATH ESTIMATION                  
+#                   1. SHORT-PATH ESTIMATION                  
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ####### 1. Arrange dataframe
@@ -28,7 +29,7 @@ nodes<- Norwood_farm$nodes %>% #list of nodes with attributes
         filter(value>0)
 
 # Upload edge list of each management scenario
-edge_list<- read.csv("Data/Land_use_edgelist_M1.csv", sep = ",")
+edge_list<- read.csv("Data/Land_use_edgelist_M1_M2.csv", sep = ",")
 
 
 ####### 2. Estimate the shortest path
@@ -47,7 +48,6 @@ for (i in unique(edge_list$management)){# for each treatment
                              vertices = NULL)
   
   # Storage the results
-  list_name <- paste0(i, i) 
   network.ES[[i]] <- net.ES
 }
 
@@ -96,7 +96,7 @@ species_shortpath_raw_fin<- bind_rows(species_shortpath_raw, species_shortpath_r
 ## Add services_to to the data frame 
 short_serv<- species_shortpath_raw_fin %>% left_join(nodes, by = c("node_to" = "node_id"), relationship = "many-to-many") %>% 
               select(-node_name,-taxon,-value) %>%  
-              filter(!(is.na(services)))  #remove when node_from don't provide any dirct ES
+              filter(!(is.na(services)))  #remove when node_to don't provide any direct ES
 
  
 ## Calculate the average of shortest path according to each ecosystem services
@@ -109,19 +109,19 @@ species_shortpath_fin<- species_shortpath %>%
                     left_join(Norwood_farm$nodes, by = "node_id", relationship = "many-to-many") %>%  #add name of species and taxon of species
                     select(management,node_id,node_name,taxon,services,short_ave)
 
-#write.csv(species_shortpath_fin, "Data/Land_use_shortpath_M1.csv")
+write.csv(species_shortpath_fin, "Data/Land_use_shortpath_M1_M2.csv")
 
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#                      STATISTICAL ANALYSIS                              
+#                      2. STATISTICAL ANALYSIS                              
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ### upload dataframe
-short_path_land_change<-read.csv("Data/Land_use_shortpath_M1.csv", row.names = 1) 
+short_path_land_change<-read.csv("Data/Land_use_shortpath_M1_M2.csv", row.names = 1) 
 
 
-##### 1. Test if land use change affect the average indirect important of species
+##### 1. Test if land use change affects the average indirect important of species
 
 ## Calculate average short path of each species to all NCP in each habitat management
 short_path_land_change_ave<- short_path_land_change %>% group_by(management,node_id) %>% 
@@ -163,7 +163,7 @@ boxplot(E1_lme~short_path_land_change_ave$management, main="Management")
 
 
 
-##### 2. Test if the indirect role of functional modulators per trophic group (extensive) change across land conversion
+##### 2. Test if the indirect role of functional modulators per trophic group (extensive) changes across land conversion
 
 ## Identify the 5 most important species per trophic group in the extensive scenario (functional modulators)
 top_5_taxon_extensive<-short_path_land_change_ave %>%
@@ -205,5 +205,4 @@ abline(0,0, col="red", lwd= 3)
 #independence 
 E1_lme<-resid(top_5) 
 boxplot(E1_lme~top_5_average$management, main="Tratamiento")
-
 

@@ -1,7 +1,10 @@
-# In this code, we created the preliminary version of the figures 3-5 used in the main manuscript and figures for the supplementary information. The figures were later edited in Adobe Illustrator to improve their aesthetics and to add labels and annotations.
-# Some of them were later edited to include pictures of the farm.
+# In this code, we created the preliminary version of the figures 3-5 used in the main manuscript, 
+# and the figures for the supplementary information (S1, S3, S4-S8). The figures were later edited 
+# in Adobe Illustrator to improve their aesthetics and to add labels and annotations. Some of them 
+# were later edited to include pictures of the farm.
 
-#In the files, the term “ES” refers to “NCP” and “1 hop” and “2 hop” indicate first-order and second-order pathways, respectively.
+
+#In the files, the term "ES" refers to "NCP" and "1 hop" and "2 hop" indicate first-order and second-order pathways, respectively.
 
 ## -- Load libraries --------------------------------------------------------------------------------------------------------
 library(igraph)
@@ -18,14 +21,23 @@ setwd("/Users/agustinvitali/Desktop/Work/Papers/In_prep/Norwood_Farm/GitHub/Norw
 source("R/functions.R") #call functions file
 
 
-##############  --  Figure 3 
-
-
-# Define colors
+############## -- Shared color palettes used across figures 
+## Color assigned to each NCP (used in Figures 3, 4, S4-S7)
 color_services <- tibble(
   services = c("Bird watching", "Butterfly watching", "Crop damage",
                "Crop production", "Pest control", "Pollination", "Seed dispersal"),
   color = c('#6F2A56','#F2520D','#99E5B9', '#F09942', '#F0E675', '#47ACEB', '#0F74BD'))
+
+## Color assigned to each trophic guild (used in Figure 5, S1, S8)
+color_trophic <- tibble(taxon = c("Non-cultivated plant","Crop","Flower visitor","Aphid","Primary aphid parasitoid","Secondary aphid parasitoid",
+                                  "Leaf-miner parasitoid","Seed-feeding insect","Seed-feeding bird",
+                                  "Seed-feeding rodent","Butterfly","Insect seed-feeder parasitoid","Rodent ectoparasite"),
+                        color = c("#90B477","#D3D64C","#C2DCF6","#4BD7B9","#82B2EC","#2E2BD4",
+                                  "#DC972E","#AF645F","#F7F7D0","#4E8BE5","#DE2421","#7954AB","#5C90A3"))
+
+
+
+##############  --  Figure 3 
 
 
 ### Panel (A): Prop. of direct ES retained (empirical). Panel (B): Heat map null model.
@@ -137,16 +149,16 @@ Panel_B <- ggplot(z_score_tot, aes(management, services, fill = Output)) +
 
 Panel_B
 
-# Figure 3_AB (panels AB_together). Put manually the figures of the farms
 
+# Figure 3_AB (panels AB_together). Put manually the figures of the farms
 pdf("Graphs/Figure_3_pre_final_MI_M2_panelAB.pdf", width = 9, height = 5)
 upper_row<- plot_grid(Panel_A + theme(plot.margin = unit(c(0.1,0.1, 0.1,0.1), "cm")),
                       Panel_B + theme(plot.margin = unit(c(0.1,0.1,0.1,0.5), "cm")), 
-                      ncol = 2, labels = c('(A)', "(B)"),# Panel A is 90% of its size and Panel B is 110%
-                      label_x = c(-0.033, 0),  # Adjust the position of the labels
+                      ncol = 2, labels = c('(A)', "(B)"),
+                      label_x = c(-0.033, 0),  
                       rel_widths = c(0.9, 1.1), 
-                      align = "h",  # Aligns panels vertically
-                      axis = "b"# Aligns both top and bottom axes
+                      align = "h",
+                      axis = "b"
 )
 upper_row
 
@@ -276,15 +288,13 @@ pdf("Graphs/Figure_3b_pre_final_MI_M2_panelCD.pdf", width = 9, height = 5)
 upper_row<- plot_grid(Panel_C + theme(plot.margin = unit(c(0.8,0.1, 0.1,0.1), "cm")),
                       Panel_D + theme(plot.margin = unit(c(0.8,0.1,0.1,0.5), "cm")), 
                       ncol = 2, labels = c('(A)', "(B)"),
-                      label_x = c(-0.02, 0),# Adjust the position of the labels (A, B)
-                      rel_widths = c(0.9, 1.1), # Panel A is 90% of its size and Panel B is 110%
-                      align = "h",  # Aligns panels vertically
-                      axis = "b"# Aligns both top and bottom axes
-)
+                      label_x = c(-0.02, 0),
+                      rel_widths = c(0.9, 1.1), 
+                      align = "h", 
+                      axis = "b")
 upper_row
 
 dev.off()
-
 
 
 
@@ -437,18 +447,15 @@ Panel_B <- ggplot(z_score_tot, aes(management, services, fill = Output)) +
 Panel_B
 
 # Figure 4 (all panels together). Put manually the figures of the farms
-
 pdf("Graphs/Figure_4_pre_final_M1_M2.pdf", width = 9, height = 5)
 upper_row<- plot_grid(Panel_A + theme(plot.margin = unit(c(0.1,0.1, 0.1,0.1), "cm")),
                       Panel_B + theme(plot.margin = unit(c(0.1,0.1,0.1,0.5), "cm")), 
-                      ncol = 2, labels = c('(A)', "(B)"),# Panel A is 90% of its size and Panel B is 110%
-                      label_x = c(-0.033, 0),  # Adjust the position of the labels
+                      ncol = 2, labels = c('(A)', "(B)"),
+                      label_x = c(-0.033, 0),  
                       rel_widths = c(0.9, 1.1), 
-                      align = "h",  # Aligns panels vertically
-                      axis = "b"# Aligns both top and bottom axes
-)
+                      align = "h",  
+                      axis = "b")
 upper_row
-
 dev.off()
 
 
@@ -458,7 +465,7 @@ dev.off()
 
 ##############  --  Figure 5
 #Panel (A): Indirect effects on NCP (general pattern). Panel (B): Top 5. Because of
-#the circular plot. We combined them manually.
+#the circular plot, we combined them manually.
 
 
 ## Panel A
@@ -468,8 +475,9 @@ short_path_land_change<-read.csv("Data/Land_use_shortpath_M1_M2.csv", row.names 
 
 short_path_land_change_ave<- short_path_land_change %>% group_by(management,node_id) %>% 
   mutate(short_path_ave = mean(short_ave)) %>% select(-services, - short_ave) %>% unique() %>%  #calculate average short path of each species to all NCP in each habitat management
-  mutate(taxon = str_replace(taxon, "Flower-visiting", "Flower visitor"))
-
+  mutate(taxon = str_replace(taxon, "Flower-visiting", "Flower visitor")) %>% 
+           mutate(taxon = str_replace(taxon, "Plant", "Non-cultivated plant"))
+                  
 ave_management_taxon<-short_path_land_change_ave %>% group_by(management,taxon) %>% 
   summarise(ave_short = mean(short_path_ave),
             sd_short = sd(short_path_ave)) 
@@ -479,12 +487,6 @@ ave_management_taxon$management <- factor(ave_management_taxon$management, level
 ave_management_taxon$taxon<-as.factor(ave_management_taxon$taxon)
 
 #Plot
-color_trophic <-tibble(taxon = c("Plant","Crop","Flower visitor","Aphid","Primary aphid parasitoid","Secondary aphid parasitoid",
-                                 "Leaf-miner parasitoid","Seed-feeding insect","Seed-feeding bird",
-                                 "Seed-feeding rodent","Butterfly","Insect seed-feeder parasitoid","Rodent ectoparasite"),
-                       color = c("#90B477","#D3D64C","#C2DCF6","#4BD7B9","#82B2EC","#2E2BD4",
-                                 "#DC972E","#AF645F","#F7F7D0","#4E8BE5","#DE2421","#7954AB","#5C90A3"))
-
 pdf("Graphs/Figure_5_panel_A_M1_M2.pdf", width = 8, height = 6.5)
 Panel_A<- ggplot(ave_management_taxon, aes(x = management, y = ave_short, group =taxon, color= taxon)) +
   scale_color_manual(values = color_trophic$color[match(levels(ave_management_taxon$taxon), color_trophic$taxon)])+
@@ -618,12 +620,6 @@ state_nodes <- state_nodes %>%
   mutate(taxon = ifelse(taxon == "Plant", "Non-cultivated plant", taxon)) %>%
   mutate(taxon = ifelse(taxon == "Flower-visiting", "Flower visitor", taxon))
 
-#Set colors
-color_trophic <-tibble(taxon = c("Non-cultivated plant","Crop","Flower visitor","Aphid","Primary aphid parasitoid","Secondary aphid parasitoid",
-                                 "Leaf-miner parasitoid","Seed-feeding insect","Seed-feeding bird",
-                                 "Seed-feeding rodent","Butterfly","Insect seed-feeder parasitoid","Rodent ectoparasite"),
-                       color = c("#90B477","#D3D64C","#C2DCF6","#4BD7B9","#82B2EC","#2E2BD4",
-                                 "#DC972E","#AF645F","#F7F7D0","#4E8BE5","#DE2421","#7954AB","#5C90A3"))
 
 # Order factor alphabetically
 state_nodes$taxon <- factor(state_nodes$taxon, levels = sort(color_trophic$taxon))
@@ -713,12 +709,6 @@ dev.off()
 ## Load data
 I_ES2 <- read.csv("Data/Land_use_ind_ES_M1_M2.csv")
 I_ES2$management <- factor(I_ES2$management, levels = c("E", "SE", "M", "SI", "I", "IN"))
-
-## Colors
-color_services <- tibble(
-  services = c("Bird watching", "Butterfly watching", "Crop damage",
-               "Crop production", "Pest control", "Pollination", "Seed dispersal"),
-  color = c('#6F2A56','#F2520D','#99E5B9', '#F09942', '#F0E675', '#47ACEB', '#0F74BD'))
 
 palette_services_named <- setNames(color_services$color, color_services$services) 
 
@@ -811,12 +801,6 @@ e_baseline <- tibble(
 plot_data <- bind_rows(e_baseline, empirical_plot, null_plot)
 plot_data$management <- factor(plot_data$management, levels = c("E", "SE", "M", "SI", "I", "IN"))
 plot_data$type <- factor(plot_data$type, levels = c("Empirical", "Null"))
-
-## ---- Colors per NCP (same palette used throughout the manuscript) ----
-color_services <- tibble(
-  services = c("Bird watching", "Butterfly watching", "Crop damage",
-               "Crop production", "Pest control", "Pollination", "Seed dispersal"),
-  color = c('#6F2A56','#F2520D','#99E5B9', '#F09942', '#F0E675', '#47ACEB', '#0F74BD'))
 
 ## ---- Plot ----
 Sup_Fig_dir_ES_null <- ggplot(plot_data, aes(x = management, y = Prop_mean)) +
@@ -919,7 +903,6 @@ dev.off()
 
 ## ---- Load Prop of indirect effect on NCP retained (PI_x) Z-score results (already computed) ----
 indir_ES_z_score <- read.csv("Data/z_score_ind_ES_CP_M1_M2_A2.csv")
-
 services_list <- unique(indir_ES_z_score$services_to)
 
 ## ---- Build plotting dataframe: Empirical vs Null side by side ----
@@ -1003,14 +986,6 @@ mediators_E$taxon <- as.factor(mediators_E$taxon)
 
 # Order bars alphabetically for display; color still matched correctly by name
 mediators_E$taxon <- factor(mediators_E$taxon, levels = sort(color_trophic$taxon))
-
-
-# Define colors
-color_trophic <- tibble(taxon = c("Non-cultivated plant","Crop","Flower visitor","Aphid","Primary aphid parasitoid","Secondary aphid parasitoid",
-                                  "Leaf-miner parasitoid","Seed-feeding insect","Seed-feeding bird",
-                                  "Seed-feeding rodent","Butterfly","Insect seed-feeder parasitoid","Rodent ectoparasite"),
-                        color = c("#90B477","#D3D64C","#C2DCF6","#4BD7B9","#82B2EC","#2E2BD4",
-                                  "#DC972E","#AF645F","#F7F7D0","#4E8BE5","#DE2421","#7954AB","#5C90A3"))
 
 # Build a named color vector: names = taxon, values = color
 palette_named <- setNames(color_trophic$color, color_trophic$taxon)

@@ -8,12 +8,9 @@ library(tidyverse)
 
 ##### 1. Mechanism 1 — Rewiring
 # This function applies interaction-based retention (rewiring) to species in replaced habitats.
-# Species from the replaced habitat survive in the new CP habitat if they have at least one 
-# observed resource in CP that is viable (abundance >= 1 after area scaling), detected anywhere 
-# in the multilayer network (bottom-up). Their retained abundance is scaled by the proportion of 
-# interactions with viable CP resources relative to total interactions across the extensive farm 
-# baseline — weighting resources by how spatially widespread the interaction is across habitats,
-# rather than treating all resource partners equally.
+# Species from the replaced habitat survive in the new CP habitat if they have at least one observed resource in CP that is viable (abundance >= 1 after area scaling), detected anywhere in the multilayer network (bottom-up). 
+# Their retained abundance is scaled by the proportion of interactions with viable CP resources relative to total interactions across the extensive farm baseline — weighting resources by how spatially widespread the 
+# interaction is across habitats, rather than treating all resource partners equally.
 
 apply_rewiring <- function(new_habitats_ab, replaced_layer_ids, hab_id_map,
                            state_nodes_ab, total_resources_baseline,
@@ -81,8 +78,7 @@ apply_rewiring <- function(new_habitats_ab, replaced_layer_ids, hab_id_map,
 
 
 # Mechanism 2 — Rescue by animal movement
-# Species from replaced habitats that could not fully persist via M1 (rewiring) can disperse to any remaining habitat where they have 
-# at least one resource.
+# Species from replaced habitats that could not fully persist via M1 (rewiring) can disperse to any remaining habitat where they have at least one resource.
 # Individuals are distributed proportionally by plant community similarity (Sørensen).
 # A species establishes only if arriving + existing abundance >= threshold.
 # Excluded groups (plants, crops, aphids, rodent ectoparasites) cannot disperse.
@@ -180,7 +176,7 @@ apply_rescue <- function(replaced_layer_ids,   # layer IDs being converted (e.g.
     group_by(habitat, node_id) %>%
     summarise(existing_ab = max(ab), .groups = "drop")
   
-  ## 4. Distribute individuals and apply threshold ---------------------------
+  ## 4. Distribute individuals and apply threshold 
   # For each disperser species:
   #   (a) find destination habitats with resources AND similarity > 0
   #   (b) distribute individuals proportionally to similarity weights

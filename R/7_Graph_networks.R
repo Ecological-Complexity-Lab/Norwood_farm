@@ -1,6 +1,6 @@
-# In this code, we created the ecological network graph used in the figure 2. We made the network plot separately 
+# In this code, we created the ecological network graphs used in the figure 2. We made the network plot separately 
 #for the  management scenario E, M and IN. Then we combined them to create the final figure.
-#
+
 
 ## -- Load libraries --------------------------------------------------------------------------------------------------------
 library(igraph)
@@ -155,7 +155,6 @@ V(IM_CP2)$color=vcol
 pdf("Graphs/Intensive_nonorganic_network_M1_M2.pdf", width = 5, height = 7)
 IM_CPplot<-plot(IM_CP2,edge.arrow.size=.5, vertex.color= V(IM_CP2)$color, vertex.size=6, vertex.label=NA,
                vertex.frame.color="black", vertex.label.color="black", 
-               #vertex.label.color="black",  #vertex.label.cex=.5, vertex.label.dist=0.5, 
                edge.curved=0.2)
 dev.off()
 
