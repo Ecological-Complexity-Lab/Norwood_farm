@@ -1,12 +1,63 @@
-# This file contains the functions used in the null model.
+# This file contains the functions used across the manuscript.
 
 
 ### -- Load libraries
 library(tidyverse)
 
 
+#===============================================================================
+#                        LAND CONVERSION FUNCTIONS
+#              (used in 4_Land_conversion_simulation.R)
+#===============================================================================
 
-##### 1. Mechanism 1 — Rewiring
+
+##### 1. Copies CP's own interactions and relabels them as the replacement for one converted habitat
+build_cp_habitat <- function(new_hab, prev_hab_code) {
+  Norwood_farm$extended_ids %>% 
+    filter(layer_from == 1) %>% 
+    select(-layer_to, -layer_from) %>% 
+    mutate(new_hab = new_hab, prev_hab = prev_hab_code, hab_cp = "CP")
+}
+
+##### 2. Computes the area ratio used to rescale CP's own species abundances
+build_converted_area <- function(cp_habitat_table, habitat_area) {
+  cp_habitat_table %>% 
+    left_join(habitat_area, by = c("prev_hab" = "HabitatCode")) %>% 
+    left_join(habitat_area, by = c("hab_cp" = "HabitatCode")) %>% 
+    select(node_from, node_to, new_hab, prev_hab, hab_cp, area_ave.x, area_ave.y) %>% 
+    rename("area_prev_hab" = "area_ave.x", "area_CP" = "area_ave.y") %>% 
+    mutate(mult_ab = area_prev_hab / area_CP) %>% 
+    select(-prev_hab, -hab_cp, -area_prev_hab, -area_CP)
+}
+
+##### 3.  Apply that multiplier to CP's actual abundances to get the new habitat's abundance table. 
+build_new_habitats_ab <- function(converted_area, abundances_CP) {
+  converted_area %>%  
+    left_join(abundances_CP, by = c("node_from" = "node_id")) %>%
+    left_join(abundances_CP, by = c("node_to" = "node_id")) %>%
+    rename("ab_node_from_CP" = "abundance.x", "taxon_node_from" = "taxon.x",
+           "ab_node_to_CP" = "abundance.y", "taxon_node_to" = "taxon.y") %>% 
+    mutate(ab_node_from = ab_node_from_CP * mult_ab, 
+           ab_node_to = ab_node_to_CP * mult_ab) %>%
+    select(new_hab, node_from, ab_node_from, taxon_node_from, node_to, ab_node_to, taxon_node_to) %>% 
+    rename("habitat" = "new_hab")
+}
+
+##### 4. Keeps every habitat except the ones being replaced this round, with abundances/taxa attached.
+remove_replaced_habitats <- function(replaced_layers) {
+  Norwood_farm$extended_ids %>% 
+    filter(!layer_from %in% replaced_layers) %>% 
+    select(-layer_to) %>% rename("habitat" = "layer_from") %>%
+    left_join(state_nodes_ab, by = c("node_from" = "node_id", "habitat" = "layer_id")) %>%
+    left_join(state_nodes_ab, by = c("node_to" = "node_id", "habitat" = "layer_id")) %>%
+    rename("ab_node_from" = "abundance.x", "taxon_node_from" = "taxon.x",
+           "ab_node_to" = "abundance.y", "taxon_node_to" = "taxon.y") %>%
+    select(habitat, node_from, node_to, ab_node_from, taxon_node_from, ab_node_to, taxon_node_to)
+}
+
+
+
+##### 5. Mechanism 1 — Rewiring
 # This function applies interaction-based retention (rewiring) to species in replaced habitats.
 # Species from the replaced habitat survive in the new CP habitat if they have at least one observed resource in CP that is viable (abundance >= 1 after area scaling), detected anywhere in the multilayer network (bottom-up). 
 # Their retained abundance is scaled by the proportion of interactions with viable CP resources relative to total interactions across the extensive farm baseline — weighting resources by how spatially widespread the 
@@ -77,7 +128,7 @@ apply_rewiring <- function(new_habitats_ab, replaced_layer_ids, hab_id_map,
 }
 
 
-# Mechanism 2 — Rescue by animal movement
+##### 6. Mechanism 2 — Rescue by animal movement
 # Species from replaced habitats that could not fully persist via M1 (rewiring) can disperse to any remaining habitat where they have at least one resource.
 # Individuals are distributed proportionally by plant community similarity (Sørensen).
 # A species establishes only if arriving + existing abundance >= threshold.
@@ -254,65 +305,165 @@ apply_rescue <- function(replaced_layer_ids,   # layer IDs being converted (e.g.
 
 
 
-##### 3. Simulation of species removal for CP
+#===============================================================================
+#                            NULL MODEL FUNCTIONS
+#                       (used in 5_Null_model.R)
+#===============================================================================
 
-# This function randomly eliminates the same number of species in each habitat during the null model as in the 
-#original simulation (except for crop species).
+##### 7. Mechanism 1 (rewiring) proxy: checks whether a species has at least one resource partner
+# among CP species that are still viable (abundance >= 1) in the new habitat (the same criterion
+# apply_rewiring() uses to decide whether a species can persis).
+# Needed because the null model tests this same criterion 500 times per habitat across random draws,
+# so it's computed once here as a reusable lookup.
 
-sim_sp_removal<- function(edge_list_hab, n_to_remove) {
+get_rewiring_eligible <- function(candidate_pool, new_habitats_ab_CP, metaweb, total_resources_baseline) {
+  species_viable_CP <- new_habitats_ab_CP %>% filter(ab_node_from >= 1) %>% pull(node_from) %>% unique()
   
-  # Initialize the objects
-  edge_list_shuff <- data.frame() 
+  rewiring_lookup <- total_resources_baseline %>%
+    left_join(
+      metaweb %>%
+        filter(node_to %in% candidate_pool) %>%
+        group_by(node_to) %>%
+        summarise(cp_interactions = sum(node_from %in% species_viable_CP), .groups = "drop") %>%
+        rename(node_id = node_to),
+      by = "node_id"
+    ) %>%
+    mutate(cp_interactions = replace_na(cp_interactions, 0),
+           rewire_eligible = cp_interactions > 0) %>%
+    filter(node_id %in% candidate_pool) %>%
+    select(node_id, rewire_eligible)
+  
+  tibble(node_id = candidate_pool) %>%
+    left_join(rewiring_lookup, by = "node_id") %>%
+    mutate(rewire_eligible = replace_na(rewire_eligible, FALSE))
+}
+
+
+##### 8. Mechanism 2 (rescue) proxy: excludes non-dispersing taxa (same exclusions as apply_rescue()) and checks whether the species has a resource in some
+# remaining habitat. 
+# Needed because the null model tests this same criterion 500 times per habitat across random draws,
+# so it's computed once here as a reusable lookup.
+
+get_rescue_eligible <- function(candidate_pool, state_nodes_ab, metaweb, destination_edgelist,
+                                excluded_taxa = c("Plant", "Crop", "Aphid", "Rodent ectoparasite", "Seed-feeding bird")) {
+  
+  taxon_lookup <- state_nodes_ab %>% filter(node_id %in% candidate_pool) %>% select(node_id, taxon) %>% distinct()
+  
+  dest_resources <- destination_edgelist %>% pull(node_from) %>% unique()
+  
+  resource_check <- metaweb %>%
+    filter(node_to %in% candidate_pool) %>%
+    mutate(resource_in_dest = node_from %in% dest_resources) %>%
+    group_by(node_to) %>%
+    summarise(has_dest_resource = any(resource_in_dest), .groups = "drop") %>%
+    rename(node_id = node_to)
+  
+  tibble(node_id = candidate_pool) %>%
+    left_join(taxon_lookup, by = "node_id") %>%
+    left_join(resource_check, by = "node_id") %>%
+    mutate(has_dest_resource = replace_na(has_dest_resource, FALSE),
+           taxon = replace_na(taxon, "unknown"),
+           rescue_eligible = !taxon %in% excluded_taxa & has_dest_resource) %>%
+    select(node_id, rescue_eligible)
+}
+
+
+##### 9. Combines both checks: a species counts as "protected" if it's eligible for rewiring OR
+# rescue, matching how the real simulation lets a species survive via either mechanism.
+
+get_mechanism_eligibility <- function(candidate_pool, new_habitats_ab_CP, state_nodes_ab, metaweb,
+                                      total_resources_baseline, destination_edgelist) {
+  rewire <- get_rewiring_eligible(candidate_pool, new_habitats_ab_CP, metaweb, total_resources_baseline)
+  rescue <- get_rescue_eligible(candidate_pool, state_nodes_ab, metaweb, destination_edgelist)
+  
+  rewire %>%
+    left_join(rescue, by = "node_id") %>%
+    mutate(rescue_eligible = replace_na(rescue_eligible, FALSE),
+           protected = rewire_eligible | rescue_eligible)
+}
+
+
+##### 10. Simulation of species removal
+#Randomly removes species down to the same final richness as the real simulation, but
+# gives each species the same shot at rewiring/rescue protection first. Only species not eligible
+# for either mechanism actually get removed. This is what makes the null model comparable: same
+# number of direct extinctions as the real simulation, random identity, same survival rules.
+sim_sp_removal_mechanism <- function(edge_list_hab, n_target, eligibility_table) {
+  
+  edge_list_shuff <- data.frame()
   iteration <- numeric()
-  list_species_rem<- data.frame()
+  list_species_rem <- data.frame()
   
-  combined_nodes<- edge_list_hab %>% filter (!(taxon_node_from == "Crop"| taxon_node_to == "Crop")) %>% 
-    select(node_from,node_to) %>% pivot_longer(cols = c(node_from, node_to)) %>% ungroup() %>% select(-layer_from,-name) %>% 
-    unique() %>% pull(value) #vector containing potential species to randomly remove (except crops) 
+  combined_nodes <- edge_list_hab %>%
+    filter(!(taxon_node_from == "Crop" | taxon_node_to == "Crop")) %>%
+    select(node_from, node_to) %>%
+    pivot_longer(cols = c(node_from, node_to)) %>%
+    ungroup() %>% select(-name) %>%
+    unique() %>% pull(value)
+  
+  this_habitat <- unique(edge_list_hab$pre_hab)
+  target_n <- n_target[n_target$habitat == this_habitat, 2]
+  
+  # Protected status per candidate; species not in the eligibility table (shouldn't normally happen)
+  # default to "not protected" so they can still be counted toward the target.
+  protected_map <- eligibility_table %>% filter(node_id %in% combined_nodes) %>% select(node_id, protected)
   
   for (i in 1:500) {
     print(i)
     
-    # Select randomly species to remove
-    sp_to_remove <- sample(combined_nodes, n_to_remove[n_to_remove$habitat == unique(edge_list_hab$pre_hab), 2], 
-                           replace = FALSE) #n_to_remove correspond to the dataframe containing information of how many species to remove accoring to the habitat
+    shuffled <- sample(combined_nodes, length(combined_nodes), replace = FALSE)
     
+    shuffled_df <- tibble(node_id = shuffled, draw_order = seq_along(shuffled)) %>%
+      left_join(protected_map, by = "node_id") %>%
+      mutate(protected = replace_na(protected, FALSE)) %>%
+      arrange(draw_order)
     
-    # Remove species from the edgelist
-    edge_list_remov <- dplyr::filter(edge_list_hab, !(node_from %in% sp_to_remove | node_to %in% sp_to_remove))
+    not_protected <- shuffled_df %>% filter(!protected)
     
-    # Store results
-    edge_list_shuff <- rbind(edge_list_shuff, edge_list_remov)
-    iteration <- c(iteration, rep(i, nrow(edge_list_remov))) # number of rep
-    
-    # Estimate information of the node removed
-    for (j in sp_to_remove){
-      species_rem = j
-      degree<- edge_list_hab %>%ungroup() %>% 
-        filter(node_from== j| node_to ==j) %>% distinct(node_from,node_to) %>%  summarise(degree = n())
-      degree_sp<-cbind(species_rem = j,degree, iteration =i)
-      
-      #Store the information
-      
-      list_species_rem<-rbind(list_species_rem, degree_sp) 
+    if (nrow(not_protected) < target_n) {
+      warning(paste0("Habitat ", this_habitat, ", iteration ", i, ": only ", nrow(not_protected),
+                     " non-protected candidates available, fewer than the target (", target_n,
+                     "). Removing all available non-protected candidates."))
+      sp_to_remove <- not_protected$node_id
+    } else {
+      sp_to_remove <- not_protected$node_id[1:target_n]
     }
     
+    edge_list_remov <- dplyr::filter(edge_list_hab, !(node_from %in% sp_to_remove | node_to %in% sp_to_remove))
+    edge_list_shuff <- rbind(edge_list_shuff, edge_list_remov)
+    iteration <- c(iteration, rep(i, nrow(edge_list_remov)))
     
+    for (j in sp_to_remove) {
+      degree <- edge_list_hab %>% ungroup() %>%
+        filter(node_from == j | node_to == j) %>%
+        distinct(node_from, node_to) %>% summarise(degree = n())
+      degree_sp <- cbind(species_rem = j, degree, iteration = i)
+      list_species_rem <- rbind(list_species_rem, degree_sp)
+    }
   }
   
-  output <- cbind(edge_list_shuff, iteration = iteration)
-  output2 <- cbind(list_species_rem)
-  
-  return(list(edge_lists = output,species_removed =output2))
+  edge_list_shuff$iteration <- iteration
+  return(list(edge_list_shuff, list_species_rem))
+}
+
+
+##### 11. Builds a habitat's pool of candidate species (no crop species)
+get_candidate_pool <- function(edge_list_hab) {
+  edge_list_hab %>%
+    filter(!(taxon_node_from == "Crop" | taxon_node_to == "Crop")) %>%
+    select(node_from, node_to) %>%
+    pivot_longer(cols = c(node_from, node_to)) %>%
+    ungroup() %>% select(-name) %>%
+    unique() %>% pull(value)
 }
 
 
 
 
 
-##### 4. Combine edge list
 
-#This function combines the edge list of the shuffled habitats with the non-transformed ones to create 600 trials of
+##### 12. Combine edge list
+#This function combines the edge list of the shuffled habitats with the non-transformed ones to create 500 trials of
 #each habitat management scenario in the null model.
 
 
@@ -342,10 +493,8 @@ comb_edge_list<- function(non_transf_hab,shuff_hab) {
 
 
 
-#####  5. Create state_node list
-
+#####  13. Create state_node list
 #This function create the state_node list of each randomized management scenario in the null model.
-
 
 state_node_list <- function(data) {
   
@@ -372,7 +521,6 @@ state_node_list <- function(data) {
   
   return(state_node_sem_ext_agg)
 }
-
 
 
 

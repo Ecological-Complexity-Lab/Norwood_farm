@@ -195,7 +195,7 @@ poll_list_repo<-pollimetry_dataset  %>%  select(Region,Country,Species,Weight) %
 #Separate "flower visitors" group (02FV) into: 1) 02FV: (bees, bumblebees) . 2) 10HO: hover flies, and 3)15FVOTHER: (beetles,etc)
 
 # Check row dataframe to separate the flower visitor guild
-nore<-read.csv("Data/raw_data/nore2.csv",header=T)
+nore<-read.csv("Data/Raw_data/nore2.csv",header=T)
 lower.guild<-substr(nore$lower,1,4)
 upper.guild<-substr(nore$upper,1,4)
 nore<-cbind(nore,lower.guild,upper.guild)

@@ -1,36 +1,25 @@
-# In this code, we develop a null model where the same number of species are removed during land conversion as in
-# the original simulation, but randomly. This helps disentangle whether the observed NCP loss
-# patterns are driven by the number of species that go extinct or by their specific identities.
-#
-# OPTION A2 (mechanism-aware null model): unlike the original null model, randomly-removed species here also
-# get a chance to be "protected" via the same structural criteria used by apply_rewiring() (Mechanism 1) and
-# apply_rescue() (Mechanism 2) in the real simulation. This closes a gap in the original null model: there,
-# the number of species removed already reflects how many the real simulation loses AFTER rewiring/rescue,
-# but the null model's own random removals never got a chance at those mechanisms themselves -- randomly
-# retained species kept 100% of their original connectivity while rewired survivors in the real simulation
-# are restricted to a reduced set of new partners. That asymmetry confounded "identity vs. number of
-# extinctions," which the null model is meant to isolate.
-#
-# Fidelity/tractability tradeoff (Option A2, chosen deliberately over a fully faithful Option A1):
-# Mechanism 1 (rewiring) eligibility is a simple, precomputable structural lookup (does a species have any
-# interaction partner among CP species newly viable in the new habitat?) -- reproduced here exactly.
-# Mechanism 2 (rescue) in the real simulation involves a similarity-weighted competition for limited capacity
-# across dispersers; reproducing that exactly for every random draw across 500 iterations x multiple habitats
-# was judged too expensive/fragile. Instead, rescue eligibility here uses a structural proxy: is the species
-# outside the excluded-taxa list (Plant, Crop, Aphid, Rodent ectoparasite, Seed-feeding bird) AND does it have
-# at least one resource present in some destination habitat? This omits the competitive/threshold allocation
-# nuance of the real apply_rescue(), which should be disclosed as a limitation if reported.
-#
-# Sampling method: since eligibility (rewire/rescue) is a fixed structural property of each species here,
-# not a competitive/order-dependent one, matching the TARGET (real simulation's actual post-mechanism)
-# extinction count is done in a single pass per iteration: shuffle the full candidate pool into a random
-# order, then take the first TARGET_N species in that order that are NOT eligible for rewiring/rescue as
-# the ones that actually go extinct. This holds species NUMBER exactly constant (matching richness to the
-# real simulation) while randomizing IDENTITY and giving every candidate the same shot at protection.
-#
-# In the files, the term "ES" refers to "NCP" and "1 hop" and "2 hop" indicate first-order and second-order
-# pathways, respectively. All outputs from this script are written with an "_A2" suffix so they never
-# overwrite the original (non-mechanism-aware) null model's validated output files.
+# In this code, we develop a null model that controls for the number of species that go extinct
+# during land conversion, as observed in the real simulation, while randomizing which species go
+# extinct. This disentangles whether the observed NCP loss patterns are driven by species number or
+# by species identity. 
+
+# The file has three sections: 1) Null model simulation, 2) Estimation of NCP provision and 
+# indirect effects, 3) Statistical analysis
+
+# 1) NULL MODEL SIMULATION
+
+# 2) ESTIMATION OF NCP PROVISION AND INDIRECT EFFECTS
+# For each of the 500 randomized networks, we calculate the same NCP provision and 1st/2nd order 
+# indirect effect variables as in the real simulation (see 4_Land_conversion_simulation.R).
+
+# 3) STATISTICAL ANALYSIS
+# We compare the real (empirical) simulation's results against the distribution of results across
+# the 500 randomized networks, computing a Z-score for each management scenario and NCP. This tells 
+# us whether the empirical result is significantly higher or lower than expected under random species 
+# loss.
+
+# In the files, the term "ES" refers to "NCP" and "1 hop" and "2 hop" indicate first-order and
+# second-order pathways, respectively. 
 
 
 ## -- Load libraries --------------------------------------------------------------------------------------------------------
@@ -72,161 +61,11 @@ habitat_area <- areas %>% mutate(area_ave = case_when(
   mutate(mult_ab = area_ave/46.4)
 
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#           OPTION A2 HELPERS -- mechanism-aware random removal
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-# Rewiring eligibility (Mechanism 1 proxy): same criterion apply_rewiring() uses internally
-# (has_cp_resource) -- a species is eligible if it has at least one interaction partner, in the full
-# metaweb, that is a CP species now viable (abundance >= 1) in the new habitat.
-get_rewiring_eligible <- function(candidate_pool, new_habitats_ab_CP, metaweb, total_resources_baseline) {
-  species_viable_CP <- new_habitats_ab_CP %>% filter(ab_node_from >= 1) %>% pull(node_from) %>% unique()
-
-  rewiring_lookup <- total_resources_baseline %>%
-    left_join(
-      metaweb %>%
-        filter(node_to %in% candidate_pool) %>%
-        group_by(node_to) %>%
-        summarise(cp_interactions = sum(node_from %in% species_viable_CP), .groups = "drop") %>%
-        rename(node_id = node_to),
-      by = "node_id"
-    ) %>%
-    mutate(cp_interactions = replace_na(cp_interactions, 0),
-           rewire_eligible = cp_interactions > 0) %>%
-    filter(node_id %in% candidate_pool) %>%
-    select(node_id, rewire_eligible)
-
-  tibble(node_id = candidate_pool) %>%
-    left_join(rewiring_lookup, by = "node_id") %>%
-    mutate(rewire_eligible = replace_na(rewire_eligible, FALSE))
-}
-
-# Rescue eligibility (Mechanism 2 proxy, see fidelity note at top of file): excludes the same taxa
-# apply_rescue() excludes (plants can't move), and requires the species to have at least one resource
-# present in some destination habitat. Does NOT reproduce the similarity-weighted competition for
-# limited capacity that the real apply_rescue() applies.
-get_rescue_eligible <- function(candidate_pool, state_nodes_ab, metaweb, destination_edgelist,
-                                excluded_taxa = c("Plant", "Crop", "Aphid", "Rodent ectoparasite", "Seed-feeding bird")) {
-
-  taxon_lookup <- state_nodes_ab %>% filter(node_id %in% candidate_pool) %>% select(node_id, taxon) %>% distinct()
-
-  dest_resources <- destination_edgelist %>% pull(node_from) %>% unique()
-
-  resource_check <- metaweb %>%
-    filter(node_to %in% candidate_pool) %>%
-    mutate(resource_in_dest = node_from %in% dest_resources) %>%
-    group_by(node_to) %>%
-    summarise(has_dest_resource = any(resource_in_dest), .groups = "drop") %>%
-    rename(node_id = node_to)
-
-  tibble(node_id = candidate_pool) %>%
-    left_join(taxon_lookup, by = "node_id") %>%
-    left_join(resource_check, by = "node_id") %>%
-    mutate(has_dest_resource = replace_na(has_dest_resource, FALSE),
-           taxon = replace_na(taxon, "unknown"),
-           rescue_eligible = !taxon %in% excluded_taxa & has_dest_resource) %>%
-    select(node_id, rescue_eligible)
-}
-
-# Combine rewiring + rescue eligibility: a candidate is "protected" if EITHER mechanism could apply,
-# matching the real simulation where a species survives if it succeeds via M1 OR M2.
-get_mechanism_eligibility <- function(candidate_pool, new_habitats_ab_CP, state_nodes_ab, metaweb,
-                                      total_resources_baseline, destination_edgelist) {
-  rewire <- get_rewiring_eligible(candidate_pool, new_habitats_ab_CP, metaweb, total_resources_baseline)
-  rescue <- get_rescue_eligible(candidate_pool, state_nodes_ab, metaweb, destination_edgelist)
-
-  rewire %>%
-    left_join(rescue, by = "node_id") %>%
-    mutate(rescue_eligible = replace_na(rescue_eligible, FALSE),
-           protected = rewire_eligible | rescue_eligible)
-}
-
-# Mechanism-aware replacement for sim_sp_removal(). Goal: match the real simulation's final species
-# richness exactly (the TARGET post-mechanism extinction count), while randomizing WHICH species go
-# extinct and giving them the same structural shot at rewiring/rescue as the real simulation.
-#
-# Method: randomly shuffle the full candidate pool, then walk through it taking the first `target_n`
-# species that are NOT eligible for rewiring/rescue as the ones that actually go extinct. Species drawn
-# earlier in the random order have no bearing on later species' eligibility here -- under the Option A2
-# simplification, eligibility is a fixed structural property (see get_rewiring_eligible()/
-# get_rescue_eligible() above), not a competitive/order-dependent one -- so this always matches the
-# target in a single pass, with no rejection sampling needed.
-sim_sp_removal_mechanism <- function(edge_list_hab, n_target, eligibility_table) {
-
-  edge_list_shuff <- data.frame()
-  iteration <- numeric()
-  list_species_rem <- data.frame()
-
-  combined_nodes <- edge_list_hab %>%
-    filter(!(taxon_node_from == "Crop" | taxon_node_to == "Crop")) %>%
-    select(node_from, node_to) %>%
-    pivot_longer(cols = c(node_from, node_to)) %>%
-    ungroup() %>% select(-name) %>%
-    unique() %>% pull(value)
-
-  this_habitat <- unique(edge_list_hab$pre_hab)
-  target_n <- n_target[n_target$habitat == this_habitat, 2]
-
-  # Protected status per candidate; species not in the eligibility table (shouldn't normally happen)
-  # default to "not protected" so they can still be counted toward the target.
-  protected_map <- eligibility_table %>% filter(node_id %in% combined_nodes) %>% select(node_id, protected)
-
-  for (i in 1:500) {
-    print(i)
-
-    shuffled <- sample(combined_nodes, length(combined_nodes), replace = FALSE)
-
-    shuffled_df <- tibble(node_id = shuffled, draw_order = seq_along(shuffled)) %>%
-      left_join(protected_map, by = "node_id") %>%
-      mutate(protected = replace_na(protected, FALSE)) %>%
-      arrange(draw_order)
-
-    not_protected <- shuffled_df %>% filter(!protected)
-
-    if (nrow(not_protected) < target_n) {
-      warning(paste0("Habitat ", this_habitat, ", iteration ", i, ": only ", nrow(not_protected),
-                     " non-protected candidates available, fewer than the target (", target_n,
-                     "). Removing all available non-protected candidates."))
-      sp_to_remove <- not_protected$node_id
-    } else {
-      sp_to_remove <- not_protected$node_id[1:target_n]
-    }
-
-    edge_list_remov <- dplyr::filter(edge_list_hab, !(node_from %in% sp_to_remove | node_to %in% sp_to_remove))
-    edge_list_shuff <- rbind(edge_list_shuff, edge_list_remov)
-    iteration <- c(iteration, rep(i, nrow(edge_list_remov)))
-
-    for (j in sp_to_remove) {
-      degree <- edge_list_hab %>% ungroup() %>%
-        filter(node_from == j | node_to == j) %>%
-        distinct(node_from, node_to) %>% summarise(degree = n())
-      degree_sp <- cbind(species_rem = j, degree, iteration = i)
-      list_species_rem <- rbind(list_species_rem, degree_sp)
-    }
-  }
-
-  # Explicit column assignment (not cbind()) -- cbind() was silently naming this column ""
-  # (auto-repaired to "...11") instead of "iteration", breaking downstream select(iteration) calls.
-  edge_list_shuff$iteration <- iteration
-  return(list(edge_list_shuff, list_species_rem))
-}
-
-# Small helper to build a habitat's candidate pool the same way sim_sp_removal_mechanism() does
-# internally -- used here just to build eligibility tables BEFORE calling that function.
-get_candidate_pool <- function(edge_list_hab) {
-  edge_list_hab %>%
-    filter(!(taxon_node_from == "Crop" | taxon_node_to == "Crop")) %>%
-    select(node_from, node_to) %>%
-    pivot_longer(cols = c(node_from, node_to)) %>%
-    ungroup() %>% select(-name) %>%
-    unique() %>% pull(value)
-}
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#                      NULL MODEL
+#                      1. NULL MODEL
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 set.seed(123)
 
 
@@ -235,7 +74,7 @@ set.seed(123)
 # Find species present in CP
 species_in_cp <- unique(Norwood_farm$state_nodes[Norwood_farm$state_nodes$layer_name == 'CP', 'node_id'])
 
-# Find species in each habitat and compare with CP (this gives the baseline extinction count (no rewiring)
+# Find species in each habitat and compare with CP (this gives the baseline extinction count (no rewiring))
 unique_habitats <- unique(Norwood_farm$state_nodes$layer_name)
 absent_species_count <- data.frame(habitat = character(), absent_count = integer())
 
@@ -247,7 +86,7 @@ for (hab in unique_habitats) {
   }
 }
 
-# Baseline objects for Mechanism 1 (same as in 4_Land_conversion_simulation_M1.R)
+# Baseline objects for Mechanism 1 - rewiring (same as in 4_Land_conversion_simulation_M1.R)
 metaweb <- Norwood_farm$extended_ids %>% select(node_from, node_to) %>% unique()
 
 # Fixed denominator: total interactions per consumer across the full extensive farm baseline
@@ -260,7 +99,7 @@ abundances_CP  <- state_nodes_ab %>% filter(layer_id == 1)
 species_in_CP  <- abundances_CP %>% pull(node_id) %>% unique()
 
 
-############# 2. Land-use change simulation (Null model)
+############# Land-use change simulation 
 Norwood_farm$extended_ids<- select(Norwood_farm$extended_ids,-weight)
 
 
@@ -275,6 +114,7 @@ ab_ext<-state_nodes_ab %>% select(-layer_id) %>% group_by(node_id,taxon) %>%
 
 ##### -- Semi - extensive (replace "WD" and "RG")
 
+## -- Remove habitats from Norwood (the ones to replace) and incorporate abundances and taxon
 sem_ext_edgelist_rem<- Norwood_farm$extended_ids %>% filter(layer_from != 8 & layer_from != 10) %>%
   select(-layer_to) %>% rename("habitat" = "layer_from") %>%
   left_join(state_nodes_ab, by = c("node_from" = "node_id", "habitat" = "layer_id")) %>%
@@ -284,18 +124,17 @@ sem_ext_edgelist_rem<- Norwood_farm$extended_ids %>% filter(layer_from != 8 & la
 
 sem_ext_edgelist_rem<-sem_ext_edgelist_rem[,c(1,2,5,4,3,7,6)]
 
-# Merge edge list of CP and the habitats to convert
+## -- Merge edge list of CP and the habitats to convert
 WD_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1 | layer_from == 10) %>%
         mutate (pre_hab= "WD",new_habitat = "WD_CP")
-
 RG_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1 | layer_from == 8) %>%
         mutate (pre_hab = "RG",new_habitat = "RG_CP")
 
 converted_area<-rbind(WD_CP, RG_CP)
-
 abundances_sp<-state_nodes_ab %>% filter(layer_id ==1 |layer_id ==8 |
-                                         layer_id ==10)
+                                         layer_id ==10) 
 
+## -- Scale CP abundances by the relative area of WD/RG (abundance multiplier: ratio of old habitat's area to CP's area)
 new_habitats_ab<-converted_area %>%  group_by(layer_from) %>%
   left_join(abundances_sp, by = c("layer_from" ="layer_id","node_from" = "node_id")) %>%
   left_join(abundances_sp, by = c("layer_from" ="layer_id","node_to" = "node_id")) %>%
@@ -310,6 +149,7 @@ new_habitats_ab<-converted_area %>%  group_by(layer_from) %>%
       (layer_from == 1 & new_habitat == "RG_CP") ~ ab_node_to * habitat_area[habitat_area$HabitatCode == "RG",6 ],
       TRUE~ab_node_to))
 
+# Remove interactions where a partner has less than 1 individual
 new_habitats_ab_rem<- new_habitats_ab %>% filter(ab_node_from >=1 & ab_node_to >=1) %>%
   mutate(layer_from = case_when(
     layer_from == 1 ~ "CP",
@@ -326,14 +166,14 @@ new_habitats_ab_CP <- new_habitats_ab %>%
   mutate(habitat = case_when(new_habitat == "WD_CP" ~ 11L, new_habitat == "RG_CP" ~ 12L)) %>%
   select(habitat, node_from, ab_node_from, taxon_node_from, node_to, ab_node_to, taxon_node_to)
 
-## Run apply_rewiring once to count how many species survived via rewiring per habitat (drives the
-## real simulation's actual post-mechanism target count -- unchanged from the original null model)
+## -- Apply Mechanism 1 (rewiring) for WD (layer 8 → hab 11) and RG (layer 10 → hab 12)
 new_habitats_emp <- apply_rewiring(new_habitats_ab_CP,
                                    replaced_layer_ids = c(8, 10),
                                    hab_id_map = c("10" = 11, "8" = 12),
                                    state_nodes_ab, total_resources_baseline,
                                    species_in_CP, abundances_CP, metaweb)
 
+# Count new species rewired into CP per habitat, to correct the baseline extinction count
 rewired_SE <- new_habitats_emp %>%
   filter(ab_node_from >= 1 & ab_node_to >= 1) %>%
   filter(!node_to %in% species_in_CP) %>%
@@ -346,6 +186,7 @@ absent_species_count_SE <- absent_species_count %>%
   mutate(absent_count = absent_count - replace_na(n_rewired, 0)) %>%
   select(habitat, absent_count)
 
+# Update species_in_CP with species rewired into new CP habitats
 species_rewired_SE <- new_habitats_emp %>%
   filter(ab_node_from >= 1 & ab_node_to >= 1, !node_to %in% species_in_CP) %>%
   pull(node_to) %>% unique()
@@ -353,6 +194,7 @@ species_in_CP <- union(species_in_CP, species_rewired_SE)
 
 new_habitats_emp_rem_SE <- new_habitats_emp %>% filter(ab_node_from >= 1 & ab_node_to >= 1)
 
+## -- Apply Mechanism 2 (rescue) — dispersal from WD/RG to remaining habitats
 rescue_SE <- apply_rescue(
   replaced_layer_ids   = c(8, 10),
   hab_id_map           = c("10" = 11, "8" = 12),
@@ -362,6 +204,7 @@ rescue_SE <- apply_rescue(
   metaweb              = metaweb
 )
 
+# Add newly established species to the extinction correction, and update species_in_CP
 if (!is.null(rescue_SE$rescue_edges)) {
   type_b_rescued_SE <- rescue_SE$rescue_edges %>%
     filter(!node_to %in% species_in_CP) %>%
@@ -386,17 +229,19 @@ if (!is.null(rescue_SE$rescue_edges)) {
   type_b_rescued_SE <- character(0)
 }
 
-## -- Remove species at random (500 times), OPTION A2: mechanism-aware
-#In each new habitat, species are shuffled into a random order and the first TARGET_N (the real
-#simulation's actual post-mechanism count) that are NOT eligible for rewiring/rescue are the ones that
-#actually go extinct -- see sim_sp_removal_mechanism() above.
 
+## -- Remove species at random (500 times)
+
+# Split rewired/rescued edges back out by original habitat, for per-habitat shuffling
 WD_edge_list<-new_habitats_ab_rem %>%  filter(pre_hab =="WD")
 RG_edge_list<-new_habitats_ab_rem %>%  filter(pre_hab =="RG")
 
+# Candidate species pool eligible to be randomly removed (per habitat)
 pool_WD_SE <- get_candidate_pool(WD_edge_list)
 pool_RG_SE <- get_candidate_pool(RG_edge_list)
 
+# Check which candidates could survive via rewiring/rescue if removed, so the null model 
+# accounts for the same mechanisms as the real simulation
 eligibility_SE <- get_mechanism_eligibility(
   candidate_pool           = union(pool_WD_SE, pool_RG_SE),
   new_habitats_ab_CP       = new_habitats_ab_CP,
@@ -448,6 +293,8 @@ write.csv(SE_sim,"Data/SE_sim_CP_M1_M2_A2.csv", row.names= FALSE)
 
 
 #####  -- Moderate (replace "WD","RG","MH"and "NH" for "CP")
+
+## -- Remove habitats from Norwood (the ones to replace) and incorporate abundances and taxon
 mod_edgelist_rem<- Norwood_farm$extended_ids %>%
   filter(layer_from != 8 & layer_from != 10 & layer_from != 4 & layer_from != 5) %>%
   select(-layer_to) %>% rename("habitat" = "layer_from") %>%
@@ -458,16 +305,17 @@ mod_edgelist_rem<- Norwood_farm$extended_ids %>%
 
 mod_edgelist_rem<-mod_edgelist_rem[,c(1,2,5,4,3,7,6)]
 
+## -- Merge edge list of CP and the habitats to convert
 MH_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1 | layer_from == 4) %>%
   mutate (pre_hab= "MH",new_habitat = "MH_CP")
-
 NH_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1 | layer_from == 5) %>%
   mutate (pre_hab = "NH",new_habitat = "NH_CP")
 
 converted_area<-rbind(MH_CP, NH_CP)
-
 abundances_sp<-state_nodes_ab %>% filter(layer_id ==1 |layer_id ==4 |
                                            layer_id ==5)
+
+## -- Scale CP abundances by the relative area of MH/NH (abundance multiplier: ratio of old habitat's area to CP's area)
 new_habitats_ab<-converted_area %>%  group_by(layer_from) %>%
   left_join(abundances_sp, by = c("layer_from" ="layer_id","node_from" = "node_id")) %>%
   left_join(abundances_sp, by = c("layer_from" ="layer_id","node_to" = "node_id")) %>%
@@ -482,6 +330,7 @@ new_habitats_ab<-converted_area %>%  group_by(layer_from) %>%
       (layer_from == 1 & new_habitat == "NH_CP") ~ ab_node_to * habitat_area[habitat_area$HabitatCode == "NH",6 ],
       TRUE~ab_node_to))
 
+# Remove interactions where a partner has less than 1 individual
 new_habitats_ab_rem<- new_habitats_ab %>% filter(ab_node_from >=1 & ab_node_to >=1) %>%
   mutate(layer_from = case_when(
     layer_from == 1 ~ "CP",
@@ -499,12 +348,14 @@ new_habitats_ab_CP <- new_habitats_ab %>%
   mutate(habitat = case_when(new_habitat == "MH_CP" ~ 13L, new_habitat == "NH_CP" ~ 14L)) %>%
   select(habitat, node_from, ab_node_from, taxon_node_from, node_to, ab_node_to, taxon_node_to)
 
+## -- Apply Mechanism 1 (rewiring) for MH (layer 4 → hab 13) and NH (layer 5 → hab 14)
 new_habitats_emp <- apply_rewiring(new_habitats_ab_CP,
                                    replaced_layer_ids = c(4, 5),
                                    hab_id_map = c("4" = 13, "5" = 14),
                                    state_nodes_ab, total_resources_baseline,
                                    species_in_CP, abundances_CP, metaweb)
 
+# Count new species rewired into CP per habitat, to correct the baseline extinction count
 rewired_M <- new_habitats_emp %>%
   filter(ab_node_from >= 1 & ab_node_to >= 1) %>%
   filter(!node_to %in% species_in_CP) %>%
@@ -517,6 +368,7 @@ absent_species_count_M <- absent_species_count %>%
   mutate(absent_count = absent_count - replace_na(n_rewired, 0)) %>%
   select(habitat, absent_count)
 
+# Update species_in_CP with species rewired into new CP habitats
 species_rewired_M <- new_habitats_emp %>%
   filter(ab_node_from >= 1 & ab_node_to >= 1, !node_to %in% species_in_CP) %>%
   pull(node_to) %>% unique()
@@ -525,6 +377,7 @@ species_in_CP <- union(species_in_CP, species_rewired_M)
 new_habitats_emp_rem_M   <- new_habitats_emp %>% filter(ab_node_from >= 1 & ab_node_to >= 1)
 new_habitats_emp_rem_all <- bind_rows(new_habitats_emp_rem_SE, new_habitats_emp_rem_M)
 
+## -- Apply Mechanism 2 (rescue) — dispersa to remaining habitats
 rescue_M <- apply_rescue(
   replaced_layer_ids   = c(8, 10, 4, 5),
   hab_id_map           = c("8" = 11, "10" = 12, "4" = 13, "5" = 14),
@@ -534,6 +387,7 @@ rescue_M <- apply_rescue(
   metaweb              = metaweb
 )
 
+# Add newly established species to the extinction correction, and update species_in_CP
 if (!is.null(rescue_M$rescue_edges)) {
   type_b_rescued_M <- rescue_M$rescue_edges %>%
     filter(!node_to %in% species_in_CP) %>%
@@ -558,14 +412,18 @@ if (!is.null(rescue_M$rescue_edges)) {
 }
 
 
-## -- Remove species at random (500 times), OPTION A2: mechanism-aware
+## -- Remove species at random (500 times)
 
+# Split rewired/rescued edges back out by original habitat, for per-habitat shuffling
 MH_edge_list<-new_habitats_ab_rem %>%  filter(pre_hab =="MH")
 NH_edge_list<-new_habitats_ab_rem %>%  filter(pre_hab =="NH")
 
+# Candidate species pool eligible to be randomly removed (per habitat)
 pool_MH_M <- get_candidate_pool(MH_edge_list)
 pool_NH_M <- get_candidate_pool(NH_edge_list)
 
+# Check which candidates could survive via rewiring/rescue if removed, so the null model 
+# accounts for the same mechanisms as the real simulation
 eligibility_M <- get_mechanism_eligibility(
   candidate_pool           = union(pool_MH_M, pool_NH_M),
   new_habitats_ab_CP       = new_habitats_ab_CP,
@@ -579,7 +437,6 @@ eligibility_M <- get_mechanism_eligibility(
 shuff_MH<-sim_sp_removal_mechanism(MH_edge_list, absent_species_count_M, eligibility_M)
 MH_clean<-shuff_MH[[1]] %>% ungroup() %>% mutate(habitat = 13) %>% select(habitat,node_from,ab_node_from,taxon_node_from,
                                                                      node_to,ab_node_to,taxon_node_to, iteration)
-
 #NH
 shuff_NH<-sim_sp_removal_mechanism(NH_edge_list, absent_species_count_M, eligibility_M)
 NH_clean<-shuff_NH[[1]] %>% ungroup() %>% mutate(habitat = 14) %>% select(habitat,node_from,ab_node_from,taxon_node_from,
@@ -587,23 +444,24 @@ NH_clean<-shuff_NH[[1]] %>% ungroup() %>% mutate(habitat = 14) %>% select(habita
 
 #Merge shuff habitats from this management scenario (M) with the previous management (SE)
 shuff_pre<-read.csv("Data/shuff_hab_WD_RG_CP_M1_M2_A2.csv", sep =,)
-
 shuff_habitats<-rbind(shuff_pre,MH_clean,NH_clean)
 write.csv(shuff_habitats,"Data/shuff_hab_M_CP_M1_M2_A2.csv", row.names= FALSE)
 
+# Store species removed in every iteration
 sps_removed_MH <- shuff_MH[[2]] %>% mutate(habitat_from = "MH", management = "M")
 sps_removed_NH <- shuff_NH[[2]] %>% mutate(habitat_from = "NH", management = "M")
 sps_removed<-rbind(sps_removed_MH,sps_removed_NH)
-
 write.csv(sps_removed,"Data/sps_removed_M_CP_M1_M2_A2.csv", row.names= FALSE)
 
 ## -- Merge each simulation of transformed habitats with the non-transformed habitats to create 500 simulation of the management scenario (M)
 mod_sim_no_aggr<- comb_edge_list(mod_edgelist_rem,shuff_habitats)
 
+## -- create state_node_list of each simulated management scenario
 state_node_mod_sim<-lapply(mod_sim_no_aggr,state_node_list)
 state_node_mod_sim<-bind_rows(state_node_mod_sim)
 write.csv(state_node_mod_sim,"Data/M_sim_state_node_CP_M1_M2_A2.csv", row.names= FALSE)
 
+## -- aggregate habitat within simulated management scenario
 M_sim<-lapply(mod_sim_no_aggr,function(data) {
   data %>%  mutate(management = "M") %>%
     select(management,iteration,node_from,node_to) %>%
@@ -618,6 +476,7 @@ write.csv(M_sim,"Data/M_sim_CP_M1_M2_A2.csv", row.names= FALSE)
 
 ##### -- Semi - intensive (replace "WD","RG","MH","NH","GM", "SF" and "PP" for "CP")
 
+## -- Remove habitats from Norwood (the ones to replace) and incorporate abundances and taxon
 sem_int_edgelist_rem<- Norwood_farm$extended_ids %>%
   filter(layer_from != 8 & layer_from != 10 &  layer_from != 4 &
            layer_from != 5 & layer_from != 2 & layer_from != 9 &
@@ -630,6 +489,7 @@ sem_int_edgelist_rem<- Norwood_farm$extended_ids %>%
 
 sem_int_edgelist_rem<-sem_int_edgelist_rem[,c(1,2,5,4,3,7,6)]
 
+## -- Merge edge list of CP and the habitats to convert
 GM_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1 | layer_from == 2) %>%
   mutate (pre_hab= "GM",new_habitat = "GM_CP")
 
@@ -640,9 +500,10 @@ PP_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1 | layer_from == 7)
   mutate (pre_hab = "PP",new_habitat = "PP_CP")
 
 converted_area<-rbind(GM_CP, SF_CP, PP_CP)
-
 abundances_sp<-state_nodes_ab %>% filter(layer_id ==1 |layer_id ==2 |
                                            layer_id ==9| layer_id ==7)
+
+## -- Scale CP abundances by the relative area of GM/SF/PP (abundance multiplier: ratio of old habitat's area to CP's area)
 new_habitats_ab<-converted_area %>%  group_by(layer_from) %>%
   left_join(abundances_sp, by = c("layer_from" ="layer_id","node_from" = "node_id")) %>%
   left_join(abundances_sp, by = c("layer_from" ="layer_id","node_to" = "node_id")) %>%
@@ -659,6 +520,7 @@ new_habitats_ab<-converted_area %>%  group_by(layer_from) %>%
       (layer_from == 1 & new_habitat == "PP_CP") ~ ab_node_to * habitat_area[habitat_area$HabitatCode == "PP",6 ],
       TRUE~ab_node_to))
 
+# Remove interactions where a partner has less than 1 individual
 new_habitats_ab_rem<- new_habitats_ab %>% filter(ab_node_from >=1 & ab_node_to >=1) %>%
   mutate(layer_from = case_when(
     layer_from == 1 ~ "CP",
@@ -680,12 +542,14 @@ new_habitats_ab_CP <- new_habitats_ab %>%
                              new_habitat == "PP_CP" ~ 17L)) %>%
   select(habitat, node_from, ab_node_from, taxon_node_from, node_to, ab_node_to, taxon_node_to)
 
+## -- Apply Mechanism 1 (rewiring) for GM (layer 2 → hab 15), SF (layer 9 → hab 16), PP (layer 7 → hab 17)
 new_habitats_emp <- apply_rewiring(new_habitats_ab_CP,
                                    replaced_layer_ids = c(2, 9, 7),
                                    hab_id_map = c("2" = 15, "9" = 16, "7" = 17),
                                    state_nodes_ab, total_resources_baseline,
                                    species_in_CP, abundances_CP, metaweb)
 
+# Count new species rewired into CP per habitat, to correct the baseline extinction count
 rewired_SI <- new_habitats_emp %>%
   filter(ab_node_from >= 1 & ab_node_to >= 1) %>%
   filter(!node_to %in% species_in_CP) %>%
@@ -698,6 +562,7 @@ absent_species_count_SI <- absent_species_count %>%
   mutate(absent_count = absent_count - replace_na(n_rewired, 0)) %>%
   select(habitat, absent_count)
 
+# Update species_in_CP with species rewired into new CP habitats
 species_rewired_SI <- new_habitats_emp %>%
   filter(ab_node_from >= 1 & ab_node_to >= 1, !node_to %in% species_in_CP) %>%
   pull(node_to) %>% unique()
@@ -706,6 +571,7 @@ species_in_CP <- union(species_in_CP, species_rewired_SI)
 new_habitats_emp_rem_SI  <- new_habitats_emp %>% filter(ab_node_from >= 1 & ab_node_to >= 1)
 new_habitats_emp_rem_all <- bind_rows(new_habitats_emp_rem_SE, new_habitats_emp_rem_M, new_habitats_emp_rem_SI)
 
+## -- Apply Mechanism 2 (rescue) — dispersal to remaining habitats
 rescue_SI <- apply_rescue(
   replaced_layer_ids   = c(8, 10, 4, 5, 2, 9, 7),
   hab_id_map           = c("8" = 11, "10" = 12, "4" = 13, "5" = 14, "2" = 15, "9" = 16, "7" = 17),
@@ -715,6 +581,7 @@ rescue_SI <- apply_rescue(
   metaweb              = metaweb
 )
 
+# Add newly established species to the extinction correction, and update species_in_CP
 if (!is.null(rescue_SI$rescue_edges)) {
   type_b_rescued_SI <- rescue_SI$rescue_edges %>%
     filter(!node_to %in% species_in_CP) %>%
@@ -741,16 +608,20 @@ if (!is.null(rescue_SI$rescue_edges)) {
 }
 
 
-## -- Remove species at random (500 times), OPTION A2: mechanism-aware
+## -- Remove species at random (500 times)
 
+# Split rewired/rescued edges back out by original habitat, for per-habitat shuffling
 GM_edge_list<-new_habitats_ab_rem %>%  filter(pre_hab =="GM")
 SF_edge_list<-new_habitats_ab_rem %>%  filter(pre_hab =="SF")
 PP_edge_list<-new_habitats_ab_rem %>%  filter(pre_hab =="PP")
 
+# Candidate species pool eligible to be randomly removed (per habitat)
 pool_GM_SI <- get_candidate_pool(GM_edge_list)
 pool_SF_SI <- get_candidate_pool(SF_edge_list)
 pool_PP_SI <- get_candidate_pool(PP_edge_list)
 
+# Check which candidates could survive via rewiring/rescue if removed, so the null model 
+# accounts for the same mechanisms as the real simulation
 eligibility_SI <- get_mechanism_eligibility(
   candidate_pool           = union(union(pool_GM_SI, pool_SF_SI), pool_PP_SI),
   new_habitats_ab_CP       = new_habitats_ab_CP,
@@ -764,68 +635,36 @@ eligibility_SI <- get_mechanism_eligibility(
 shuff_GM<-sim_sp_removal_mechanism(GM_edge_list, absent_species_count_SI, eligibility_SI)
 GM_clean<-shuff_GM[[1]] %>% ungroup() %>% mutate(habitat = 15) %>% select(habitat,node_from,ab_node_from,taxon_node_from,
                                                                      node_to,ab_node_to,taxon_node_to, iteration)
-
-## 1. Which species were removed in SE's iteration 1 (from WD/RG)?
-se_removed_iter1 <- read.csv("Data/sps_removed_SE_CP_M1_M2_A2.csv") %>%
-  filter(iteration == 1) %>%
-  pull(species_rem) %>% unique()
-
-length(se_removed_iter1)
-
-## 2. Are those species still absent from M's iteration 1 network?
-m_species_iter1 <- read.csv("Data/M_sim_state_node_CP_M1_M2_A2.csv") %>%
-  filter(iteration == 1) %>%
-  pull(node_id) %>% unique()
-
-## This should be TRUE -- once removed at SE, a species should stay removed at M
-still_absent <- !any(se_removed_iter1 %in% m_species_iter1)
-cat("SE's iteration-1 removed species are still absent from M's iteration 1:", still_absent, "\n")
-
-## 3. If any DID reappear, show which ones (should be empty)
-reappeared <- se_removed_iter1[se_removed_iter1 %in% m_species_iter1]
-print(reappeared)
-
-## 4. Sanity check on richness direction for this one trajectory (not required to be strictly
-## monotonic given the multi-habitat "safety net" effect, but a big reversal would be suspicious)
-se_richness_iter1 <- read.csv("Data/SE_sim_state_node_CP_M1_M2_A2.csv") %>%
-  filter(iteration == 1) %>% summarise(n = n_distinct(node_id))
-m_richness_iter1 <- read.csv("Data/M_sim_state_node_CP_M1_M2_A2.csv") %>%
-  filter(iteration == 1) %>% summarise(n = n_distinct(node_id))
-
-cat("SE iteration 1 richness:", se_richness_iter1$n, "\n")
-cat("M iteration 1 richness:", m_richness_iter1$n, "\n")
-
-
 #SF
 shuff_SF<-sim_sp_removal_mechanism(SF_edge_list, absent_species_count_SI, eligibility_SI)
 SF_clean<-shuff_SF[[1]] %>% ungroup() %>% mutate(habitat = 16) %>% select(habitat,node_from,ab_node_from,taxon_node_from,
                                                                      node_to,ab_node_to,taxon_node_to, iteration)
-
 #PP
 shuff_PP<-sim_sp_removal_mechanism(PP_edge_list, absent_species_count_SI, eligibility_SI)
 PP_clean<-shuff_PP[[1]] %>% ungroup() %>% mutate(habitat = 17) %>% select(habitat,node_from,ab_node_from,taxon_node_from,
                                                                      node_to,ab_node_to,taxon_node_to, iteration)
 
-#Merge shuff habitats from this management scenario (SI) with the previous management (M)
+# Merge shuff habitats from this management scenario (SI) with the previous management (M)
 shuff_pre<-read.csv("Data/shuff_hab_M_CP_M1_M2_A2.csv", sep =,)
-
 shuff_habitats<-rbind(shuff_pre,GM_clean,SF_clean,PP_clean)
 write.csv(shuff_habitats,"Data/shuff_hab_SI_CP_M1_M2_A2.csv", row.names= FALSE)
 
+# Store species removed in every iteration
 sps_removed_GM <- shuff_GM[[2]] %>% mutate(habitat_from = "GM", management = "SI")
 sps_removed_SF <- shuff_SF[[2]] %>% mutate(habitat_from = "SF", management = "SI")
 sps_removed_PP <- shuff_PP[[2]] %>% mutate(habitat_from = "PP", management = "SI")
 sps_removed<-rbind(sps_removed_GM,sps_removed_SF,sps_removed_PP)
-
 write.csv(sps_removed,"Data/sps_removed_SI_CP_M1_M2_A2.csv", row.names= FALSE)
 
 ## -- Merge each simulation of transformed habitats with the non-transformed habitats to create 500 simulation of the management scenario (SI)
 sem_int_sim_no_aggr<- comb_edge_list(sem_int_edgelist_rem,shuff_habitats)
 
+## -- create state_node_list of each simulated management scenario
 state_node_SI_sim<-lapply(sem_int_sim_no_aggr,state_node_list)
 state_node_SI_sim<-bind_rows(state_node_SI_sim)
 write.csv(state_node_SI_sim,"Data/SI_sim_state_node_CP_M1_M2_A2.csv", row.names= FALSE)
 
+## -- aggregate habitat within simulated management scenario
 SI_sim<-lapply(sem_int_sim_no_aggr,function(data) {
   data %>%  mutate(management = "SI") %>%
     select(management,iteration,node_from,node_to) %>%
@@ -840,6 +679,7 @@ write.csv(SI_sim,"Data/SI_sim_CP_M1_M2_A2.csv", row.names= FALSE)
 
 ##### -- Intensive (replace "WD","RG","MH","NH","GM","SF", "PP", "LP", and"NL"for "CP")
 
+## -- Remove habitats from Norwood (the ones to replace) and incorporate abundances and taxon 
 int_edgelist_rem<- Norwood_farm$extended_ids %>%
   filter(layer_from != 8 & layer_from != 10 &  layer_from != 4 &
            layer_from != 5  &  layer_from != 2 &layer_from != 9 &
@@ -852,16 +692,17 @@ int_edgelist_rem<- Norwood_farm$extended_ids %>%
 
 int_edgelist_rem<-int_edgelist_rem[,c(1,2,5,4,3,7,6)]
 
+## -- Merge edge list of CP and the habitats to convert
 LP_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1 | layer_from == 3) %>%
   mutate (pre_hab= "LP",new_habitat = "LP_CP")
-
 NL_CP<- Norwood_farm$extended_ids %>% filter(layer_from  == 1 | layer_from == 6) %>%
   mutate (pre_hab = "NL",new_habitat = "NL_CP")
 
 converted_area<-rbind(LP_CP, NL_CP)
-
 abundances_sp<-state_nodes_ab %>% filter(layer_id ==1 |layer_id ==3 |
                                            layer_id ==6)
+
+## -- Scale CP abundances by the relative area of LP/NL (abundance multiplier: ratio of old habitat's area to CP's area)
 new_habitats_ab<-converted_area %>%  group_by(layer_from) %>%
   left_join(abundances_sp, by = c("layer_from" ="layer_id","node_from" = "node_id")) %>%
   left_join(abundances_sp, by = c("layer_from" ="layer_id","node_to" = "node_id")) %>%
@@ -876,6 +717,7 @@ new_habitats_ab<-converted_area %>%  group_by(layer_from) %>%
       (layer_from == 1 & new_habitat == "NL_CP") ~ ab_node_to * habitat_area[habitat_area$HabitatCode == "NL",6 ],
       TRUE~ab_node_to))
 
+# Remove interactions where a partner has less than 1 individual
 new_habitats_ab_rem<- new_habitats_ab %>% filter(ab_node_from >=1 & ab_node_to >=1) %>%
   mutate(layer_from = case_when(
     layer_from == 1 ~ "CP",
@@ -893,12 +735,14 @@ new_habitats_ab_CP <- new_habitats_ab %>%
   mutate(habitat = case_when(new_habitat == "LP_CP" ~ 18L, new_habitat == "NL_CP" ~ 19L)) %>%
   select(habitat, node_from, ab_node_from, taxon_node_from, node_to, ab_node_to, taxon_node_to)
 
+## -- Apply Mechanism 1 (rewiring) for LP (layer 3 → hab 18) and NL (layer 6 → hab 19)
 new_habitats_emp <- apply_rewiring(new_habitats_ab_CP,
                                    replaced_layer_ids = c(3, 6),
                                    hab_id_map = c("3" = 18, "6" = 19),
                                    state_nodes_ab, total_resources_baseline,
                                    species_in_CP, abundances_CP, metaweb)
 
+# Count new species rewired into CP per habitat, to correct the baseline extinction count
 rewired_I <- new_habitats_emp %>%
   filter(ab_node_from >= 1 & ab_node_to >= 1) %>%
   filter(!node_to %in% species_in_CP) %>%
@@ -911,6 +755,7 @@ absent_species_count_I <- absent_species_count %>%
   mutate(absent_count = absent_count - replace_na(n_rewired, 0)) %>%
   select(habitat, absent_count)
 
+# Update species_in_CP with species rewired into new CP habitats
 species_rewired_I <- new_habitats_emp %>%
   filter(ab_node_from >= 1 & ab_node_to >= 1, !node_to %in% species_in_CP) %>%
   pull(node_to) %>% unique()
@@ -920,6 +765,7 @@ new_habitats_emp_rem_I   <- new_habitats_emp %>% filter(ab_node_from >= 1 & ab_n
 new_habitats_emp_rem_all <- bind_rows(new_habitats_emp_rem_SE, new_habitats_emp_rem_M,
                                       new_habitats_emp_rem_SI, new_habitats_emp_rem_I)
 
+## -- Apply Mechanism 2 (rescue) — dispersal to remaining habitats
 rescue_I <- apply_rescue(
   replaced_layer_ids   = c(8, 10, 4, 5, 2, 9, 7, 3, 6),
   hab_id_map           = c("8" = 11, "10" = 12, "4" = 13, "5" = 14,
@@ -930,6 +776,7 @@ rescue_I <- apply_rescue(
   metaweb              = metaweb
 )
 
+# Add newly established species to the extinction correction, and update species_in_CP
 if (!is.null(rescue_I$rescue_edges)) {
   type_b_rescued_I <- rescue_I$rescue_edges %>%
     filter(!node_to %in% species_in_CP) %>%
@@ -955,14 +802,18 @@ if (!is.null(rescue_I$rescue_edges)) {
 }
 
 
-## -- Remove species at random (500 times), OPTION A2: mechanism-aware
+## -- Remove species at random (500 times)
 
+# Split rewired/rescued edges back out by original habitat, for per-habitat shuffling
 LP_edge_list<-new_habitats_ab_rem %>%  filter(pre_hab =="LP")
 NL_edge_list<-new_habitats_ab_rem %>%  filter(pre_hab =="NL")
 
+# Candidate species pool eligible to be randomly removed (per habitat)
 pool_LP_I <- get_candidate_pool(LP_edge_list)
 pool_NL_I <- get_candidate_pool(NL_edge_list)
 
+# Check which candidates could survive via rewiring/rescue if removed, so the null model 
+# accounts for the same mechanisms as the real simulation
 eligibility_I <- get_mechanism_eligibility(
   candidate_pool           = union(pool_LP_I, pool_NL_I),
   new_habitats_ab_CP       = new_habitats_ab_CP,
@@ -976,31 +827,31 @@ eligibility_I <- get_mechanism_eligibility(
 shuff_LP<-sim_sp_removal_mechanism(LP_edge_list, absent_species_count_I, eligibility_I)
 LP_clean<-shuff_LP[[1]] %>% ungroup() %>% mutate(habitat = 18) %>% select(habitat,node_from,ab_node_from,taxon_node_from,
                                                                      node_to,ab_node_to,taxon_node_to, iteration)
-
 #NL
 shuff_NL<-sim_sp_removal_mechanism(NL_edge_list, absent_species_count_I, eligibility_I)
 NL_clean<-shuff_NL[[1]] %>% ungroup() %>% mutate(habitat = 19) %>% select(habitat,node_from,ab_node_from,taxon_node_from,
                                                                      node_to,ab_node_to,taxon_node_to, iteration)
 
-#Merge shuff habitats from this management scenario (I) with the previous management (SI)
+# Merge shuff habitats from this management scenario (I) with the previous management (SI)
 shuff_pre<-read.csv("Data/shuff_hab_SI_CP_M1_M2_A2.csv", sep =,)
-
 shuff_habitats<-rbind(shuff_pre,LP_clean,NL_clean)
 write.csv(shuff_habitats,"Data/shuff_hab_I_CP_M1_M2_A2.csv", row.names= FALSE)
 
+# Store species removed in every iteration
 sps_removed_LP <- shuff_LP[[2]] %>% mutate(habitat_from = "LP", management = "I")
 sps_removed_NL <- shuff_NL[[2]] %>% mutate(habitat_from = "NL", management = "I")
 sps_removed<-rbind(sps_removed_LP,sps_removed_NL)
-
 write.csv(sps_removed,"Data/sps_removed_I_CP_M1_M2_A2.csv", row.names= FALSE)
 
 ## -- Merge each simulation of transformed habitats with the non-transformed habitats to create 500 simulation of the management scenario (I)
 int_sim_no_aggr<- comb_edge_list(int_edgelist_rem,shuff_habitats)
 
+## -- create state_node_list of each simulated management scenario
 state_node_I_sim<-lapply(int_sim_no_aggr,state_node_list)
 state_node_I_sim<-bind_rows(state_node_I_sim)
 write.csv(state_node_I_sim,"Data/I_sim_state_node_CP_M1_M2_A2.csv", row.names= FALSE)
 
+## -- aggregate habitat within simulated management scenario
 I_sim<-lapply(int_sim_no_aggr,function(data) {
   data %>%  mutate(management = "I") %>%
     select(management,iteration,node_from,node_to) %>%
@@ -1015,9 +866,9 @@ write.csv(I_sim,"Data/I_sim_CP_M1_M2_A2.csv", row.names= FALSE)
 ##### -- Intensive non-organic
 #We remove the weeds and species that only interact with them for all the intensive simulated networks.
 #Unchanged from the original null model: this step is a deterministic rule-based filter (remove weeds and
-#herbivores that only interact with weeds), not a "randomly choose N species" step, so Option A2's
-#mechanism-eligibility logic does not apply here.
+#herbivores that only interact with weeds), not a "randomly choose N species" step.
 
+## -- Upload the 500 Intensive (I) simulations and relabel as management "IN"
 I_sim_CP<-read.csv("Data/I_sim_CP_M1_M2_A2.csv", sep =,) %>%
   mutate(management = "IN")
 
@@ -1033,13 +884,16 @@ edge_list_shuff <- data.frame()
 list_species_removed<- data.frame()
 list_species_survived<- data.frame()
 
+## -- Apply the weed-removal rule to each of the 500 iterations separately
 for (i in 1:500){
   print(i)
   iteration_net <- I_sim_CP %>% filter(iteration==i)
 
+  # Remove weeds
   edge_list_weed_remov<- iteration_net %>%
     filter(!(node_from%in%weeds), !(node_to%in%weeds))
 
+  # Step 1: Identify herbivores that interact with crops (these must be kept, since they're still pests on crops)
   interact_with_crops <- iteration_net %>%
     filter((node_from %in% herbivores & node_to %in% crops) |
              (node_to %in% herbivores & node_from %in% crops)) %>%
@@ -1047,9 +901,10 @@ for (i in 1:500){
     unlist() %>%
     as.numeric() %>%
     unique()
-
+  
   herbivores_crops<-interact_with_crops[interact_with_crops > 99]
 
+  # Step 2: Identify herbivores that only interact with weeds (excluding the ones already kept above)
   interact_without_crops <- iteration_net %>%
     filter(
       ((node_from %in% herbivores & node_to %in% weeds) |
@@ -1062,12 +917,14 @@ for (i in 1:500){
 
   herbivores_only_weeds<- interact_without_crops[interact_without_crops > 99]
 
+  # Remove herbivores_only_weeds and their interactions in this iteration's network
   edge_list_remov<-edge_list_weed_remov %>%
     filter(
       !(node_from %in% herbivores_only_weeds) & !(node_to %in% herbivores_only_weeds))
 
   edge_list_shuff <- rbind(edge_list_shuff, edge_list_remov)
 
+  # Track which species were present before vs after this filter
   unique_species <- iteration_net %>%
     select(node_from, node_to) %>%
     unlist() %>%
@@ -1083,6 +940,8 @@ for (i in 1:500){
 
   sp_removed<- setdiff(unique_species, remain_species)
 
+  # For each removed species, record its degree (number of interactions) in the original network,
+  # for reference/diagnostics
   for (j in sp_removed){
     sp_removed = j
     degree<- iteration_net %>%ungroup() %>%
@@ -1116,7 +975,6 @@ write.csv(state_node_IM_sim,"Data/IM_sim_state_node_CP_M1_M2_A2.csv", row.names=
 ##### -- Final Dataframe
 
 ## - Edge list
-
 SE_sim<-read.csv("Data/SE_sim_CP_M1_M2_A2.csv", sep =,)
 SE_sim$iteration<-as.character(SE_sim$iteration)
 
@@ -1142,7 +1000,6 @@ write.csv(edge_list_sim,"Data/edge_list_sim_CP_M1_M2_A2.csv", row.names= FALSE)
 
 
 ## - State nodes
-
 SE_sim<-read.csv("Data/SE_sim_state_node_CP_M1_M2_A2.csv", sep =,) %>%
         mutate(management = "SE") %>%  select(management, iteration,node_id,taxon,abun)
 SE_sim$iteration<-as.character(SE_sim$iteration)
@@ -1193,13 +1050,12 @@ write.csv(sps_removed_sim,"Data/sps_removed_sim_CP_M1_M2_A2.csv", row.names= FAL
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#             ESTIMATION OF NCP PROVISION AND INDIRECT EFFECT ON NCP
+#             2. ESTIMATION OF NCP PROVISION AND INDIRECT EFFECT ON NCP
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # For each shuffled network, we calculate the same variables as we did in the empirical network
 
 
 ############# 1. Calculate NCP provision
-
 state_node_sim<-read.csv("Data/state_node_sim_CP_M1_M2_A2.csv", sep =,)
 body_mass<-read.csv("Data/biomass.csv",header=T)
 
@@ -1211,7 +1067,6 @@ nodes_ES<- right_join(state_node_sim, Norwood_farm$nodes, by = "node_id")%>%
 
 
 ############# 2.  Estimate the amount of NCP provision per species
-
 direct_ES <- nodes_ES %>% filter (value ==1) %>%
   left_join(body_mass,by = "node_id") %>% select(-node_name,-taxon.y) %>%
   rename("taxon"="taxon.x", "body_mass" = "biomass.g") %>%
@@ -1261,10 +1116,8 @@ Indirect_1hop_sim<-edgelist_final %>%
                   select(management,iteration,services_from,node_from,node_to,taxon_from, services_to) %>%
                   mutate(hop = 1, type = "I")
 
-# We remove duplicate rows where node_from = birds or butterflies (each row represents an attribute and
-# these taxa have 2/3 attributes per node). CONFIRMED FIX (validated earlier in this session): the
-# distinct() grouping must include `iteration`, since this data has 500 randomized iterations per stage --
-# omitting `iteration` silently collapses all iterations down to one, corrupting every downstream count.
+# Remove duplicate rows where node_from = birds or butterflies (each row represents an attribute,
+# and these taxa have 2/3 attributes per node).
 rows_birds_butt <- Indirect_1hop_sim %>%
   filter(taxon_from == "Butterfly" | taxon_from == "Seed-feeding bird") %>%
   distinct(management, iteration, node_from, node_to, .keep_all = TRUE)
@@ -1305,10 +1158,9 @@ process_iter <- function(df_iter) {
 Indirect_1hop <- read.csv("Data/ind_1hop_sim_CP_M1_M2_A2.csv", sep = ",")
 n_cores <- detectCores() - 1
 
-# CONFIRMED FIX (validated earlier in this session): process each management stage's 500 iterations
-# SEPARATELY, not all 3000 (stage x iteration) groups in one giant mclapply() call. Running everything
-# at once silently exhausted memory for some stages (entire stages came back with zero 2-hop rows,
-# with no visible error) -- isolating by stage keeps memory bounded and makes failures easy to spot.
+
+# Process each management stage's 500 iterations separately. Isolating by stage keeps memory bounded and
+# makes failures easy to spot.
 run_2hop_for_stage <- function(stage_name) {
   cat("=== Processing management:", stage_name, "===\n")
 
@@ -1333,8 +1185,7 @@ run_2hop_for_stage <- function(stage_name) {
   return(data.frame(stage = stage_name, n_rows = n_rows, n_iter = n_iter, rows_per_iter = n_rows/n_iter))
 }
 
-## Run one at a time -- check the console output / n_iter after EACH before moving to the next.
-## Every stage should report n_iter == 500 -- if any stage is short, do not proceed until it's fixed.
+## Run one at a time 
 summary_SE <- run_2hop_for_stage("SE")
 summary_M  <- run_2hop_for_stage("M")
 summary_SI <- run_2hop_for_stage("SI")
@@ -1344,10 +1195,8 @@ summary_IN <- run_2hop_for_stage("IN")
 print(bind_rows(summary_SE, summary_M, summary_SI, summary_I, summary_IN))
 
 
-## CONFIRMED FIX: combine 1-hop + 2-hop per stage and write incrementally, never loading the full
-## combined dataset into memory at once (the combined file can be tens of GB). Uses data.table's
-## fread/fwrite/setnames/rbindlist throughout -- much lighter than base read.csv/rbind/write.csv at
-## this scale, and setnames() avoids dplyr::rename()'s full-table copy.
+# Combine 1-hop + 2-hop per stage and write incrementally, never loading the full combined dataset
+# into memory at once (the combined file can be tens of GB).
 ite <- 1:500
 Indirect_1hop_full <- fread("Data/ind_1hop_sim_CP_M1_M2_A2.csv") %>%
   filter((iteration == "Emp" | iteration %in% ite) & services_to != "None") %>%
@@ -1366,14 +1215,8 @@ for (s in stages) {
 
   hop2 <- fread(paste0("Data/ind_2hop_sim_CP_M1_M2_A2_", s, ".csv"))
   setnames(hop2, "taxon_from", "taxon")
-
   hop1 <- Indirect_1hop_full %>% filter(management == s)
-
-  # No need to re-filter services_to != "None" here: both hop1 and hop2 already exclude it
-  # (hop1 via the filter above; hop2 via process_iter()'s own filter). Re-filtering a combined
-  # multi-GB table was confirmed to be both redundant AND capable of triggering a memory crash.
   stage_combined <- rbindlist(list(hop1, hop2), use.names = TRUE)
-
   fwrite(stage_combined, output_file, append = file.exists(output_file))
 
   rm(hop2, hop1, stage_combined); gc()
@@ -1384,15 +1227,12 @@ rm(Indirect_1hop_full); gc()
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#                    STATISTICAL ANALYSIS
+#                    3. STATISTICAL ANALYSIS
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Z-score comparison between the converted (empirical) and randomized (Option A2, mechanism-aware) networks.
-# Empirical baseline files (Land_use_*_M1_M2.csv) are unchanged by this script -- only the randomized side
-# reflects the mechanism-aware null model.
+# Z-score comparison between the converted (empirical) and randomized networks.
 
 
 ################### 1. Proportion of NCP providers retained (direct effects) --
-
 ite = 1:500
 direct_ES<- read.csv("Data/direct_ES_sim_CP_M1_M2_A2.csv", sep =",") %>% filter(iteration == "Emp"|iteration%in%ite)
 direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I","IN"))
@@ -1434,31 +1274,8 @@ dir_ES_z_score <- dir_ES_z_score %>%
 
 write.csv(dir_ES_z_score,"Data/z_score_dir_ES_CP_M1_M2_A2.csv", row.names= FALSE)
 
-# "Times lower": PD_x menor en la red convertida que en la aleatoria
-dir_ratio_below <- dir_ES_z_score %>%
-  group_by(services) %>% mutate(n_total = n()) %>%
-  filter(signif == "below") %>%
-  mutate(times_lower = dir_shuff_mean / Prop_mean) %>%
-  group_by(services) %>%
-  summarise(mean_times_lower = mean(times_lower), n_below = n(), n_total = first(n_total), .groups = "drop") %>%
-  arrange(desc(mean_times_lower))
-
-print(dir_ratio_below, n = Inf)
-
-## "Times higher": PD_x mayor en la red convertida que en la aleatoria (por si aparece con A2)
-dir_ratio_above <- dir_ES_z_score %>%
-  group_by(services) %>% mutate(n_total = n()) %>%
-  filter(signif == "above") %>%
-  mutate(times_higher = Prop_mean / dir_shuff_mean) %>%
-  group_by(services) %>%
-  summarise(mean_times_higher = mean(times_higher), n_above = n(), n_total = first(n_total), .groups = "drop") %>%
-  arrange(desc(mean_times_higher))
-
-print(dir_ratio_above, n = Inf)
-
 
 ################### 2. Change in the amount of NCP provision --
-
 direct_ES_emp<- read.csv("Data/Land_use_dir_ES_M1_M2.csv", sep =",")
 
 tot_services_emp_watching<-direct_ES_emp %>% filter(management=="E" &  (services == "Bird watching" | services == "Butterfly watching" )) %>%
@@ -1523,78 +1340,18 @@ amount_ES_z_score <- amount_ES_z_score %>%
 
 write.csv(amount_ES_z_score,"Data/z_score_amount_ES_CP_M1_M2_A2.csv", row.names= FALSE)
 
-# "Times lower": A_x 
-amount_ratio_below <- amount_ES_z_score %>%
-  group_by(services) %>% mutate(n_total = n()) %>%
-  filter(signif == "below") %>%
-  mutate(times_lower = amount_shuff_mean / ratio_change) %>%
-  group_by(services) %>%
-  summarise(mean_times_lower = mean(times_lower), n_below = n(), n_total = first(n_total), .groups = "drop") %>%
-  arrange(desc(mean_times_lower))
-
-print(amount_ratio_below, n = Inf)
-
-## "Times higher": 
-amount_ratio_above <- amount_ES_z_score %>%
-  group_by(services) %>% mutate(n_total = n()) %>%
-  filter(signif == "above") %>%
-  mutate(times_higher = ratio_change / amount_shuff_mean) %>%
-  group_by(services) %>%
-  summarise(mean_times_higher = mean(times_higher), n_above = n(), n_total = first(n_total), .groups = "drop") %>%
-  arrange(desc(mean_times_higher))
-
-print(amount_ratio_above, n = Inf)
-
-make_boxplot_amount <- function(z_df, title_label) {
-  empirical_plot <- z_df %>% select(management, services, Prop_mean = ratio_change) %>% mutate(type = "Empirical")
-  null_plot <- z_df %>% select(management, services, Prop_mean = amount_shuff_mean) %>% mutate(type = "Null")
-  
-  plot_data <- bind_rows(empirical_plot, null_plot)
-  plot_data$management <- factor(plot_data$management, levels = c("E","SE","M","SI","I","IN"))
-  plot_data$type <- factor(plot_data$type, levels = c("Empirical","Null"))
-  
-  color_ncp <- c("Bird watching"="#1b9e77","Butterfly watching"="#d95f02","Crop damage"="#7570b3",
-                 "Crop production"="#e7298a","Pest control"="#377eb8","Pollination"="#e6ab02",
-                 "Seed dispersal"="#a6761d")
-  
-  ggplot(plot_data, aes(x = management, y = Prop_mean)) +
-    geom_boxplot(aes(color = type), fill = NA, outlier.shape = NA,
-                 position = position_dodge(width = 0.6), width = 0.5) +
-    geom_point(aes(fill = services, shape = type, group = type),
-               position = position_jitterdodge(dodge.width = 0.6, jitter.width = 0.08),
-               size = 2.5, stroke = 0.4, color = "black") +
-    scale_color_manual(values = c(Empirical = "black", Null = "red")) +
-    scale_shape_manual(values = c(Empirical = 21, Null = 24)) +
-    scale_fill_manual(values = color_ncp) +
-    labs(x = "Land conversion", y = "Relative change in amount of NCP provision", title = title_label) +
-    theme(legend.position = "bottom")
-}
-
-panelB_amount_A2 <- make_boxplot_amount(amount_ES_z_score, "A2 -- Amount of NCP provision")
-panelB_amount_A2
-
 
 ################### 3. Proportion of indirect effects on NCP provision retained --
 output_ind_ES_emp <- read.csv("Data/Land_use_ind_ES_M1_M2.csv", sep = ",")
 output_ind_ES_emp$management <- factor(output_ind_ES_emp$management, levels = c("E", "SE", "M", "SI", "I", "IN"))
 
-## Reading the combined indirect-effects file: this can be tens of GB. Try fread() first; if it hits
-## R's vector memory limit (a real constraint hit repeatedly on this machine during validation), fall
-## back to precomputing the needed (management, iteration, services_to) row counts with a shell command
-## and reading only that small summary in -- see the commented fallback below.
+## load the null model's combined indirect-effects data (500 iterations x scenario)
+# This file can be tens of GB (so we try fread()).
 output_ind_ES <- fread("Data/Indirect_ES_sim_CP_M1_M2_A2.csv")
 output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I","IN"))
 
-# --- Memory fallback (uncomment if fread() above hits "vector memory limit"): ---
-# system(paste0(
-#   "awk -F',' 'NR>1 {key=$1\",\"$2\",\"$7; count[key]++} ",
-#   "END {print \"management,iteration,services_to,tot\"; for (k in count) print k\",\"count[k]}' ",
-#   "Data/Indirect_ES_sim_CP_M1_M2_A2.csv > Data/ind_ES_counts_by_stage_iter_service_A2.csv"
-# ))
-# output_ind_ES <- read.csv("Data/ind_ES_counts_by_stage_iter_service_A2.csv")
-# output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I","IN"))
-# # if using this fallback, skip the group_by/summarise(tot=n()) step below -- tot is already computed
 
+## proportion retained per randomized iteration, relative to the empirical (E) baseline count
 indirect_shuff <- output_ind_ES %>%
   filter(iteration != "Emp") %>%
   group_by(management, iteration, services_to) %>%
@@ -1632,69 +1389,3 @@ indir_ES_z_score <- inner_join(
 
 write.csv(indir_ES_z_score,"Data/z_score_ind_ES_CP_M1_M2_A2.csv", row.names= FALSE)
 
-## Sanity check #1: retained proportion should never INCREASE as conversion intensifies (SI collapse bug
-## from the non-mechanism-aware pipeline -- confirm this is clean here too before trusting any result).
-null_summary <- indirect_shuff %>%
-  group_by(management, services_to) %>%
-  summarise(ind_shuff_mean = mean(Prop_mean), .groups = "drop") %>%
-  arrange(services_to, management)
-
-cat("Monotonicity check (should be 0 rows):\n")
-print(null_summary %>%
-  group_by(services_to) %>%
-  mutate(prev = lag(ind_shuff_mean), increased = ind_shuff_mean > prev) %>%
-  filter(increased == TRUE))
-
-
-# "Times lower": indirect effects
-indir_ratio_below <- indir_ES_z_score %>%
-  group_by(services_to) %>% mutate(n_total = n()) %>%
-  filter(signif == "below") %>%
-  mutate(times_lower = ind_shuff_mean / Prop_mean) %>%
-  group_by(services_to) %>%
-  summarise(mean_times_lower = mean(times_lower), n_below = n(), n_total = first(n_total), .groups = "drop") %>%
-  arrange(desc(mean_times_lower))
-
-print(indir_ratio_below, n = Inf)
-
-
-## "Times higher":
-indir_ratio_above <- indir_ES_z_score %>%
-  group_by(services_to) %>% mutate(n_total = n()) %>%
-  filter(signif == "above") %>%
-  mutate(times_higher = Prop_mean / ind_shuff_mean) %>%
-  group_by(services_to) %>%
-  summarise(mean_times_higher = mean(times_higher), n_above = n(), n_total = first(n_total), .groups = "drop") %>%
-  arrange(desc(mean_times_higher))
-
-print(indir_ratio_above, n = Inf)
-
-
-
-make_boxplot_indirect <- function(z_df, title_label) {
-  empirical_plot <- z_df %>% select(management, services_to, Prop_mean) %>% mutate(type = "Empirical")
-  null_plot <- z_df %>% select(management, services_to, Prop_mean = ind_shuff_mean) %>% mutate(type = "Null")
-  
-  plot_data <- bind_rows(empirical_plot, null_plot)
-  plot_data$management <- factor(plot_data$management, levels = c("E","SE","M","SI","I","IN"))
-  plot_data$type <- factor(plot_data$type, levels = c("Empirical","Null"))
-  
-  color_ncp <- c("Bird watching"="#1b9e77","Butterfly watching"="#d95f02","Crop damage"="#7570b3",
-                 "Crop production"="#e7298a","Pest control"="#377eb8","Pollination"="#e6ab02",
-                 "Seed dispersal"="#a6761d")
-  
-  ggplot(plot_data, aes(x = management, y = Prop_mean)) +
-    geom_boxplot(aes(color = type), fill = NA, outlier.shape = NA,
-                 position = position_dodge(width = 0.6), width = 0.5) +
-    geom_point(aes(fill = services_to, shape = type, group = type),
-               position = position_jitterdodge(dodge.width = 0.6, jitter.width = 0.08),
-               size = 2.5, stroke = 0.4, color = "black") +
-    scale_color_manual(values = c(Empirical = "black", Null = "red")) +
-    scale_shape_manual(values = c(Empirical = 21, Null = 24)) +
-    scale_fill_manual(values = color_ncp) +
-    labs(x = "Land conversion", y = "Prop. of indirect effects retained", title = title_label) +
-    theme(legend.position = "bottom")
-}
-
-panelB_indirect_A2 <- make_boxplot_indirect(indir_ES_z_score, "A2 -- Indirect effects")
-panelB_indirect_A2

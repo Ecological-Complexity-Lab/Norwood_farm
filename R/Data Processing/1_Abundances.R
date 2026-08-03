@@ -6,8 +6,8 @@ library(sna)
 library(tidyverse)
 
 ## -- get_data--------------------------------------------------------------------------------------------------------
-setwd("/Users/agustin/Desktop/Papers/Norwood_farm/Norwood_Tinio")
-
+#setwd("/Users/agustin/Desktop/Papers/Norwood_farm/Norwood_Tinio")
+setwd("/Users/agustinvitali/Desktop/Work/Papers/In_prep/Norwood_Farm/GitHub/Norwood_farm")
 
 ###### -- Species abundance estimation in each habitat -------------------------------------------------------------------
 # Upload raw data frame 
