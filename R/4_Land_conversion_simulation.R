@@ -7,9 +7,9 @@
 
 # a) Assign species abundances as state nodes attributes of the extensive Norwood farm (nodes’ abundances per each habitat)
 
-# b) Change the habitats to “CP” but modifying the abundance of each species  according to the area (removing population below 1 individual). Species from a replaced habitat can persist in the new CP habitat through 
+# b) Change the habitats to “CP” but modifying the abundance of each species according to the area (removing population below 1 individual). Species from a replaced habitat can persist in the new CP habitat through 
 #two mechanisms: Mechanism 1 (rewiring), where a species keeps a reduced abundance in CP if at least one of its resources is still viable there; and  Mechanism 2 (rescue), where individuals not retained by rewiring 
-#disperse into the remaining habitats, increasing the abundance of species already present there.
+#disperse into the remaining habitats.
 
 # c) Aggregate the habitats to create the Norwood farm network. During this step we pooled the abundances of the same species across habitats. 
 
@@ -611,7 +611,6 @@ nodes_ES$management <- factor(nodes_ES$management, levels = c("E", "SE", "M", "S
 
 
 ####### -- Estimate the amount of NCP provision per species
-
 #The equation to estimate the amount will change according to the type of NCP.
 #For bird and butterfly watching is just the abundance. For the rest is the product between abundance and biomass
 

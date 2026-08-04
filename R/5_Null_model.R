@@ -1,25 +1,18 @@
-# In this code, we develop a null model that controls for the number of species that go extinct
-# during land conversion, as observed in the real simulation, while randomizing which species go
-# extinct. This disentangles whether the observed NCP loss patterns are driven by species number or
-# by species identity. 
+# In this code, we develop a null model that controls for the number of species that go extinct during land conversion, as observed in the real simulation, while
+#randomizing which species go extinct. This disentangles whether the observed NCP loss patterns are driven by species number or by species identity. 
 
-# The file has three sections: 1) Null model simulation, 2) Estimation of NCP provision and 
-# indirect effects, 3) Statistical analysis
+# The file has three sections: 1) Null model simulation, 2) Estimation of NCP provision and indirect effects, 3) Statistical analysis
 
 # 1) NULL MODEL SIMULATION
 
 # 2) ESTIMATION OF NCP PROVISION AND INDIRECT EFFECTS
-# For each of the 500 randomized networks, we calculate the same NCP provision and 1st/2nd order 
-# indirect effect variables as in the real simulation (see 4_Land_conversion_simulation.R).
+# For each of the 500 randomized networks, we calculate the same NCP provision and 1st/2nd order indirect effect variables as in the real simulation (see 4_Land_conversion_simulation.R).
 
 # 3) STATISTICAL ANALYSIS
-# We compare the real (empirical) simulation's results against the distribution of results across
-# the 500 randomized networks, computing a Z-score for each management scenario and NCP. This tells 
-# us whether the empirical result is significantly higher or lower than expected under random species 
-# loss.
+# We compare the real (empirical) simulation's results against the distribution of results across the 500 randomized networks, computing a Z-score for each management 
+#scenario and NCP. This tells us whether the empirical result is significantly higher or lower than expected under random species loss.
 
-# In the files, the term "ES" refers to "NCP" and "1 hop" and "2 hop" indicate first-order and
-# second-order pathways, respectively. 
+# In the files, the term "ES" refers to "NCP" and "1 hop" and "2 hop" indicate first-order and second-order pathways, respectively. 
 
 
 ## -- Load libraries --------------------------------------------------------------------------------------------------------
@@ -865,8 +858,7 @@ write.csv(I_sim,"Data/I_sim_CP_M1_M2_A2.csv", row.names= FALSE)
 
 ##### -- Intensive non-organic
 #We remove the weeds and species that only interact with them for all the intensive simulated networks.
-#Unchanged from the original null model: this step is a deterministic rule-based filter (remove weeds and
-#herbivores that only interact with weeds), not a "randomly choose N species" step.
+#Unchanged from the original null model: this step is a deterministic rule-based filter.
 
 ## -- Upload the 500 Intensive (I) simulations and relabel as management "IN"
 I_sim_CP<-read.csv("Data/I_sim_CP_M1_M2_A2.csv", sep =,) %>%

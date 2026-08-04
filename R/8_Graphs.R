@@ -1,7 +1,5 @@
-# In this code, we created the preliminary version of the figures 3-5 used in the main manuscript, 
-# and the figures for the supplementary information (S1, S3, S4-S8). The figures were later edited 
-# in Adobe Illustrator to improve their aesthetics and to add labels and annotations. Some of them 
-# were later edited to include pictures of the farm.
+# In this code, we created the preliminary version of the figures 3-5 used in the main manuscript, and the figures for the supplementary information (S1, S3, S4-S8). 
+# The figures were later edited in Adobe Illustrator to improve their aesthetics and to add labels and annotations.
 
 
 #In the files, the term "ES" refers to "NCP" and "1 hop" and "2 hop" indicate first-order and second-order pathways, respectively.
@@ -37,8 +35,8 @@ color_trophic <- tibble(taxon = c("Non-cultivated plant","Crop","Flower visitor"
 
 
 
-##############  --  Figure 3 
 
+##############  --  Figure 3 
 
 ### Panel (A): Prop. of direct ES retained (empirical). Panel (B): Heat map null model.
 direct_ES<- read.csv("Data/Land_use_dir_ES_M1_M2.csv", sep =",")
@@ -303,6 +301,7 @@ dev.off()
 
 
 ##############  --  Figure 4
+
 #Panel (A): Relative change in the amount of NCP provision (empirical). Panel (B): Heat map null model.
 direct_ES<- read.csv("Data/Land_use_dir_ES_M1_M2.csv", sep =",")
 direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I","IN")) #change order of factors
@@ -464,11 +463,9 @@ dev.off()
 
 
 ##############  --  Figure 5
+
 #Panel (A): Indirect effects on NCP (general pattern). Panel (B): Top 5. Because of
 #the circular plot, we combined them manually.
-
-
-## Panel A
 
 ## upload and arrange dataframe
 short_path_land_change<-read.csv("Data/Land_use_shortpath_M1_M2.csv", row.names = 1) 
