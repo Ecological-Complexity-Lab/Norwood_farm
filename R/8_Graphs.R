@@ -2,7 +2,9 @@
 # The figures were later edited in Adobe Illustrator to improve their aesthetics and to add labels and annotations.
 
 
-#In the files, the term "ES" refers to "NCP" and "1 hop" and "2 hop" indicate first-order and second-order pathways, respectively.
+# Clarification: the term “ES” refers to “NCP” and “1 hop” and “2 hop” indicate first-order and second-order pathways, respectively. 
+# Also, the NCP "Crop production" (as stored in the data files) is relabeled to "Total crop biomass" within this script before plotting.
+
 
 ## -- Load libraries --------------------------------------------------------------------------------------------------------
 library(igraph)
@@ -23,7 +25,7 @@ source("R/functions.R") #call functions file
 ## Color assigned to each NCP (used in Figures 3, 4, S4-S7)
 color_services <- tibble(
   services = c("Bird watching", "Butterfly watching", "Crop damage",
-               "Crop production", "Pest control", "Pollination", "Seed dispersal"),
+               "Total crop biomass", "Pest control", "Pollination", "Seed dispersal"),
   color = c('#6F2A56','#F2520D','#99E5B9', '#F09942', '#F0E675', '#47ACEB', '#0F74BD'))
 
 ## Color assigned to each trophic guild (used in Figure 5, S1, S8)
@@ -39,7 +41,8 @@ color_trophic <- tibble(taxon = c("Non-cultivated plant","Crop","Flower visitor"
 ##############  --  Figure 3 
 
 ### Panel (A): Prop. of direct ES retained (empirical). Panel (B): Heat map null model.
-direct_ES<- read.csv("Data/Land_use_dir_ES_M1_M2.csv", sep =",")
+direct_ES<- read.csv("Data/Land_use_dir_ES_M1_M2.csv", sep =",") %>% 
+  mutate(services = ifelse(services == "Crop production", "Total crop biomass", services))
 direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I","IN")) #change order of factors
 
 
@@ -83,14 +86,15 @@ Panel_A
 
   
 #Panel B
-dir_ES_z_score<-read.csv("Data/z_score_dir_ES_CP_M1_M2_A2.csv")
+dir_ES_z_score<-read.csv("Data/z_score_dir_ES_CP_M1_M2_A2.csv") %>% 
+mutate(services = ifelse(services == "Crop production", "Total crop biomass", services))
 
 z_score_dir<- dir_ES_z_score %>% select(management,services,z,signif)
 
 #Add row showing the extensive and bird watching and seed dispersal for IN (all birds went extinct so there were no z scores)
 sd_bw<-data.frame(management = c("E","E","E","E","E","E","E"), 
                   services = c("Bird watching", "Butterfly watching", 
-                               "Crop damage", "Crop production","Pest control",
+                               "Crop damage", "Total crop biomass","Pest control",
                                "Pollination", "Seed dispersal"),
                   z = c(NaN,NaN,NaN,NaN,NaN,NaN,NaN),
                   signif = c("Benchmark","Benchmark","Benchmark","Benchmark",
@@ -101,7 +105,7 @@ z_score_tot<- rbind (z_score_dir, sd_bw) %>% rename("Output" = "signif")
 
 #Plot
 z_score_tot$services<-factor(z_score_tot$services, levels = c("Seed dispersal", "Pollination","Pest control",
-                                                                          "Crop production", "Crop damage",
+                                                                          "Total crop biomass", "Crop damage",
                                                                           "Butterfly watching","Bird watching"))
 z_score_tot$management <- factor(z_score_tot$management, levels = c("E", "SE", "M", "SI","I","IN")) #change order of factors
 
@@ -149,9 +153,9 @@ Panel_B
 
 
 # Figure 3_AB (panels AB_together). Put manually the figures of the farms
-pdf("Graphs/Figure_3_pre_final_MI_M2_panelAB.pdf", width = 9, height = 5)
+pdf("Graphs/Figure_3_pre_final_MI_M2_panelAB.pdf", width = 12.5, height = 7)
 upper_row<- plot_grid(Panel_A + theme(plot.margin = unit(c(0.1,0.1, 0.1,0.1), "cm")),
-                      Panel_B + theme(plot.margin = unit(c(0.1,0.1,0.1,0.5), "cm")), 
+                      Panel_B + theme(plot.margin = unit(c(0.1,0.1,0.1,0.1), "cm")), 
                       ncol = 2, labels = c('(A)', "(B)"),
                       label_x = c(-0.033, 0),  
                       rel_widths = c(0.9, 1.1), 
@@ -164,8 +168,8 @@ dev.off()
 
 
 ### Panel (C): Prop. of indirect effects on NCP provision (empirical). Panel (D): Heat map null model.
-
-output_ind_ES <- read.csv("Data/Land_use_ind_ES_M1_M2.csv", sep =",")
+output_ind_ES <- read.csv("Data/Land_use_ind_ES_M1_M2.csv", sep =",") %>% 
+  mutate(services_to = ifelse(services_to == "Crop production", "Total crop biomass", services_to))
 output_ind_ES$management <- factor(output_ind_ES$management, levels = c("E", "SE", "M", "SI","I","IN")) #change order of factors
 
 
@@ -183,7 +187,7 @@ Panel_C<- Prop_ind %>% ggplot(aes(x = management, y = prop)) +
   geom_boxplot(color = "black") +
   geom_point(position=position_jitterdodge(jitter.width=2, dodge.width = 0.5), 
              pch=21, aes(fill=factor(services_to)), size = 3.5, show.legend = T) +
-  scale_fill_manual(values = color_services$color) + 
+  scale_fill_manual(values = setNames(color_services$color, color_services$services))+
   scale_y_continuous(name = "Prop. of indirect effects on NCP provision retained", limits = c(0, 1)) + 
   scale_x_discrete(name = "Management")+
   theme(panel.background = element_rect(fill = "white"),
@@ -213,7 +217,8 @@ Panel_C
 
 #Panel D
 indir_ES_z_score<-read.csv("Data/z_score_ind_ES_CP_M1_M2_A2.csv", sep =",") %>% rename ("services" = "services_to") %>%
-  mutate(management = ifelse(management == "IM", "IN", management))
+  mutate(management = ifelse(management == "IM", "IN", management)) %>% 
+  mutate(services = ifelse(services == "Crop production", "Total crop biomass", services))
 
 # Prepare dataframe
 z_score_ind<- indir_ES_z_score %>% select(management,services,z,signif)
@@ -221,7 +226,7 @@ z_score_ind<- indir_ES_z_score %>% select(management,services,z,signif)
 #Add row showing the extensice and bird watching and seed dispersal for IN (all birds went extinct so there were no z scores)
 sd_bw<-data.frame(management = c("E","E","E","E","E","E","E"), 
                   services = c("Bird watching", "Butterfly watching", 
-                               "Crop damage", "Crop production","Pest control",
+                               "Crop damage", "Total crop biomass","Pest control",
                                "Pollination", "Seed dispersal"),
                   z = c(NaN,NaN,NaN,NaN,NaN,NaN,NaN),
                   signif = c("Benchmark","Benchmark","Benchmark","Benchmark",
@@ -231,7 +236,7 @@ z_score_tot<- rbind (z_score_ind, sd_bw) %>% rename("Output" = "signif")
 
 z_score_tot$management <- factor(z_score_tot$management, levels = c("E", "SE", "M", "SI","I","IN")) #change order of factors
 z_score_tot$services <- factor(z_score_tot$services, levels = c("Seed dispersal", "Pollination","Pest control",
-                                                                "Crop production", "Crop damage",
+                                                                "Total crop biomass", "Crop damage",
                                                                 "Butterfly watching","Bird watching"))
 
 #Plot
@@ -282,7 +287,7 @@ Panel_D
 
 
 # Figure 3 (panels C and D together). Put manually the figures of the farms
-pdf("Graphs/Figure_3b_pre_final_MI_M2_panelCD.pdf", width = 9, height = 5)
+pdf("Graphs/Figure_3b_pre_final_MI_M2_panelCD.pdf", width = 12.5, height = 7)
 upper_row<- plot_grid(Panel_C + theme(plot.margin = unit(c(0.8,0.1, 0.1,0.1), "cm")),
                       Panel_D + theme(plot.margin = unit(c(0.8,0.1,0.1,0.5), "cm")), 
                       ncol = 2, labels = c('(A)', "(B)"),
@@ -303,7 +308,8 @@ dev.off()
 ##############  --  Figure 4
 
 #Panel (A): Relative change in the amount of NCP provision (empirical). Panel (B): Heat map null model.
-direct_ES<- read.csv("Data/Land_use_dir_ES_M1_M2.csv", sep =",")
+direct_ES<- read.csv("Data/Land_use_dir_ES_M1_M2.csv", sep =",") %>% 
+  mutate(services = ifelse(services == "Crop production", "Total crop biomass", services))
 direct_ES$management <- factor(direct_ES$management, levels = c("E", "SE", "M", "SI","I","IN")) #change order of factors
 
 
@@ -332,7 +338,7 @@ Prop_weight_rest<-  direct_ES %>% group_by(management,services) %>%
   summarize(tot= sum(weight))%>% ungroup() %>%  
   mutate(Extensive_tot = case_when(
     services == "Crop damage"~ 711450.9469,
-    services == "Crop production"~ 209300.0000,
+    services == "Total crop biomass"~ 209300.0000,
     services == "Pest control"~ 7108.3167,
     services == "Pollination"~ 36736.7426,
     services == "Seed dispersal"~ 362197.4900),
@@ -347,7 +353,7 @@ Panel_A<- Prop_amount %>% ggplot(aes(x = management, y = ratio_change)) +
   geom_boxplot(color = "black") +
   geom_point(position=position_jitterdodge(jitter.width=2, dodge.width = 0.5), 
              pch=21, aes(fill=factor(services)), size = 3.5, show.legend = T) +
-  scale_fill_manual(values = color_services$color) + 
+  scale_fill_manual(values = setNames(color_services$color, color_services$services)) + 
   scale_y_continuous(name = "Relative change in the amount \n of NCP provision", limits = c(0, 3)) +
   scale_x_discrete(name = "Management")+
   theme(panel.background = element_rect(fill = "white"),
@@ -376,7 +382,8 @@ Panel_A
 
 
 #Panel B
-amount_ES_z_score<-read.csv("Data/z_score_amount_ES_CP_M1_M2_A2.csv")
+amount_ES_z_score<-read.csv("Data/z_score_amount_ES_CP_M1_M2_A2.csv")%>% 
+  mutate(services = ifelse(services == "Crop production", "Total crop biomass", services))
 
 
 # Prepare dataframe
@@ -385,7 +392,7 @@ z_score_amount<- amount_ES_z_score %>% select(management,services,z,signif)
 #Add row showing the extensive and bird watching and seed dispersal for IN (all birds went extinct so there were no z scores)
 sd_bw<-data.frame(management = c("E","E","E","E","E","E","E"), 
                   services = c("Bird watching", "Butterfly watching", 
-                               "Crop damage", "Crop production","Pest control",
+                               "Crop damage", "Total crop biomass","Pest control",
                                "Pollination", "Seed dispersal"),
                   z = c(NaN,NaN,NaN,NaN,NaN,NaN,NaN),
                   signif = c("Benchmark","Benchmark","Benchmark","Benchmark",
@@ -395,7 +402,7 @@ z_score_tot<- rbind (z_score_amount, sd_bw) %>% rename("Output" = "signif")
 
 #Plot
 z_score_tot$services<-factor(z_score_tot$services, levels = c("Seed dispersal", "Pollination","Pest control",
-                                                              "Crop production", "Crop damage",
+                                                              "Total crop biomass", "Crop damage",
                                                               "Butterfly watching","Bird watching"))
 z_score_tot$management <- factor(z_score_tot$management, levels = c("E", "SE", "M", "SI","I","IN")) #change order of factors
 z_score_tot$Output <- factor(z_score_tot$Output, levels = c("above", "below", "not signif", "Benchmark"))
@@ -446,7 +453,7 @@ Panel_B <- ggplot(z_score_tot, aes(management, services, fill = Output)) +
 Panel_B
 
 # Figure 4 (all panels together). Put manually the figures of the farms
-pdf("Graphs/Figure_4_pre_final_M1_M2.pdf", width = 9, height = 5)
+pdf("Graphs/Figure_4_pre_final_M1_M2.pdf", width = 12.5, height = 7)
 upper_row<- plot_grid(Panel_A + theme(plot.margin = unit(c(0.1,0.1, 0.1,0.1), "cm")),
                       Panel_B + theme(plot.margin = unit(c(0.1,0.1,0.1,0.5), "cm")), 
                       ncol = 2, labels = c('(A)', "(B)"),
@@ -704,7 +711,8 @@ dev.off()
 #Proportion of 1st and 2nd order effects to NCP provision retained after land conversion
 
 ## Load data
-I_ES2 <- read.csv("Data/Land_use_ind_ES_M1_M2.csv")
+I_ES2 <- read.csv("Data/Land_use_ind_ES_M1_M2.csv")%>% 
+  mutate(services_to = ifelse(services_to == "Crop production", "Total crop biomass", services_to))
 I_ES2$management <- factor(I_ES2$management, levels = c("E", "SE", "M", "SI", "I", "IN"))
 
 palette_services_named <- setNames(color_services$color, color_services$services) 
@@ -775,7 +783,8 @@ dev.off()
 # Proportion of NCP providers retained after land conversion in the original simulation and null model
 
 ## ---- Load the direct-effects (PD_x) Z-score results (already computed) ----
-dir_ES_z_score <- read.csv("Data/z_score_dir_ES_CP_M1_M2_A2.csv")
+dir_ES_z_score <- read.csv("Data/z_score_dir_ES_CP_M1_M2_A2.csv")%>% 
+  mutate(services = ifelse(services == "Crop production", "Total crop biomass", services))
 services_list <- unique(dir_ES_z_score$services)
 
 ## ---- Build plotting dataframe: Empirical vs Null side by side ----
@@ -837,7 +846,8 @@ dev.off()
 # Relative change in the amount of NCP provision after land conversion in the original simulation and null model.
 
 ## ---- Load Amount (A_x) Z-score results (already computed) ----
-amount_ES_z_score <- read.csv("Data/z_score_amount_ES_CP_M1_M2_A2.csv")
+amount_ES_z_score <- read.csv("Data/z_score_amount_ES_CP_M1_M2_A2.csv")%>% 
+  mutate(services = ifelse(services == "Crop production", "Total crop biomass", services))
 
 services_list <- unique(amount_ES_z_score$services)
 
@@ -898,8 +908,10 @@ dev.off()
 
 # Proportion of indirect effects on NCP provision retained after land conversion in the original simulation and null model.
 
-## ---- Load Prop of indirect effect on NCP retained (PI_x) Z-score results (already computed) ----
-indir_ES_z_score <- read.csv("Data/z_score_ind_ES_CP_M1_M2_A2.csv")
+## ---- Load Prop of indirect effect on NCP retained (PI_x) Z-score results ----
+indir_ES_z_score <- read.csv("Data/z_score_ind_ES_CP_M1_M2_A2.csv") %>% 
+  mutate(services_to = ifelse(services_to == "Crop production", "Total crop biomass", services_to))
+
 services_list <- unique(indir_ES_z_score$services_to)
 
 ## ---- Build plotting dataframe: Empirical vs Null side by side ----

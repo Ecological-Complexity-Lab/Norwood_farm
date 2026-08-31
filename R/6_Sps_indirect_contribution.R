@@ -3,7 +3,8 @@
 
 # The file has two sections: 1) Shortest-path estimation, 2) Statistical analysis
 
-#In the files, the term “ES” refers to “NCP”
+# Clarification: the term “ES” refers to “NCP” and “1 hop” and “2 hop” indicate first-order and second-order pathways, respectively. Also, the NCP 
+# "total crop biomass" is named as "crop production" in the code.
 
 
 ## -- Load libraries --------------------------------------------------------------------------------------------------------

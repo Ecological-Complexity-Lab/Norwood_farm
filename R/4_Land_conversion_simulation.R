@@ -20,7 +20,8 @@
 # From these, we calculate: the proportion of NCP providers retained, the proportion of indirect effects on NCP retained, and the relative change in the amount of NCP provided, all relative to the extensive farm. 
 # We then run statistical analyses on each of these three metrics. 
 
-#In the files, the term “ES” refers to “NCP” and “1 hop” and “2 hop” indicate first-order and second-order pathways, respectively.
+# Clarification: the term “ES” refers to “NCP” and “1 hop” and “2 hop” indicate first-order and second-order pathways, respectively. Also, the NCP 
+# "total crop biomass" is named as "crop production" in the code.
 
 rm(list = ls()) 
 ## -- Load libraries --------------------------------------------------------------------------------------------------------

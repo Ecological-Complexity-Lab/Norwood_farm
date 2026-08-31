@@ -12,8 +12,8 @@
 # We compare the real (empirical) simulation's results against the distribution of results across the 500 randomized networks, computing a Z-score for each management 
 #scenario and NCP. This tells us whether the empirical result is significantly higher or lower than expected under random species loss.
 
-# In the files, the term "ES" refers to "NCP" and "1 hop" and "2 hop" indicate first-order and second-order pathways, respectively. 
-
+# Clarification: the term “ES” refers to “NCP” and “1 hop” and “2 hop” indicate first-order and second-order pathways, respectively. Also, the NCP 
+# "total crop biomass" is named as "crop production" in the code.
 
 ## -- Load libraries --------------------------------------------------------------------------------------------------------
 library(emln)#multilayer package
